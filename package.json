@@ -1,34 +1,22 @@
 {
   "name": "protogun",
+  "productName": "protogun",
   "version": "1.0.0",
-  "description": "",
-  "main": "main.js",
+  "description": "My Electron application description",
+  "main": ".webpack/main",
   "scripts": {
     "start": "electron-forge start",
     "package": "electron-forge package",
-    "make": "electron-forge make"
+    "make": "electron-forge make",
+    "publish": "electron-forge publish",
+    "lint": "eslint --ext .ts,.tsx ."
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/protogun/protogun.git"
+  "keywords": [],
+  "author": {
+    "name": "Alexey Vasyukov",
+    "email": "vasyukov.alexey.v@gmail.com"
   },
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/protogun/protogun/issues"
-  },
-  "homepage": "https://github.com/protogun/protogun#readme",
-  "devDependencies": {
-    "@electron-forge/cli": "^6.0.0-beta.63",
-    "@electron-forge/maker-deb": "^6.0.0-beta.63",
-    "@electron-forge/maker-rpm": "^6.0.0-beta.63",
-    "@electron-forge/maker-squirrel": "^6.0.0-beta.63",
-    "@electron-forge/maker-zip": "^6.0.0-beta.63",
-    "electron": "^18.1.0"
-  },
-  "dependencies": {
-    "electron-squirrel-startup": "^1.0.0"
-  },
+  "license": "MIT",
   "config": {
     "forge": {
       "packagerConfig": {},
@@ -53,7 +41,48 @@
           "name": "@electron-forge/maker-rpm",
           "config": {}
         }
+      ],
+      "plugins": [
+        [
+          "@electron-forge/plugin-webpack",
+          {
+            "mainConfig": "./webpack.main.config.js",
+            "renderer": {
+              "config": "./webpack.renderer.config.js",
+              "entryPoints": [
+                {
+                  "html": "./src/index.html",
+                  "js": "./src/renderer.ts",
+                  "name": "main_window"
+                }
+              ]
+            }
+          }
+        ]
       ]
     }
+  },
+  "devDependencies": {
+    "@electron-forge/cli": "^6.0.0-beta.63",
+    "@electron-forge/maker-deb": "^6.0.0-beta.63",
+    "@electron-forge/maker-rpm": "^6.0.0-beta.63",
+    "@electron-forge/maker-squirrel": "^6.0.0-beta.63",
+    "@electron-forge/maker-zip": "^6.0.0-beta.63",
+    "@electron-forge/plugin-webpack": "^6.0.0-beta.63",
+    "@typescript-eslint/eslint-plugin": "^5.21.0",
+    "@typescript-eslint/parser": "^5.21.0",
+    "@vercel/webpack-asset-relocator-loader": "^1.7.0",
+    "css-loader": "^6.7.1",
+    "electron": "18.1.0",
+    "eslint": "^8.14.0",
+    "eslint-plugin-import": "^2.26.0",
+    "fork-ts-checker-webpack-plugin": "^6.5.2",
+    "node-loader": "^2.0.0",
+    "style-loader": "^3.3.1",
+    "ts-loader": "^9.2.9",
+    "typescript": "~4.5.4"
+  },
+  "dependencies": {
+    "electron-squirrel-startup": "^1.0.0"
   }
 }
