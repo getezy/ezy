@@ -1,18 +1,18 @@
 module.exports = {
-  parser: "@typescript-eslint/parser",
+  parser: '@typescript-eslint/parser',
   parserOptions: {
     project: './tsconfig.json'
   },
   plugins: [
-    "simple-import-sort",
-    "prettier"
+    'simple-import-sort',
+    'prettier'
   ],
   extends: [
-    "airbnb",
-    "airbnb/hooks",
-    "airbnb-typescript",
-    "plugin:import/electron",
-    "prettier"
+    'airbnb',
+    'airbnb/hooks',
+    'airbnb-typescript',
+    'plugin:import/electron',
+    'prettier'
   ],
   env: {
     browser: true,
@@ -26,11 +26,12 @@ module.exports = {
       trailingComma: 'es5',
     }],
 
-    "import/prefer-default-export": 'off',
+    'import/prefer-default-export': 'off',
+    'react/function-component-definition': 'off',
 
-    "simple-import-sort/imports": [
+    'simple-import-sort/imports': [
       2,
-      { "groups": [["^\\u0000"], ["^[^.]"], ["^\\."], ["^.+\\.s?css$"]] }
+      { 'groups': [['^\\u0000'], ['^[^.]'], ['^\\.'], ['^.+\\.s?css$']] }
     ]
   }
 }
