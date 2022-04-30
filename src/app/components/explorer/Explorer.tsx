@@ -1,40 +1,28 @@
-import { faSquarePlus } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Button, Container, CSS } from '@nextui-org/react';
+import { CSS, Grid } from '@nextui-org/react';
 import React from 'react';
 
-const ExporerHeaderContainerStyles: CSS = {
-  display: 'flex',
-  paddingTop: '10px',
-  height: '50px',
-  background: '$backgroundContrast',
-  borderBottom: 'solid $accents2 1px',
-};
+import { ExplorerHeader } from './explorer-header';
 
-const ExplorerHeader: React.FC = () => (
-  <Container css={ExporerHeaderContainerStyles}>
-    <Button auto flat size="sm" color="warning" icon={<FontAwesomeIcon icon={faSquarePlus} />}>
-      Import proto
-    </Button>
-  </Container>
-);
-
-const ExporerContainerStyles: CSS = {
+const ExplorerGridStyles: CSS = {
   display: 'flex',
   flexWrap: 'nowrap',
   height: '100vh',
   margin: 0,
-  width: '250px',
+  width: '200px',
   background: '$backgroundContrast',
   borderRight: 'solid $accents2 1px',
 };
 
 export interface ExplorerProps {
-  // children: React.ReactNode;
+  children: React.ReactNode;
+  header: React.ReactNode;
 }
 
-export const Explorer: React.FC<ExplorerProps> = () => (
-  <Container gap={0} css={ExporerContainerStyles}>
-    <ExplorerHeader />
-  </Container>
+export const Explorer: React.FC<ExplorerProps> = ({ children, header }) => (
+  <Grid.Container>
+    <Grid css={ExplorerGridStyles}>
+      <ExplorerHeader>{header}</ExplorerHeader>
+    </Grid>
+    <Grid>{children}</Grid>
+  </Grid.Container>
 );
