@@ -1,8 +1,8 @@
 {
   "compilerOptions": {
     "allowJs": true,
-    "module": "commonjs",
-    // "strict": true,
+    "module": "esnext",
+    "strict": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
     "noImplicitAny": true,
@@ -16,5 +16,5 @@
       "*": ["node_modules/*"]
     }
   },
-  "include": ["src/**/*"]
+  "include": ["src/**/*"],
 }
