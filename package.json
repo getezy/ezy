@@ -54,7 +54,7 @@
               "entryPoints": [
                 {
                   "html": "./src/index.html",
-                  "js": "./src/renderer.ts",
+                  "js": "./src/renderer.tsx",
                   "name": "main_window"
                 }
               ]
@@ -103,6 +103,7 @@
     "@fortawesome/react-fontawesome": "^0.1.18",
     "@nextui-org/react": "^1.0.0-beta.6",
     "electron-squirrel-startup": "^1.0.0",
+    "electron-store": "^8.0.1",
     "react": "^18.1.0",
     "react-dom": "^18.1.0",
     "react-json-view": "^1.21.3",
