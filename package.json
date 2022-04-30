@@ -55,7 +55,10 @@
                 {
                   "html": "./src/index.html",
                   "js": "./src/renderer.tsx",
-                  "name": "main_window"
+                  "name": "main_window",
+                  "preload": {
+                    "js": "./src/preload.ts"
+                  }
                 }
               ]
             }
@@ -104,8 +107,10 @@
     "@nextui-org/react": "^1.0.0-beta.6",
     "electron-squirrel-startup": "^1.0.0",
     "electron-store": "^8.0.1",
+    "i18next": "^21.6.16",
     "react": "^18.1.0",
     "react-dom": "^18.1.0",
+    "react-i18next": "^11.16.7",
     "react-json-view": "^1.21.3",
     "react-select": "^5.3.1",
     "zustand": "^4.0.0-rc.1"
