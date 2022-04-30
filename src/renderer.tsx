@@ -30,6 +30,17 @@ import * as ReactDOM from 'react-dom/client';
 
 import App from './App';
 
+declare global {
+  interface Window {
+    electron: {
+      store: {
+        get: (key: string) => any;
+        set: (key: string, val: any) => void;
+      };
+    };
+  }
+}
+
 const rootElement = document.getElementById('root');
 
 if (rootElement) {
