@@ -90,6 +90,7 @@
     "eslint-plugin-simple-import-sort": "^7.0.0",
     "fork-ts-checker-webpack-plugin": "^6.5.2",
     "husky": "^7.0.4",
+    "jest": "^28.0.3",
     "node-loader": "^2.0.0",
     "prettier": "^2.6.2",
     "style-loader": "^3.3.1",
@@ -105,6 +106,7 @@
     "react": "^18.1.0",
     "react-dom": "^18.1.0",
     "react-json-view": "^1.21.3",
-    "react-select": "^5.3.1"
+    "react-select": "^5.3.1",
+    "zustand": "^4.0.0-rc.1"
   }
 }
