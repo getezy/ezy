@@ -9,7 +9,8 @@
     "package": "electron-forge package",
     "make": "electron-forge make",
     "publish": "electron-forge publish",
-    "lint": "eslint --ext .ts,.tsx ."
+    "lint": "eslint --ext .ts,.tsx .",
+    "lint:fix": "eslint --fix --ext .ts,.tsx ."
   },
   "keywords": [],
   "author": {
@@ -78,6 +79,7 @@
     "electron": "18.1.0",
     "eslint": "^8.14.0",
     "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-simple-import-sort": "^7.0.0",
     "fork-ts-checker-webpack-plugin": "^6.5.2",
     "node-loader": "^2.0.0",
     "style-loader": "^3.3.1",
@@ -85,9 +87,14 @@
     "typescript": "~4.5.4"
   },
   "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^6.1.1",
+    "@fortawesome/free-solid-svg-icons": "^6.1.1",
+    "@fortawesome/react-fontawesome": "^0.1.18",
     "@nextui-org/react": "^1.0.0-beta.6",
     "electron-squirrel-startup": "^1.0.0",
     "react": "^18.1.0",
-    "react-dom": "^18.1.0"
+    "react-dom": "^18.1.0",
+    "react-json-view": "^1.21.3",
+    "react-select": "^5.3.1"
   }
 }

@@ -1,21 +1,28 @@
+import { Container, Grid, NextUIProvider, Row } from '@nextui-org/react';
 import * as React from 'react';
-import * as ReactDOM from 'react-dom/client';
-import { NextUIProvider, Grid } from '@nextui-org/react';
 
+import { Explorer, Header, ResponseViewer } from './components';
 import { darkTheme } from './themes';
-import { Explorer } from './components';
 
-function App() {
+export function App() {
   return (
     <NextUIProvider theme={darkTheme}>
-      <Grid.Container css={{ height: '100vh' }}>
-        <Grid xs={4}>
-          <Explorer />
-        </Grid>
+      <Grid.Container>
+      <Grid xs={3} css={{ alignItems: 'stretch' }}>
+        <Explorer />
+      </Grid>
+      <Grid xs={9}>
+        <Container>
+          <Row>
+            <Header />
+          </Row>
+          <Row>
+            <ResponseViewer />
+          </Row>
+        </Container>
+      </Grid>
       </Grid.Container>
     </NextUIProvider>
   );
 }
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(App());
