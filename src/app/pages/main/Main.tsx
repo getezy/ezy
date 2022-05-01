@@ -1,7 +1,8 @@
 import { faSquarePlus } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Button, Container } from '@nextui-org/react';
+import { Button } from '@nextui-org/react';
 import React from 'react';
+import { Tab, TabList, TabPanel, Tabs } from 'react-tabs';
 
 import { Explorer, List } from '../../components';
 
@@ -16,9 +17,19 @@ export const Main = (): JSX.Element => {
 
   return (
     <Explorer header={header} menu={menu}>
-      <Container fluid gap={0}>
-        Test Container
-      </Container>
+      <Tabs>
+        <TabList>
+          <Tab>Title 1</Tab>
+          <Tab>Title 2</Tab>
+        </TabList>
+
+        <TabPanel>
+          <h2>Any content 1</h2>
+        </TabPanel>
+        <TabPanel>
+          <h2>Any content 2</h2>
+        </TabPanel>
+      </Tabs>
     </Explorer>
   );
 };

@@ -28,6 +28,10 @@ export const Explorer: React.FC<ExplorerProps> = ({ children, header, menu }) =>
         {menu}
       </Container>
     </Grid>
-    <Grid css={{ display: 'flex', flex: 1 }}>{children}</Grid>
+    <Grid css={{ display: 'flex', flex: 1 }}>
+      <Container fluid gap={1}>
+        {children}
+      </Container>
+    </Grid>
   </Grid.Container>
 );
