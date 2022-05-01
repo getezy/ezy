@@ -4,12 +4,9 @@ import React from 'react';
 import { ExplorerHeader } from './ExplorerHeader';
 
 const ExplorerGridStyles: CSS = {
-  display: 'flex',
-  flexWrap: 'nowrap',
-  flexDirection: 'column',
   height: '100vh',
   margin: 0,
-  width: '250px',
+  minWidth: '250px',
   background: '$backgroundContrast',
   borderRight: 'solid $accents2 1px',
 };
@@ -21,15 +18,15 @@ export interface ExplorerProps {
 }
 
 export const Explorer: React.FC<ExplorerProps> = ({ children, header, menu }) => (
-  <Grid.Container>
+  <Grid.Container wrap="nowrap">
     <Grid css={ExplorerGridStyles}>
       <ExplorerHeader>{header}</ExplorerHeader>
       <Container fluid gap={0}>
         {menu}
       </Container>
     </Grid>
-    <Grid css={{ display: 'flex', flex: 1 }}>
-      <Container fluid gap={1}>
+    <Grid css={{ overflow: 'auto' }}>
+      <Container fluid gap={0}>
         {children}
       </Container>
     </Grid>

@@ -2,9 +2,9 @@ import { faSquarePlus } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Button } from '@nextui-org/react';
 import React from 'react';
-import { Tab, TabList, TabPanel, Tabs } from 'react-tabs';
+import { TabPanel, Tabs } from 'react-tabs';
 
-import { Explorer, List } from '../../components';
+import { Explorer, List, Tab, TabList } from '../../components';
 
 export const Main = (): JSX.Element => {
   const header = (
