@@ -3,6 +3,7 @@ import React from 'react';
 
 const ExporerHeaderContainerStyles: CSS = {
   display: 'flex',
+  justifyContent: 'center',
   paddingTop: '10px',
   height: '50px',
   background: '$backgroundContrast',
