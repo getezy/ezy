@@ -1,6 +1,7 @@
 export interface Tab {
   id: string;
   title: string;
+  active: boolean;
 }
 
 export interface TabsStorage {
@@ -8,4 +9,5 @@ export interface TabsStorage {
 
   create: (tab: Omit<Tab, 'id'>) => void;
   remove: (id: string) => void;
+  activate: (index: number, previousIndex: number) => void;
 }

@@ -8,6 +8,7 @@ import { useTabsStore } from '../../storage';
 
 export const Main = (): JSX.Element => {
   const tabs = useTabsStore((store) => store.tabs);
+  const activateTab = useTabsStore((store) => store.activate);
 
   const header = (
     <Button auto bordered color="gradient" size="sm" icon={<FontAwesomeIcon icon={faSquarePlus} />}>
@@ -19,7 +20,7 @@ export const Main = (): JSX.Element => {
 
   return (
     <Explorer header={header} menu={menu}>
-      <Tabs tabs={tabs}>
+      <Tabs defaultIndex={tabs.findIndex((item) => item.active)} tabs={tabs} onSelect={activateTab}>
         {tabs.map((tab) => (
           <TabPanel key={tab.id}>
             <Container fluid css={{ display: 'flex', flexWrap: 'nowrap' }}>

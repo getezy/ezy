@@ -12,10 +12,20 @@ const StyledTab = styled(ReactTab, {
   borderTopLeftRadius: 5,
   borderTopRightRadius: 5,
   border: 'solid $accents1 2px',
-  background: '$accents2',
   userSelect: 'none',
   '&:focus': {
     outline: 'none',
+  },
+
+  variants: {
+    active: {
+      true: {
+        background: '$accents2',
+      },
+      false: {
+        background: '$accents1',
+      },
+    },
   },
 });
 
@@ -24,13 +34,22 @@ export interface TabProps {
 
   title: string;
 
+  active: boolean;
+
   closable?: boolean;
 
   disabled?: boolean;
 }
 
-const Tab: React.FC<TabProps> = ({ id, title, closable = false, disabled = false }) => (
-  <StyledTab key={id} disabled={disabled}>
+const Tab: React.FC<TabProps> = ({
+  id,
+  title,
+  active = false,
+  closable = false,
+  disabled = false,
+}) => (
+  // @ts-ignore
+  <StyledTab key={id} disabled={disabled} active={active}>
     {title}
     {closable && (
       <Button

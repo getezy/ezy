@@ -8,30 +8,45 @@ const initialState: Tab[] = [
   {
     id: nanoid(),
     title: 'Tab 1',
+    active: false,
   },
   {
     id: nanoid(),
     title: 'Tab 2',
+    active: true,
   },
 ];
 
 export const useTabsStore = create<TabsStorage>(
   // @ts-ignore
   persist(
-    // @ts-ignore
     (set, get) => ({
-      ...initialState,
+      tabs: initialState,
       create: (tab) =>
-        set(() => {
+        set((state) => {
           const { tabs } = get();
           tabs.push({ ...tab, id: nanoid() });
 
-          return { tabs };
+          return { ...state, tabs: [...tabs] };
         }),
       remove: (id) =>
-        set(() => {
+        set((state) => {
           const { tabs } = get();
-          return { tabs: tabs.filter((item) => item.id !== id) };
+          return { ...state, tabs: tabs.filter((item) => item.id !== id) };
+        }),
+      activate: (index, previousIndex) =>
+        set((state) => {
+          if (index === previousIndex) return state;
+
+          const { tabs } = get();
+
+          const previous = tabs[previousIndex];
+          if (previous) previous.active = false;
+
+          const tab = tabs[index];
+          if (tab) tab.active = true;
+
+          return { ...state, tabs: [...tabs] };
         }),
     }),
     {

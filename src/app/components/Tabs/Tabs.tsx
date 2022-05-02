@@ -17,10 +17,14 @@ export interface TabsProps {
   tabs: TabProps[];
 
   children?: React.ReactNode;
+
+  defaultIndex?: number;
+
+  onSelect?: (index: number, previousIndex: number) => void;
 }
 
-export const Tabs: React.FC<TabsProps> = ({ tabs, children }) => (
-  <StyledTabs>
+export const Tabs: React.FC<TabsProps> = ({ tabs, children, defaultIndex = 0, onSelect }) => (
+  <StyledTabs defaultIndex={defaultIndex} onSelect={onSelect}>
     <TabList>
       {tabs.map((tab) => (
         <Tab key={tab.id} {...tab} />

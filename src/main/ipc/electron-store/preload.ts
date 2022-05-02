@@ -4,7 +4,7 @@ export const electronStorePreload = () => {
   contextBridge.exposeInMainWorld('electron', {
     store: {
       getItem(val: any) {
-        return ipcRenderer.sendSync('electron-store-get', val);
+        return Promise.resolve().then(() => ipcRenderer.sendSync('electron-store-get', val));
       },
       setItem(property: string, val: any) {
         ipcRenderer.send('electron-store-set', property, val);
