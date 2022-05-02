@@ -1,11 +1,15 @@
 import { styled } from '@nextui-org/react';
-import { TabList as ReactTablList } from 'react-tabs';
+import { TabList as ReactTabList } from 'react-tabs';
 
 // @ts-ignore
-const TabList = styled(ReactTablList, {
+const TabList = styled(ReactTabList, {
   display: 'flex',
   overflow: 'auto',
-  // border: 'solid 1px',
+  borderBottom: 'solid $accents2 1px',
+
+  '&::-webkit-scrollbar': {
+    display: 'none',
+  },
 });
 
 // @ts-ignore

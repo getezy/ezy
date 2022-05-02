@@ -1,10 +1,10 @@
-import { faSquarePlus } from '@fortawesome/free-solid-svg-icons';
+import { faCircleXmark, faPaperPlane, faSquarePlus } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Button } from '@nextui-org/react';
+import { Button, Input } from '@nextui-org/react';
 import React from 'react';
-import { TabPanel, Tabs } from 'react-tabs';
+import { Tabs } from 'react-tabs';
 
-import { Explorer, List, Tab, TabList } from '../../components';
+import { Explorer, List, Tab, TabList, TabPanel } from '../../components';
 
 export const Main = (): JSX.Element => {
   const header = (
@@ -19,12 +19,38 @@ export const Main = (): JSX.Element => {
     <Explorer header={header} menu={menu}>
       <Tabs>
         <TabList>
-          <Tab>Title 1</Tab>
-          <Tab>Title 2</Tab>
+          <Tab>
+            Title 1
+            <Button
+              auto
+              light
+              size="xs"
+              animated={false}
+              iconRight={<FontAwesomeIcon icon={faCircleXmark} />}
+            />
+          </Tab>
+          <Tab>
+            Title 2
+            <Button
+              auto
+              light
+              size="xs"
+              animated={false}
+              iconRight={<FontAwesomeIcon icon={faCircleXmark} />}
+            />
+          </Tab>
         </TabList>
 
         <TabPanel>
-          <h2>Any content 1</h2>
+          <Input size="sm" labelLeft="URL" clearable placeholder="127.0.0.1:3000" />
+          <Button
+            size="sm"
+            bordered
+            color="gradient"
+            iconRight={<FontAwesomeIcon icon={faPaperPlane} />}
+          >
+            Send
+          </Button>
         </TabPanel>
         <TabPanel>
           <h2>Any content 2</h2>
