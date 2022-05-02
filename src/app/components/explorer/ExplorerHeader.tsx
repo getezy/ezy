@@ -5,7 +5,7 @@ const ExporerHeaderContainerStyles: CSS = {
   display: 'flex',
   justifyContent: 'center',
   paddingTop: '10px',
-  height: '50px',
+  paddingBottom: '10px',
   background: '$backgroundContrast',
   borderBottom: 'solid $accents2 1px',
 };

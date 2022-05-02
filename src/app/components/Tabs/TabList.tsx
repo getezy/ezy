@@ -6,6 +6,7 @@ const TabList = styled(ReactTabList, {
   display: 'flex',
   overflow: 'auto',
   borderBottom: 'solid $accents2 1px',
+  paddingTop: 10,
 
   '&::-webkit-scrollbar': {
     display: 'none',

@@ -2,11 +2,13 @@ import { faCircleXmark, faPaperPlane, faSquarePlus } from '@fortawesome/free-sol
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Button, Input } from '@nextui-org/react';
 import React from 'react';
-import { Tabs } from 'react-tabs';
 
-import { Explorer, List, Tab, TabList, TabPanel } from '../../components';
+import { Explorer, List, Tab, TabList, TabPanel, Tabs } from '../../components';
+import { useTabsStore } from '../../storage';
 
 export const Main = (): JSX.Element => {
+  const tabs = useTabsStore((store) => store.tabs);
+
   const header = (
     <Button auto light size="sm" color="warning" icon={<FontAwesomeIcon icon={faSquarePlus} />}>
       Create service
@@ -19,26 +21,18 @@ export const Main = (): JSX.Element => {
     <Explorer header={header} menu={menu}>
       <Tabs>
         <TabList>
-          <Tab>
-            Title 1
-            <Button
-              auto
-              light
-              size="xs"
-              animated={false}
-              iconRight={<FontAwesomeIcon icon={faCircleXmark} />}
-            />
-          </Tab>
-          <Tab>
-            Title 2
-            <Button
-              auto
-              light
-              size="xs"
-              animated={false}
-              iconRight={<FontAwesomeIcon icon={faCircleXmark} />}
-            />
-          </Tab>
+          {tabs.map((tab) => (
+            <Tab key={tab.name}>
+              {tab.name}
+              <Button
+                auto
+                light
+                size="xs"
+                animated={false}
+                iconRight={<FontAwesomeIcon icon={faCircleXmark} />}
+              />
+            </Tab>
+          ))}
         </TabList>
 
         <TabPanel>

@@ -1,12 +1,12 @@
 import { styled } from '@nextui-org/react';
+import React from 'react';
 import { Tab as ReactTab } from 'react-tabs';
 
 // @ts-ignore
-const Tab = styled(ReactTab, {
+const StyledTab = styled(ReactTab, {
   display: 'flex',
-  maxHeight: 30,
+  flexWrap: 'nowrap',
   marginBottom: 0,
-  marginRight: 2,
   paddingLeft: 10,
   borderTopLeftRadius: 5,
   borderTopRightRadius: 5,
@@ -17,6 +17,9 @@ const Tab = styled(ReactTab, {
     outline: 'none',
   },
 });
+
+// @ts-ignore
+const Tab = (props) => <StyledTab {...props} />;
 
 // @ts-ignore
 Tab.tabsRole = 'Tab';
