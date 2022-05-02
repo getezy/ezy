@@ -1,12 +1,32 @@
 import { styled } from '@nextui-org/react';
+import React from 'react';
 import { Tabs as ReactTabs } from 'react-tabs';
 
+import { Tab, TabProps } from './Tab';
+import { TabList } from './TabList';
+
 // @ts-ignore
-const Tabs = styled(ReactTabs, {
+const StyledTabs = styled(ReactTabs, {
   '& ul': {
     marginLeft: 0,
     marginRight: 0,
   },
 });
 
-export { Tabs };
+export interface TabsProps {
+  tabs: TabProps[];
+
+  children?: React.ReactNode;
+}
+
+export const Tabs: React.FC<TabsProps> = ({ tabs, children }) => (
+  <StyledTabs>
+    <TabList>
+      {tabs.map((tab) => (
+        <Tab key={tab.id} {...tab} />
+      ))}
+    </TabList>
+
+    {children}
+  </StyledTabs>
+);
