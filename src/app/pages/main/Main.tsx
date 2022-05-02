@@ -8,10 +8,11 @@ import { useTabsStore } from '../../storage';
 
 export const Main = (): JSX.Element => {
   const tabs = useTabsStore((store) => store.tabs);
+  console.log('tabs: ', tabs);
 
   const header = (
     <Button auto light size="sm" color="warning" icon={<FontAwesomeIcon icon={faSquarePlus} />}>
-      Create service
+      Create project
     </Button>
   );
 
@@ -36,7 +37,7 @@ export const Main = (): JSX.Element => {
         </TabList>
 
         {tabs.map((tab) => (
-          <TabPanel>
+          <TabPanel key={tab.name}>
             <Container fluid css={{ display: 'flex', flexWrap: 'nowrap' }}>
               <Input
                 size="sm"
