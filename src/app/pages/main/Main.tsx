@@ -1,6 +1,6 @@
 import { faCircleXmark, faPaperPlane, faSquarePlus } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Button, Input } from '@nextui-org/react';
+import { Button, Container, Input } from '@nextui-org/react';
 import React from 'react';
 
 import { Explorer, List, Tab, TabList, TabPanel, Tabs } from '../../components';
@@ -35,20 +35,28 @@ export const Main = (): JSX.Element => {
           ))}
         </TabList>
 
-        <TabPanel>
-          <Input size="sm" labelLeft="URL" clearable placeholder="127.0.0.1:3000" />
-          <Button
-            size="sm"
-            bordered
-            color="gradient"
-            iconRight={<FontAwesomeIcon icon={faPaperPlane} />}
-          >
-            Send
-          </Button>
-        </TabPanel>
-        <TabPanel>
-          <h2>Any content 2</h2>
-        </TabPanel>
+        {tabs.map((tab) => (
+          <TabPanel>
+            <Container fluid css={{ display: 'flex', flexWrap: 'nowrap' }}>
+              <Input
+                size="sm"
+                labelLeft="URL"
+                clearable
+                placeholder="127.0.0.1:3000"
+                css={{ flex: 1 }}
+              />
+              <Button
+                size="sm"
+                bordered
+                color="gradient"
+                iconRight={<FontAwesomeIcon icon={faPaperPlane} />}
+              >
+                Send
+              </Button>
+            </Container>
+            {tab.name}
+          </TabPanel>
+        ))}
       </Tabs>
     </Explorer>
   );
