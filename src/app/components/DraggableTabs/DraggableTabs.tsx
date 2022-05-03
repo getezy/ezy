@@ -7,7 +7,7 @@ import {
   useSensors,
 } from '@dnd-kit/core';
 import { SortableContext } from '@dnd-kit/sortable';
-import { styled } from '@nextui-org/react';
+import { styled, Text } from '@nextui-org/react';
 import ReactTabs, { TabPane as ReactTabPane } from 'rc-tabs';
 import React from 'react';
 
@@ -98,12 +98,18 @@ export const DraggableTabs: React.FC<DraggableTabsProps> = ({
     <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={onDragEnd}>
       <SortableContext items={tabs}>
         <StyledTabs
-          animated={{ inkBar: false, tabPane: false }}
+          animated={{ inkBar: true, tabPane: false }}
           activeKey={activeKey}
           onChange={onChange}
           renderTabBar={(props, DefaultTabBar) => (
             <DefaultTabBar {...props}>
-              {(node) => <DraggableTab id={node.key as string}>{node}</DraggableTab>}
+              {(node) => (
+                <DraggableTab id={node.key as string}>
+                  <Text h6 weight="light">
+                    {node}
+                  </Text>
+                </DraggableTab>
+              )}
             </DefaultTabBar>
           )}
         >
