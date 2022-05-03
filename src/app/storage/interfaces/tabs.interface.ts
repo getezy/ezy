@@ -11,4 +11,5 @@ export interface TabsStorage {
   remove: (id: string) => void;
   activate: (id: string) => void;
   getActiveTabId: () => string | undefined;
+  move: (activeId: string, overId: string | undefined) => void;
 }

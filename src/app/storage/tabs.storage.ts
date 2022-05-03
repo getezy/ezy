@@ -1,3 +1,4 @@
+import { arrayMove } from '@dnd-kit/sortable';
 import { nanoid } from 'nanoid';
 import create from 'zustand';
 import { persist } from 'zustand/middleware';
@@ -47,6 +48,15 @@ export const useTabsStore = create<TabsStorage>(
           return { ...state, tabs: [...tabs] };
         }),
       getActiveTabId: () => get().tabs.find((item) => item.active)?.id,
+      move: (activeId, overId) =>
+        set((state) => {
+          const { tabs } = get();
+
+          const oldIndex = tabs.findIndex((item) => item.id === activeId);
+          const newIndex = tabs.findIndex((item) => item.id === overId);
+
+          return { ...state, tabs: arrayMove(tabs, oldIndex, newIndex) };
+        }),
     }),
     {
       name: 'tabs',

@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Button, Container, Input, styled } from '@nextui-org/react';
 import React from 'react';
 
-import { Tabs } from '../../components';
+import { DraggableTabs } from '../../components';
 import { useTabsStore } from '../../storage';
 
 // @ts-ignore
@@ -53,6 +53,17 @@ export const Requests = (): JSX.Element => {
   }));
   const activateTab = useTabsStore((store) => store.activate);
   const getActiveTabId = useTabsStore((store) => store.getActiveTabId);
+  const moveTab = useTabsStore((store) => store.move);
 
-  return <Tabs tabs={tabs} activeKey={getActiveTabId()} onChange={activateTab} />;
+  return (
+    <DraggableTabs
+      tabs={tabs}
+      activeKey={getActiveTabId()}
+      onChange={activateTab}
+      onDragEnd={(event) => {
+        const { active, over } = event;
+        moveTab(active.id, over?.id);
+      }}
+    />
+  );
 };
