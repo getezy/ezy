@@ -4,7 +4,7 @@ import { Button } from '@nextui-org/react';
 import React from 'react';
 
 import { Explorer, List } from '../../components';
-import { Requests } from './Reqeusts';
+import { Requests } from './Requests';
 // import { Requests } from './OldRequests';
 
 export const Main = (): JSX.Element => {

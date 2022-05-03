@@ -48,9 +48,12 @@ export const Requests = (): JSX.Element => {
         >
           Send
         </SendButton>
+        {item.id}
       </Container>
     ),
   }));
+
+  // TODO: Combine
   const activateTab = useTabsStore((store) => store.activate);
   const getActiveTabId = useTabsStore((store) => store.getActiveTabId);
   const moveTab = useTabsStore((store) => store.move);

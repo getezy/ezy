@@ -101,7 +101,6 @@
     "typescript": "~4.6.4"
   },
   "dependencies": {
-    "@babel/runtime": "^7.17.9",
     "@dnd-kit/core": "^5.0.3",
     "@dnd-kit/sortable": "^6.0.1",
     "@dnd-kit/utilities": "^3.1.0",
@@ -109,11 +108,11 @@
     "@fortawesome/free-solid-svg-icons": "^6.1.1",
     "@fortawesome/react-fontawesome": "^0.1.18",
     "@nextui-org/react": "^1.0.0-beta.6",
-    "antd": "^4.20.2",
     "electron-squirrel-startup": "^1.0.0",
     "electron-store": "^8.0.1",
     "i18next": "^21.6.16",
     "nanoid": "^3.3.3",
+    "rc-tabs": "^11.14.0",
     "react": "^18.1.0",
     "react-dom": "^18.1.0",
     "react-i18next": "^11.16.7",

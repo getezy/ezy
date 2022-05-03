@@ -8,16 +8,18 @@ import {
 } from '@dnd-kit/core';
 import { SortableContext } from '@dnd-kit/sortable';
 import { styled } from '@nextui-org/react';
-import { Tabs as AntdTabs } from 'antd';
+import ReactTabs, { TabPane as ReactTabPane } from 'rc-tabs';
 import React from 'react';
 
 import { DraggableTab } from './DraggableTab';
 
-const { TabPane: AntdTabPane } = AntdTabs;
-
 // @ts-ignore
-const StyledTabs = styled(AntdTabs, {
-  '.ant-tabs-nav-list': {
+const StyledTabs = styled(ReactTabs, {
+  '.rc-tabs-nav-operations': {
+    display: 'none',
+  },
+
+  '.rc-tabs-nav-list': {
     display: 'flex',
     flexWrap: 'nowrap',
     paddingTop: 5,
@@ -28,7 +30,8 @@ const StyledTabs = styled(AntdTabs, {
       display: 'none',
     },
   },
-  '.ant-tabs-tab': {
+
+  '.rc-tabs-tab': {
     height: 40,
     font: 'inherit',
     paddingLeft: 10,
@@ -43,13 +46,14 @@ const StyledTabs = styled(AntdTabs, {
       outline: 'none',
     },
   },
-  '.ant-tabs-tab-active': {
+
+  '.rc-tabs-tab-active': {
     background: '$accents2',
     borderBottom: 'solid $primary 2px',
   },
 });
 
-const StyledTabPane = styled(AntdTabPane);
+const StyledTabPane = styled(ReactTabPane);
 
 export interface TabProps {
   id: string;
@@ -85,25 +89,25 @@ export const DraggableTabs: React.FC<DraggableTabsProps> = ({
   );
 
   return (
-    <StyledTabs
-      activeKey={activeKey}
-      onChange={onChange}
-      type="line"
-      renderTabBar={(props, DefaultTabBar) => (
-        <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={onDragEnd}>
-          <SortableContext items={tabs}>
+    <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={onDragEnd}>
+      <SortableContext items={tabs}>
+        <StyledTabs
+          animated={{ inkBar: false, tabPane: false }}
+          activeKey={activeKey}
+          onChange={onChange}
+          renderTabBar={(props, DefaultTabBar) => (
             <DefaultTabBar {...props}>
               {(node) => <DraggableTab id={node.key as string}>{node}</DraggableTab>}
             </DefaultTabBar>
-          </SortableContext>
-        </DndContext>
-      )}
-    >
-      {tabs.map((tab) => (
-        <StyledTabPane key={tab.id} tab={tab.title}>
-          {tab.content}
-        </StyledTabPane>
-      ))}
-    </StyledTabs>
+          )}
+        >
+          {tabs.map((tab) => (
+            <StyledTabPane key={tab.id} tab={tab.title}>
+              {tab.content}
+            </StyledTabPane>
+          ))}
+        </StyledTabs>
+      </SortableContext>
+    </DndContext>
   );
 };
