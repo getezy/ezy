@@ -9,5 +9,4 @@ export interface TabsStorage {
 
   create: (tab: Omit<Tab, 'id'>) => void;
   remove: (id: string) => void;
-  activate: (index: number, previousIndex: number) => void;
 }

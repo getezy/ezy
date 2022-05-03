@@ -1,36 +1,61 @@
 import { styled } from '@nextui-org/react';
+import { Tabs as AntdTabs } from 'antd';
 import React from 'react';
-import { Tabs as ReactTabs } from 'react-tabs';
 
-import { Tab, TabProps } from './Tab';
-import { TabList } from './TabList';
+const { TabPane: AntdTabPane } = AntdTabs;
 
 // @ts-ignore
-const StyledTabs = styled(ReactTabs, {
-  '& ul': {
-    marginLeft: 0,
-    marginRight: 0,
+const StyledTabs = styled(AntdTabs, {
+  '.ant-tabs-nav-list': {
+    display: 'flex',
+    flexWrap: 'nowrap',
+
+    overflow: 'auto',
+    borderBottom: 'solid $accents2 1px',
+
+    '&::-webkit-scrollbar': {
+      display: 'none',
+    },
+  },
+
+  '.ant-tabs-tab': {
+    display: 'flex',
+    paddingLeft: 10,
+    paddingRight: 10,
+    borderTopLeftRadius: 5,
+    borderTopRightRadius: 5,
+    userSelect: 'none',
+    background: '$accents1',
+    '&:focus': {
+      outline: 'none',
+    },
+  },
+
+  '.ant-tabs-tab-active': {
+    background: '$accents2',
   },
 });
 
-export interface TabsProps {
-  tabs: TabProps[];
+const StyledTabPane = styled(AntdTabPane);
 
-  children?: React.ReactNode;
+export interface Tab {
+  id: string;
 
-  defaultIndex?: number;
+  title: string;
 
-  onSelect?: (index: number, previousIndex: number) => void;
+  content: React.ReactNode;
 }
 
-export const Tabs: React.FC<TabsProps> = ({ tabs, children, defaultIndex = 0, onSelect }) => (
-  <StyledTabs defaultIndex={defaultIndex} onSelect={onSelect}>
-    <TabList>
-      {tabs.map((tab) => (
-        <Tab key={tab.id} {...tab} />
-      ))}
-    </TabList>
+export interface TabsProps {
+  tabs: Tab[];
+}
 
-    {children}
+export const Tabs: React.FC<TabsProps> = ({ tabs }) => (
+  <StyledTabs>
+    {tabs.map((tab) => (
+      <StyledTabPane key={tab.id} tab={tab.title}>
+        {tab.content}
+      </StyledTabPane>
+    ))}
   </StyledTabs>
 );

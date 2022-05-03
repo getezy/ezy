@@ -34,20 +34,6 @@ export const useTabsStore = create<TabsStorage>(
           const { tabs } = get();
           return { ...state, tabs: tabs.filter((item) => item.id !== id) };
         }),
-      activate: (index, previousIndex) =>
-        set((state) => {
-          if (index === previousIndex) return state;
-
-          const { tabs } = get();
-
-          const previous = tabs[previousIndex];
-          if (previous) previous.active = false;
-
-          const tab = tabs[index];
-          if (tab) tab.active = true;
-
-          return { ...state, tabs: [...tabs] };
-        }),
     }),
     {
       name: 'tabs',
