@@ -12,7 +12,7 @@ const initialState: Tab[] = [
   },
   {
     id: nanoid(),
-    title: 'Tab 2',
+    title: 'Long Tab Name 2',
     active: true,
   },
 ];
@@ -34,6 +34,19 @@ export const useTabsStore = create<TabsStorage>(
           const { tabs } = get();
           return { ...state, tabs: tabs.filter((item) => item.id !== id) };
         }),
+      activate: (id) =>
+        set((state) => {
+          const { tabs } = get();
+
+          const previousTab = tabs.find((item) => item.active);
+          if (previousTab) previousTab.active = false;
+
+          const tab = tabs.find((item) => item.id === id);
+          if (tab) tab.active = true;
+
+          return { ...state, tabs: [...tabs] };
+        }),
+      getActiveTabId: () => get().tabs.find((item) => item.active)?.id,
     }),
     {
       name: 'tabs',

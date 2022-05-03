@@ -9,6 +9,8 @@ const StyledTabs = styled(AntdTabs, {
   '.ant-tabs-nav-list': {
     display: 'flex',
     flexWrap: 'nowrap',
+    paddingTop: 5,
+    paddingLeft: 5,
 
     overflow: 'auto',
     borderBottom: 'solid $accents2 1px',
@@ -19,7 +21,6 @@ const StyledTabs = styled(AntdTabs, {
   },
 
   '.ant-tabs-tab': {
-    display: 'flex',
     paddingLeft: 10,
     paddingRight: 10,
     borderTopLeftRadius: 5,
@@ -33,6 +34,7 @@ const StyledTabs = styled(AntdTabs, {
 
   '.ant-tabs-tab-active': {
     background: '$accents2',
+    borderBottom: 'solid $primary 2px',
   },
 });
 
@@ -48,10 +50,14 @@ export interface Tab {
 
 export interface TabsProps {
   tabs: Tab[];
+
+  activeKey?: string;
+
+  onChange?: (activeKey: string) => void;
 }
 
-export const Tabs: React.FC<TabsProps> = ({ tabs }) => (
-  <StyledTabs>
+export const Tabs: React.FC<TabsProps> = ({ tabs, activeKey, onChange }) => (
+  <StyledTabs activeKey={activeKey} onChange={onChange}>
     {tabs.map((tab) => (
       <StyledTabPane key={tab.id} tab={tab.title}>
         {tab.content}

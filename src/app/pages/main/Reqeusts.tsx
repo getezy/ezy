@@ -51,7 +51,8 @@ export const Requests = (): JSX.Element => {
       </Container>
     ),
   }));
-  // const activateTab = useTabsStore((store) => store.activate);
+  const activateTab = useTabsStore((store) => store.activate);
+  const getActiveTabId = useTabsStore((store) => store.getActiveTabId);
 
-  return <Tabs tabs={tabs} />;
+  return <Tabs tabs={tabs} activeKey={getActiveTabId()} onChange={activateTab} />;
 };
