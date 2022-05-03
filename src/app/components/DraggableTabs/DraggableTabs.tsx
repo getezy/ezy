@@ -22,7 +22,8 @@ const StyledTabs = styled(ReactTabs, {
   '.rc-tabs-nav-list': {
     display: 'flex',
     flexWrap: 'nowrap',
-    paddingTop: 5,
+    flexDirection: 'row',
+    paddingTop: 17,
     paddingLeft: 5,
     overflow: 'auto',
     borderBottom: 'solid $accents2 1px',
@@ -32,12 +33,13 @@ const StyledTabs = styled(ReactTabs, {
   },
 
   '.rc-tabs-tab': {
-    height: 40,
-    font: 'inherit',
+    display: 'flex',
+    alignItems: 'center',
+    height: 35,
     paddingLeft: 10,
     paddingRight: 10,
-    borderTopLeftRadius: 5,
-    borderTopRightRadius: 5,
+    minWidth: 'max-content',
+    font: 'inherit',
     userSelect: 'none',
     background: '$accents1',
     borderLeft: 'solid $accents2 1px',
@@ -50,6 +52,10 @@ const StyledTabs = styled(ReactTabs, {
   '.rc-tabs-tab-active': {
     background: '$accents2',
     borderBottom: 'solid $primary 2px',
+  },
+
+  '.rc-tabs-content': {
+    paddingTop: 10,
   },
 });
 

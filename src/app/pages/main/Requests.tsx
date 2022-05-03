@@ -31,7 +31,7 @@ export const Requests = (): JSX.Element => {
   const tabs = useTabsStore((store) => store.tabs).map((item) => ({
     ...item,
     content: (
-      <Container fluid css={{ display: 'flex', flexWrap: 'nowrap' }}>
+      <Container fluid css={{ display: 'flex', flexWrap: 'nowrap', overflow: 'hidden' }}>
         <Input
           size="sm"
           labelLeft="URL"
@@ -48,7 +48,6 @@ export const Requests = (): JSX.Element => {
         >
           Send
         </SendButton>
-        {item.id}
       </Container>
     ),
   }));
