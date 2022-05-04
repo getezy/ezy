@@ -7,7 +7,7 @@ import {
   useSensors,
 } from '@dnd-kit/core';
 import { SortableContext } from '@dnd-kit/sortable';
-import { faXmark } from '@fortawesome/free-solid-svg-icons';
+import { faPlus, faXmark } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { styled, Text } from '@nextui-org/react';
 import ReactTabs, { TabPane as ReactTabPane } from 'rc-tabs';
@@ -63,6 +63,15 @@ const StyledTabs = styled(ReactTabs, {
   '.rc-tabs-tab-remove:hover': {
     color: '$accents5',
   },
+  '.rc-tabs-nav-add': {
+    visibility: 'visible !important',
+    border: 0,
+    background: '$accents1',
+  },
+  '.rc-tabs-nav-add:hover > svg': {
+    border: 0,
+    color: '$accents5',
+  },
   '.rc-tabs-ink-bar': {
     height: 3,
     bottom: 0,
@@ -90,7 +99,11 @@ export interface DraggableTabsProps {
 
   activeKey?: string;
 
+  showAddButton?: boolean;
+
   onActivate?: (key: string) => void;
+
+  onAdd?: () => void;
 
   onClose?: (key: string) => void;
 
@@ -100,6 +113,8 @@ export interface DraggableTabsProps {
 export const DraggableTabs: React.FC<DraggableTabsProps> = ({
   tabs,
   activeKey,
+  showAddButton = false,
+  onAdd,
   onClose,
   onActivate,
   onDragEnd,
@@ -117,8 +132,10 @@ export const DraggableTabs: React.FC<DraggableTabsProps> = ({
     type: string,
     info: { key?: string; event: React.MouseEvent | React.KeyboardEvent }
   ) => {
-    if (type === 'remove') {
-      if (onClose && info.key) onClose(info.key);
+    if (type === 'remove' && onClose && info.key) {
+      onClose(info.key);
+    } else if (type === 'add' && onAdd) {
+      onAdd();
     }
   };
 
@@ -128,7 +145,8 @@ export const DraggableTabs: React.FC<DraggableTabsProps> = ({
         <StyledTabs
           animated={{ inkBar: true, tabPane: false }}
           editable={{
-            showAdd: false,
+            showAdd: showAddButton,
+            addIcon: <FontAwesomeIcon icon={faPlus} />,
             onEdit: onTabsEdit,
           }}
           activeKey={activeKey}

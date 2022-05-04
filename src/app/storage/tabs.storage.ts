@@ -26,7 +26,8 @@ export const useTabsStore = create<TabsStorage>(
       create: (tab) =>
         set((state) => {
           const { tabs } = get();
-          tabs.push({ ...tab, id: nanoid() });
+
+          tabs.push({ ...tab, id: nanoid(), active: false });
 
           return { ...state, tabs: [...tabs] };
         }),
