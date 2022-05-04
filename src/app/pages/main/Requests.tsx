@@ -52,16 +52,19 @@ export const Requests = (): JSX.Element => {
     ),
   }));
 
-  // TODO: Combine
-  const activateTab = useTabsStore((store) => store.activate);
-  const getActiveTabId = useTabsStore((store) => store.getActiveTabId);
-  const moveTab = useTabsStore((store) => store.move);
+  const {
+    activate: activateTab,
+    getActiveTabId,
+    move: moveTab,
+    remove: closeTab,
+  } = useTabsStore((store) => store);
 
   return (
     <DraggableTabs
       tabs={tabs}
       activeKey={getActiveTabId()}
-      onChange={activateTab}
+      onActivate={activateTab}
+      onClose={closeTab}
       onDragEnd={(event) => {
         const { active, over } = event;
         moveTab(active.id, over?.id);

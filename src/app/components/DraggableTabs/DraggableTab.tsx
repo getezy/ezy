@@ -8,11 +8,12 @@ interface DraggableTabProps {
 }
 
 export const DraggableTab: React.FC<DraggableTabProps> = ({ id, children }) => {
-  const { attributes, listeners, setNodeRef, transform, transition } = useSortable({
+  const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({
     id,
   });
 
-  const style = {
+  const style: React.CSSProperties = {
+    zIndex: isDragging ? 1 : undefined,
     transform: transform ? `translate3d(${transform.x}px, 0px, 0)` : undefined,
     transition,
   };
