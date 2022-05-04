@@ -67,6 +67,8 @@ const StyledTabs = styled(ReactTabs, {
     visibility: 'visible !important',
     border: 0,
     background: '$accents1',
+    marginLeft: 10,
+    fontSize: 12,
   },
   '.rc-tabs-nav-add:hover > svg': {
     border: 0,
