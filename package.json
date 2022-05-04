@@ -108,17 +108,17 @@
     "@fortawesome/free-solid-svg-icons": "^6.1.1",
     "@fortawesome/react-fontawesome": "^0.1.18",
     "@nextui-org/react": "^1.0.0-beta.6",
+    "ace-builds": "^1.4.14",
     "electron-squirrel-startup": "^1.0.0",
     "electron-store": "^8.0.1",
     "i18next": "^21.6.16",
     "nanoid": "^3.3.3",
     "rc-tabs": "^11.14.0",
     "react": "^18.1.0",
+    "react-ace": "^10.1.0",
     "react-dom": "^18.1.0",
     "react-i18next": "^11.16.7",
     "react-json-view": "^1.21.3",
-    "react-select": "^5.3.1",
-    "react-tabs": "^5.1.0",
     "zustand": "^4.0.0-rc.1"
   }
 }
