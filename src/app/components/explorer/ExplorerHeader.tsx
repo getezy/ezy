@@ -4,8 +4,8 @@ import React from 'react';
 const ExporerHeaderContainerStyles: CSS = {
   display: 'flex',
   justifyContent: 'center',
-  paddingTop: '10px',
-  paddingBottom: '10px',
+  alignContent: 'center',
+  height: 50,
   background: '$backgroundContrast',
   borderBottom: 'solid $accents2 1px',
 };
@@ -15,7 +15,7 @@ export interface ExplorerHeaderProps {
 }
 
 export const ExplorerHeader: React.FC<ExplorerHeaderProps> = ({ children }) => (
-  <Container gap={1} css={ExporerHeaderContainerStyles}>
+  <Container gap={0} css={ExporerHeaderContainerStyles}>
     {children}
   </Container>
 );

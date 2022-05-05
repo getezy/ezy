@@ -17,7 +17,6 @@ export const Editor: React.FC = () => (
     editorProps={{ $blockScrolling: true }}
     setOptions={{
       tabSize: 2,
-
       useWorker: true,
       displayIndentGuides: true,
     }}

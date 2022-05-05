@@ -1,10 +1,10 @@
 import { faPaperPlane } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Button, Container, Input, styled, Text } from '@nextui-org/react';
+import { Button, Container, Input, styled } from '@nextui-org/react';
 import { nanoid } from 'nanoid';
 import React from 'react';
 
-import { DraggableTabs, Editor, ResponseViewer } from '../../components';
+import { DraggableTabs } from '../../components';
 import { useTabsStore } from '../../storage';
 
 // @ts-ignore
@@ -50,19 +50,6 @@ export const Requests = (): JSX.Element => {
           >
             Send
           </SendButton>
-        </Container>
-        <Container fluid gap={1} css={{ display: 'flex', flexWrap: 'nowrap' }}>
-          <Container
-            fluid
-            gap={0}
-            css={{ display: 'flex', alignItems: 'center', flexDirection: 'column', paddingTop: 20 }}
-          >
-            <Text>Request</Text>
-            <Editor />
-          </Container>
-          <Container fluid gap={0} css={{ display: 'flex', alignItems: 'center', paddingTop: 20 }}>
-            <ResponseViewer />
-          </Container>
         </Container>
       </Container>
     ),
