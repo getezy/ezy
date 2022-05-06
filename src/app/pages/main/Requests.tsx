@@ -1,7 +1,6 @@
 import { faPaperPlane } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Button, Container, Input, styled } from '@nextui-org/react';
-import { nanoid } from 'nanoid';
 import React from 'react';
 
 import { DraggableTabs } from '../../components';
@@ -70,7 +69,7 @@ export const Requests = (): JSX.Element => {
       showAddButton
       onActivate={activateTab}
       onAdd={() => {
-        create({ title: nanoid().slice(0, 5) });
+        create({ title: 'New Tab' });
       }}
       onClose={closeTab}
       onDragEnd={(event) => {
