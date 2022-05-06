@@ -2,14 +2,14 @@ import { Collapse, CSS, styled } from '@nextui-org/react';
 import React from 'react';
 
 // @ts-ignore
-const StyledMenuItem = styled('li', {
+const StyledSideBarItem = styled('li', {
   margin: 0,
   '& > div > div': {
     padding: 0,
   },
 });
 
-export interface MenuItemProps {
+export interface SideBarItemProps {
   label: string | React.ReactNode;
 
   content: React.ReactNode;
@@ -19,8 +19,8 @@ export interface MenuItemProps {
   css?: CSS;
 }
 
-export const MenuItem: React.FC<MenuItemProps> = ({ label, css, content, contentLeft }) => (
-  <StyledMenuItem>
+export const SideBarItem: React.FC<SideBarItemProps> = ({ label, css, content, contentLeft }) => (
+  <StyledSideBarItem>
     <Collapse
       title={label}
       divider={false}
@@ -30,5 +30,5 @@ export const MenuItem: React.FC<MenuItemProps> = ({ label, css, content, content
     >
       {content}
     </Collapse>
-  </StyledMenuItem>
+  </StyledSideBarItem>
 );

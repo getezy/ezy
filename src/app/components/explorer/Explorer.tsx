@@ -13,15 +13,15 @@ const ExplorerGridStyles: CSS = {
 export interface ExplorerProps {
   children: React.ReactNode;
   header: React.ReactNode;
-  menu: React.ReactNode;
+  sideBar: React.ReactNode;
 }
 
-export const Explorer: React.FC<ExplorerProps> = ({ children, header, menu }) => (
+export const Explorer: React.FC<ExplorerProps> = ({ children, header, sideBar }) => (
   <Grid.Container wrap="nowrap">
     <Grid css={ExplorerGridStyles}>
       <ExplorerHeader>{header}</ExplorerHeader>
       <Container fluid gap={0} css={{ width: '100%', margin: 0, padding: 0 }}>
-        {menu}
+        {sideBar}
       </Container>
     </Grid>
     <Grid css={{ width: '100%', overflow: 'hidden' }}>{children}</Grid>

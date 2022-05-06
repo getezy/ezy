@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Button, Text } from '@nextui-org/react';
 import React from 'react';
 
-import { Explorer, Menu } from '../../components';
+import { Explorer, SideBar } from '../../components';
 import { Requests } from './Requests';
 
 export const Main = (): JSX.Element => {
@@ -13,8 +13,8 @@ export const Main = (): JSX.Element => {
     </Button>
   );
 
-  const menu = (
-    <Menu
+  const sideBar = (
+    <SideBar
       css={{ height: 'calc(100vh - 50px)' }}
       items={[
         {
@@ -32,7 +32,7 @@ export const Main = (): JSX.Element => {
   );
 
   return (
-    <Explorer header={header} menu={menu}>
+    <Explorer header={header} sideBar={sideBar}>
       <Requests />
     </Explorer>
   );

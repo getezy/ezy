@@ -1,10 +1,10 @@
 import { Collapse, CSS, styled } from '@nextui-org/react';
 import React from 'react';
 
-import { MenuItem, MenuItemProps } from './MenuItem';
+import { SideBarItem, SideBarItemProps } from './SideBarItem';
 
 // @ts-ignore
-const StyledMenu = styled('ul', {
+const StyleSideBar = styled('ul', {
   display: 'flex',
   flexDirection: 'column',
   overflow: 'auto',
@@ -23,17 +23,17 @@ const StyledMenu = styled('ul', {
   },
 });
 
-export interface MenuProps {
-  items: MenuItemProps[];
+export interface SideBarProps {
+  items: SideBarItemProps[];
 
   css?: CSS;
 }
 
-export const Menu: React.FC<MenuProps> = ({ items, css }) => (
-  <StyledMenu css={css}>
+export const SideBar: React.FC<SideBarProps> = ({ items, css }) => (
+  <StyleSideBar css={css}>
     <Collapse.Group>
       {items?.map((item) => (
-        <MenuItem
+        <SideBarItem
           css={item.css}
           label={item.label}
           content={item.content}
@@ -41,5 +41,5 @@ export const Menu: React.FC<MenuProps> = ({ items, css }) => (
         />
       ))}
     </Collapse.Group>
-  </StyledMenu>
+  </StyleSideBar>
 );
