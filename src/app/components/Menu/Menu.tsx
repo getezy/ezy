@@ -15,12 +15,11 @@ const StyledMenu = styled('ul', {
     width: 2,
   },
   '&::-webkit-scrollbar-track': {
-    backgroundColor: '$accents5',
+    backgroundColor: '$accents2',
   },
   '&::-webkit-scrollbar-thumb': {
-    // boxShadow: 'inset 0 0 6px rgba(120, 0, 0, 0.3)',
     boxShadow: 'inset 0 0 6px',
-    color: '$gray300',
+    color: '$accents5',
   },
 });
 
@@ -33,7 +32,12 @@ export interface MenuProps {
 export const Menu: React.FC<MenuProps> = ({ items, css }) => (
   <StyledMenu css={css}>
     {items?.map((item) => (
-      <MenuItem css={item.css} label={item.label} />
+      <MenuItem
+        css={item.css}
+        label={item.label}
+        content={item.content}
+        contentLeft={item.contentLeft}
+      />
     ))}
   </StyledMenu>
 );

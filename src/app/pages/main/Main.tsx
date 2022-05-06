@@ -1,6 +1,6 @@
-import { faSquarePlus } from '@fortawesome/free-solid-svg-icons';
+import { faFolder, faSquarePlus } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Button } from '@nextui-org/react';
+import { Button, Text } from '@nextui-org/react';
 import React from 'react';
 
 import { Explorer, Menu } from '../../components';
@@ -14,7 +14,17 @@ export const Main = (): JSX.Element => {
   );
 
   const menu = (
-    <Menu css={{ height: 'calc(100vh - 50px)' }} items={[{ label: 'test' }, { label: 'test2' }]} />
+    <Menu
+      css={{ height: 'calc(100vh - 50px)' }}
+      items={[
+        {
+          label: <Text>test</Text>,
+          content: <Menu items={[{ label: <Text>test2</Text>, content: <Button size="xs" /> }]} />,
+          contentLeft: <FontAwesomeIcon size="sm" icon={faFolder} />,
+        },
+        { label: <Text>test2</Text>, content: <Button /> },
+      ]}
+    />
   );
 
   return (
