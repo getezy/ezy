@@ -3,10 +3,10 @@ import React from 'react';
 
 // @ts-ignore
 const StyledMenuItem = styled('li', {
-  marginTop: 0,
-  marginBottom: 0,
-  marginLeft: 20,
-  marginRight: 20,
+  margin: 0,
+  '& > div > div': {
+    padding: 0,
+  },
 });
 
 export interface MenuItemProps {

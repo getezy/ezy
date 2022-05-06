@@ -1,4 +1,4 @@
-import { CSS, styled } from '@nextui-org/react';
+import { Collapse, CSS, styled } from '@nextui-org/react';
 import React from 'react';
 
 import { MenuItem, MenuItemProps } from './MenuItem';
@@ -31,13 +31,15 @@ export interface MenuProps {
 
 export const Menu: React.FC<MenuProps> = ({ items, css }) => (
   <StyledMenu css={css}>
-    {items?.map((item) => (
-      <MenuItem
-        css={item.css}
-        label={item.label}
-        content={item.content}
-        contentLeft={item.contentLeft}
-      />
-    ))}
+    <Collapse.Group>
+      {items?.map((item) => (
+        <MenuItem
+          css={item.css}
+          label={item.label}
+          content={item.content}
+          contentLeft={item.contentLeft}
+        />
+      ))}
+    </Collapse.Group>
   </StyledMenu>
 );

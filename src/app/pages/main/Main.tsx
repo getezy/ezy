@@ -19,10 +19,14 @@ export const Main = (): JSX.Element => {
       items={[
         {
           label: <Text>test</Text>,
-          content: <Menu items={[{ label: <Text>test2</Text>, content: <Button size="xs" /> }]} />,
+          content: <Text>sub item</Text>,
           contentLeft: <FontAwesomeIcon size="sm" icon={faFolder} />,
         },
-        { label: <Text>test2</Text>, content: <Button /> },
+        {
+          label: <Text>test2</Text>,
+          content: <Text>sub item</Text>,
+          contentLeft: <FontAwesomeIcon size="sm" icon={faFolder} />,
+        },
       ]}
     />
   );
