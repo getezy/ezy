@@ -18,9 +18,8 @@ const initialState: Tab[] = [
   },
 ];
 
-export const useTabsStore = create<TabsStorage>(
-  // @ts-ignore
-  persist(
+export const useTabsStore = create(
+  persist<TabsStorage>(
     (set, get) => ({
       tabs: initialState,
       create: (tab) =>

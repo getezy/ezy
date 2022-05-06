@@ -9,7 +9,7 @@ import { Requests } from './Requests';
 export const Main = (): JSX.Element => {
   const header = (
     <Button auto bordered color="gradient" size="sm" icon={<FontAwesomeIcon icon={faSquarePlus} />}>
-      Create project
+      Create workspace
     </Button>
   );
 

@@ -1,13 +1,12 @@
 import create from 'zustand';
 import { persist } from 'zustand/middleware';
 
-import { ServicesStorage } from './interfaces';
+import { WorkspacesStorage } from './interfaces';
 
-export const useServicesStore = create<ServicesStorage>(
-  // @ts-ignore
-  persist(
+export const useWorkspacesStore = create(
+  persist<WorkspacesStorage>(
     () => ({
-      services: [],
+      workspaces: [],
     }),
     {
       name: 'services',
