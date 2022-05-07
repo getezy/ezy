@@ -1,18 +1,11 @@
-import { faFolder, faSquarePlus } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Button, Text } from '@nextui-org/react';
+import { Text } from '@nextui-org/react';
 import React from 'react';
 
-import { Explorer, SideBar } from '../../components';
+import { Circle, Explorer, SideBar } from '../../components';
+import { Header } from './Header';
 import { Requests } from './Requests';
 
 export const Main = (): JSX.Element => {
-  const header = (
-    <Button auto bordered color="gradient" size="sm" icon={<FontAwesomeIcon icon={faSquarePlus} />}>
-      Create workspace
-    </Button>
-  );
-
   const sideBar = (
     <SideBar
       css={{ height: 'calc(100vh - 50px)' }}
@@ -20,19 +13,19 @@ export const Main = (): JSX.Element => {
         {
           label: <Text>test</Text>,
           content: <Text>sub item</Text>,
-          contentLeft: <FontAwesomeIcon size="sm" icon={faFolder} />,
+          contentLeft: <Circle color="$primary" />,
         },
         {
           label: <Text>test2</Text>,
           content: <Text>sub item</Text>,
-          contentLeft: <FontAwesomeIcon size="sm" icon={faFolder} />,
+          contentLeft: <Circle color="$warning" />,
         },
       ]}
     />
   );
 
   return (
-    <Explorer header={header} sideBar={sideBar}>
+    <Explorer header={<Header />} sideBar={sideBar}>
       <Requests />
     </Explorer>
   );

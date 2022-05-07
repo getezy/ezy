@@ -87,7 +87,9 @@
     "rc-tabs": "^11.14.0",
     "react": "^18.1.0",
     "react-ace": "^10.1.0",
+    "react-color": "^2.19.3",
     "react-dom": "^18.1.0",
+    "react-hook-form": "^7.30.0",
     "react-i18next": "^11.16.7",
     "react-json-view": "^1.21.3",
     "zustand": "^4.0.0-rc.1"
@@ -101,6 +103,7 @@
     "@electron-forge/plugin-webpack": "^6.0.0-beta.63",
     "@types/jest": "^27.5.0",
     "@types/react": "^18.0.8",
+    "@types/react-color": "^3.0.6",
     "@types/react-dom": "^18.0.3",
     "@typescript-eslint/eslint-plugin": "^5.21.0",
     "@typescript-eslint/parser": "^5.21.0",

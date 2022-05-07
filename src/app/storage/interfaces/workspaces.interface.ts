@@ -1,6 +1,7 @@
 export interface Workspace {
   id: string;
   name: string;
+  color: string;
 }
 
 export interface WorkspacesStorage {

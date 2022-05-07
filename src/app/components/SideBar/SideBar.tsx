@@ -9,7 +9,6 @@ const StyleSideBar = styled('ul', {
   flexDirection: 'column',
   overflow: 'auto',
   margin: 0,
-  scrollbarWidth: 100,
   scrollbarColor: '#6969dd #e0e0e0',
   '&::-webkit-scrollbar': {
     width: 2,
@@ -23,6 +22,11 @@ const StyleSideBar = styled('ul', {
   },
 });
 
+// @ts-ignore
+const StyledCollapseGroup = styled(Collapse.Group, {
+  paddingLeft: 10,
+  paddingRight: 5,
+});
 export interface SideBarProps {
   items: SideBarItemProps[];
 
@@ -31,7 +35,7 @@ export interface SideBarProps {
 
 export const SideBar: React.FC<SideBarProps> = ({ items, css }) => (
   <StyleSideBar css={css}>
-    <Collapse.Group>
+    <StyledCollapseGroup>
       {items?.map((item) => (
         <SideBarItem
           css={item.css}
@@ -40,6 +44,6 @@ export const SideBar: React.FC<SideBarProps> = ({ items, css }) => (
           contentLeft={item.contentLeft}
         />
       ))}
-    </Collapse.Group>
+    </StyledCollapseGroup>
   </StyleSideBar>
 );
