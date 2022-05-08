@@ -44,8 +44,8 @@ export const DraggableTabs: React.FC<DraggableTabsProps> = ({
   tabs,
   activeKey,
   showAddButton = false,
-  onAdd,
-  onClose,
+  onAdd = () => {},
+  onClose = () => {},
   onActivate,
   onDragEnd,
 }) => {
@@ -62,9 +62,9 @@ export const DraggableTabs: React.FC<DraggableTabsProps> = ({
     type: string,
     info: { key?: string; event: React.MouseEvent | React.KeyboardEvent }
   ) => {
-    if (type === 'remove' && onClose && info.key) {
+    if (type === 'remove' && info.key) {
       onClose(info.key);
-    } else if (type === 'add' && onAdd) {
+    } else if (type === 'add') {
       onAdd();
     }
   };

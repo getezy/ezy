@@ -23,7 +23,7 @@ export const useWorkspacesStore = create(
         }),
     }),
     {
-      name: 'services',
+      name: 'workspaces',
       getStorage: () => window.electron.store,
     }
   )

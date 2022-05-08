@@ -1,27 +1,37 @@
-import { faFill } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Button, Container, Input, Modal, ModalProps, Spacer, Text } from '@nextui-org/react';
 import React from 'react';
 import { useForm } from 'react-hook-form';
 
-import { Circle, ColorPicker } from '../../../components';
+import { ColorPickerInput } from '../../../components';
+import { useWorkspacesStore, Workspace } from '../../../storage';
 
-export const CreateWorkspaceModal: React.FC<ModalProps> = ({ onClose, ...props }) => {
-  const [colorPickerVisible, setColorPickerVisible] = React.useState(false);
-  const [color, setColor] = React.useState('#FF8A65');
+export const CreateWorkspaceModal: React.FC<ModalProps> = ({ onClose = () => {}, ...props }) => {
+  const createWorkspace = useWorkspacesStore((store) => store.create);
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm();
-  const onSubmit = (data: any) => console.log('okay', data, errors);
+    setValue,
+    watch,
+    reset,
+  } = useForm<Workspace>({ defaultValues: { color: '#00D7FF' } });
+
+  const onCloseHandler = () => {
+    onClose();
+    reset();
+  };
+
+  const onSubmitHandler = (payload: Workspace) => {
+    createWorkspace(payload);
+    onCloseHandler();
+  };
 
   return (
-    <Modal {...props} onClose={onClose} css={{ backgroundColor: '$accents1' }}>
-      <Modal.Header>
+    <Modal {...props} onClose={onCloseHandler} css={{ backgroundColor: '$accents1' }}>
+      <Modal.Header css={{ userSelect: 'none' }}>
         <Text>New Workspace</Text>
       </Modal.Header>
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form onSubmit={handleSubmit(onSubmitHandler)}>
         <Modal.Body>
           <Container
             fluid
@@ -44,21 +54,14 @@ export const CreateWorkspaceModal: React.FC<ModalProps> = ({ onClose, ...props }
               {...register('name', { required: true })}
             />
             <Spacer />
-            <div style={{ display: 'flex', flexWrap: 'nowrap', alignItems: 'baseline' }}>
-              <Circle color={color} />
-              <Spacer x={0.25} />
-              <ColorPicker
-                trigger={<Button auto light size="sm" icon={<FontAwesomeIcon icon={faFill} />} />}
-                isOpen={colorPickerVisible}
-                onOpenChange={(isVisible) => setColorPickerVisible(isVisible)}
-                color={color}
-                onColorChange={(newColor) => setColor(newColor.hex)}
-              />
-            </div>
+            <ColorPickerInput
+              value={watch('color')}
+              onChange={(newColor) => setValue('color', newColor)}
+            />
           </Container>
         </Modal.Body>
         <Modal.Footer>
-          <Button auto bordered size="sm" color="error" onClick={onClose}>
+          <Button auto bordered size="sm" color="error" onClick={onCloseHandler}>
             Cancel
           </Button>
           <Button auto bordered size="sm" color="gradient" type="submit">
