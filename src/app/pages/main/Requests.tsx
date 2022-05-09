@@ -1,9 +1,9 @@
-import { faPaperPlane } from '@fortawesome/free-solid-svg-icons';
+import { faFloppyDisk, faPaperPlane } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Button, Container, Input, styled } from '@nextui-org/react';
+import { Button, Container, Input, Spacer, styled } from '@nextui-org/react';
 import React from 'react';
 
-import { DraggableTabs } from '../../components';
+import { DraggableTabs, Select } from '../../components';
 import { useTabsStore } from '../../storage';
 
 // @ts-ignore
@@ -33,14 +33,32 @@ export const Requests = (): JSX.Element => {
     content: (
       <Container gap={0} fluid>
         <Container gap={1} fluid css={{ display: 'flex', flexWrap: 'nowrap' }}>
+          <Select size="sm" css={{ flex: 1 }} placeholder="Environment" />
+          <Spacer x={0.2} />
           <Input
             size="sm"
             labelLeft="URL"
             animated={false}
             clearable
             placeholder="127.0.0.1:3000"
-            css={{ flex: 1 }}
+            css={{ flex: 5 }}
+            contentRight={
+              <Button
+                auto
+                size="xs"
+                light
+                icon={<FontAwesomeIcon icon={faFloppyDisk} />}
+                css={{
+                  background: 'transparent',
+                  // color: '$accents4',
+                  border: 'none',
+                  padding: 0,
+                  margin: 0,
+                }}
+              />
+            }
           />
+          <Spacer />
           <SendButton
             size="sm"
             bordered

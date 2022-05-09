@@ -46,6 +46,13 @@ export const StyledSelect = styled(ReactSelect, {
   },
 
   variants: {
+    separator: {
+      false: {
+        '.react-select__indicator-separator': {
+          display: 'none',
+        },
+      },
+    },
     bordered: {
       false: {
         '.react-select__control': {

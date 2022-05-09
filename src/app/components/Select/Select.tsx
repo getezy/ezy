@@ -10,17 +10,19 @@ export type SelectProps = {
   ReactSelectProps;
 
 export const Select: React.FC<React.PropsWithChildren<SelectProps>> = ({
-  options,
   bordered = false,
+  separator = false,
   size = 'md',
   css,
+  ...props
 }) => (
   <StyledSelect
     bordered={bordered}
+    separator={separator}
     size={size}
-    options={options}
     css={css}
     className="react-select"
     classNamePrefix="react-select"
+    {...props}
   />
 );
