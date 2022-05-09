@@ -12,6 +12,7 @@ export const StyledSelect = styled(ReactSelect, {
   '.react-select__placeholder': {
     color: '$accents4',
     fontSize: '$$selectFontSize',
+    userSelect: 'none',
   },
   '.react-select__indicators': {
     height: 'calc($$selectHeightRatio * $9)',
@@ -30,6 +31,7 @@ export const StyledSelect = styled(ReactSelect, {
   '.react-select__single-value': {
     color: '$text',
     fontSize: '$$selectFontSize',
+    userSelect: 'none',
   },
   '.react-select__menu': {
     backgroundColor: '$accents1',

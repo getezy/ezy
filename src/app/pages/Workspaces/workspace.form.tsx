@@ -34,6 +34,7 @@ export const WorkspaceForm: React.FC<WorkspaceFormProps> = ({ onSubmit = () => {
           }}
         >
           <Input
+            autoFocus
             bordered
             size="sm"
             animated={false}

@@ -59,9 +59,9 @@ export const Requests = (): JSX.Element => {
                   background: 'transparent',
                   padding: 0,
                   margin: 0,
-                  color: '$accents4',
+                  color: '$accents5',
                   '&:hover': {
-                    color: '$accents2',
+                    color: '$accents3',
                   },
                 }}
                 onClick={() => setCreateEnvironmentModalVisible(true)}

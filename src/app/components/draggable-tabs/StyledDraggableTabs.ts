@@ -40,7 +40,7 @@ export const StyledDraggableTabs = styled(ReactTabs, {
     font: 'inherit',
     border: 0,
     paddingLeft: 10,
-    paddingRight: 5,
+    paddingRight: 10,
   },
   '.rc-tabs-tab-remove': {
     border: 0,

@@ -83,13 +83,7 @@ export const DraggableTabs: React.FC<DraggableTabsProps> = ({
         <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={onDragEnd}>
           <SortableContext items={tabs}>
             <DefaultTabBar {...props}>
-              {(node) => (
-                <DraggableTab id={node.key as string}>
-                  <Text h6 weight="light">
-                    {node}
-                  </Text>
-                </DraggableTab>
-              )}
+              {(node) => <DraggableTab id={node.key as string}>{node}</DraggableTab>}
             </DefaultTabBar>
           </SortableContext>
         </DndContext>
@@ -98,9 +92,12 @@ export const DraggableTabs: React.FC<DraggableTabsProps> = ({
       {tabs.map((tab) => (
         <TabPane
           key={tab.id}
-          tab={tab.title}
-          closable
-          closeIcon={<FontAwesomeIcon icon={faXmark} />}
+          tab={
+            <Text h6 weight="light">
+              {tab.title}
+            </Text>
+          }
+          closeIcon={<FontAwesomeIcon size="sm" icon={faXmark} />}
         >
           {tab.content}
         </TabPane>

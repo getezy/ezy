@@ -33,6 +33,7 @@ export const EnvironmentForm: React.FC<EnvironmentFormProps> = ({ onSubmit = () 
           }}
         >
           <Input
+            autoFocus
             bordered
             size="sm"
             animated={false}
