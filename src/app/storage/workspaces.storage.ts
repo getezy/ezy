@@ -19,7 +19,10 @@ export const useWorkspacesStore = create(
       remove: (id) =>
         set((state) => {
           const { workspaces } = get();
-          return { ...state, workspaces: workspaces.filter((item) => item.id !== id) };
+          return {
+            ...state,
+            workspaces: workspaces.filter((item) => item.id !== id),
+          };
         }),
     }),
     {

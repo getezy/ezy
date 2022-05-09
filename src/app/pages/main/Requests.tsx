@@ -32,7 +32,7 @@ export const Requests = (): JSX.Element => {
     ...item,
     content: (
       <Container gap={0} fluid>
-        <Container gap={1} fluid css={{ display: 'flex', flexWrap: 'nowrap', overflow: 'hidden' }}>
+        <Container gap={1} fluid css={{ display: 'flex', flexWrap: 'nowrap' }}>
           <Input
             size="sm"
             labelLeft="URL"

@@ -5,3 +5,4 @@ export * from './Editor';
 export * from './ResponseViewer';
 export * from './Circle';
 export * from './ColorPicker';
+export * from './Select';

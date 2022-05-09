@@ -4,7 +4,8 @@
     "module": "esnext",
     "target": "ESNext",
     "lib": [
-      "dom",
+      "DOM",
+      "DOM.Iterable",
       "esnext"
     ],
     "strict": true,
