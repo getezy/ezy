@@ -5,7 +5,7 @@ import React from 'react';
 
 import { DraggableTabs, Select } from '../components';
 import { useEnvironmentsStore, useTabsStore } from '../storage';
-import { SaveEnvironmentModal } from './environments';
+import { CreateEnvironmentModal } from './environments';
 
 // @ts-ignore
 const SendButton = styled(Button, {
@@ -29,7 +29,7 @@ const SendButton = styled(Button, {
 });
 
 export const Requests = (): JSX.Element => {
-  const [saveEnvironmentModalVisible, setSaveEnvironmentModalVisible] = React.useState(false);
+  const [createEnvironmentModalVisible, setCreateEnvironmentModalVisible] = React.useState(false);
   const environments = useEnvironmentsStore((store) => store.environments).map((env) => ({
     value: env.id,
     label: env.name,
@@ -64,7 +64,7 @@ export const Requests = (): JSX.Element => {
                     color: '$accents2',
                   },
                 }}
-                onClick={() => setSaveEnvironmentModalVisible(true)}
+                onClick={() => setCreateEnvironmentModalVisible(true)}
               />
             }
           />
@@ -106,12 +106,12 @@ export const Requests = (): JSX.Element => {
           moveTab(active.id, over?.id);
         }}
       />
-      <SaveEnvironmentModal
+      <CreateEnvironmentModal
         closeButton
         preventClose
         blur
-        open={saveEnvironmentModalVisible}
-        onClose={() => setSaveEnvironmentModalVisible(false)}
+        open={createEnvironmentModalVisible}
+        onClose={() => setCreateEnvironmentModalVisible(false)}
       />
     </div>
   );
