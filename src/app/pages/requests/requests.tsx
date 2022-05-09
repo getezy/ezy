@@ -3,9 +3,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Button, Container, Input, Spacer, styled } from '@nextui-org/react';
 import React from 'react';
 
-import { DraggableTabs, Select } from '../components';
-import { useEnvironmentsStore, useTabsStore } from '../storage';
-import { CreateEnvironmentModal } from './environments';
+import { DraggableTabs, Select } from '../../components';
+import { useEnvironmentsStore, useTabsStore } from '../../storage';
+import { CreateEnvironmentModal } from '../environments';
 
 // @ts-ignore
 const SendButton = styled(Button, {

@@ -13,10 +13,10 @@ import { Text } from '@nextui-org/react';
 import { TabPane } from 'rc-tabs';
 import React from 'react';
 
-import { DraggableTab } from './DraggableTab';
-import { StyledDraggableTabs as StyledTabs } from './StyledDraggableTabs';
+import { DraggableTab } from './draggable-tab';
+import { StyledDraggableTabs as StyledTabs } from './draggable-tabs.styled';
 
-export interface TabProps {
+export interface TabPaneProps {
   id: string;
 
   title: string;
@@ -25,7 +25,7 @@ export interface TabProps {
 }
 
 export interface DraggableTabsProps {
-  tabs: TabProps[];
+  tabs: TabPaneProps[];
 
   activeKey?: string;
 

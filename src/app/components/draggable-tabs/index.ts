@@ -1,1 +1,1 @@
-export * from './DraggableTabs';
+export * from './draggable-tabs';
