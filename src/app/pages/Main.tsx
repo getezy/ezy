@@ -3,8 +3,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Button, Text } from '@nextui-org/react';
 import React from 'react';
 
-import { Circle, Explorer, SideBar } from '../../components';
-import { useWorkspacesStore } from '../../storage';
+import { Circle, Explorer, SideBar } from '../components';
+import { useWorkspacesStore } from '../storage';
 import { Header } from './Header';
 import { Requests } from './Requests';
 

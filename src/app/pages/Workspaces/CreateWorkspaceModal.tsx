@@ -2,8 +2,8 @@ import { Button, Container, Input, Modal, ModalProps, Spacer, Text } from '@next
 import React from 'react';
 import { useForm } from 'react-hook-form';
 
-import { ColorPickerInput } from '../../../components';
-import { useWorkspacesStore, Workspace } from '../../../storage';
+import { ColorPickerInput } from '../../components';
+import { useWorkspacesStore, Workspace } from '../../storage';
 
 export const CreateWorkspaceModal: React.FC<ModalProps> = ({ onClose = () => {}, ...props }) => {
   const createWorkspace = useWorkspacesStore((store) => store.create);
