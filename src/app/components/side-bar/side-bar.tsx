@@ -1,4 +1,5 @@
 import { Collapse, CSS, styled } from '@nextui-org/react';
+import { nanoid } from 'nanoid';
 import React from 'react';
 
 import { SideBarItem, SideBarItemProps } from './side-bar-item';
@@ -38,6 +39,7 @@ export const SideBar: React.FC<SideBarProps> = ({ items, css }) => (
     <StyledCollapseGroup>
       {items?.map((item) => (
         <SideBarItem
+          key={nanoid()}
           css={item.css}
           label={item.label}
           content={item.content}

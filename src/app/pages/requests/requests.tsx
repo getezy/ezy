@@ -1,32 +1,12 @@
 import { faFloppyDisk, faPaperPlane } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Button, Container, Input, Spacer, styled } from '@nextui-org/react';
+import { Button, Container, Input, Spacer } from '@nextui-org/react';
 import React from 'react';
 
 import { DraggableTabs, Select } from '../../components';
 import { useEnvironmentsStore, useTabsStore } from '../../storage';
 import { CreateEnvironmentModal } from '../environments';
-
-// @ts-ignore
-const SendButton = styled(Button, {
-  transition: 'opacity 0.25s ease 0s, transform 0.25s ease 0s',
-  svg: {
-    size: '10%',
-    marginLeft: '100px',
-    transition: 'transform 0.25s ease 0s, opacity 200ms ease-in-out 50ms',
-    boxShadow: '0 5px 20px -5px rgba(0, 0, 0, 0.1)',
-  },
-  '&:hover': {
-    opacity: 0.8,
-  },
-  '&:active': {
-    transform: 'scale(0.9)',
-    svg: {
-      transform: 'translate(24px, -24px)',
-      opacity: 0,
-    },
-  },
-});
+import { SendButton } from './send-button.styled';
 
 export const Requests = (): JSX.Element => {
   const [createEnvironmentModalVisible, setCreateEnvironmentModalVisible] = React.useState(false);
