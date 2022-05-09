@@ -2,7 +2,7 @@ import { CSS, VariantProps } from '@nextui-org/react';
 import React from 'react';
 import { Props as ReactSelectProps } from 'react-select';
 
-import { StyledSelect } from './StyledSelect';
+import { StyledSelect } from './select.styled';
 
 export type SelectProps = {
   css?: CSS;

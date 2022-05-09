@@ -3,8 +3,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Button, Spacer, styled } from '@nextui-org/react';
 import React from 'react';
 
-import { Circle } from '../Circle';
-import { ColorPicker } from './ColorPicker';
+import { Circle } from '../circle';
+import { ColorPicker } from './color-picker';
 
 // @ts-ignore
 const StyledWrapper = styled('div', {

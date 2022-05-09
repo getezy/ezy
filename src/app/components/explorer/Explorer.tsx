@@ -1,7 +1,7 @@
 import { Container, CSS, Grid } from '@nextui-org/react';
 import React from 'react';
 
-import { ExplorerHeader } from './ExplorerHeader';
+import { ExplorerHeader } from './explorer-header';
 
 const ExplorerGridStyles: CSS = {
   margin: 0,

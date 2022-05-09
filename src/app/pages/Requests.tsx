@@ -50,8 +50,6 @@ export const Requests = (): JSX.Element => {
                 icon={<FontAwesomeIcon icon={faFloppyDisk} />}
                 css={{
                   background: 'transparent',
-                  // color: '$accents4',
-                  border: 'none',
                   padding: 0,
                   margin: 0,
                 }}

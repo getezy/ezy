@@ -1,7 +1,7 @@
 import { Collapse, CSS, styled } from '@nextui-org/react';
 import React from 'react';
 
-import { SideBarItem, SideBarItemProps } from './SideBarItem';
+import { SideBarItem, SideBarItemProps } from './side-bar-item';
 
 // @ts-ignore
 const StyleSideBar = styled('ul', {

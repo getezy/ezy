@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Button } from '@nextui-org/react';
 import React from 'react';
 
-import { CreateWorkspaceModal } from './Workspaces';
+import { CreateWorkspaceModal } from './workspaces';
 
 export const Header: React.FC = () => {
   const [createWorkspaceModalVisible, setCreateWorkspaceModalVisible] = React.useState(false);

@@ -1,1 +1,1 @@
-export * from './CreateWorkspaceModal';
+export * from './create-workspace.modal';

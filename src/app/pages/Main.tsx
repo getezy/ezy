@@ -5,8 +5,8 @@ import React from 'react';
 
 import { Circle, Explorer, SideBar } from '../components';
 import { useWorkspacesStore } from '../storage';
-import { Header } from './Header';
-import { Requests } from './Requests';
+import { Header } from './header';
+import { Requests } from './requests';
 
 export const Main = (): JSX.Element => {
   const { workspaces } = useWorkspacesStore((store) => store);
