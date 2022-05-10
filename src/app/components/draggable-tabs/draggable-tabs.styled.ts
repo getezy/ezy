@@ -20,9 +20,7 @@ export const StyledDraggableTabs = styled(ReactTabs, {
       display: 'none',
     },
   },
-  '.rc-tabs-content': {
-    paddingTop: 20,
-  },
+  '.rc-tabs-content': {},
   '.rc-tabs-tab': {
     display: 'flex',
     alignItems: 'center',
