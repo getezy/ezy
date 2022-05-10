@@ -3,6 +3,9 @@ import ReactTabs from 'rc-tabs';
 
 // @ts-ignore
 export const StyledDraggableTabs = styled(ReactTabs, {
+  $$navListBorder: '1px',
+  $$tabsHeight: '35px',
+
   '.rc-tabs': {
     bottom: 0,
   },
@@ -15,16 +18,19 @@ export const StyledDraggableTabs = styled(ReactTabs, {
     display: 'flex',
     overflow: 'auto',
     transition: 'transform 0.3s',
-    borderBottom: 'solid $accents2 1px',
+    height: '$$tabsHeight',
+    borderBottom: 'solid $accents2 $$navListBorder',
     '&::-webkit-scrollbar': {
       display: 'none',
     },
   },
-  '.rc-tabs-content': {},
+  '.rc-tabs-content': {
+    height: 'calc(100vh - $$tabsHeight - $$navListBorder)',
+  },
   '.rc-tabs-tab': {
     display: 'flex',
     alignItems: 'center',
-    height: 40,
+    height: '$$tabsHeight',
     minWidth: 'max-content',
     cursor: 'pointer',
     userSelect: 'none',
