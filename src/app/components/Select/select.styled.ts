@@ -5,12 +5,12 @@ import ReactSelect from 'react-select';
 export const StyledSelect = styled(ReactSelect, {
   '.react-select': {},
   '.react-select__control': {
-    backgroundColor: '$accents1',
+    backgroundColor: '$accents0',
     height: 'calc($$selectHeightRatio * $9)',
     minHeight: 'calc($$selectHeightRatio * $9)',
   },
   '.react-select__placeholder': {
-    color: '$accents4',
+    color: '$accents3',
     fontSize: '$$selectFontSize',
     userSelect: 'none',
   },
@@ -34,17 +34,17 @@ export const StyledSelect = styled(ReactSelect, {
     userSelect: 'none',
   },
   '.react-select__menu': {
-    backgroundColor: '$accents1',
+    backgroundColor: '$accents0',
     fontSize: '$$selectFontSize',
   },
   '.react-select__option': {
-    backgroundColor: '$accents1',
+    backgroundColor: '$accents0',
   },
   '.react-select__option:hover': {
-    backgroundColor: '$accents2',
+    backgroundColor: '$accents1',
   },
   '.react-select__option--is-selected': {
-    color: '$accents4',
+    color: '$accents3',
   },
 
   variants: {

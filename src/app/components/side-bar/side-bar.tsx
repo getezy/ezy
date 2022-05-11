@@ -15,11 +15,11 @@ const StyleSideBar = styled('ul', {
     width: 2,
   },
   '&::-webkit-scrollbar-track': {
-    backgroundColor: '$accents2',
+    backgroundColor: '$accents1',
   },
   '&::-webkit-scrollbar-thumb': {
     boxShadow: 'inset 0 0 6px',
-    color: '$accents5',
+    color: '$accents4',
   },
 });
 

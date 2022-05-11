@@ -13,7 +13,7 @@ export const CreateWorkspaceModal: React.FC<ModalProps> = ({ onClose = () => {},
   };
 
   return (
-    <Modal {...props} onClose={onClose} css={{ backgroundColor: '$accents1' }}>
+    <Modal {...props} onClose={onClose} css={{ backgroundColor: '$accents0' }}>
       <Modal.Header css={{ userSelect: 'none' }}>
         <Text>New Workspace</Text>
       </Modal.Header>

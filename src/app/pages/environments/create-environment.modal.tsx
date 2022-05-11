@@ -13,7 +13,7 @@ export const CreateEnvironmentModal: React.FC<ModalProps> = ({ onClose = () => {
   };
 
   return (
-    <Modal {...props} onClose={onClose} css={{ backgroundColor: '$accents1' }}>
+    <Modal {...props} onClose={onClose} css={{ backgroundColor: '$accents0' }}>
       <Modal.Header css={{ userSelect: 'none' }}>
         <Text>New Environment</Text>
       </Modal.Header>

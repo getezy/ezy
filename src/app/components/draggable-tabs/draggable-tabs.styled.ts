@@ -19,7 +19,7 @@ export const StyledDraggableTabs = styled(ReactTabs, {
     overflow: 'auto',
     transition: 'transform 0.3s',
     height: '$$tabsHeight',
-    borderBottom: 'solid $accents2 $$navListBorder',
+    borderBottom: 'solid $accents1 $$navListBorder',
     '&::-webkit-scrollbar': {
       display: 'none',
     },
@@ -37,11 +37,11 @@ export const StyledDraggableTabs = styled(ReactTabs, {
     minWidth: 'max-content',
     cursor: 'pointer',
     userSelect: 'none',
-    background: '$accents1',
+    background: '$accents0',
   },
   '.rc-tabs-tab-active': {
     fontWeight: 'bolder',
-    background: '$accents2',
+    background: '$accents1',
   },
   '.rc-tabs-tab-btn': {
     font: 'inherit',
@@ -54,18 +54,18 @@ export const StyledDraggableTabs = styled(ReactTabs, {
     background: 'transparent',
   },
   '.rc-tabs-tab-remove:hover': {
-    color: '$accents5',
+    color: '$accents4',
   },
   '.rc-tabs-nav-add': {
     visibility: 'visible !important',
     border: 0,
-    background: '$accents1',
+    background: '$accents0',
     marginLeft: 10,
     fontSize: 12,
   },
   '.rc-tabs-nav-add:hover > svg': {
     border: 0,
-    color: '$accents5',
+    color: '$accents4',
   },
   '.rc-tabs-ink-bar': {
     height: 3,
