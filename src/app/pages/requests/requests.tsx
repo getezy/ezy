@@ -1,9 +1,15 @@
 import { faFloppyDisk, faPaperPlane } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Button, Container, Input, Spacer } from '@nextui-org/react';
+import { Button, Container, Input, Spacer, Switch } from '@nextui-org/react';
 import React from 'react';
 
-import { DraggableTabs, ResizablePanel, Select } from '../../components';
+import {
+  DraggableTabs,
+  HorizontalLayoutIcon,
+  ResizablePanel,
+  Select,
+  VerticalLayoutIcon,
+} from '../../components';
 import { useEnvironmentsStore, useTabsStore } from '../../storage';
 import { CreateEnvironmentModal } from '../environments';
 import { SendButton } from './send-button.styled';
@@ -57,11 +63,19 @@ export const Requests = (): JSX.Element => {
           >
             Send
           </SendButton>
+          <Spacer x={0.25} />
+          <Switch
+            color="success"
+            size="sm"
+            bordered
+            iconOff={<HorizontalLayoutIcon />}
+            iconOn={<VerticalLayoutIcon />}
+          />
         </Container>
         <Container
           fluid
           gap={0}
-          style={{ display: 'flex', height: 'calc(100% - 32px)', paddingTop: 20 }}
+          css={{ display: 'flex', height: 'calc(100% - 32px)', paddingTop: 20 }}
         >
           <ResizablePanel firstNode={<div>first</div>} secondNode={<div>second</div>} />
         </Container>

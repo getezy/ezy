@@ -7,3 +7,4 @@ export * from './circle';
 export * from './color-picker';
 export * from './select';
 export * from './resizable-panel';
+export * from './icons';

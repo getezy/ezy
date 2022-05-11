@@ -8,12 +8,7 @@ import { Tab, TabsStorage } from './interfaces';
 const initialState: Tab[] = [
   {
     id: nanoid(),
-    title: 'Tab 1',
-    active: false,
-  },
-  {
-    id: nanoid(),
-    title: 'Long Tab Name 2',
+    title: 'New Tab',
     active: true,
   },
 ];
