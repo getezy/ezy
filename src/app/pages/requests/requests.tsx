@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Button, Container, Input, Spacer } from '@nextui-org/react';
 import React from 'react';
 
-import { DraggableTabs, Select } from '../../components';
+import { DraggableTabs, ResizablePanel, Select } from '../../components';
 import { useEnvironmentsStore, useTabsStore } from '../../storage';
 import { CreateEnvironmentModal } from '../environments';
 import { SendButton } from './send-button.styled';
@@ -18,8 +18,8 @@ export const Requests = (): JSX.Element => {
   const tabs = useTabsStore((store) => store.tabs).map((item) => ({
     ...item,
     content: (
-      <Container gap={0} fluid>
-        <Container gap={1} fluid css={{ display: 'flex', flexWrap: 'nowrap' }}>
+      <Container gap={0} fluid css={{ height: '100%', paddingTop: 20 }}>
+        <Container gap={0.5} fluid css={{ display: 'flex', flexWrap: 'nowrap', height: 32 }}>
           <Select size="sm" css={{ flex: 1 }} placeholder="Environment" options={environments} />
           <Spacer x={0.2} />
           <Input
@@ -57,6 +57,13 @@ export const Requests = (): JSX.Element => {
           >
             Send
           </SendButton>
+        </Container>
+        <Container
+          fluid
+          gap={0}
+          style={{ display: 'flex', height: 'calc(100% - 32px)', paddingTop: 20 }}
+        >
+          <ResizablePanel firstNode={<div>first</div>} secondNode={<div>second</div>} />
         </Container>
       </Container>
     ),

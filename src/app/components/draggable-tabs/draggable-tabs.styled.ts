@@ -27,6 +27,9 @@ export const StyledDraggableTabs = styled(ReactTabs, {
   '.rc-tabs-content': {
     height: 'calc(100vh - $$tabsHeight - $$navListBorder)',
   },
+  '.rc-tabs-tabpane': {
+    height: 'calc(100vh - $$tabsHeight - $$navListBorder)',
+  },
   '.rc-tabs-tab': {
     display: 'flex',
     alignItems: 'center',
