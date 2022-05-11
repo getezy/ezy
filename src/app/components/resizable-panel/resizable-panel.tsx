@@ -19,10 +19,10 @@ const ResizablePanelWrapper = styled('div', {
   width: '100%',
   variants: {
     alignment: {
-      [ResizablePanelAlignment.Vertical]: {
+      [ResizablePanelAlignment.Horizontal]: {
         flexDirection: 'column',
       },
-      [ResizablePanelAlignment.Horizontal]: {
+      [ResizablePanelAlignment.Vertical]: {
         flexDirection: 'row',
       },
     },
@@ -32,13 +32,13 @@ const ResizablePanelWrapper = styled('div', {
 const StyledResizable = styled(Resizable, {
   variants: {
     alignment: {
-      [ResizablePanelAlignment.Vertical]: {
+      [ResizablePanelAlignment.Horizontal]: {
         $$minHeight: '40px',
         minHeight: '$$minHeight',
         maxHeight: 'calc(100% - $$minHeight)',
         borderBottom: 'solid 1px $accents1',
       },
-      [ResizablePanelAlignment.Horizontal]: {
+      [ResizablePanelAlignment.Vertical]: {
         $$minWidth: '40px',
         minWidth: '$$minWidth',
         maxWidth: 'calc(100% - $$minWidth)',
@@ -49,12 +49,12 @@ const StyledResizable = styled(Resizable, {
 });
 
 export const ResizablePanel: React.FC<React.PropsWithChildren<ResizablePanelProps>> = ({
-  alignment = ResizablePanelAlignment.Vertical,
+  alignment = ResizablePanelAlignment.Horizontal,
   firstNode,
   secondNode,
 }) => {
   const enableOptions: ResizableEnableOptions =
-    alignment === ResizablePanelAlignment.Horizontal ? { right: true } : { bottom: true };
+    alignment === ResizablePanelAlignment.Vertical ? { right: true } : { bottom: true };
 
   return (
     <ResizablePanelWrapper alignment={alignment}>
