@@ -6,7 +6,7 @@ import {
   useSensor,
   useSensors,
 } from '@dnd-kit/core';
-import { SortableContext } from '@dnd-kit/sortable';
+import { horizontalListSortingStrategy, SortableContext } from '@dnd-kit/sortable';
 import { faPlus, faXmark } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Text } from '@nextui-org/react';
@@ -81,7 +81,7 @@ export const DraggableTabs: React.FC<DraggableTabsProps> = ({
       onChange={onActivate}
       renderTabBar={(props, DefaultTabBar) => (
         <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={onDragEnd}>
-          <SortableContext items={tabs}>
+          <SortableContext items={tabs} strategy={horizontalListSortingStrategy}>
             <DefaultTabBar {...props}>
               {(node) => <DraggableTab id={node.key as string}>{node}</DraggableTab>}
             </DefaultTabBar>

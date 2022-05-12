@@ -3,21 +3,21 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Button, Text } from '@nextui-org/react';
 import React from 'react';
 
-import { Circle, Explorer, SideBar } from '../components';
-import { useWorkspacesStore } from '../storage';
+import { Explorer, SideBar } from '../components';
+import { useServicesStore } from '../storage';
 import { Header } from './header';
 import { Requests } from './requests';
 
 export const Main = (): JSX.Element => {
-  const { workspaces } = useWorkspacesStore((store) => store);
+  const { services } = useServicesStore((store) => store);
 
   const sideBar = (
     <SideBar
       css={{ height: 'calc(100vh - 50px)' }}
-      items={workspaces.map((workspace) => ({
+      items={services.map((service) => ({
         label: (
           <div style={{ display: 'flex', flexWrap: 'nowrap', justifyContent: 'space-between' }}>
-            <Text>{workspace.name}</Text>
+            <Text>{service.name}</Text>
             <Button
               auto
               size="xs"
@@ -28,7 +28,6 @@ export const Main = (): JSX.Element => {
           </div>
         ),
         content: <Text>sub item</Text>,
-        contentLeft: <Circle color={workspace.color} />,
       }))}
     />
   );

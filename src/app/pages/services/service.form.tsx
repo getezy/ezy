@@ -1,24 +1,21 @@
-import { Container, Input, Spacer } from '@nextui-org/react';
+import { Container, Input } from '@nextui-org/react';
 import React from 'react';
 import { useForm } from 'react-hook-form';
 
-import { ColorPickerInput } from '../../components';
-import { Workspace } from '../../storage';
+import { Service } from '../../storage';
 
-export interface WorkspaceFormProps {
+export interface ServiceFormProps {
   id?: string;
 
-  onSubmit: (payload: Workspace) => void;
+  onSubmit: (payload: Service) => void;
 }
 
-export const WorkspaceForm: React.FC<WorkspaceFormProps> = ({ onSubmit = () => {}, id }) => {
+export const ServiceForm: React.FC<ServiceFormProps> = ({ onSubmit = () => {}, id }) => {
   const {
     register,
     handleSubmit,
     formState: { errors },
-    setValue,
-    watch,
-  } = useForm<Workspace>({ defaultValues: { color: '#00D7FF' } });
+  } = useForm<Service>();
 
   return (
     <form id={id} onSubmit={handleSubmit(onSubmit)}>
@@ -43,11 +40,6 @@ export const WorkspaceForm: React.FC<WorkspaceFormProps> = ({ onSubmit = () => {
             css={{ flex: 1 }}
             color={errors.name ? 'error' : 'default'}
             {...register('name', { required: true })}
-          />
-          <Spacer />
-          <ColorPickerInput
-            value={watch('color')}
-            onChange={(newColor) => setValue('color', newColor)}
           />
         </Container>
       </Container>

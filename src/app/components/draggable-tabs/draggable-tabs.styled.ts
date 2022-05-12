@@ -16,7 +16,8 @@ export const StyledDraggableTabs = styled(ReactTabs, {
   },
   '.rc-tabs-nav-list': {
     display: 'flex',
-    overflow: 'auto',
+    overflowY: 'hidden',
+    overflowX: 'auto',
     transition: 'transform 0.3s',
     height: '$$tabsHeight',
     borderBottom: 'solid $accents1 $$navListBorder',

@@ -3,10 +3,10 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Button } from '@nextui-org/react';
 import React from 'react';
 
-import { CreateWorkspaceModal } from './workspaces';
+import { CreateServiceModal } from './services';
 
 export const Header: React.FC = () => {
-  const [createWorkspaceModalVisible, setCreateWorkspaceModalVisible] = React.useState(false);
+  const [createServiceModalVisible, setCreateServiceModalVisible] = React.useState(false);
 
   return (
     <div>
@@ -16,16 +16,16 @@ export const Header: React.FC = () => {
         color="gradient"
         size="sm"
         icon={<FontAwesomeIcon icon={faSquarePlus} />}
-        onClick={() => setCreateWorkspaceModalVisible(true)}
+        onClick={() => setCreateServiceModalVisible(true)}
       >
-        Create workspace
+        Create service
       </Button>
-      <CreateWorkspaceModal
+      <CreateServiceModal
         closeButton
         preventClose
         blur
-        open={createWorkspaceModalVisible}
-        onClose={() => setCreateWorkspaceModalVisible(false)}
+        open={createServiceModalVisible}
+        onClose={() => setCreateServiceModalVisible(false)}
       />
     </div>
   );
