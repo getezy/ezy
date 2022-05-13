@@ -6,7 +6,6 @@ import AceEditor from 'react-ace';
 import 'ace-builds/src-noconflict/mode-json';
 import 'ace-builds/src-noconflict/theme-twilight';
 
-// @ts-ignore
 const StyledAceEditor = styled(AceEditor);
 
 export const Editor: React.FC = () => (

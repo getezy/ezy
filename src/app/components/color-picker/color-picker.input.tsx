@@ -3,10 +3,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Button, Spacer, styled } from '@nextui-org/react';
 import React from 'react';
 
-import { Circle } from '../circle';
+import { ColorCircle } from '../color-circle';
 import { ColorPicker } from './color-picker';
 
-// @ts-ignore
 const StyledWrapper = styled('div', {
   display: 'flex',
   flexWrap: 'nowrap',
@@ -24,7 +23,7 @@ export const ColorPickerInput: React.FC<ColorPickerInputProps> = ({ value, onCha
 
   return (
     <StyledWrapper>
-      <Circle color={value} />
+      <ColorCircle color={value} />
       <Spacer x={0.25} />
       <ColorPicker
         trigger={<Button auto light size="sm" icon={<FontAwesomeIcon icon={faFill} />} />}

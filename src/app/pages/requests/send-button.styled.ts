@@ -1,6 +1,5 @@
 import { Button, styled } from '@nextui-org/react';
 
-// @ts-ignore
 export const SendButton = styled(Button, {
   transition: 'opacity 0.25s ease 0s, transform 0.25s ease 0s',
   svg: {

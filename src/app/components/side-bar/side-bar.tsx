@@ -4,7 +4,6 @@ import React from 'react';
 
 import { SideBarItem, SideBarItemProps } from './side-bar-item';
 
-// @ts-ignore
 const StyleSideBar = styled('ul', {
   display: 'flex',
   flexDirection: 'column',
@@ -23,7 +22,6 @@ const StyleSideBar = styled('ul', {
   },
 });
 
-// @ts-ignore
 const StyledCollapseGroup = styled(Collapse.Group, {
   paddingLeft: 10,
   paddingRight: 5,

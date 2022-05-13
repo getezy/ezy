@@ -1,7 +1,6 @@
 import { styled } from '@nextui-org/react';
 import ReactSelect from 'react-select';
 
-// @ts-ignore
 export const StyledSelect = styled(ReactSelect, {
   '.react-select': {},
   '.react-select__control': {

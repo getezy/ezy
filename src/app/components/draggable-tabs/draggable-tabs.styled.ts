@@ -1,7 +1,6 @@
 import { styled } from '@nextui-org/react';
 import ReactTabs from 'rc-tabs';
 
-// @ts-ignore
 export const StyledDraggableTabs = styled(ReactTabs, {
   $$navListBorder: '1px',
   $$tabsHeight: '35px',

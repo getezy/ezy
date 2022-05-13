@@ -1,7 +1,6 @@
 import { Collapse, CSS, styled } from '@nextui-org/react';
 import React from 'react';
 
-// @ts-ignore
 const StyledSideBarItem = styled('li', {
   margin: 0,
   '& > div > div': {
