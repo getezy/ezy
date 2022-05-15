@@ -3,6 +3,8 @@ import React from 'react';
 
 import { DraggableTabs, ResizablePanel } from '../../components';
 import { useTabsStore } from '../../storage';
+import { Request } from './request';
+import { Response } from './response';
 import { SendHeader } from './send-header';
 
 export const TabsContainer = (): JSX.Element => {
@@ -21,10 +23,10 @@ export const TabsContainer = (): JSX.Element => {
         <SendHeader />
         <Container
           fluid
-          gap={0}
+          gap={0.5}
           css={{ display: 'flex', height: 'calc(100% - 32px)', paddingTop: 20 }}
         >
-          <ResizablePanel firstNode={<div>first</div>} secondNode={<div>second</div>} />
+          <ResizablePanel firstNode={<Request />} secondNode={<Response />} />
         </Container>
       </Container>
     ),
