@@ -4,32 +4,15 @@ import { Button, Container, Input, Spacer, Switch } from '@nextui-org/react';
 import React from 'react';
 
 import {
-  ColoredSingleValue,
+  ColoredSelect,
   DraggableTabs,
   HorizontalLayoutIcon,
   ResizablePanel,
-  Select,
   VerticalLayoutIcon,
 } from '../../components';
 import { useEnvironmentsStore, useTabsStore } from '../../storage';
 import { CreateEnvironmentModal } from '../environments';
 import { SendButton } from './send-button.styled';
-
-// const dot = (color = 'transparent') => ({
-//   alignItems: 'center',
-//   display: 'flex',
-//   justifyContent: 'flex-start',
-
-//   ':before': {
-//     backgroundColor: color,
-//     borderRadius: 10,
-//     content: '" "',
-//     display: 'flex',
-//     marginRight: 8,
-//     height: 10,
-//     width: 10,
-//   },
-// });
 
 export const Requests = (): JSX.Element => {
   const [createEnvironmentModalVisible, setCreateEnvironmentModalVisible] = React.useState(false);
@@ -44,12 +27,11 @@ export const Requests = (): JSX.Element => {
     content: (
       <Container gap={0} fluid css={{ height: '100%', paddingTop: 20 }}>
         <Container gap={0.5} fluid css={{ display: 'flex', flexWrap: 'nowrap', height: 32 }}>
-          <Select
+          <ColoredSelect
             size="sm"
-            css={{ width: 100 }}
             placeholder="Environment"
             options={environments}
-            components={{ SingleValue: ColoredSingleValue }}
+            css={{ width: 150 }}
           />
           <Spacer x={0.2} />
           <Input

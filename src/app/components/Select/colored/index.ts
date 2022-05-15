@@ -1,1 +1,1 @@
-export * from './colored-single-value';
+export * from './colored-select';
