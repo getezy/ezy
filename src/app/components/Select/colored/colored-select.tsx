@@ -15,15 +15,17 @@ export const ColoredSelect: React.FC<ColoredSelectProps> = ({
   css,
   ...props
 }) => {
-  const TypedColoredSelect = SelectFactory<ColoredSelectOption>();
-  const StyledColoredSelect = styled(TypedColoredSelect, StyledSelect, {
-    '.react-select__input-container': {
-      paddingLeft: 10,
-    },
-    '.react-select__placeholder': {
-      paddingLeft: 10,
-    },
-  });
+  const TypedColoredSelect = React.memo(SelectFactory<ColoredSelectOption>());
+  const StyledColoredSelect = React.memo(
+    styled(TypedColoredSelect, StyledSelect, {
+      '.react-select__input-container': {
+        paddingLeft: 10,
+      },
+      '.react-select__placeholder': {
+        paddingLeft: 10,
+      },
+    })
+  );
 
   return (
     <StyledColoredSelect

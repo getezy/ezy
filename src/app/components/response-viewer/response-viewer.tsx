@@ -17,13 +17,13 @@ export function ResponseViewer() {
     >
       <Container css={{ display: 'flex', flexDirection: 'row' }}>
         <Text> Response </Text>
-        <Switch color="success" icon={<FontAwesomeIcon icon={faCode} />} />
+        <Switch bordered size="sm" color="success" icon={<FontAwesomeIcon icon={faCode} />} />
       </Container>
       <Spacer />
       <ReactJson
         theme="bright"
         displayDataTypes={false}
-        style={{ fontFamily: 'inherit', overflowY: 'auto' }}
+        style={{ font: 'inherit', overflowY: 'auto' }}
         src={{
           string: 'this is a test string',
           integer: 42,

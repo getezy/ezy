@@ -8,6 +8,7 @@ import {
   DraggableTabs,
   HorizontalLayoutIcon,
   ResizablePanel,
+  ResponseViewer,
   VerticalLayoutIcon,
 } from '../../components';
 import { useEnvironmentsStore, useTabsStore } from '../../storage';
@@ -83,7 +84,7 @@ export const Requests = (): JSX.Element => {
           gap={0}
           css={{ display: 'flex', height: 'calc(100% - 32px)', paddingTop: 20 }}
         >
-          <ResizablePanel firstNode={<div>first</div>} secondNode={<div>second</div>} />
+          <ResizablePanel firstNode={<div>first</div>} secondNode={<ResponseViewer />} />
         </Container>
       </Container>
     ),
@@ -104,9 +105,7 @@ export const Requests = (): JSX.Element => {
         activeKey={getActiveTabId()}
         showAddButton
         onActivate={activateTab}
-        onAdd={() => {
-          create({ title: 'New Tab' });
-        }}
+        onAdd={() => create({ title: 'New Tab' })}
         onClose={closeTab}
         onDragEnd={(event) => {
           const { active, over } = event;

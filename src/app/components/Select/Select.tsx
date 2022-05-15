@@ -20,8 +20,8 @@ export const Select = <T extends any>({
   css,
   ...props
 }: SelectProps<T>) => {
-  const TypedSelect = SelectFactory<T>();
-  const StyledTypedSelect = styled(TypedSelect, StyledSelect);
+  const TypedSelect = React.memo(SelectFactory<T>());
+  const StyledTypedSelect = React.memo(styled(TypedSelect, StyledSelect));
 
   return (
     <StyledTypedSelect
@@ -35,21 +35,3 @@ export const Select = <T extends any>({
     />
   );
 };
-
-// export const Select: React.FC<React.PropsWithChildren<SelectProps>> = ({
-//   bordered = false,
-//   separator = false,
-//   size = 'md',
-//   css,
-//   ...props
-// }) => (
-//   <StyledSelect
-//     bordered={bordered}
-//     separator={separator}
-//     size={size}
-//     css={css}
-//     className="react-select"
-//     classNamePrefix="react-select"
-//     {...props}
-//   />
-// );

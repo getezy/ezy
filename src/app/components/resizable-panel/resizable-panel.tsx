@@ -36,20 +36,20 @@ const StyledResizable = styled(Resizable, {
         $$minHeight: '40px',
         minHeight: '$$minHeight',
         maxHeight: 'calc(100% - $$minHeight)',
-        borderBottom: 'solid 1px $accents1',
+        borderBottom: 'solid 2px $accents2',
       },
       [ResizablePanelAlignment.Vertical]: {
         $$minWidth: '40px',
         minWidth: '$$minWidth',
         maxWidth: 'calc(100% - $$minWidth)',
-        borderRight: 'solid 1px $accents1',
+        borderRight: 'solid 2px $accents2',
       },
     },
   },
 });
 
 export const ResizablePanel: React.FC<React.PropsWithChildren<ResizablePanelProps>> = ({
-  alignment = ResizablePanelAlignment.Horizontal,
+  alignment = ResizablePanelAlignment.Vertical,
   firstNode,
   secondNode,
 }) => {
