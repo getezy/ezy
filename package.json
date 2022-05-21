@@ -71,7 +71,10 @@
   },
   "dependencies": {
     "@codemirror/lang-json": "^0.20.0",
+    "@codemirror/language": "^0.20.2",
+    "@codemirror/state": "^0.20.0",
     "@codemirror/theme-one-dark": "^0.20.0",
+    "@codemirror/view": "^0.20.6",
     "@dnd-kit/core": "^5.0.3",
     "@dnd-kit/sortable": "^6.0.1",
     "@dnd-kit/utilities": "^3.1.0",
@@ -80,6 +83,7 @@
     "@fortawesome/react-fontawesome": "^0.1.18",
     "@grpc/grpc-js": "^1.6.7",
     "@grpc/proto-loader": "^0.6.12",
+    "@lezer/highlight": "^0.16.0",
     "@nextui-org/react": "^1.0.0-beta.7",
     "@uiw/react-codemirror": "^4.7.0",
     "electron-squirrel-startup": "^1.0.0",
