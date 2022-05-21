@@ -33,6 +33,8 @@ export interface DraggableTabsProps {
 
   closable?: boolean;
 
+  draggable?: boolean;
+
   onActivate?: (key: string) => void;
 
   onAdd?: () => void;
@@ -47,6 +49,7 @@ export const DraggableTabs: React.FC<DraggableTabsProps> = ({
   activeKey,
   showAddButton = false,
   closable = false,
+  draggable = false,
   onAdd = () => {},
   onClose = () => {},
   onActivate,
@@ -82,15 +85,21 @@ export const DraggableTabs: React.FC<DraggableTabsProps> = ({
       }}
       activeKey={activeKey}
       onChange={onActivate}
-      renderTabBar={(props, DefaultTabBar) => (
-        <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={onDragEnd}>
-          <SortableContext items={tabs} strategy={horizontalListSortingStrategy}>
-            <DefaultTabBar {...props}>
-              {(node) => <DraggableTab id={node.key as string}>{node}</DraggableTab>}
-            </DefaultTabBar>
-          </SortableContext>
-        </DndContext>
-      )}
+      renderTabBar={(props, DefaultTabBar) =>
+        draggable ? (
+          <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={onDragEnd}>
+            <SortableContext items={tabs} strategy={horizontalListSortingStrategy}>
+              <DefaultTabBar {...props}>
+                {(node) => <DraggableTab id={node.key as string}>{node}</DraggableTab>}
+              </DefaultTabBar>
+            </SortableContext>
+          </DndContext>
+        ) : (
+          <DefaultTabBar {...props}>
+            {(node) => <DraggableTab id={node.key as string}>{node}</DraggableTab>}
+          </DefaultTabBar>
+        )
+      }
     >
       {tabs.map((tab) => (
         <TabPane

@@ -7,9 +7,6 @@ import React from 'react';
 import { DraggableTabs } from '../../../components';
 
 const StyledRequestHeader = styled('div', {
-  border: 'solid $accents1',
-  borderLeft: '0px',
-  borderRight: '0px',
   backgroundColor: '#282c34',
   // backgroundColor: '$backgroundContrast',
 });
@@ -44,15 +41,12 @@ export const Request: React.FC = () => {
   ];
 
   return (
-    // <Container gap={0} fluid css={{ display: 'flex', flexDirection: 'column' }}>
     <StyledRequestHeader>
       <DraggableTabs
         tabs={tabs}
         // activeKey={getActiveTabId()}
         // onActivate={activateTab}
-        // onAdd={() => create({ title: 'New Tab' })}
         // onClose={closeTab}
-        // onDragEnd={({ active, over }) => moveTab(active.id, over?.id)}
       />
     </StyledRequestHeader>
   );
