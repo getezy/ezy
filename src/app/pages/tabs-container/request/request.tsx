@@ -1,7 +1,7 @@
-// import { json } from '@codemirror/lang-json';
-// import { oneDark } from '@codemirror/theme-one-dark';
+import { json } from '@codemirror/lang-json';
+import { oneDark } from '@codemirror/theme-one-dark';
 import { Container, styled, Text } from '@nextui-org/react';
-// import CodeMirror from '@uiw/react-codemirror';
+import CodeMirror from '@uiw/react-codemirror';
 import React from 'react';
 
 import { DraggableTabs } from '../../../components';
@@ -10,7 +10,8 @@ const StyledRequestHeader = styled('div', {
   border: 'solid $accents1',
   borderLeft: '0px',
   borderRight: '0px',
-  backgroundColor: '$backgroundContrast',
+  backgroundColor: '#282c34',
+  // backgroundColor: '$backgroundContrast',
 });
 
 export const Request: React.FC = () => {
@@ -20,9 +21,14 @@ export const Request: React.FC = () => {
       title: 'Request',
       active: true,
       content: (
-        <Container gap={0} fluid css={{ height: '100%', paddingTop: 20 }}>
-          <Text> test </Text>
-        </Container>
+        <CodeMirror
+          value="console.log('hello world!');"
+          height="auto"
+          // 150px from top
+          maxHeight="calc(100vh - 150px)"
+          theme={oneDark}
+          extensions={[json()]}
+        />
       ),
     },
     {
@@ -49,15 +55,5 @@ export const Request: React.FC = () => {
         // onDragEnd={({ active, over }) => moveTab(active.id, over?.id)}
       />
     </StyledRequestHeader>
-    /* <Container gap={0} fluid css={{ display: 'flex' }}>
-      <CodeMirror
-        value="console.log('hello world!');"
-        height="500px"
-        width="500px"
-        theme={oneDark}
-        extensions={[json()]}
-      />
-    </Container> */
-    // </Container>
   );
 };
