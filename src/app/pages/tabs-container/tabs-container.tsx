@@ -37,6 +37,7 @@ export const TabsContainer = (): JSX.Element => {
       tabs={tabs}
       activeKey={getActiveTabId()}
       showAddButton
+      closable
       onActivate={activateTab}
       onAdd={() => create({ title: 'New Tab' })}
       onClose={closeTab}

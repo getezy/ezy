@@ -31,6 +31,8 @@ export interface DraggableTabsProps {
 
   showAddButton?: boolean;
 
+  closable?: boolean;
+
   onActivate?: (key: string) => void;
 
   onAdd?: () => void;
@@ -44,6 +46,7 @@ export const DraggableTabs: React.FC<DraggableTabsProps> = ({
   tabs,
   activeKey,
   showAddButton = false,
+  closable = false,
   onAdd = () => {},
   onClose = () => {},
   onActivate,
@@ -97,6 +100,7 @@ export const DraggableTabs: React.FC<DraggableTabsProps> = ({
               {tab.title}
             </Text>
           }
+          closable={closable}
           closeIcon={<FontAwesomeIcon size="sm" icon={faXmark} />}
         >
           {tab.content}
