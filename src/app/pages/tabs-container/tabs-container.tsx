@@ -23,7 +23,7 @@ export const TabsContainer = (): JSX.Element => {
         <SendHeader />
         <Container
           fluid
-          gap={0.5}
+          gap={0}
           css={{ display: 'flex', height: 'calc(100% - 32px)', paddingTop: 20 }}
         >
           <ResizablePanel firstNode={<Request />} secondNode={<Response />} />

@@ -16,16 +16,7 @@ export const ColoredSelect: React.FC<ColoredSelectProps> = ({
   ...props
 }) => {
   const TypedColoredSelect = React.memo(SelectFactory<ColoredSelectOption>());
-  const StyledColoredSelect = React.memo(
-    styled(TypedColoredSelect, StyledSelect, {
-      '.react-select__input-container': {
-        paddingLeft: 10,
-      },
-      '.react-select__placeholder': {
-        paddingLeft: 10,
-      },
-    })
-  );
+  const StyledColoredSelect = React.memo(styled(TypedColoredSelect, StyledSelect));
 
   return (
     <StyledColoredSelect
@@ -33,9 +24,10 @@ export const ColoredSelect: React.FC<ColoredSelectProps> = ({
       separator={separator}
       size={size}
       css={css}
+      {...props}
       className="react-select"
       classNamePrefix="react-select"
-      {...props}
+      isSearchable={false}
       components={{
         // eslint-disable-next-line react/no-unstable-nested-components
         SingleValue: (singleValueProps) => <ColoredSingleValue {...singleValueProps} size={size} />,

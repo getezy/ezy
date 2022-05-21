@@ -17,6 +17,7 @@ const ResizablePanelWrapper = styled('div', {
   display: 'flex',
   height: '100%',
   width: '100%',
+  overflow: 'hidden',
   variants: {
     alignment: {
       [ResizablePanelAlignment.Horizontal]: {
