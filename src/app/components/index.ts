@@ -8,3 +8,4 @@ export * from './select';
 export * from './resizable-panel';
 export * from './icons';
 export * from './badge';
+export * from './code-editor';
