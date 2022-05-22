@@ -20,8 +20,8 @@ export const CodeEditor: React.FC = () => {
     <CodeMirror
       value={`{${value}}`}
       height="auto"
-      // 150px from top
-      maxHeight="calc(100vh - 150px)"
+      // 143px from top
+      maxHeight="calc(100vh - 143px)"
       theme={createTheme(
         {
           chalky: theme?.colors.gray500.value!,
@@ -41,7 +41,7 @@ export const CodeEditor: React.FC = () => {
           selection: theme?.colors.accents2.value!,
           cursor: theme?.colors.selection.value!,
         },
-        theme?.fonts.sans.value!,
+        theme?.fonts.mono.value!,
         isDark
       )}
       extensions={[json()]}

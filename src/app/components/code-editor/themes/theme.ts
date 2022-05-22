@@ -32,6 +32,7 @@ export function createTheme(colors: ThemeColors, font: string, isDark: boolean =
 
       '.cm-content': {
         caretColor: colors.cursor,
+        fontFamily: font,
       },
 
       '.cm-cursor, .cm-dropCursor': { borderLeftColor: colors.cursor },

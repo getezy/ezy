@@ -1,4 +1,3 @@
-import { Container, Text } from '@nextui-org/react';
 import React from 'react';
 
 import { CodeEditor, DraggableTabs } from '../../../components';
@@ -15,11 +14,7 @@ export const Request: React.FC = () => {
       id: '2',
       title: 'Metadata',
       active: false,
-      content: (
-        <Container gap={0} fluid css={{ height: '100%', paddingTop: 20 }}>
-          <Text> test2 </Text>
-        </Container>
-      ),
+      content: <CodeEditor />,
     },
   ];
 
