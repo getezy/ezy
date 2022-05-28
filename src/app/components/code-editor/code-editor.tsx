@@ -1,5 +1,5 @@
 import { json } from '@codemirror/lang-json';
-import { useTheme } from '@nextui-org/react';
+import { styled, useTheme } from '@nextui-org/react';
 import CodeMirror from '@uiw/react-codemirror';
 import React from 'react';
 
@@ -12,11 +12,27 @@ const value = `
   "float": 123.123,
 `.repeat(10);
 
+const StyledCodeMirror = styled(CodeMirror, {
+  '.cm-scroller': {
+    scrollbarColor: '#6969dd #e0e0e0',
+    '&::-webkit-scrollbar': {
+      width: 2,
+    },
+    '&::-webkit-scrollbar-track': {
+      backgroundColor: '$accents1',
+    },
+    '&::-webkit-scrollbar-thumb': {
+      boxShadow: 'inset 0 0 6px',
+      color: '$accents4',
+    },
+  },
+});
+
 export const CodeEditor: React.FC = () => {
   const { theme, isDark } = useTheme();
 
   return (
-    <CodeMirror
+    <StyledCodeMirror
       value={`{${value}}`}
       height="auto"
       // 143px from top

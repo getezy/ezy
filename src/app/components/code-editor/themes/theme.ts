@@ -64,6 +64,7 @@ export function createTheme(colors: ThemeColors, font: string, isDark: boolean =
         backgroundColor: colors.background,
         color: colors.stone,
         border: 'none',
+        userSelect: 'none',
       },
 
       '.cm-activeLineGutter': {
