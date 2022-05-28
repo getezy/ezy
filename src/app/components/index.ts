@@ -9,3 +9,4 @@ export * from './resizable-panel';
 export * from './icons';
 export * from './badge';
 export * from './code-editor';
+export * from './tabs';
