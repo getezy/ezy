@@ -107,6 +107,7 @@ export const DraggableTabs: React.FC<DraggableTabsProps> = ({
     >
       {tabs.map((tab) => (
         <TabPane
+          forceRender
           key={tab.id}
           tab={
             <Text h6 weight="light">

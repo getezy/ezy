@@ -15,8 +15,10 @@ const value = `
 const StyledCodeMirror = styled(CodeMirror, {
   '.cm-scroller': {
     scrollbarColor: '#6969dd #e0e0e0',
+
     '&::-webkit-scrollbar': {
       width: 2,
+      height: 2,
     },
     '&::-webkit-scrollbar-track': {
       backgroundColor: '$accents1',
