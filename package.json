@@ -73,7 +73,6 @@
     "@codemirror/lang-json": "^0.20.0",
     "@codemirror/language": "^0.20.2",
     "@codemirror/state": "^0.20.0",
-    "@codemirror/theme-one-dark": "^0.20.0",
     "@codemirror/view": "^0.20.6",
     "@dnd-kit/core": "^5.0.3",
     "@dnd-kit/sortable": "^6.0.1",

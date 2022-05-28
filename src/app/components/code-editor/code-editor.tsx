@@ -1,6 +1,5 @@
 import { json } from '@codemirror/lang-json';
 import { useTheme } from '@nextui-org/react';
-// import { oneDark } from '@codemirror/theme-one-dark';
 import CodeMirror from '@uiw/react-codemirror';
 import React from 'react';
 

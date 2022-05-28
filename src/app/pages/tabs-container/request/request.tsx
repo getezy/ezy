@@ -1,3 +1,4 @@
+import { nanoid } from 'nanoid';
 import React from 'react';
 
 import { CodeEditor, DraggableTabs } from '../../../components';
@@ -5,25 +6,19 @@ import { CodeEditor, DraggableTabs } from '../../../components';
 export const Request: React.FC = () => {
   const tabs = [
     {
-      id: '1',
+      id: nanoid(),
       title: 'Request',
       active: true,
       content: <CodeEditor />,
     },
     {
-      id: '2',
+      id: nanoid(),
       title: 'Metadata',
       active: false,
       content: <CodeEditor />,
     },
   ];
 
-  return (
-    <DraggableTabs
-      tabs={tabs}
-      // activeKey={getActiveTabId()}
-      // onActivate={activateTab}
-      // onClose={closeTab}
-    />
-  );
+  // for horizontal alignment height: 100%
+  return <DraggableTabs tabs={tabs} css={{ width: '100%' }} />;
 };

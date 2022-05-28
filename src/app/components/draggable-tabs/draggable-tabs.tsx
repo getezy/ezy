@@ -9,7 +9,7 @@ import {
 import { horizontalListSortingStrategy, SortableContext } from '@dnd-kit/sortable';
 import { faPlus, faXmark } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Text } from '@nextui-org/react';
+import { CSS, Text } from '@nextui-org/react';
 import { TabPane } from 'rc-tabs';
 import React from 'react';
 
@@ -35,6 +35,8 @@ export interface DraggableTabsProps {
 
   draggable?: boolean;
 
+  css?: CSS;
+
   onActivate?: (key: string) => void;
 
   onAdd?: () => void;
@@ -50,6 +52,7 @@ export const DraggableTabs: React.FC<DraggableTabsProps> = ({
   showAddButton = false,
   closable = false,
   draggable = false,
+  css,
   onAdd = () => {},
   onClose = () => {},
   onActivate,
@@ -77,6 +80,7 @@ export const DraggableTabs: React.FC<DraggableTabsProps> = ({
 
   return (
     <StyledTabs
+      css={css}
       animated={{ inkBar: true, tabPane: false }}
       editable={{
         showAdd: showAddButton,
