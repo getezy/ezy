@@ -1,15 +1,20 @@
 export interface Tab {
   id: string;
   title: string;
-  active: boolean;
+
+  request?: string;
+  metdata?: string;
+  response?: string;
 }
 
 export interface TabsStorage {
   tabs: Tab[];
 
-  create: (tab: Omit<Tab, 'id' | 'active'>) => void;
-  remove: (id: string) => void;
-  activate: (id: string) => void;
-  getActiveTabId: () => string | undefined;
-  move: (activeId: string, overId: string | undefined) => void;
+  activeTabId: string | undefined;
+
+  createTab: (tab: Omit<Tab, 'id' | 'active'>) => void;
+  closeTab: (id: string) => void;
+  activateTab: (id: string) => void;
+  moveTab: (currentId: string, overId: string | undefined) => void;
+  updateTab: (tab: Partial<Tab> & Pick<Tab, 'id'>) => void;
 }

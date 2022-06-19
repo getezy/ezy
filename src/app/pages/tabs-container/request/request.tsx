@@ -1,24 +1,37 @@
 import { nanoid } from 'nanoid';
 import React from 'react';
 
-import { CodeEditor, DraggableTabs } from '../../../components';
+import { CodeEditor, Tab, Tabs } from '../../../components';
+// import { useTabsStore } from '../../../storage';
+
+const data = [
+  {
+    title: 'Request',
+    tabKey: nanoid(),
+    key: nanoid(),
+  },
+  {
+    title: 'Metadata',
+    tabKey: nanoid(),
+    key: nanoid(),
+  },
+];
 
 export const Request: React.FC = () => {
-  const tabs = [
-    {
-      id: nanoid(),
-      title: 'Request',
-      active: true,
-      content: <CodeEditor />,
-    },
-    {
-      id: nanoid(),
-      title: 'Metadata',
-      active: false,
-      content: <CodeEditor />,
-    },
-  ];
+  // const { updateTab } = useTabsStore((store) => store);
 
-  // for horizontal alignment height: 100%
-  return <DraggableTabs tabs={tabs} css={{ width: '100%' }} />;
+  const tabs = data.map((tab) => (
+    <Tab title={tab.title} id={tab.tabKey} key={tab.key}>
+      <CodeEditor maxHeight="calc(100vh - 150px)" maxWidth="100%" />
+    </Tab>
+  ));
+
+  return (
+    // for horizontal alignment height: 100%
+    <div style={{ width: '100%' }}>
+      <Tabs activeKey={tabs[0].props.id} activeBar={{ color: 'secondary' }}>
+        {tabs}
+      </Tabs>
+    </div>
+  );
 };

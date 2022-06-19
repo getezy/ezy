@@ -32,6 +32,8 @@ module.exports = {
     "react/require-default-props": "off",
     'react/jsx-props-no-spreading': 'off',
 
+    'react-hooks/exhaustive-deps': 'off',
+
     'simple-import-sort/imports': [
       2,
       { 'groups': [['^\\u0000'], ['^[^.]'], ['^\\.'], ['^.+\\.s?css$']] }

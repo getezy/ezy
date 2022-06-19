@@ -34,7 +34,7 @@ const StyledResizable = styled(Resizable, {
   variants: {
     alignment: {
       [ResizablePanelAlignment.Horizontal]: {
-        $$minHeight: '40px',
+        $$minHeight: '50px',
         minHeight: '$$minHeight',
         maxHeight: 'calc(100% - $$minHeight)',
       },
@@ -45,6 +45,12 @@ const StyledResizable = styled(Resizable, {
       },
     },
   },
+});
+
+const StyledSecondNode = styled('div', {
+  width: '100%',
+  height: '100%',
+  overflow: 'hidden',
 });
 
 export const ResizablePanel: React.FC<React.PropsWithChildren<ResizablePanelProps>> = ({
@@ -60,7 +66,7 @@ export const ResizablePanel: React.FC<React.PropsWithChildren<ResizablePanelProp
       <StyledResizable alignment={alignment} enable={enableOptions}>
         {firstNode}
       </StyledResizable>
-      {secondNode}
+      <StyledSecondNode>{secondNode}</StyledSecondNode>
     </ResizablePanelWrapper>
   );
 };

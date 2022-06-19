@@ -1,16 +1,9 @@
 import { json } from '@codemirror/lang-json';
 import { styled, useTheme } from '@nextui-org/react';
-import CodeMirror from '@uiw/react-codemirror';
+import CodeMirror, { ViewUpdate } from '@uiw/react-codemirror';
 import React from 'react';
 
 import { createTheme } from './themes/theme';
-
-const value = `
-  "number": 123,
-  "bool": false,
-  "string": "new dasdas",
-  "float": 123.123,
-`.repeat(10);
 
 const StyledCodeMirror = styled(CodeMirror, {
   '.cm-scroller': {
@@ -30,15 +23,27 @@ const StyledCodeMirror = styled(CodeMirror, {
   },
 });
 
-export const CodeEditor: React.FC = () => {
+export interface CodeEditorProps {
+  value?: string;
+
+  maxHeight?: string;
+
+  maxWidth?: string;
+
+  onChange?(value: string, viewUpdate: ViewUpdate): void;
+}
+
+export const CodeEditor: React.FC<CodeEditorProps> = ({ maxHeight, maxWidth, value, onChange }) => {
   const { theme, isDark } = useTheme();
 
   return (
     <StyledCodeMirror
-      value={`{${value}}`}
+      value={value}
       height="auto"
-      // 143px from top
-      maxHeight="calc(100vh - 143px)"
+      width="auto"
+      maxWidth={maxWidth}
+      maxHeight={maxHeight}
+      onChange={onChange}
       theme={createTheme(
         {
           chalky: theme?.colors.gray500.value!,
