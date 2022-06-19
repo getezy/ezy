@@ -1,6 +1,7 @@
 import { json } from '@codemirror/lang-json';
+import { ViewUpdate } from '@codemirror/view';
 import { styled, useTheme } from '@nextui-org/react';
-import CodeMirror, { ViewUpdate } from '@uiw/react-codemirror';
+import CodeMirror from '@uiw/react-codemirror';
 import React from 'react';
 
 import { createTheme } from './themes/theme';
