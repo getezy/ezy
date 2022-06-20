@@ -20,7 +20,7 @@ const StyledContainer = styled('div', {
 export const Response: React.FC = () => {
   const tabs = data.map((tab) => (
     <Tab title={tab.title} id={tab.tabKey} key={tab.key}>
-      <CodeEditor maxWidth="100%" height="calc(100vh - 155px)" />
+      <CodeEditor readOnly maxWidth="100%" height="calc(100vh - 155px)" />
     </Tab>
   ));
 

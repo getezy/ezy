@@ -17,6 +17,8 @@ export interface CodeEditorProps {
 
   maxWidth?: string;
 
+  readOnly?: boolean;
+
   onChange?(value: string, viewUpdate?: ViewUpdate): void;
 }
 
@@ -26,6 +28,7 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
   height = 'auto',
   width = 'auto',
   value,
+  readOnly = false,
   onChange = () => {},
 }) => {
   const { theme, isDark } = useTheme();
@@ -37,8 +40,9 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
       width={width}
       maxWidth={maxWidth}
       maxHeight={maxHeight}
-      onChange={onChange}
+      readOnly={readOnly}
       indentWithTab={false}
+      onChange={onChange}
       basicSetup={{
         searchKeymap: false,
       }}
