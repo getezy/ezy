@@ -71,8 +71,11 @@ function renderTabBarItemContent(
           css={{
             '&:hover': {
               color: '$warning',
+              backgroundColor: '$accents1',
             },
-            minWidth: 10,
+            marginLeft: 5,
+            marginRight: 5,
+            minWidth: 5,
           }}
           icon={<FontAwesomeIcon size="sm" icon={faXmark} />}
           onClick={onTabClose ? () => onTabClose(id) : undefined}
