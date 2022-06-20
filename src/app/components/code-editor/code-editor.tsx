@@ -6,19 +6,6 @@ import React from 'react';
 import { StyledCodeMirror } from './code-editor.styled';
 import { createTheme } from './themes/theme';
 
-// const val = `{
-//    "int": 123,
-//    "string": "test string",
-//    "float": 123.456,
-//    "object": {
-//       "string": "adsasda",
-//    },
-//    "array": [123, 123.123, false, null, "dasdas"],
-//    "bool": false,
-//    "null": null
-//  }
-// `;
-
 export interface CodeEditorProps {
   value?: string;
 
@@ -26,10 +13,15 @@ export interface CodeEditorProps {
 
   maxWidth?: string;
 
-  onChange?(value: string, viewUpdate: ViewUpdate): void;
+  onChange?(value: string, viewUpdate?: ViewUpdate): void;
 }
 
-export const CodeEditor: React.FC<CodeEditorProps> = ({ maxHeight, maxWidth, value, onChange }) => {
+export const CodeEditor: React.FC<CodeEditorProps> = ({
+  maxHeight,
+  maxWidth,
+  value,
+  onChange = () => {},
+}) => {
   const { theme, isDark } = useTheme();
 
   return (
