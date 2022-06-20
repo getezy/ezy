@@ -42,6 +42,7 @@ export const SendHeader = (): JSX.Element => {
                 background: 'transparent',
                 padding: 0,
                 margin: 0,
+                minWidth: 10,
                 color: '$accents6',
                 '&:hover': {
                   color: '$accents5',

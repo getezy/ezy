@@ -19,10 +19,10 @@ const StyledSpan = styled('span', {
   variants: {
     size: {
       xs: {
-        $$selectFontSize: '$fontSizes$tiny',
+        $$selectFontSize: '$fontSizes$xs',
       },
       sm: {
-        $$selectFontSize: '$fontSizes$tiny',
+        $$selectFontSize: '$fontSizes$xs',
       },
       md: {
         $$selectFontSize: '$fontSizes$xs',

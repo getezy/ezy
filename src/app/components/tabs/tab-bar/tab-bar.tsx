@@ -72,6 +72,7 @@ function renderTabBarItemContent(
             '&:hover': {
               color: '$warning',
             },
+            minWidth: 10,
           }}
           icon={<FontAwesomeIcon size="sm" icon={faXmark} />}
           onClick={onTabClose ? () => onTabClose(id) : undefined}
@@ -184,6 +185,7 @@ export const TabBar: React.FC<PropsWithChildren<TabBarProps>> = ({
 
     return (
       <DndContext
+        autoScroll
         sensors={sensors}
         collisionDetection={closestCenter}
         onDragStart={handleDragStart}

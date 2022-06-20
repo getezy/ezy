@@ -26,11 +26,11 @@ const StyledBadge = styled('div', {
     },
     size: {
       xs: {
-        $$badgeFontSize: '$fontSizes$tiny',
+        $$badgeFontSize: '$fontSizes$xs',
         padding: 1,
       },
       sm: {
-        $$badgeFontSize: '$fontSizes$tiny',
+        $$badgeFontSize: '$fontSizes$xs',
         padding: 2,
       },
       md: {

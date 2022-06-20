@@ -71,11 +71,11 @@ export const StyledSelect = styled(ReactSelect, {
 
     size: {
       xs: {
-        $$selectFontSize: '$fontSizes$tiny',
+        $$selectFontSize: '$fontSizes$xs',
         $$selectHeightRatio: '1.2',
       },
       sm: {
-        $$selectFontSize: '$fontSizes$tiny',
+        $$selectFontSize: '$fontSizes$xs',
         $$selectHeightRatio: '1.6',
       },
       md: {
