@@ -11,9 +11,6 @@ export const StyledTabBarItem = styled('div', {
   userSelect: 'none',
   cursor: 'pointer',
 
-  borderLeft: 'solid 0.5px $accents2',
-  borderRight: 'solid 0.5px $accents2',
-
   padding: '5px 0px 5px 5px',
 
   variants: {

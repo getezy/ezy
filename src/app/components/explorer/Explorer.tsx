@@ -7,7 +7,7 @@ const ExplorerGridStyles: CSS = {
   margin: 0,
   minWidth: '250px',
   background: '$backgroundContrast',
-  borderRight: 'solid $accents1 1px',
+  borderRight: 'solid $border 1px',
 };
 
 export interface ExplorerProps {

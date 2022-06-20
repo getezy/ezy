@@ -7,7 +7,7 @@ const ExporerHeaderContainerStyles: CSS = {
   alignContent: 'center',
   height: 50,
   background: '$backgroundContrast',
-  borderBottom: 'solid $accents1 1px',
+  borderBottom: 'solid $border 1px',
 };
 
 export interface ExplorerHeaderProps {

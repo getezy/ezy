@@ -13,7 +13,7 @@ export const CreateServiceModal: React.FC<ModalProps> = ({ onClose = () => {}, .
   };
 
   return (
-    <Modal {...props} onClose={onClose} css={{ backgroundColor: '$accents0' }}>
+    <Modal {...props} onClose={onClose} css={{ backgroundColor: '$backgroundContrast' }}>
       <Modal.Header css={{ userSelect: 'none' }}>
         <Text>New Service</Text>
       </Modal.Header>

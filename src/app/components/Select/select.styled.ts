@@ -9,7 +9,7 @@ export const StyledSelect = styled(ReactSelect, {
     minHeight: 'calc($$selectHeightRatio * $9)',
   },
   '.react-select__placeholder': {
-    color: '$accents5',
+    color: '$accents6',
     fontSize: '$$selectFontSize',
     userSelect: 'none',
   },
@@ -33,18 +33,18 @@ export const StyledSelect = styled(ReactSelect, {
     userSelect: 'none',
   },
   '.react-select__menu': {
-    backgroundColor: '$accents0',
+    backgroundColor: '$backgroundContrast',
     fontSize: '$$selectFontSize',
     zIndex: '$max',
   },
   '.react-select__option': {
-    backgroundColor: '$accents0',
+    backgroundColor: '$backgroundContrast',
   },
   '.react-select__option:hover': {
     backgroundColor: '$accents1',
   },
   '.react-select__option--is-selected': {
-    color: '$accents3',
+    color: '$accents2',
   },
 
   variants: {

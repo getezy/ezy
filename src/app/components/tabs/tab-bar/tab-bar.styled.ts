@@ -15,9 +15,8 @@ export const StyledTabBar = styled('div', {
   },
   '&::-webkit-scrollbar-thumb': {
     boxShadow: 'inset 0 0 6px',
-    color: '$accents4',
+    color: '$accents5',
   },
 
-  borderBottom: 'solid 1px $accents1',
   background: '$backgroundContrast',
 });

@@ -20,7 +20,7 @@ export const Response: React.FC = () => {
 
   return (
     // for horizontal alignment height: 100%
-    <div style={{ borderLeft: 'solid 1px $accents2', width: '100%' }}>
+    <div style={{ borderLeft: 'solid 1px $border', width: '100%' }}>
       <Tabs activeKey={tabs[0].props.id} activeBar={{ color: 'secondary' }}>
         {tabs}
       </Tabs>
