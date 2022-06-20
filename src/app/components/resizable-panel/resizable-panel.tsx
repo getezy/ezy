@@ -34,12 +34,12 @@ const StyledResizable = styled(Resizable, {
   variants: {
     alignment: {
       [ResizablePanelAlignment.Horizontal]: {
-        $$minHeight: '50px',
+        $$minHeight: '150px',
         minHeight: '$$minHeight',
         maxHeight: 'calc(100% - $$minHeight)',
       },
       [ResizablePanelAlignment.Vertical]: {
-        $$minWidth: '50px',
+        $$minWidth: '150px',
         minWidth: '$$minWidth',
         maxWidth: 'calc(100% - $$minWidth)',
       },

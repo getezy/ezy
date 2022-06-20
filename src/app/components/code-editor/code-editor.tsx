@@ -9,6 +9,10 @@ import { createTheme } from './themes/theme';
 export interface CodeEditorProps {
   value?: string;
 
+  height?: string;
+
+  width?: string;
+
   maxHeight?: string;
 
   maxWidth?: string;
@@ -19,6 +23,8 @@ export interface CodeEditorProps {
 export const CodeEditor: React.FC<CodeEditorProps> = ({
   maxHeight,
   maxWidth,
+  height = 'auto',
+  width = 'auto',
   value,
   onChange = () => {},
 }) => {
@@ -27,11 +33,12 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
   return (
     <StyledCodeMirror
       value={value}
-      height="auto"
-      width="auto"
+      height={height}
+      width={width}
       maxWidth={maxWidth}
       maxHeight={maxHeight}
       onChange={onChange}
+      indentWithTab={false}
       basicSetup={{
         searchKeymap: false,
       }}
