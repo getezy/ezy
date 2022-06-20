@@ -145,9 +145,11 @@ export const TabBar: React.FC<PropsWithChildren<TabBarProps>> = ({
 
   const activeTabBarItemIndex = tabBarItems.findIndex((item) => item.props.id === activeKey);
 
-  const moveActiveBar = () => {
+  const moveToActive = () => {
     if (activeKey) {
       const activeTabBarItem = getRef(activeKey);
+
+      activeTabBarItem.current?.scrollIntoView();
 
       setActiveBarStyles({
         width: activeTabBarItem.current?.clientWidth,
@@ -162,7 +164,7 @@ export const TabBar: React.FC<PropsWithChildren<TabBarProps>> = ({
   };
 
   React.useEffect(() => {
-    moveActiveBar();
+    moveToActive();
   }, [activeKey, tabBarItems.length, activeTabBarItemIndex]);
 
   if (draggable) {
@@ -187,18 +189,18 @@ export const TabBar: React.FC<PropsWithChildren<TabBarProps>> = ({
     };
 
     return (
-      <DndContext
-        autoScroll
-        sensors={sensors}
-        collisionDetection={closestCenter}
-        onDragStart={handleDragStart}
-        onDragEnd={handleDragEnd}
-      >
-        <SortableContext
-          items={tabBarItems.map((tab) => ({ id: tab.props.id }))}
-          strategy={horizontalListSortingStrategy}
+      <StyledTabBar>
+        <DndContext
+          autoScroll
+          sensors={sensors}
+          collisionDetection={closestCenter}
+          onDragStart={handleDragStart}
+          onDragEnd={handleDragEnd}
         >
-          <StyledTabBar>
+          <SortableContext
+            items={tabBarItems.map((tab) => ({ id: tab.props.id }))}
+            strategy={horizontalListSortingStrategy}
+          >
             {tabBarItems.map((child) =>
               renderTabBarItemDraggable(
                 child,
@@ -207,20 +209,23 @@ export const TabBar: React.FC<PropsWithChildren<TabBarProps>> = ({
               )
             )}
             <ActiveBar {...activeBar} css={activeBarStyles} />
-          </StyledTabBar>
-        </SortableContext>
-        <DragOverlay
-          adjustScale={false}
-          zIndex={1}
-          modifiers={[restrictToParentElement, restrictToHorizontalAxis]}
-        >
-          {activeDraggingItem
-            ? renderTabBarItem(tabBarItems.find((item) => item.props.id === activeDraggingItem)!, {
-                activeKey,
-              })
-            : null}
-        </DragOverlay>
-      </DndContext>
+          </SortableContext>
+          <DragOverlay
+            adjustScale={false}
+            zIndex={1}
+            modifiers={[restrictToParentElement, restrictToHorizontalAxis]}
+          >
+            {activeDraggingItem
+              ? renderTabBarItem(
+                  tabBarItems.find((item) => item.props.id === activeDraggingItem)!,
+                  {
+                    activeKey,
+                  }
+                )
+              : null}
+          </DragOverlay>
+        </DndContext>
+      </StyledTabBar>
     );
   }
 

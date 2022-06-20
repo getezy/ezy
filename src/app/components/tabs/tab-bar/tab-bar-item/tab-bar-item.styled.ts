@@ -19,10 +19,10 @@ export const StyledTabBarItem = styled('div', {
   variants: {
     active: {
       true: {
-        backgroundColor: '$backgroundContrast',
+        backgroundColor: '$accents2',
       },
       false: {
-        backgroundColor: '$accents1',
+        backgroundColor: '$accents0',
       },
     },
 
