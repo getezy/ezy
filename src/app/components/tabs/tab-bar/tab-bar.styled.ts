@@ -19,4 +19,5 @@ export const StyledTabBar = styled('div', {
   },
 
   background: '$backgroundContrast',
+  borderBottom: 'solid 1px $border',
 });

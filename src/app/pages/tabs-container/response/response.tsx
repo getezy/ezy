@@ -1,3 +1,4 @@
+import { styled } from '@nextui-org/react';
 import { nanoid } from 'nanoid';
 import React from 'react';
 
@@ -11,6 +12,11 @@ const data = [
   },
 ];
 
+const StyledContainer = styled('div', {
+  borderLeft: 'solid 1px $border',
+  width: '100%',
+});
+
 export const Response: React.FC = () => {
   const tabs = data.map((tab) => (
     <Tab title={tab.title} id={tab.tabKey} key={tab.key}>
@@ -20,10 +26,10 @@ export const Response: React.FC = () => {
 
   return (
     // for horizontal alignment height: 100%
-    <div style={{ borderLeft: 'solid 1px $border', width: '100%' }}>
+    <StyledContainer>
       <Tabs activeKey={tabs[0].props.id} activeBar={{ color: 'secondary' }}>
         {tabs}
       </Tabs>
-    </div>
+    </StyledContainer>
   );
 };
