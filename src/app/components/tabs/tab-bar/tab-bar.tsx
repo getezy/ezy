@@ -15,7 +15,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Button, CSS, Text } from '@nextui-org/react';
 import React, { PropsWithChildren } from 'react';
 
-import { useRefs } from '../hooks';
+import { useOnScreen, useRefs } from '../hooks';
 import { TabProps } from '../tab';
 import { ActiveBar, ActiveBarProps } from './active-bar';
 import { StyledTabBar } from './tab-bar.styled';
@@ -140,6 +140,8 @@ export const TabBar: React.FC<PropsWithChildren<TabBarProps>> = ({
   const [activeDraggingItem, setActiveDraggingItem] = React.useState<string>();
 
   const [getRef] = useRefs<HTMLDivElement>();
+  const tabBarRef = React.useRef<HTMLDivElement>(null);
+  const isTabBarVisible = useOnScreen(tabBarRef);
 
   const tabBarItems = React.Children.toArray(children) as React.ReactElement<TabProps>[];
 
@@ -165,7 +167,7 @@ export const TabBar: React.FC<PropsWithChildren<TabBarProps>> = ({
 
   React.useEffect(() => {
     moveToActive();
-  }, [activeKey, tabBarItems.length, activeTabBarItemIndex]);
+  }, [activeKey, tabBarItems.length, activeTabBarItemIndex, isTabBarVisible]);
 
   if (draggable) {
     // eslint-disable-next-line react-hooks/rules-of-hooks
@@ -189,7 +191,7 @@ export const TabBar: React.FC<PropsWithChildren<TabBarProps>> = ({
     };
 
     return (
-      <StyledTabBar>
+      <StyledTabBar ref={tabBarRef}>
         <DndContext
           autoScroll
           sensors={sensors}
@@ -230,7 +232,7 @@ export const TabBar: React.FC<PropsWithChildren<TabBarProps>> = ({
   }
 
   return (
-    <StyledTabBar>
+    <StyledTabBar ref={tabBarRef}>
       {tabBarItems.map((child) =>
         renderTabBarItem(
           child,

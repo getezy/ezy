@@ -5,30 +5,40 @@ import { persist } from 'zustand/middleware';
 
 import { Tab, TabsStorage } from './interfaces';
 
+const firstTabRequestId = nanoid();
+const secondTabRequestId = nanoid();
 const initialState: Tab[] = [
   {
     id: nanoid(),
     title: 'First Tab',
+    requestContainer: {
+      activeTabId: firstTabRequestId,
+      request: {
+        id: firstTabRequestId,
+      },
+      metadata: {
+        id: nanoid(),
+      },
+    },
+    response: {
+      id: nanoid(),
+    },
   },
   {
     id: nanoid(),
     title: 'Second Tab',
-  },
-  {
-    id: nanoid(),
-    title: 'Third Tab',
-  },
-  {
-    id: nanoid(),
-    title: 'Fourth Tab',
-  },
-  {
-    id: nanoid(),
-    title: 'Sixth Tab',
-  },
-  {
-    id: nanoid(),
-    title: 'Seventh Tab',
+    requestContainer: {
+      activeTabId: secondTabRequestId,
+      request: {
+        id: secondTabRequestId,
+      },
+      metadata: {
+        id: nanoid(),
+      },
+    },
+    response: {
+      id: nanoid(),
+    },
   },
 ];
 
@@ -41,7 +51,18 @@ export const useTabsStore = create(
         set((state) => {
           const { tabs } = get();
 
-          tabs.push({ ...tab, id: nanoid() });
+          const requestTabId = nanoid();
+
+          tabs.push({
+            ...tab,
+            id: nanoid(),
+            requestContainer: {
+              activeTabId: requestTabId,
+              request: { id: requestTabId },
+              metadata: { id: nanoid() },
+            },
+            response: { id: nanoid() },
+          });
 
           return { ...state, tabs: [...tabs] };
         }),
@@ -74,13 +95,23 @@ export const useTabsStore = create(
         set((state) => {
           const { tabs } = get();
 
-          let currentTab = tabs.find((item) => item.id === tab.id);
+          const currentTabIndex = tabs.findIndex((item) => item.id === tab.id);
 
-          if (currentTab) {
-            currentTab = { ...currentTab, ...tab };
+          if (currentTabIndex >= 0) {
+            return {
+              ...state,
+              tabs: [
+                ...tabs.slice(0, currentTabIndex),
+                {
+                  ...tabs[currentTabIndex],
+                  ...tab,
+                },
+                ...tabs.slice(currentTabIndex + 1),
+              ],
+            };
           }
 
-          return { ...state, tabs: [...tabs] };
+          return { ...state };
         }),
     }),
     {

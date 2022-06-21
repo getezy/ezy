@@ -1,42 +1,100 @@
 import { styled } from '@nextui-org/react';
-import { nanoid } from 'nanoid';
 import React from 'react';
 
 import { CodeEditor, Tab, Tabs } from '../../../components';
-// import { useTabsStore } from '../../../storage';
-
-const data = [
-  {
-    title: 'Request',
-    tabKey: nanoid(),
-    key: nanoid(),
-  },
-  {
-    title: 'Metadata',
-    tabKey: nanoid(),
-    key: nanoid(),
-  },
-];
+import { Tab as ITab, useTabsStore } from '../../../storage';
 
 const StyledContainer = styled('div', {
   width: '100%',
   backgroundColor: '$backgroundContrast',
 });
 
-export const Request: React.FC = () => {
-  // const { updateTab } = useTabsStore((store) => store);
+export interface RequestProps {
+  tab: ITab;
+}
 
-  const tabs = data.map((tab) => (
-    <Tab title={tab.title} id={tab.tabKey} key={tab.key}>
-      <CodeEditor maxWidth="100%" height="calc(100vh - 155px)" />
-    </Tab>
-  ));
+export const Request: React.FC<RequestProps> = ({ tab }) => {
+  const { updateTab } = useTabsStore((store) => store);
+
+  const [activeTabId, setActiveTabId] = React.useState<string>(
+    tab.requestContainer.activeTabId || tab.requestContainer.request.id
+  );
+
+  const handleTabActivate = (key: string) => {
+    const updatedTab = {
+      ...tab,
+      requestContainer: {
+        ...tab.requestContainer,
+        activeTabId: key,
+      },
+    };
+
+    setActiveTabId(key);
+    updateTab(updatedTab);
+  };
+
+  const handleRequestChange = (requestValue: string) => {
+    const updatedTab = {
+      ...tab,
+      requestContainer: {
+        ...tab.requestContainer,
+        request: {
+          ...tab.requestContainer.request,
+          value: requestValue,
+        },
+      },
+    };
+
+    updateTab(updatedTab);
+  };
+
+  const handleMetadataChange = (metadataValue: string) => {
+    const updatedTab = {
+      ...tab,
+      requestContainer: {
+        ...tab.requestContainer,
+        metadata: {
+          ...tab.requestContainer.metadata,
+          value: metadataValue,
+        },
+      },
+    };
+
+    updateTab(updatedTab);
+  };
 
   return (
     // for horizontal alignment height: 100%
     <StyledContainer>
-      <Tabs activeKey={tabs[0].props.id} activeBar={{ color: 'secondary' }}>
-        {tabs}
+      <Tabs
+        activeKey={activeTabId}
+        activeBar={{ color: 'secondary' }}
+        onTabActivate={handleTabActivate}
+      >
+        <Tab
+          title="Request"
+          id={tab.requestContainer.request.id}
+          key={tab.requestContainer.request.id}
+        >
+          <CodeEditor
+            maxWidth="100%"
+            height="calc(100vh - 152px)"
+            value={tab.requestContainer.request.value}
+            onChange={handleRequestChange}
+          />
+        </Tab>
+        <Tab
+          title="Metadata"
+          id={tab.requestContainer.metadata.id}
+          key={tab.requestContainer.metadata.id}
+        >
+          <CodeEditor
+            maxWidth="100%"
+            height="calc(100vh - 152px)"
+            value={tab.requestContainer.metadata.value}
+            onChange={handleMetadataChange}
+          />
+        </Tab>
       </Tabs>
     </StyledContainer>
   );

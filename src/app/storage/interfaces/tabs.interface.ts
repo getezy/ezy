@@ -1,10 +1,31 @@
+export interface TabRequest {
+  id: string;
+  value?: string;
+}
+
+export interface TabMetadata {
+  id: string;
+  value?: string;
+}
+
+export interface TabResponse {
+  id: string;
+  value?: string;
+}
+
+export interface TabRequestContainer {
+  activeTabId: string | undefined;
+  request: TabRequest;
+  metadata: TabMetadata;
+}
+
 export interface Tab {
   id: string;
   title: string;
 
-  request?: string;
-  metdata?: string;
-  response?: string;
+  requestContainer: TabRequestContainer;
+
+  response: TabResponse;
 }
 
 export interface TabsStorage {
