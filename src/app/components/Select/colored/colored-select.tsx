@@ -3,6 +3,7 @@ import React from 'react';
 
 import { SelectFactory, SelectProps } from '../select';
 import { StyledSelect } from '../select.styled';
+import { ColoredOption } from './colored-option';
 import { ColoredSingleValue } from './colored-single-value';
 import { ColoredSelectOption } from './interfaces';
 
@@ -31,6 +32,8 @@ export const ColoredSelect: React.FC<ColoredSelectProps> = ({
       components={{
         // eslint-disable-next-line react/no-unstable-nested-components
         SingleValue: (singleValueProps) => <ColoredSingleValue {...singleValueProps} size={size} />,
+        // eslint-disable-next-line react/no-unstable-nested-components
+        Option: (optionProps) => <ColoredOption {...optionProps} size={size} />,
       }}
     />
   );

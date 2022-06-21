@@ -1,5 +1,6 @@
+import { indentWithTab } from '@codemirror/commands';
 import { json } from '@codemirror/lang-json';
-import { ViewUpdate } from '@codemirror/view';
+import { keymap, ViewUpdate } from '@codemirror/view';
 import { useTheme } from '@nextui-org/react';
 import React from 'react';
 
@@ -56,7 +57,7 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
         },
         isDark
       )}
-      extensions={[json()]}
+      extensions={[keymap.of([indentWithTab]), json()]}
     />
   );
 };

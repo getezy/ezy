@@ -61,9 +61,14 @@ export const ResizablePanel: React.FC<React.PropsWithChildren<ResizablePanelProp
   const enableOptions: ResizableEnableOptions =
     alignment === ResizablePanelAlignment.Vertical ? { right: true } : { bottom: true };
 
+  const defaultSize =
+    alignment === ResizablePanelAlignment.Vertical
+      ? { width: '50%', height: '100%' }
+      : { width: '100%', height: '50%' };
+
   return (
     <ResizablePanelWrapper alignment={alignment}>
-      <StyledResizable alignment={alignment} enable={enableOptions}>
+      <StyledResizable alignment={alignment} enable={enableOptions} defaultSize={defaultSize}>
         {firstNode}
       </StyledResizable>
       <StyledSecondNode>{secondNode}</StyledSecondNode>

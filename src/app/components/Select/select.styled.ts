@@ -33,18 +33,19 @@ export const StyledSelect = styled(ReactSelect, {
     userSelect: 'none',
   },
   '.react-select__menu': {
-    backgroundColor: '$backgroundContrast',
+    backgroundColor: '$accents0',
+    border: 'solid 1px $border',
     fontSize: '$$selectFontSize',
     zIndex: '$max',
   },
   '.react-select__option': {
-    backgroundColor: '$backgroundContrast',
+    backgroundColor: '$accents0',
   },
   '.react-select__option:hover': {
-    backgroundColor: '$accents1',
+    backgroundColor: '$accents2',
   },
   '.react-select__option--is-selected': {
-    color: '$accents2',
+    backgroundColor: '$accents1',
   },
 
   variants: {
