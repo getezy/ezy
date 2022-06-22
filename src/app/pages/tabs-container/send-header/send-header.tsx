@@ -10,6 +10,7 @@ import { SendButton } from './send-button.styled';
 
 export const SendHeader = (): JSX.Element => {
   const [createEnvironmentModalVisible, setCreateEnvironmentModalVisible] = React.useState(false);
+  const { removeEnvironment } = useEnvironmentsStore((store) => store);
   const environments = useEnvironmentsStore((store) => store.environments).map((env) => ({
     value: env.id,
     label: env.name,
@@ -24,10 +25,15 @@ export const SendHeader = (): JSX.Element => {
           placeholder="Environment"
           options={environments}
           css={{ width: 150 }}
+          onRemove={(data) => {
+            removeEnvironment(data.value);
+          }}
         />
         <Spacer x={0.2} />
         <Input
           size="sm"
+          bordered
+          borderWeight="light"
           animated={false}
           clearable
           placeholder="127.0.0.1:3000"
@@ -35,7 +41,6 @@ export const SendHeader = (): JSX.Element => {
           contentRight={
             <Button
               auto
-              size="xs"
               light
               icon={<FontAwesomeIcon icon={faFloppyDisk} />}
               css={{

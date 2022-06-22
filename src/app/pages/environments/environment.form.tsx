@@ -35,6 +35,7 @@ export const EnvironmentForm: React.FC<EnvironmentFormProps> = ({ onSubmit = () 
           <Input
             autoFocus
             bordered
+            borderWeight="light"
             size="sm"
             animated={false}
             label="Name"
@@ -52,6 +53,7 @@ export const EnvironmentForm: React.FC<EnvironmentFormProps> = ({ onSubmit = () 
         <Spacer />
         <Input
           bordered
+          borderWeight="light"
           size="sm"
           animated={false}
           label="URL"

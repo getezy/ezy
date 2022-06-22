@@ -1,11 +1,10 @@
 import { styled, VariantProps } from '@nextui-org/react';
 import React from 'react';
 
-const StyledCircle = styled('span', {
-  height: 'calc($$circleHeightRatio * $3)',
-  width: 'calc($$circleWidthRatio * $3)',
+const StyledCircle = styled('div', {
+  minHeight: 'calc($$circleHeightRatio * $3)',
+  minWidth: 'calc($$circleWidthRatio * $3)',
   borderRadius: '50%',
-  display: 'inline-block',
 
   variants: {
     size: {

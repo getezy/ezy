@@ -7,6 +7,7 @@ export const StyledSelect = styled(ReactSelect, {
     backgroundColor: '$accents0',
     height: 'calc($$selectHeightRatio * $9)',
     minHeight: 'calc($$selectHeightRatio * $9)',
+    flexWrap: 'nowrap',
   },
   '.react-select__placeholder': {
     color: '$accents6',
@@ -31,11 +32,12 @@ export const StyledSelect = styled(ReactSelect, {
     color: '$text',
     fontSize: '$$selectFontSize',
     userSelect: 'none',
+    overflow: 'visible',
   },
   '.react-select__menu': {
     backgroundColor: '$accents0',
-    border: 'solid 1px $border',
     fontSize: '$$selectFontSize',
+    border: 'solid 1px $border',
     zIndex: '$max',
   },
   '.react-select__option': {

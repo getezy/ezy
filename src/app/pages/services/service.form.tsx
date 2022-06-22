@@ -33,6 +33,7 @@ export const ServiceForm: React.FC<ServiceFormProps> = ({ onSubmit = () => {}, i
           <Input
             autoFocus
             bordered
+            borderWeight="light"
             size="sm"
             animated={false}
             label="Name"

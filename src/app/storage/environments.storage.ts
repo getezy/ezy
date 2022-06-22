@@ -10,7 +10,7 @@ export const useEnvironmentsStore = create(
   persist<EnvironmentsStorage>(
     (set, get) => ({
       environments: initialState,
-      create: (tab) =>
+      createEnvironment: (tab) =>
         set((state) => {
           const { environments } = get();
 
@@ -18,7 +18,7 @@ export const useEnvironmentsStore = create(
 
           return { ...state, environments: [...environments] };
         }),
-      remove: (id) =>
+      removeEnvironment: (id) =>
         set((state) => {
           const { environments } = get();
           return { ...state, environments: environments.filter((item) => item.id !== id) };

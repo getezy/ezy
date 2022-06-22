@@ -1,19 +1,18 @@
 import { styled, VariantProps } from '@nextui-org/react';
 import React from 'react';
-import { SingleValueProps } from 'react-select';
+import { components, SingleValueProps } from 'react-select';
 
 import { ColorCircle } from '../../color-circle';
 import { ColoredSelectOption } from './interfaces';
 
 const StyledSpan = styled('span', {
-  position: 'absolute',
   display: 'flex',
   flexWrap: 'nowrap',
   alignItems: 'center',
-  userSelect: 'none',
-  paddingLeft: 5,
-  font: 'inherit',
   gap: 5,
+
+  userSelect: 'none',
+  font: 'inherit',
   fontSize: '$$selectFontSize',
 
   variants: {
@@ -37,12 +36,19 @@ const StyledSpan = styled('span', {
   },
 });
 
-export type ColoredSingleValueProps = SingleValueProps<ColoredSelectOption> &
-  VariantProps<typeof StyledSpan>;
+export type ColoredSingleValueProps = SingleValueProps<ColoredSelectOption> & {
+  selectProps: VariantProps<typeof StyledSpan>;
+};
 
-export const ColoredSingleValue: React.FC<ColoredSingleValueProps> = ({ data, size = 'sm' }) => (
-  <StyledSpan size={size}>
-    <ColorCircle color={data.color} />
-    {data.label}
-  </StyledSpan>
+export const ColoredSingleValue: React.FC<ColoredSingleValueProps> = ({
+  data,
+  selectProps,
+  ...props
+}) => (
+  <components.SingleValue {...props} selectProps={selectProps} data={data}>
+    <StyledSpan size={selectProps.size}>
+      <ColorCircle color={data.color} size={selectProps.size} />
+      {data.label}
+    </StyledSpan>
+  </components.SingleValue>
 );

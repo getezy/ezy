@@ -8,6 +8,6 @@ export interface Environment {
 export interface EnvironmentsStorage {
   environments: Environment[];
 
-  create: (tab: Omit<Environment, 'id'>) => void;
-  remove: (id: string) => void;
+  createEnvironment: (tab: Omit<Environment, 'id'>) => void;
+  removeEnvironment: (id: string) => void;
 }

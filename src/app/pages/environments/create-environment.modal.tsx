@@ -5,7 +5,7 @@ import { Environment, useEnvironmentsStore } from '../../storage';
 import { EnvironmentForm } from './environment.form';
 
 export const CreateEnvironmentModal: React.FC<ModalProps> = ({ onClose = () => {}, ...props }) => {
-  const createEnvironment = useEnvironmentsStore((store) => store.create);
+  const createEnvironment = useEnvironmentsStore((store) => store.createEnvironment);
 
   const handleSubmit = (payload: Environment) => {
     createEnvironment(payload);
