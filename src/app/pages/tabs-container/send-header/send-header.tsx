@@ -21,24 +21,35 @@ export const SendHeader: React.FC<SendHeaderProps> = ({ tab }) => {
   const [createEnvironmentModalVisible, setCreateEnvironmentModalVisible] = React.useState(false);
 
   const [selectedEnvironment, setSelectedEnvironment] = React.useState<Environment | null>(
-    tab.environment || null
+    environments.find((item) => item.value === tab.environmentId) || null
   );
 
-  const [url, setUrl] = React.useState<string>();
+  const [url, setUrl] = React.useState(selectedEnvironment?.url || tab.url);
 
   const handleEnvironmentChange = (value: MultiValue<Environment> | SingleValue<Environment>) => {
+    const environment = value as Environment;
+
     const updatedTab: Tab = {
       ...tab,
-      environment: value as Environment,
+      environmentId: environment?.value || null,
+      url: environment?.url || '',
     };
 
-    setSelectedEnvironment(value as Environment);
+    setSelectedEnvironment(environment);
+    setUrl(environment?.url || '');
     updateTab(updatedTab);
   };
 
-  const handleUrlChange = (url: string) => {
-    setUrl(url);
+  const handleUrlChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const updatedTab: Tab = {
+      ...tab,
+      environmentId: null,
+      url: e.target.value,
+    };
+
+    setUrl(e.target.value);
     setSelectedEnvironment(null);
+    updateTab(updatedTab);
   };
 
   return (
@@ -66,6 +77,8 @@ export const SendHeader: React.FC<SendHeaderProps> = ({ tab }) => {
           clearable
           placeholder="127.0.0.1:3000"
           css={{ flex: 5 }}
+          value={url}
+          onChange={handleUrlChange}
           contentRight={
             <Button
               auto

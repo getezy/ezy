@@ -11,6 +11,8 @@ const initialState: Tab[] = [
   {
     id: nanoid(),
     title: 'First Tab',
+    url: '',
+    environmentId: null,
     requestContainer: {
       activeTabId: firstTabRequestId,
       request: {
@@ -27,6 +29,8 @@ const initialState: Tab[] = [
   {
     id: nanoid(),
     title: 'Second Tab',
+    url: '',
+    environmentId: null,
     requestContainer: {
       activeTabId: secondTabRequestId,
       request: {
