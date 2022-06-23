@@ -1,14 +1,17 @@
 import { Button, Modal, ModalProps, Text } from '@nextui-org/react';
+import { nanoid } from 'nanoid';
 import React from 'react';
 
 import { Environment, useEnvironmentsStore } from '../../storage';
 import { EnvironmentForm } from './environment.form';
 
 export type CreateEnvironmentModalProps = ModalProps & {
-  defaultValues?: Partial<Omit<Environment, 'id'>>;
+  defaultValues?: Partial<Omit<Environment, 'value'>>;
+  onCreate: (environment: Environment) => void;
 };
 
 export const CreateEnvironmentModal: React.FC<CreateEnvironmentModalProps> = ({
+  onCreate,
   onClose = () => {},
   defaultValues,
   ...props
@@ -16,8 +19,9 @@ export const CreateEnvironmentModal: React.FC<CreateEnvironmentModalProps> = ({
   const createEnvironment = useEnvironmentsStore((store) => store.createEnvironment);
 
   const handleSubmit = (payload: Environment) => {
-    createEnvironment(payload);
-    onClose();
+    const environment = { ...payload, value: nanoid() };
+    createEnvironment(environment);
+    onCreate(environment);
   };
 
   return (

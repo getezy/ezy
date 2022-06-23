@@ -1,4 +1,3 @@
-import { nanoid } from 'nanoid';
 import create from 'zustand';
 import { persist } from 'zustand/middleware';
 
@@ -10,11 +9,11 @@ export const useEnvironmentsStore = create(
   persist<EnvironmentsStorage>(
     (set, get) => ({
       environments: initialState,
-      createEnvironment: (tab) =>
+      createEnvironment: (environment) =>
         set((state) => {
           const { environments } = get();
 
-          environments.push({ ...tab, value: nanoid() });
+          environments.push(environment);
 
           return { ...state, environments: [...environments] };
         }),

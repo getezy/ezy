@@ -1,4 +1,5 @@
 export interface Environment {
+  // for compatibility with react-select, value === id
   value: string;
   label: string;
   url: string;
@@ -8,6 +9,6 @@ export interface Environment {
 export interface EnvironmentsStorage {
   environments: Environment[];
 
-  createEnvironment: (tab: Omit<Environment, 'id'>) => void;
+  createEnvironment: (environment: Environment) => void;
   removeEnvironment: (id: string) => void;
 }

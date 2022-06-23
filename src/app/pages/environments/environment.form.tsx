@@ -9,7 +9,7 @@ import { Environment } from '../../storage';
 export interface EnvironmentFormProps {
   id?: string;
 
-  defaultValues?: Partial<Omit<Environment, 'id'>>;
+  defaultValues?: Partial<Omit<Environment, 'value'>>;
 
   onSubmit: (payload: Environment) => void;
 }

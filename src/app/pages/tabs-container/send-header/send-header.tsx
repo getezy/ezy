@@ -66,6 +66,15 @@ export const SendHeader: React.FC<SendHeaderProps> = ({ tab }) => {
     updateTab(updatedTab);
   };
 
+  const handleCreateEnvironmentModalSubmit = (environment: Environment) => {
+    handleEnvironmentChange(environment);
+    setCreateEnvironmentModalVisible(false);
+  };
+
+  const handleCreateEnvironmentModalClose = () => {
+    setCreateEnvironmentModalVisible(false);
+  };
+
   return (
     <>
       <Container gap={0.5} fluid css={{ display: 'flex', flexWrap: 'nowrap' }}>
@@ -128,7 +137,8 @@ export const SendHeader: React.FC<SendHeaderProps> = ({ tab }) => {
         defaultValues={{
           url,
         }}
-        onClose={() => setCreateEnvironmentModalVisible(false)}
+        onCreate={handleCreateEnvironmentModalSubmit}
+        onClose={handleCreateEnvironmentModalClose}
       />
     </>
   );

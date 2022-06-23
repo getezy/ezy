@@ -42,6 +42,9 @@ export const StyledSelect = styled(ReactSelect, {
     fontSize: '$$selectFontSize',
     zIndex: '$max',
   },
+  '.react-select__menu-list': {
+    padding: 0,
+  },
   '.react-select__option': {
     backgroundColor: '$accents0',
   },
