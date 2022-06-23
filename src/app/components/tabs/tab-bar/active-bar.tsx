@@ -3,7 +3,7 @@ import React from 'react';
 
 const StyledActiveBar = styled('div', {
   position: 'absolute',
-  height: 2,
+  height: 1,
   pointerEvents: 'none',
   zIndex: 2,
 

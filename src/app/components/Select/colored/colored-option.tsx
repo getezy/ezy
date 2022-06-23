@@ -48,6 +48,10 @@ const RemoveButton = styled('div', {
   borderRadius: 5,
   color: '$text',
   height: 20,
+
+  '&:hover': {
+    backgroundColor: '$red500',
+  },
 });
 
 export type ColoredOptionProps = OptionProps<ColoredSelectOption> & {

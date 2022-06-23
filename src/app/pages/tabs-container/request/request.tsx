@@ -68,7 +68,7 @@ export const Request: React.FC<RequestProps> = ({ tab }) => {
     <StyledContainer>
       <Tabs
         activeKey={activeTabId}
-        activeBar={{ color: 'secondary' }}
+        activeBar={{ color: 'secondary', position: 'bottom' }}
         onTabActivate={handleTabActivate}
       >
         <Tab

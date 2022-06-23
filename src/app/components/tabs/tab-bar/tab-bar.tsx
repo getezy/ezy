@@ -12,7 +12,7 @@ import { restrictToHorizontalAxis, restrictToParentElement } from '@dnd-kit/modi
 import { horizontalListSortingStrategy, SortableContext } from '@dnd-kit/sortable';
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Button, CSS, Text } from '@nextui-org/react';
+import { Button, CSS } from '@nextui-org/react';
 import React, { PropsWithChildren } from 'react';
 
 import { useOnScreen, useRefs } from '../hooks';
@@ -61,7 +61,7 @@ function renderTabBarItemContent(
 
   return (
     <>
-      <Text>{title}</Text>
+      {title}
       {closable && (
         <Button
           auto
@@ -71,7 +71,7 @@ function renderTabBarItemContent(
           css={{
             '&:hover': {
               color: '$warning',
-              backgroundColor: '$accents1',
+              backgroundColor: '$accents0',
             },
             marginLeft: 5,
             marginRight: 5,

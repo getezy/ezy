@@ -27,7 +27,7 @@ export const TabsContainer = (): JSX.Element => {
       onTabActivate={activateTab}
       onTabClose={closeTab}
       onTabDragEnd={moveTab}
-      activeBar={{ color: 'warning' }}
+      activeBar={{ color: 'warning', position: 'bottom' }}
     >
       {tabs}
     </Tabs>

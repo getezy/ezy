@@ -16,7 +16,7 @@ export interface ResponseProps {
 export const Response: React.FC<ResponseProps> = ({ tab }) => (
   // for horizontal alignment height: 100%
   <StyledContainer>
-    <Tabs activeKey={tab.response.id} activeBar={{ color: 'secondary' }}>
+    <Tabs activeKey={tab.response.id} activeBar={{ color: 'secondary', position: 'bottom' }}>
       <Tab title="Response" id={tab.response.id} key={tab.response.id}>
         <CodeEditor
           readOnly

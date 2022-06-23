@@ -12,14 +12,20 @@ export const StyledTabBarItem = styled('div', {
   cursor: 'pointer',
 
   padding: '5px 0px 5px 5px',
+  backgroundColor: '$accents0',
+
+  '&:hover': {
+    color: '$text',
+    backgroundColor: '$accents1',
+  },
 
   variants: {
     active: {
       true: {
-        backgroundColor: '$accents2',
+        color: '$text',
       },
       false: {
-        backgroundColor: '$accents0',
+        color: '$accents8',
       },
     },
 
