@@ -4,7 +4,7 @@ import {
   DragEndEvent,
   DragOverlay,
   DragStartEvent,
-  PointerSensor,
+  MouseSensor,
   useSensor,
   useSensors,
 } from '@dnd-kit/core';
@@ -173,7 +173,7 @@ export const TabBar: React.FC<PropsWithChildren<TabBarProps>> = ({
     // eslint-disable-next-line react-hooks/rules-of-hooks
     const sensors = useSensors(
       // eslint-disable-next-line react-hooks/rules-of-hooks
-      useSensor(PointerSensor, {
+      useSensor(MouseSensor, {
         activationConstraint: {
           delay: 150,
           tolerance: 30,
