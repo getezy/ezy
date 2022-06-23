@@ -9,7 +9,7 @@ import { ColorPicker } from './color-picker';
 const StyledWrapper = styled('div', {
   display: 'flex',
   flexWrap: 'nowrap',
-  alignItems: 'baseline',
+  alignItems: 'center',
 });
 
 export interface ColorPickerInputProps {

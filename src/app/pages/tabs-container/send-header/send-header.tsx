@@ -40,6 +40,20 @@ export const SendHeader: React.FC<SendHeaderProps> = ({ tab }) => {
     updateTab(updatedTab);
   };
 
+  const handleRemoveEnvironment = (environment: Environment) => {
+    removeEnvironment(environment.value);
+
+    if (selectedEnvironment?.value === environment.value) {
+      const updatedTab: Tab = {
+        ...tab,
+        environmentId: null,
+      };
+
+      setSelectedEnvironment(null);
+      updateTab(updatedTab);
+    }
+  };
+
   const handleUrlChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const updatedTab: Tab = {
       ...tab,
@@ -64,9 +78,7 @@ export const SendHeader: React.FC<SendHeaderProps> = ({ tab }) => {
           css={{ width: 150 }}
           value={selectedEnvironment}
           onChange={handleEnvironmentChange}
-          onRemove={(data) => {
-            removeEnvironment(data.value);
-          }}
+          onRemove={handleRemoveEnvironment}
         />
         <Spacer x={0.2} />
         <Input
@@ -113,6 +125,9 @@ export const SendHeader: React.FC<SendHeaderProps> = ({ tab }) => {
         preventClose
         blur
         open={createEnvironmentModalVisible}
+        defaultValues={{
+          url,
+        }}
         onClose={() => setCreateEnvironmentModalVisible(false)}
       />
     </>

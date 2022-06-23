@@ -1,4 +1,5 @@
 import { Container, Input, Spacer } from '@nextui-org/react';
+import chroma from 'chroma-js';
 import React from 'react';
 import { useForm } from 'react-hook-form';
 
@@ -8,17 +9,23 @@ import { Environment } from '../../storage';
 export interface EnvironmentFormProps {
   id?: string;
 
+  defaultValues?: Partial<Omit<Environment, 'id'>>;
+
   onSubmit: (payload: Environment) => void;
 }
 
-export const EnvironmentForm: React.FC<EnvironmentFormProps> = ({ onSubmit = () => {}, id }) => {
+export const EnvironmentForm: React.FC<EnvironmentFormProps> = ({
+  onSubmit = () => {},
+  id,
+  defaultValues,
+}) => {
   const {
     register,
     handleSubmit,
     formState: { errors },
     setValue,
     watch,
-  } = useForm<Environment>({ defaultValues: { color: '#00D7FF' } });
+  } = useForm<Environment>({ defaultValues: { color: chroma.random().hex(), ...defaultValues } });
 
   return (
     <form id={id} onSubmit={handleSubmit(onSubmit)}>

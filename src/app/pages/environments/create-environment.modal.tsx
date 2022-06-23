@@ -4,7 +4,15 @@ import React from 'react';
 import { Environment, useEnvironmentsStore } from '../../storage';
 import { EnvironmentForm } from './environment.form';
 
-export const CreateEnvironmentModal: React.FC<ModalProps> = ({ onClose = () => {}, ...props }) => {
+export type CreateEnvironmentModalProps = ModalProps & {
+  defaultValues?: Partial<Omit<Environment, 'id'>>;
+};
+
+export const CreateEnvironmentModal: React.FC<CreateEnvironmentModalProps> = ({
+  onClose = () => {},
+  defaultValues,
+  ...props
+}) => {
   const createEnvironment = useEnvironmentsStore((store) => store.createEnvironment);
 
   const handleSubmit = (payload: Environment) => {
@@ -18,7 +26,11 @@ export const CreateEnvironmentModal: React.FC<ModalProps> = ({ onClose = () => {
         <Text>New Environment</Text>
       </Modal.Header>
       <Modal.Body>
-        <EnvironmentForm id="create-environment-form" onSubmit={handleSubmit} />
+        <EnvironmentForm
+          id="create-environment-form"
+          defaultValues={defaultValues}
+          onSubmit={handleSubmit}
+        />
       </Modal.Body>
       <Modal.Footer>
         <Button auto bordered size="sm" color="error" onClick={onClose}>
