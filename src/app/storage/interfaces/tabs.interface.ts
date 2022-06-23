@@ -1,3 +1,5 @@
+import { Environment } from './environments.interface';
+
 export interface TabRequest {
   id: string;
   value?: string;
@@ -22,6 +24,8 @@ export interface TabRequestContainer {
 export interface Tab {
   id: string;
   title: string;
+  environment?: Environment | null;
+  url?: string;
 
   requestContainer: TabRequestContainer;
 

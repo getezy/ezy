@@ -1,6 +1,6 @@
 export interface Environment {
-  id: string;
-  name: string;
+  value: string;
+  label: string;
   url: string;
   color: string;
 }

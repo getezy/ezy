@@ -41,8 +41,8 @@ export const EnvironmentForm: React.FC<EnvironmentFormProps> = ({ onSubmit = () 
             label="Name"
             clearable
             css={{ flex: 1 }}
-            color={errors.name ? 'error' : 'default'}
-            {...register('name', { required: true })}
+            color={errors.label ? 'error' : 'default'}
+            {...register('label', { required: true })}
           />
           <Spacer />
           <ColorPickerInput
@@ -58,7 +58,7 @@ export const EnvironmentForm: React.FC<EnvironmentFormProps> = ({ onSubmit = () 
           animated={false}
           label="URL"
           clearable
-          color={errors.name ? 'error' : 'default'}
+          color={errors.url ? 'error' : 'default'}
           {...register('url', { required: true })}
         />
       </Container>

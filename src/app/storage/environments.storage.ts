@@ -14,14 +14,14 @@ export const useEnvironmentsStore = create(
         set((state) => {
           const { environments } = get();
 
-          environments.push({ ...tab, id: nanoid() });
+          environments.push({ ...tab, value: nanoid() });
 
           return { ...state, environments: [...environments] };
         }),
       removeEnvironment: (id) =>
         set((state) => {
           const { environments } = get();
-          return { ...state, environments: environments.filter((item) => item.id !== id) };
+          return { ...state, environments: environments.filter((item) => item.value !== id) };
         }),
     }),
     {

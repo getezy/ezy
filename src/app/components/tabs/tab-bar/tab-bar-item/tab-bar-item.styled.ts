@@ -5,6 +5,7 @@ export const StyledTabBarItem = styled('div', {
   flexWrap: 'nowrap',
   whiteSpace: 'nowrap',
   alignItems: 'baseline',
+  fontFamily: '$sans',
 
   width: 'fit-content',
 
@@ -15,17 +16,24 @@ export const StyledTabBarItem = styled('div', {
   backgroundColor: '$accents0',
 
   '&:hover': {
-    color: '$text',
     backgroundColor: '$accents1',
+  },
+
+  [`&:hover p`]: {
+    color: '$text',
   },
 
   variants: {
     active: {
       true: {
-        color: '$text',
+        '& p': {
+          color: '$text',
+        },
       },
       false: {
-        color: '$accents8',
+        '& p': {
+          color: '$accents8',
+        },
       },
     },
 

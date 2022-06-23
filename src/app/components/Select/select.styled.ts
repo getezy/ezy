@@ -18,6 +18,9 @@ export const StyledSelect = styled(ReactSelect, {
     height: 'calc($$selectHeightRatio * $9)',
     minHeight: 'calc($$selectHeightRatio * $9)',
   },
+  '.react-select__dropdown-indicator': {
+    color: '$accents6',
+  },
   '.react-select__value-container': {
     height: 'calc($$selectHeightRatio * $9)',
     minHeight: 'calc($$selectHeightRatio * $9)',

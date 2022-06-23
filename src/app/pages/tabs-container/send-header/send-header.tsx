@@ -2,20 +2,44 @@ import { faFloppyDisk, faPaperPlane } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Button, Container, Input, Spacer } from '@nextui-org/react';
 import React from 'react';
+import { MultiValue, SingleValue } from 'react-select';
 
 import { ColoredSelect } from '../../../components';
-import { useEnvironmentsStore } from '../../../storage';
+import { Environment, Tab, useEnvironmentsStore, useTabsStore } from '../../../storage';
 import { CreateEnvironmentModal } from '../../environments';
 import { SendButton } from './send-button.styled';
 
-export const SendHeader = (): JSX.Element => {
-  const [createEnvironmentModalVisible, setCreateEnvironmentModalVisible] = React.useState(false);
+export interface SendHeaderProps {
+  tab: Tab;
+}
+
+export const SendHeader: React.FC<SendHeaderProps> = ({ tab }) => {
+  const { updateTab } = useTabsStore((store) => store);
   const { removeEnvironment } = useEnvironmentsStore((store) => store);
-  const environments = useEnvironmentsStore((store) => store.environments).map((env) => ({
-    value: env.id,
-    label: env.name,
-    color: env.color,
-  }));
+  const environments = useEnvironmentsStore((store) => store.environments);
+
+  const [createEnvironmentModalVisible, setCreateEnvironmentModalVisible] = React.useState(false);
+
+  const [selectedEnvironment, setSelectedEnvironment] = React.useState<Environment | null>(
+    tab.environment || null
+  );
+
+  const [url, setUrl] = React.useState<string>();
+
+  const handleEnvironmentChange = (value: MultiValue<Environment> | SingleValue<Environment>) => {
+    const updatedTab: Tab = {
+      ...tab,
+      environment: value as Environment,
+    };
+
+    setSelectedEnvironment(value as Environment);
+    updateTab(updatedTab);
+  };
+
+  const handleUrlChange = (url: string) => {
+    setUrl(url);
+    setSelectedEnvironment(null);
+  };
 
   return (
     <>
@@ -27,6 +51,8 @@ export const SendHeader = (): JSX.Element => {
           placeholder="Environment"
           options={environments}
           css={{ width: 150 }}
+          value={selectedEnvironment}
+          onChange={handleEnvironmentChange}
           onRemove={(data) => {
             removeEnvironment(data.value);
           }}
