@@ -37,7 +37,6 @@ export const StyledSelect = styled(ReactSelect, {
   '.react-select__menu': {
     backgroundColor: '$accents0',
     fontSize: '$$selectFontSize',
-    border: 'solid 1px $border',
     zIndex: '$max',
   },
   '.react-select__option': {
@@ -59,6 +58,22 @@ export const StyledSelect = styled(ReactSelect, {
       },
     },
     bordered: {
+      true: {
+        '.react-select__control': {
+          br: '$$selectBorderRadius',
+          bg: 'transparent',
+          border: 'solid $$selectBorderWeight $border',
+        },
+        '.react-select__menu': {
+          border: 'solid $$selectBorderWeight $border',
+        },
+        '.react-select__control:hover': {
+          border: 'solid $$selectBorderWeight $foreground',
+        },
+        '.react-select__control--is-focused': {
+          boxShadow: 'none',
+        },
+      },
       false: {
         '.react-select__control': {
           border: 'none',
@@ -72,26 +87,48 @@ export const StyledSelect = styled(ReactSelect, {
       },
     },
 
+    borderWeight: {
+      light: {
+        $$selectBorderWeight: '$borderWeights$light',
+      },
+      normal: {
+        $$selectBorderWeight: '$borderWeights$normal',
+      },
+      bold: {
+        $$selectBorderWeight: '$borderWeights$bold',
+      },
+      extrabold: {
+        $$selectBorderWeight: '$borderWeights$extrabold',
+      },
+      black: {
+        $$selectBorderWeight: '$borderWeights$black',
+      },
+    },
     size: {
       xs: {
         $$selectFontSize: '$fontSizes$xs',
         $$selectHeightRatio: '1.2',
+        $$selectBorderRadius: '$space$3',
       },
       sm: {
         $$selectFontSize: '$fontSizes$xs',
         $$selectHeightRatio: '1.6',
+        $$selectBorderRadius: '$space$4',
       },
       md: {
         $$selectFontSize: '$fontSizes$xs',
         $$selectHeightRatio: '2',
+        $$selectBorderRadius: '$space$6',
       },
       lg: {
         $$selectFontSize: '$fontSizes$base',
         $$selectHeightRatio: '2.2',
+        $$selectBorderRadius: '$space$7',
       },
       xl: {
         $$selectFontSize: '$fontSizes$sm',
         $$selectHeightRatio: '2.6',
+        $$selectBorderRadius: '$space$8',
       },
     },
   },

@@ -21,6 +21,8 @@ export const SendHeader = (): JSX.Element => {
     <>
       <Container gap={0.5} fluid css={{ display: 'flex', flexWrap: 'nowrap' }}>
         <ColoredSelect
+          bordered
+          borderWeight="light"
           size="sm"
           placeholder="Environment"
           options={environments}
