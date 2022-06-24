@@ -5,6 +5,7 @@ const StyledBadge = styled('div', {
   fontSize: '$$badgeFontSize',
   width: 'fit-content',
   userSelect: 'none',
+  br: '$$badgeBorderRadius',
 
   variants: {
     color: {
@@ -27,22 +28,27 @@ const StyledBadge = styled('div', {
     size: {
       xs: {
         $$badgeFontSize: '$fontSizes$xs',
+        $$badgeBorderRadius: '$space$3',
         padding: 1,
       },
       sm: {
         $$badgeFontSize: '$fontSizes$xs',
+        $$badgeBorderRadius: '$space$4',
         padding: 2,
       },
       md: {
         $$badgeFontSize: '$fontSizes$xs',
+        $$badgeBorderRadius: '$space$4',
         padding: 3,
       },
       lg: {
         $$badgeFontSize: '$fontSizes$base',
+        $$badgeBorderRadius: '$space$5',
         padding: 4,
       },
       xl: {
         $$badgeFontSize: '$fontSizes$sm',
+        $$badgeBorderRadius: '$space$5',
         padding: 5,
       },
     },

@@ -6,10 +6,10 @@ import { SideBarItem, SideBarItemProps } from './side-bar-item';
 
 const StyleSideBar = styled('ul', {
   display: 'flex',
+  flexWrap: 'nowrap',
   flexDirection: 'column',
   overflow: 'auto',
   margin: 0,
-  scrollbarColor: '#6969dd #e0e0e0',
   '&::-webkit-scrollbar': {
     width: 2,
   },
