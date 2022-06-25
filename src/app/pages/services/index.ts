@@ -1,1 +1,1 @@
-export * from './create-service.modal';
+export * from './modals';

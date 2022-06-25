@@ -2,7 +2,7 @@ import { Container, Input } from '@nextui-org/react';
 import React from 'react';
 import { useForm } from 'react-hook-form';
 
-import { Service } from '../../storage';
+import { Service } from '../../../storage';
 
 export interface ServiceFormProps {
   id?: string;

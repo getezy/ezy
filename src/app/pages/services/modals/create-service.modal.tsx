@@ -1,8 +1,8 @@
 import { Button, Modal, ModalProps, Text } from '@nextui-org/react';
 import React from 'react';
 
-import { Service, useServicesStore } from '../../storage';
-import { ServiceForm } from './service.form';
+import { Service, useServicesStore } from '../../../storage';
+import { ServiceForm } from '../forms/service.form';
 
 export const CreateServiceModal: React.FC<ModalProps> = ({ onClose = () => {}, ...props }) => {
   const createService = useServicesStore((store) => store.create);
