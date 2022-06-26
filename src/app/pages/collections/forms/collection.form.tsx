@@ -2,20 +2,20 @@ import { Container, Input } from '@nextui-org/react';
 import React from 'react';
 import { useForm } from 'react-hook-form';
 
-import { Service } from '../../../storage';
+import { Collection, CollectionType } from '../../../storage';
 
-export interface ServiceFormProps {
+export interface CollectionFormProps {
   id?: string;
 
-  onSubmit: (payload: Service) => void;
+  onSubmit: (payload: Collection<CollectionType>) => void;
 }
 
-export const ServiceForm: React.FC<ServiceFormProps> = ({ onSubmit = () => {}, id }) => {
+export const CollectionForm: React.FC<CollectionFormProps> = ({ onSubmit = () => {}, id }) => {
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<Service>();
+  } = useForm<Collection<CollectionType>>();
 
   return (
     <form id={id} onSubmit={handleSubmit(onSubmit)}>

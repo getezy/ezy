@@ -3,10 +3,10 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Button } from '@nextui-org/react';
 import React from 'react';
 
-import { CreateServiceModal } from './services';
+import { CreateCollectionModal } from './collections';
 
 export const Header: React.FC = () => {
-  const [createServiceModalVisible, setCreateServiceModalVisible] = React.useState(false);
+  const [createCollectionModalVisible, setCreateCollectionModalVisible] = React.useState(false);
 
   return (
     <div>
@@ -16,16 +16,16 @@ export const Header: React.FC = () => {
         color="gradient"
         size="sm"
         icon={<FontAwesomeIcon icon={faSquarePlus} />}
-        onClick={() => setCreateServiceModalVisible(true)}
+        onClick={() => setCreateCollectionModalVisible(true)}
       >
-        Create service
+        Add collection
       </Button>
-      <CreateServiceModal
+      <CreateCollectionModal
         closeButton
         preventClose
         blur
-        open={createServiceModalVisible}
-        onClose={() => setCreateServiceModalVisible(false)}
+        open={createCollectionModalVisible}
+        onClose={() => setCreateCollectionModalVisible(false)}
       />
     </div>
   );
