@@ -1,4 +1,4 @@
-import { styled, Text, VariantProps } from '@nextui-org/react';
+import { NormalWeights, styled, Text, VariantProps } from '@nextui-org/react';
 import React from 'react';
 
 const StyledBadge = styled('div', {
@@ -57,10 +57,13 @@ const StyledBadge = styled('div', {
 
 export type BadgeProps = {
   text: string;
+  weight?: NormalWeights;
 } & VariantProps<typeof StyledBadge>;
 
-export const Badge: React.FC<BadgeProps> = ({ color, text, size = 'sm' }) => (
+export const Badge: React.FC<BadgeProps> = ({ color, text, weight = 'bold', size = 'sm' }) => (
   <StyledBadge color={color} size={size}>
-    <Text css={{ fontSize: 'inherit' }}>{text}</Text>
+    <Text css={{ fontSize: 'inherit' }} weight={weight}>
+      {text}
+    </Text>
   </StyledBadge>
 );
