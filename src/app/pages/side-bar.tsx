@@ -61,7 +61,7 @@ const grpcMethodNodeRenderer = ({ id, type, name }: GRPCMethod) => {
     </StyledNodeWrapper>
   );
 
-  return <TreeNode id={id} content={content} css={{ paddingLeft: 40 }} />;
+  return <TreeNode id={id} content={content} css={{ paddingLeft: 20 }} />;
 };
 
 const grpcNodeRenderer = ({ id, name, methods }: GRPCService) => {
@@ -74,7 +74,7 @@ const grpcNodeRenderer = ({ id, name, methods }: GRPCService) => {
   );
 
   return (
-    <TreeNode id={id} content={content} css={{ paddingLeft: 20 }}>
+    <TreeNode id={id} content={content} css={{ paddingLeft: 10 }}>
       <GRPCMethodTree data={methods} nodeRenderer={grpcMethodNodeRenderer} />
     </TreeNode>
   );

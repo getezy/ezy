@@ -40,7 +40,7 @@ export const TreeNode: React.FC<PropsWithChildren<TreeNodeProps>> = ({
   onClick,
   css,
 }) => {
-  const [isOpen, setIsOpen] = React.useState(false);
+  const [isOpen, setIsOpen] = React.useState(true);
   const isCollapsible = !!children;
 
   const handleTreeNodeClick: React.MouseEventHandler<HTMLLIElement> = (event) => {
@@ -57,9 +57,11 @@ export const TreeNode: React.FC<PropsWithChildren<TreeNodeProps>> = ({
     <>
       <StyledTreeNode key={id} css={css} onClick={handleTreeNodeClick}>
         {content}
-        <StyledCommandsPanelWrapper>
-          {isCollapsible && <CollapseButton isOpen={isOpen} onClick={setIsOpen} />}
-        </StyledCommandsPanelWrapper>
+        {isCollapsible && (
+          <StyledCommandsPanelWrapper>
+            <CollapseButton isOpen={isOpen} onClick={setIsOpen} />
+          </StyledCommandsPanelWrapper>
+        )}
       </StyledTreeNode>
       {isOpen && children}
     </>
