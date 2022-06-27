@@ -1,7 +1,7 @@
 import { Spacer, styled, Text, Tooltip } from '@nextui-org/react';
 import React from 'react';
 
-import { TreeFactory, TreeNode } from '../components';
+import { TreeFactory, TreeNode } from '../../components';
 import {
   Collection,
   CollectionType,
@@ -9,31 +9,9 @@ import {
   GRPCMethodType,
   GRPCService,
   useCollectionsStore,
-} from '../storage';
-import { ProtoBadge, ServiceBadge, StreamBadge, UnaryBadge } from './collections/badge-types';
-
-const SideBarWrapper = styled('div', {
-  display: 'flex',
-  flexWrap: 'nowrap',
-  flexDirection: 'column',
-  userSelect: 'none',
-  overflow: 'auto',
-
-  height: 'calc(100vh - 50px)',
-  width: 250,
-
-  margin: 0,
-  '&::-webkit-scrollbar': {
-    width: 2,
-  },
-  '&::-webkit-scrollbar-track': {
-    backgroundColor: '$accents1',
-  },
-  '&::-webkit-scrollbar-thumb': {
-    boxShadow: 'inset 0 0 6px',
-    color: '$accents5',
-  },
-});
+} from '../../storage';
+import { ProtoBadge, ServiceBadge, StreamBadge, UnaryBadge } from '../collections/badge-types';
+import { StyledSideBar } from './side-bar.styled';
 
 const StyledNodeWrapper = styled('div', {
   display: 'flex',
@@ -146,7 +124,7 @@ export const ExplorerSideBar = (): JSX.Element => {
   const [data] = React.useState<Collection<CollectionType>>(DATA_MOCK);
 
   return (
-    <SideBarWrapper>
+    <StyledSideBar>
       {/* <Input
         bordered
         borderWeight="light"
@@ -159,13 +137,13 @@ export const ExplorerSideBar = (): JSX.Element => {
           padding: 10,
         }}
       /> */}
-      {collections.length > 0 ? (
+      {collections.length ? (
         <CollectionTree data={[data]} nodeRenderer={collectionNodeRenderer} />
       ) : (
         <div style={{ display: 'flex', justifyContent: 'center' }}>
           <Text css={{ color: '$accents6' }}>No collections</Text>
         </div>
       )}
-    </SideBarWrapper>
+    </StyledSideBar>
   );
 };
