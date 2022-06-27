@@ -5,7 +5,11 @@ const StyledBadge = styled('div', {
   fontSize: '$$badgeFontSize',
   width: 'fit-content',
   userSelect: 'none',
-  br: '$$badgeBorderRadius',
+
+  br: '$space$2',
+  paddingLeft: 4,
+  paddingRight: 4,
+  height: '$$badgeHeight',
 
   variants: {
     color: {
@@ -25,34 +29,76 @@ const StyledBadge = styled('div', {
         backgroundColor: '$error',
       },
     },
+    bordered: {
+      true: {
+        border: 'solid 1px',
+      },
+    },
     size: {
       xs: {
         $$badgeFontSize: '$fontSizes$xs',
-        $$badgeBorderRadius: '$space$3',
-        padding: 1,
+        $$badgeHeight: 22,
       },
       sm: {
-        $$badgeFontSize: '$fontSizes$xs',
-        $$badgeBorderRadius: '$space$4',
-        padding: 2,
+        $$badgeFontSize: '$fontSizes$sm',
+        $$badgeHeight: 26,
       },
       md: {
-        $$badgeFontSize: '$fontSizes$xs',
-        $$badgeBorderRadius: '$space$4',
-        padding: 3,
+        $$badgeFontSize: '$fontSizes$md',
+        $$badgeHeight: 30,
       },
       lg: {
-        $$badgeFontSize: '$fontSizes$base',
-        $$badgeBorderRadius: '$space$5',
-        padding: 4,
+        $$badgeFontSize: '$fontSizes$lg',
+        $$badgeHeight: 34,
       },
       xl: {
-        $$badgeFontSize: '$fontSizes$sm',
-        $$badgeBorderRadius: '$space$5',
-        padding: 5,
+        $$badgeFontSize: '$fontSizes$xl',
+        $$badgeHeight: 38,
       },
     },
   },
+  compoundVariants: [
+    {
+      color: 'primary',
+      bordered: true,
+      css: {
+        borderColor: '$primary',
+        backgroundColor: 'transparent',
+      },
+    },
+    {
+      color: 'secondary',
+      bordered: true,
+      css: {
+        borderColor: '$secondary',
+        backgroundColor: 'transparent',
+      },
+    },
+    {
+      color: 'success',
+      bordered: true,
+      css: {
+        borderColor: '$success',
+        backgroundColor: 'transparent',
+      },
+    },
+    {
+      color: 'warning',
+      bordered: true,
+      css: {
+        borderColor: '$warning',
+        backgroundColor: 'transparent',
+      },
+    },
+    {
+      color: 'error',
+      bordered: true,
+      css: {
+        borderColor: '$error',
+        backgroundColor: 'transparent',
+      },
+    },
+  ],
 });
 
 export type BadgeProps = {
@@ -60,8 +106,14 @@ export type BadgeProps = {
   weight?: NormalWeights;
 } & VariantProps<typeof StyledBadge>;
 
-export const Badge: React.FC<BadgeProps> = ({ color, text, weight = 'bold', size = 'sm' }) => (
-  <StyledBadge color={color} size={size}>
+export const Badge: React.FC<BadgeProps> = ({
+  color,
+  text,
+  weight = 'bold',
+  size = 'sm',
+  bordered = false,
+}) => (
+  <StyledBadge color={color} size={size} bordered={bordered}>
     <Text css={{ fontSize: 'inherit' }} weight={weight}>
       {text}
     </Text>

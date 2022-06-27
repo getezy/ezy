@@ -1,5 +1,4 @@
 export * from './explorer';
-export * from './side-bar';
 export * from './response-viewer';
 export * from './color-circle';
 export * from './color-picker';
@@ -9,3 +8,4 @@ export * from './icons';
 export * from './badge';
 export * from './code-editor';
 export * from './tabs';
+export * from './tree';

@@ -1,4 +1,4 @@
-import { Container, CSS, Grid } from '@nextui-org/react';
+import { CSS, Grid } from '@nextui-org/react';
 import React from 'react';
 
 import { ExplorerHeader } from './explorer-header';
@@ -20,9 +20,7 @@ export const Explorer: React.FC<ExplorerProps> = ({ children, header, sideBar })
   <Grid.Container wrap="nowrap">
     <Grid css={ExplorerGridStyles}>
       <ExplorerHeader>{header}</ExplorerHeader>
-      <Container fluid gap={0} css={{ width: '100%', margin: 0, padding: 0 }}>
-        {sideBar}
-      </Container>
+      {sideBar}
     </Grid>
     <Grid css={{ width: '100%', overflow: 'hidden' }}>{children}</Grid>
   </Grid.Container>
