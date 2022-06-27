@@ -140,7 +140,14 @@ export const ExplorerSideBar = (): JSX.Element => {
       {collections.length ? (
         <CollectionTree data={[data]} nodeRenderer={collectionNodeRenderer} />
       ) : (
-        <div style={{ display: 'flex', justifyContent: 'center' }}>
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'center',
+            height: '100%',
+            alignItems: 'center',
+          }}
+        >
           <Text css={{ color: '$accents6' }}>No collections</Text>
         </div>
       )}
