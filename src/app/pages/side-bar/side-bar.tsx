@@ -81,48 +81,6 @@ const collectionNodeRenderer = ({ id, name, type, children }: Collection<Collect
 export const ExplorerSideBar = (): JSX.Element => {
   const collections = useCollectionsStore((store) => store.collections);
 
-  const DATA_MOCK = {
-    id: 'testid',
-    name: 'Backend',
-    type: CollectionType.GRPC,
-    children: [
-      {
-        id: 'testservice',
-        name: 'FirstService',
-        methods: [
-          {
-            id: 'testunary',
-            type: GRPCMethodType.UNARY,
-            name: 'get',
-          },
-          {
-            id: 'teststream',
-            type: GRPCMethodType.STREAM,
-            name: 'getStreamgetStreamgetStreamgetStreamgetStreamgetStream',
-          },
-        ],
-      },
-      {
-        id: 'testservicesecond',
-        name: 'SecondService',
-        methods: [
-          {
-            id: 'testunary',
-            type: GRPCMethodType.UNARY,
-            name: 'get',
-          },
-          {
-            id: 'teststream',
-            type: GRPCMethodType.STREAM,
-            name: 'getStreamgetStreamgetStreamgetStreamgetStreamgetStream',
-          },
-        ],
-      },
-    ],
-  };
-
-  const [data] = React.useState<Collection<CollectionType>>(DATA_MOCK);
-
   return (
     <StyledSideBar>
       {/* <Input
@@ -138,7 +96,7 @@ export const ExplorerSideBar = (): JSX.Element => {
         }}
       /> */}
       {collections.length ? (
-        <CollectionTree data={[data]} nodeRenderer={collectionNodeRenderer} />
+        <CollectionTree data={collections} nodeRenderer={collectionNodeRenderer} />
       ) : (
         <div
           style={{
