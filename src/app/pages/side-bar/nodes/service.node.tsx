@@ -21,7 +21,7 @@ export const grpcNodeRenderer = ({ id, name, methods }: GRPCService) => {
   );
 
   return (
-    <TreeNode id={id} content={content} css={{ paddingLeft: 10 }}>
+    <TreeNode id={id} key={id} content={content} css={{ paddingLeft: 10 }}>
       <GRPCMethodTree data={methods} nodeRenderer={grpcMethodNodeRenderer} />
     </TreeNode>
   );

@@ -41,7 +41,6 @@ export const collectionNodeRenderer = ({
       <Dropdown.Button
         auto
         light
-        color="gradient"
         size="xs"
         animated={false}
         css={{
@@ -49,6 +48,7 @@ export const collectionNodeRenderer = ({
           margin: 0,
           minWidth: 10,
           marginLeft: 'auto',
+          color: '$accents9',
           '&:hover': {
             color: '$warning',
             backgroundColor: '$accents0',
@@ -88,7 +88,7 @@ export const collectionNodeRenderer = ({
   );
 
   return (
-    <TreeNode id={id} content={content} commandsContent={commandsContent}>
+    <TreeNode id={id} key={id} content={content} commandsContent={commandsContent}>
       <GRPCTree data={children} nodeRenderer={grpcNodeRenderer} />
     </TreeNode>
   );

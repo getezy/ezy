@@ -18,5 +18,5 @@ export const grpcMethodNodeRenderer = ({ id, type, name }: GRPCMethod) => {
     </StyledNodeWrapper>
   );
 
-  return <TreeNode id={id} content={content} css={{ paddingLeft: 20 }} />;
+  return <TreeNode id={id} key={id} content={content} css={{ paddingLeft: 20 }} />;
 };
