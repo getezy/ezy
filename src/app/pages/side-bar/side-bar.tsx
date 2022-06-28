@@ -98,7 +98,11 @@ const collectionNodeRenderer = ({ id, name, type, children }: Collection<Collect
         }}
         icon={<FontAwesomeIcon icon={faEllipsis} />}
       />
-      <Dropdown.Menu variant="flat" aria-label="actions" css={{ backgroundColor: '$accents1' }}>
+      <Dropdown.Menu
+        variant="flat"
+        aria-label="actions"
+        css={{ border: 'solid 1px $border', br: 15 }}
+      >
         <Dropdown.Item
           color="default"
           icon={<FontAwesomeIcon icon={faArrowsRotate} />}
