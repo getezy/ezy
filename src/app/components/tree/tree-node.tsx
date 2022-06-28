@@ -23,6 +23,8 @@ const StyledCommandsPanelWrapper = styled('div', {
   width: '50px',
 });
 
+export type TreeNodeRenderer<T> = (node: T) => React.ReactElement;
+
 export type TreeNodeProps = {
   id: string;
 

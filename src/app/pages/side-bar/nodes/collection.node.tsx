@@ -8,7 +8,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Dropdown, Spacer, Text, Tooltip } from '@nextui-org/react';
 import React from 'react';
 
-import { TreeFactory, TreeNode } from '../../../components';
+import { TreeFactory, TreeNode, TreeNodeRenderer } from '../../../components';
 import { Collection, CollectionType, GRPCService } from '../../../storage';
 import { ProtoBadge } from '../../collections/badge-types';
 import { StyledNodeWrapper } from './node.styled';
@@ -16,12 +16,12 @@ import { grpcNodeRenderer } from './service.node';
 
 const GRPCTree = TreeFactory<GRPCService>();
 
-export const collectionNodeRenderer = ({
+export const collectionNodeRenderer: TreeNodeRenderer<Collection<CollectionType>> = ({
   id,
   name,
   type,
   children,
-}: Collection<CollectionType>) => {
+}) => {
   const content = (
     <StyledNodeWrapper>
       {type === CollectionType.GRPC && (
@@ -42,6 +42,7 @@ export const collectionNodeRenderer = ({
         auto
         light
         size="xs"
+        color="gradient"
         animated={false}
         css={{
           padding: 0,

@@ -1,6 +1,8 @@
 import { CSS, styled } from '@nextui-org/react';
 import React from 'react';
 
+import { TreeNodeRenderer } from './tree-node';
+
 const StyledTree = styled('ul', {
   margin: 0,
 });
@@ -15,7 +17,7 @@ export type TreeProps<T extends TreeData> = {
 
   data: T[];
 
-  nodeRenderer: (node: T) => React.ReactElement;
+  nodeRenderer: TreeNodeRenderer<T>;
 };
 
 export const TreeFactory =

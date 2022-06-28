@@ -1,12 +1,12 @@
 import { Spacer, Text, Tooltip } from '@nextui-org/react';
 import React from 'react';
 
-import { TreeNode } from '../../../components';
+import { TreeNode, TreeNodeRenderer } from '../../../components';
 import { GRPCMethod, GRPCMethodType } from '../../../storage';
 import { StreamBadge, UnaryBadge } from '../../collections/badge-types';
 import { StyledNodeWrapper } from './node.styled';
 
-export const grpcMethodNodeRenderer = ({ id, type, name }: GRPCMethod) => {
+export const grpcMethodNodeRenderer: TreeNodeRenderer<GRPCMethod> = ({ id, type, name }) => {
   const content = (
     <StyledNodeWrapper>
       {type === GRPCMethodType.UNARY && <UnaryBadge />}
