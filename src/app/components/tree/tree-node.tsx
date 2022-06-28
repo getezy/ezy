@@ -17,7 +17,6 @@ const StyledTreeNode = styled('li', {
 });
 
 const StyledCommandsPanelWrapper = styled('div', {
-  // border: 'solid 1px red',
   display: 'flex',
   flexWrap: 'nowrap',
   marginLeft: 'auto',
