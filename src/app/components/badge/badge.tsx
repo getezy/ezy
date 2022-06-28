@@ -36,8 +36,7 @@ const StyledBadge = styled('div', {
     },
     size: {
       xs: {
-        $$badgeFontSize: '$fontSizes$xs',
-        $$badgeHeight: 22,
+        $$badgeFontSize: '9px',
       },
       sm: {
         $$badgeFontSize: '$fontSizes$sm',
