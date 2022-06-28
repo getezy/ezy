@@ -60,6 +60,8 @@ export const useTabsStore = create(
           tabs.push({
             ...tab,
             id: nanoid(),
+            environmentId: null,
+            url: '',
             requestContainer: {
               activeTabId: requestTabId,
               request: { id: requestTabId },

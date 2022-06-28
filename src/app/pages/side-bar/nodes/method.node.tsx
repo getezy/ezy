@@ -2,7 +2,7 @@ import { Spacer, Text, Tooltip } from '@nextui-org/react';
 import React from 'react';
 
 import { TreeNode, TreeNodeRenderer } from '../../../components';
-import { GRPCMethod, GRPCMethodType } from '../../../storage';
+import { GRPCMethod, GRPCMethodType, useTabsStore } from '../../../storage';
 import { StreamBadge, UnaryBadge } from '../../collections/badge-types';
 import { StyledNodeWrapper } from './node.styled';
 
@@ -13,7 +13,12 @@ type GrpcMethodNodeProps = {
 };
 
 const GrpcMethodNode: React.FC<GrpcMethodNodeProps> = ({ id, name, type }) => {
-  const handleClick = () => {};
+  const { createTab } = useTabsStore((store) => store);
+  const handleClick = () => {
+    createTab({
+      title: name,
+    });
+  };
 
   const content = (
     <StyledNodeWrapper>

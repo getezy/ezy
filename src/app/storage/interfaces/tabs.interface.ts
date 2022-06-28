@@ -35,7 +35,7 @@ export interface TabsStorage {
 
   activeTabId: string | undefined;
 
-  createTab: (tab: Omit<Tab, 'id' | 'active'>) => void;
+  createTab: (tab: Pick<Tab, 'title'>) => void;
   closeTab: (id: string) => void;
   activateTab: (id: string) => void;
   moveTab: (currentId: string, overId: string | undefined) => void;
