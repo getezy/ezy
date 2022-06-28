@@ -16,12 +16,10 @@ import { grpcNodeRenderer } from './service.node';
 
 const GRPCTree = TreeFactory<GRPCService>();
 
-export const collectionNodeRenderer: TreeNodeRenderer<Collection<CollectionType>> = ({
-  id,
-  name,
-  type,
-  children,
-}) => {
+export const collectionNodeRenderer: TreeNodeRenderer<Collection<CollectionType>> = (
+  { id, name, type, children },
+  { isOpen, onCollapseToggle }
+) => {
   const content = (
     <StyledNodeWrapper>
       {type === CollectionType.GRPC && (
@@ -89,7 +87,14 @@ export const collectionNodeRenderer: TreeNodeRenderer<Collection<CollectionType>
   );
 
   return (
-    <TreeNode id={id} key={id} content={content} commandsContent={commandsContent}>
+    <TreeNode
+      id={id}
+      key={id}
+      content={content}
+      commandsContent={commandsContent}
+      isOpen={isOpen}
+      onCollapseToggle={onCollapseToggle}
+    >
       <GRPCTree data={children} nodeRenderer={grpcNodeRenderer} />
     </TreeNode>
   );

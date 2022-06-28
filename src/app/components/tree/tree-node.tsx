@@ -8,6 +8,7 @@ const StyledTreeNode = styled('li', {
   flexWrap: 'nowrap',
   paddingTop: 10,
   paddingBottom: 10,
+  paddingRight: 5,
   margin: 0,
   overflow: 'auto',
 
@@ -20,10 +21,7 @@ const StyledCommandsPanelWrapper = styled('div', {
   display: 'flex',
   flexWrap: 'nowrap',
   marginLeft: 'auto',
-  width: '50px',
 });
-
-export type TreeNodeRenderer<T> = (node: T) => React.ReactElement;
 
 export type TreeNodeProps = {
   id: string;
@@ -31,44 +29,56 @@ export type TreeNodeProps = {
   content: string | React.ReactNode;
   commandsContent?: React.ReactNode;
 
-  onClick?: React.MouseEventHandler<HTMLLIElement>;
+  isOpen?: boolean;
+
+  onCollapseToggle?: (isOpen: boolean) => void;
+
+  onClick?: (id: string) => void;
 
   css?: CSS;
 };
+
+export type TreeNodeRenderer<T> = (
+  data: T,
+  node: Partial<TreeNodeProps>
+) => React.ReactElement<TreeNodeProps>;
 
 export const TreeNode: React.FC<PropsWithChildren<TreeNodeProps>> = ({
   id,
   content,
   commandsContent,
   children,
+  isOpen = true,
+  onCollapseToggle,
   onClick,
   css,
 }) => {
-  const [isOpen, setIsOpen] = React.useState(true);
   const isCollapsible = !!children;
 
-  const handleTreeNodeClick: React.MouseEventHandler<HTMLLIElement> = (event) => {
-    if (isCollapsible) {
-      setIsOpen(!isOpen);
+  const handleCollapseToggle = () => {
+    if (isCollapsible && onCollapseToggle) {
+      onCollapseToggle(!isOpen);
     }
+  };
+
+  const handleClick = () => {
+    handleCollapseToggle();
 
     if (onClick) {
-      onClick(event);
+      onClick(id);
     }
   };
 
   return (
     <>
-      <StyledTreeNode key={id} css={css} onClick={handleTreeNodeClick}>
+      <StyledTreeNode key={id} css={css} onClick={handleClick}>
         {content}
-        {isCollapsible && (
-          <StyledCommandsPanelWrapper>
-            {commandsContent}
-            <CollapseButton isOpen={isOpen} onClick={setIsOpen} />
-          </StyledCommandsPanelWrapper>
-        )}
+        <StyledCommandsPanelWrapper>
+          {commandsContent}
+          {isCollapsible && <CollapseButton isOpen={isOpen} onClick={handleCollapseToggle} />}
+        </StyledCommandsPanelWrapper>
       </StyledTreeNode>
-      {isOpen && children}
+      <div style={{ display: isOpen ? 'inherit' : 'none' }}>{children}</div>
     </>
   );
 };

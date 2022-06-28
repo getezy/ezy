@@ -9,7 +9,10 @@ import { StyledNodeWrapper } from './node.styled';
 
 const GRPCMethodTree = TreeFactory<GRPCMethod>();
 
-export const grpcNodeRenderer: TreeNodeRenderer<GRPCService> = ({ id, name, methods }) => {
+export const grpcNodeRenderer: TreeNodeRenderer<GRPCService> = (
+  { id, name, methods },
+  { isOpen, onCollapseToggle }
+) => {
   const content = (
     <StyledNodeWrapper>
       <ServiceBadge />
@@ -21,7 +24,14 @@ export const grpcNodeRenderer: TreeNodeRenderer<GRPCService> = ({ id, name, meth
   );
 
   return (
-    <TreeNode id={id} key={id} content={content} css={{ paddingLeft: 10 }}>
+    <TreeNode
+      id={id}
+      key={id}
+      content={content}
+      css={{ paddingLeft: 10 }}
+      isOpen={isOpen}
+      onCollapseToggle={onCollapseToggle}
+    >
       <GRPCMethodTree data={methods} nodeRenderer={grpcMethodNodeRenderer} />
     </TreeNode>
   );

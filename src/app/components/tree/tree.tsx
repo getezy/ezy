@@ -22,5 +22,13 @@ export type TreeProps<T extends TreeData> = {
 
 export const TreeFactory =
   <T extends TreeData>(): React.FC<TreeProps<T>> =>
-  ({ css, data, nodeRenderer }) =>
-    <StyledTree css={css}>{data.map((item) => nodeRenderer(item))}</StyledTree>;
+  ({ css, data, nodeRenderer }) => {
+    const nodes = data.map((item) => {
+      // eslint-disable-next-line react-hooks/rules-of-hooks
+      const [isOpen, setIsOpen] = React.useState(true);
+
+      return nodeRenderer(item, { isOpen, onCollapseToggle: setIsOpen });
+    });
+
+    return <StyledTree css={css}>{nodes}</StyledTree>;
+  };
