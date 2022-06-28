@@ -13,6 +13,7 @@ export const Header: React.FC = () => {
       <Button
         auto
         bordered
+        borderWeight="light"
         color="gradient"
         size="sm"
         icon={<FontAwesomeIcon icon={faSquarePlus} />}

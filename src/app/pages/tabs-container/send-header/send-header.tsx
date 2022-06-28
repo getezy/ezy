@@ -123,6 +123,7 @@ export const SendHeader: React.FC<SendHeaderProps> = ({ tab }) => {
         <SendButton
           size="sm"
           bordered
+          borderWeight="light"
           color="gradient"
           iconRight={<FontAwesomeIcon icon={faPaperPlane} />}
         >

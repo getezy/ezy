@@ -64,14 +64,14 @@ export const collectionNodeRenderer = ({
         <Dropdown.Item
           color="default"
           icon={<FontAwesomeIcon icon={faArrowsRotate} />}
-          description="Reload collection protobuf"
+          description="Reload collection's protobuf"
         >
           Synchronize collection
         </Dropdown.Item>
         <Dropdown.Item
           color="default"
           icon={<FontAwesomeIcon icon={faPenToSquare} />}
-          description="Open collection settings"
+          description="Open collection's settings"
         >
           Update collection
         </Dropdown.Item>
