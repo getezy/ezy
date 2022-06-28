@@ -9,7 +9,13 @@ import { Dropdown, Spacer, Text, Tooltip } from '@nextui-org/react';
 import React from 'react';
 
 import { TreeFactory, TreeNode, TreeNodeRenderer } from '../../../components';
-import { Collection, CollectionChildren, CollectionType, GRPCService } from '../../../storage';
+import {
+  Collection,
+  CollectionChildren,
+  CollectionType,
+  GRPCService,
+  useCollectionsStore,
+} from '../../../storage';
 import { ProtoBadge } from '../../collections/badge-types';
 import { StyledNodeWrapper } from './node.styled';
 import { grpcServiceNodeRenderer } from './service.node';
@@ -35,6 +41,16 @@ const CollectionNode: React.FC<CollectionNodeProps> = ({
   isOpen,
   onCollapseToggle,
 }) => {
+  const { removeCollection } = useCollectionsStore((store) => store);
+
+  const handleSelectionChange = (keys: 'all' | Set<string | number>) => {
+    if (typeof keys !== 'string') {
+      if (keys.has('delete')) {
+        removeCollection(id);
+      }
+    }
+  };
+
   const content = (
     <StyledNodeWrapper>
       {type === CollectionType.GRPC && (
@@ -73,7 +89,9 @@ const CollectionNode: React.FC<CollectionNodeProps> = ({
       <Dropdown.Menu
         variant="flat"
         aria-label="actions"
+        selectionMode="single"
         css={{ border: 'solid 1px $border', br: 15 }}
+        onSelectionChange={handleSelectionChange}
       >
         <Dropdown.Item
           key="synchronize"

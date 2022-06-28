@@ -15,12 +15,12 @@ const initialState: Collection<CollectionType>[] = [
         name: 'FirstService',
         methods: [
           {
-            id: 'testunary',
+            id: 'testunary1',
             type: GRPCMethodType.UNARY,
             name: 'get',
           },
           {
-            id: 'teststream',
+            id: 'teststream1',
             type: GRPCMethodType.STREAM,
             name: 'getStreamgetStreamgetStreamgetStreamgetStreamgetStream',
           },
@@ -31,12 +31,12 @@ const initialState: Collection<CollectionType>[] = [
         name: 'SecondService',
         methods: [
           {
-            id: 'testunary',
+            id: 'testunary1',
             type: GRPCMethodType.UNARY,
             name: 'get',
           },
           {
-            id: 'teststream',
+            id: 'teststream1',
             type: GRPCMethodType.STREAM,
             name: 'getStreamgetStreamgetStreamgetStreamgetStreamgetStream',
           },
