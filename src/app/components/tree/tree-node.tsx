@@ -26,7 +26,9 @@ const StyledCommandsPanelWrapper = styled('div', {
 
 export type TreeNodeProps = {
   id: string;
+
   content: string | React.ReactNode;
+  commandsContent?: React.ReactNode;
 
   onClick?: React.MouseEventHandler<HTMLLIElement>;
 
@@ -36,6 +38,7 @@ export type TreeNodeProps = {
 export const TreeNode: React.FC<PropsWithChildren<TreeNodeProps>> = ({
   id,
   content,
+  commandsContent,
   children,
   onClick,
   css,
@@ -59,6 +62,7 @@ export const TreeNode: React.FC<PropsWithChildren<TreeNodeProps>> = ({
         {content}
         {isCollapsible && (
           <StyledCommandsPanelWrapper>
+            {commandsContent}
             <CollapseButton isOpen={isOpen} onClick={setIsOpen} />
           </StyledCommandsPanelWrapper>
         )}

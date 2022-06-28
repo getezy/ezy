@@ -1,4 +1,11 @@
-import { Spacer, styled, Text, Tooltip } from '@nextui-org/react';
+import {
+  faArrowsRotate,
+  faEllipsis,
+  faPenToSquare,
+  faTrash,
+} from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Dropdown, Spacer, styled, Text, Tooltip } from '@nextui-org/react';
 import React from 'react';
 
 import { TreeFactory, TreeNode } from '../../components';
@@ -71,8 +78,55 @@ const collectionNodeRenderer = ({ id, name, type, children }: Collection<Collect
     </StyledNodeWrapper>
   );
 
+  const commandsContent = (
+    <Dropdown placement="right-top">
+      <Dropdown.Button
+        auto
+        light
+        color="gradient"
+        size="xs"
+        animated={false}
+        css={{
+          padding: 0,
+          margin: 0,
+          minWidth: 10,
+          marginLeft: 'auto',
+          '&:hover': {
+            color: '$warning',
+            backgroundColor: '$accents0',
+          },
+        }}
+        icon={<FontAwesomeIcon icon={faEllipsis} />}
+      />
+      <Dropdown.Menu variant="flat" aria-label="actions" css={{ backgroundColor: '$accents1' }}>
+        <Dropdown.Item
+          color="default"
+          icon={<FontAwesomeIcon icon={faArrowsRotate} />}
+          description="Reload collection protobuf"
+        >
+          Synchronize collection
+        </Dropdown.Item>
+        <Dropdown.Item
+          color="default"
+          icon={<FontAwesomeIcon icon={faPenToSquare} />}
+          description="Open collection settings"
+        >
+          Update collection
+        </Dropdown.Item>
+        <Dropdown.Item
+          withDivider
+          color="error"
+          icon={<FontAwesomeIcon icon={faTrash} />}
+          description="Permanently delete collection"
+        >
+          Delete collection
+        </Dropdown.Item>
+      </Dropdown.Menu>
+    </Dropdown>
+  );
+
   return (
-    <TreeNode id={id} content={content}>
+    <TreeNode id={id} content={content} commandsContent={commandsContent}>
       <GRPCTree data={children} nodeRenderer={grpcNodeRenderer} />
     </TreeNode>
   );
