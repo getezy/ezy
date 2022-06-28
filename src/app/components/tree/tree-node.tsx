@@ -35,6 +35,8 @@ export type TreeNodeProps = {
 
   onClick?: (id: string) => void;
 
+  onDoubleClick?: (id: string) => void;
+
   css?: CSS;
 };
 
@@ -51,6 +53,7 @@ export const TreeNode: React.FC<PropsWithChildren<TreeNodeProps>> = ({
   isOpen = true,
   onCollapseToggle,
   onClick,
+  onDoubleClick,
   css,
 }) => {
   const isCollapsible = !!children;
@@ -69,9 +72,15 @@ export const TreeNode: React.FC<PropsWithChildren<TreeNodeProps>> = ({
     }
   };
 
+  const handleDoubleClick = () => {
+    if (onDoubleClick) {
+      onDoubleClick(id);
+    }
+  };
+
   return (
     <>
-      <StyledTreeNode key={id} css={css} onClick={handleClick}>
+      <StyledTreeNode key={id} css={css} onClick={handleClick} onDoubleClick={handleDoubleClick}>
         {content}
         <StyledCommandsPanelWrapper>
           {commandsContent}

@@ -14,7 +14,8 @@ type GrpcMethodNodeProps = {
 
 const GrpcMethodNode: React.FC<GrpcMethodNodeProps> = ({ id, name, type }) => {
   const { createTab } = useTabsStore((store) => store);
-  const handleClick = () => {
+
+  const handleDoubleClick = () => {
     createTab({
       title: name,
     });
@@ -32,7 +33,13 @@ const GrpcMethodNode: React.FC<GrpcMethodNodeProps> = ({ id, name, type }) => {
   );
 
   return (
-    <TreeNode id={id} key={id} content={content} css={{ paddingLeft: 20 }} onClick={handleClick} />
+    <TreeNode
+      id={id}
+      key={id}
+      content={content}
+      css={{ paddingLeft: 20 }}
+      onDoubleClick={handleDoubleClick}
+    />
   );
 };
 

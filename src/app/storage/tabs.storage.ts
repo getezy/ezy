@@ -55,11 +55,12 @@ export const useTabsStore = create(
         set((state) => {
           const { tabs } = get();
 
+          const tabId = nanoid();
           const requestTabId = nanoid();
 
           tabs.push({
             ...tab,
-            id: nanoid(),
+            id: tabId,
             environmentId: null,
             url: '',
             requestContainer: {
@@ -70,7 +71,7 @@ export const useTabsStore = create(
             response: { id: nanoid() },
           });
 
-          return { ...state, tabs: [...tabs] };
+          return { ...state, activeTabId: tabId, tabs: [...tabs] };
         }),
       closeTab: (id) =>
         set((state) => {
