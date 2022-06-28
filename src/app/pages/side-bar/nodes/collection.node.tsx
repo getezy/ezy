@@ -9,17 +9,32 @@ import { Dropdown, Spacer, Text, Tooltip } from '@nextui-org/react';
 import React from 'react';
 
 import { TreeFactory, TreeNode, TreeNodeRenderer } from '../../../components';
-import { Collection, CollectionType, GRPCService } from '../../../storage';
+import { Collection, CollectionChildren, CollectionType, GRPCService } from '../../../storage';
 import { ProtoBadge } from '../../collections/badge-types';
 import { StyledNodeWrapper } from './node.styled';
-import { grpcNodeRenderer } from './service.node';
+import { grpcServiceNodeRenderer } from './service.node';
 
-const GRPCTree = TreeFactory<GRPCService>();
+type CollectionNodeProps = {
+  id: string;
+  name: string;
+  type: CollectionType;
 
-export const collectionNodeRenderer: TreeNodeRenderer<Collection<CollectionType>> = (
-  { id, name, type, children },
-  { isOpen, onCollapseToggle }
-) => {
+  data: CollectionChildren<CollectionType>;
+
+  isOpen?: boolean;
+  onCollapseToggle?: (isOpen: boolean) => void;
+};
+
+const GRPCServiceTree = TreeFactory<GRPCService>();
+
+const CollectionNode: React.FC<CollectionNodeProps> = ({
+  id,
+  name,
+  type,
+  data,
+  isOpen,
+  onCollapseToggle,
+}) => {
   const content = (
     <StyledNodeWrapper>
       {type === CollectionType.GRPC && (
@@ -28,7 +43,7 @@ export const collectionNodeRenderer: TreeNodeRenderer<Collection<CollectionType>
           <Spacer x={0.3} />
         </>
       )}
-      <Tooltip content={name} color="invert" placement="topStart" enterDelay={300}>
+      <Tooltip content={name} color="invert" placement="topStart" enterDelay={1000}>
         <Text size={12}>{name}</Text>
       </Tooltip>
     </StyledNodeWrapper>
@@ -61,26 +76,29 @@ export const collectionNodeRenderer: TreeNodeRenderer<Collection<CollectionType>
         css={{ border: 'solid 1px $border', br: 15 }}
       >
         <Dropdown.Item
+          key="synchronize"
           color="default"
           icon={<FontAwesomeIcon icon={faArrowsRotate} />}
           description="Reload collection's protobuf"
         >
-          Synchronize collection
+          Synchronize
         </Dropdown.Item>
         <Dropdown.Item
+          key="settings"
           color="default"
           icon={<FontAwesomeIcon icon={faPenToSquare} />}
           description="Open collection's settings"
         >
-          Update collection
+          Settings
         </Dropdown.Item>
         <Dropdown.Item
+          key="delete"
           withDivider
           color="error"
           icon={<FontAwesomeIcon icon={faTrash} />}
           description="Permanently delete collection"
         >
-          Delete collection
+          Delete
         </Dropdown.Item>
       </Dropdown.Menu>
     </Dropdown>
@@ -95,7 +113,21 @@ export const collectionNodeRenderer: TreeNodeRenderer<Collection<CollectionType>
       isOpen={isOpen}
       onCollapseToggle={onCollapseToggle}
     >
-      <GRPCTree data={children} nodeRenderer={grpcNodeRenderer} />
+      <GRPCServiceTree data={data} nodeRenderer={grpcServiceNodeRenderer} />
     </TreeNode>
   );
 };
+
+export const collectionNodeRenderer: TreeNodeRenderer<Collection<CollectionType>> = (
+  { id, name, type, children },
+  { isOpen, onCollapseToggle }
+) => (
+  <CollectionNode
+    id={id}
+    name={name}
+    type={type}
+    data={children}
+    isOpen={isOpen}
+    onCollapseToggle={onCollapseToggle}
+  />
+);

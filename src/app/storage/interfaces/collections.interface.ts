@@ -18,11 +18,14 @@ export enum CollectionType {
   'GRPC' = 'grpc',
 }
 
+export type CollectionChildren<T extends CollectionType> = T extends CollectionType.GRPC
+  ? GRPCService[]
+  : never;
 export interface Collection<T extends CollectionType> {
   id: string;
   name: string;
   type: T;
-  children: T extends CollectionType.GRPC ? GRPCService[] : never;
+  children: CollectionChildren<T>;
 }
 
 export interface CollectionsStorage {
