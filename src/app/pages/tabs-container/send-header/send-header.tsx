@@ -84,7 +84,7 @@ export const SendHeader: React.FC<SendHeaderProps> = ({ tab }) => {
           size="sm"
           placeholder="Environment"
           options={environments}
-          css={{ width: 150 }}
+          css={{ width: 120 }}
           value={selectedEnvironment}
           onChange={handleEnvironmentChange}
           onRemove={handleRemoveEnvironment}

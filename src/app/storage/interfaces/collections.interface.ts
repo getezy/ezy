@@ -1,3 +1,7 @@
+export enum CollectionType {
+  'GRPC' = 'grpc',
+}
+
 export enum GRPCMethodType {
   UNARY = 'unary',
   STREAM = 'stream',
@@ -14,18 +18,25 @@ export interface GRPCService {
   methods: GRPCMethod[];
 }
 
-export enum CollectionType {
-  'GRPC' = 'grpc',
+export interface GRPCCollectionOptions {
+  path: string;
+  includeDirs?: string[];
 }
 
 export type CollectionChildren<T extends CollectionType> = T extends CollectionType.GRPC
   ? GRPCService[]
   : never;
+
+export type CollectionOptions<T extends CollectionType> = T extends CollectionType.GRPC
+  ? GRPCCollectionOptions
+  : never;
+
 export interface Collection<T extends CollectionType> {
   id: string;
   name: string;
   type: T;
   children: CollectionChildren<T>;
+  options: CollectionOptions<T>;
 }
 
 export interface CollectionsStorage {

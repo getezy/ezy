@@ -43,6 +43,10 @@ const initialState: Collection<CollectionType>[] = [
         ],
       },
     ],
+    options: {
+      path: 'mainpath',
+      includeDirs: ['includeepath'],
+    },
   },
 ];
 

@@ -1,4 +1,4 @@
-import { NormalWeights, styled, Text, VariantProps } from '@nextui-org/react';
+import { CSS, NormalWeights, styled, Text, VariantProps } from '@nextui-org/react';
 import React from 'react';
 
 const StyledBadge = styled('div', {
@@ -32,6 +32,8 @@ const StyledBadge = styled('div', {
     bordered: {
       true: {
         border: 'solid 1px',
+        borderTopLeftRadius: '2px',
+        borderBottomRightRadius: '2px',
       },
     },
     size: {
@@ -62,6 +64,7 @@ const StyledBadge = styled('div', {
       bordered: true,
       css: {
         borderColor: '$primary',
+        color: '$primaryLightContrast',
         backgroundColor: 'transparent',
       },
     },
@@ -70,6 +73,7 @@ const StyledBadge = styled('div', {
       bordered: true,
       css: {
         borderColor: '$secondary',
+        color: '$secondaryLightContrast',
         backgroundColor: 'transparent',
       },
     },
@@ -78,6 +82,7 @@ const StyledBadge = styled('div', {
       bordered: true,
       css: {
         borderColor: '$success',
+        color: '$successLightContrast',
         backgroundColor: 'transparent',
       },
     },
@@ -86,6 +91,7 @@ const StyledBadge = styled('div', {
       bordered: true,
       css: {
         borderColor: '$warning',
+        color: '$warningLightContrast',
         backgroundColor: 'transparent',
       },
     },
@@ -94,6 +100,7 @@ const StyledBadge = styled('div', {
       bordered: true,
       css: {
         borderColor: '$error',
+        color: '$errorLightContrast',
         backgroundColor: 'transparent',
       },
     },
@@ -103,6 +110,7 @@ const StyledBadge = styled('div', {
 export type BadgeProps = {
   text: string;
   weight?: NormalWeights;
+  css?: CSS;
 } & VariantProps<typeof StyledBadge>;
 
 export const Badge: React.FC<BadgeProps> = ({
@@ -111,9 +119,10 @@ export const Badge: React.FC<BadgeProps> = ({
   weight = 'bold',
   size = 'sm',
   bordered = false,
+  css,
 }) => (
-  <StyledBadge color={color} size={size} bordered={bordered}>
-    <Text css={{ fontSize: 'inherit' }} weight={weight}>
+  <StyledBadge color={color} size={size} bordered={bordered} css={css}>
+    <Text css={{ fontSize: 'inherit', color: 'inherit' }} weight={weight}>
       {text}
     </Text>
   </StyledBadge>
