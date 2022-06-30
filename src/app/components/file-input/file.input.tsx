@@ -1,6 +1,6 @@
 import { faEllipsis } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Button, Input, InputProps, SimpleColors, styled } from '@nextui-org/react';
+import { Button, Input, InputProps, NormalColors, styled } from '@nextui-org/react';
 import React from 'react';
 
 const StyledFileInput = styled('input', {
@@ -8,7 +8,7 @@ const StyledFileInput = styled('input', {
 });
 
 export type FileInputProps = Partial<Omit<InputProps, 'type'>> & {
-  buttonColor?: SimpleColors;
+  buttonColor?: NormalColors;
 };
 
 export const FileInput: React.FC<FileInputProps> = ({ accept, buttonColor, ...props }) => {
@@ -31,6 +31,7 @@ export const FileInput: React.FC<FileInputProps> = ({ accept, buttonColor, ...pr
         value={value}
         contentRight={
           <Button
+            light
             size="xs"
             color={buttonColor}
             icon={<FontAwesomeIcon icon={faEllipsis} />}

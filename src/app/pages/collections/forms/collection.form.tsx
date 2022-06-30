@@ -44,7 +44,7 @@ export const CollectionForm: React.FC<CollectionFormProps> = ({ onSubmit = () =>
         <FileInput
           bordered
           borderWeight="light"
-          buttonColor="success"
+          buttonColor="gradient"
           size="sm"
           animated={false}
           label="Protobuf path"
@@ -57,7 +57,14 @@ export const CollectionForm: React.FC<CollectionFormProps> = ({ onSubmit = () =>
             Include directories
           </Text>
           <Spacer />
-          <Button auto size="xs" color="success" icon={<FontAwesomeIcon icon={faSquarePlus} />}>
+          <Button
+            auto
+            bordered
+            borderWeight="light"
+            size="xs"
+            color="success"
+            icon={<FontAwesomeIcon icon={faSquarePlus} />}
+          >
             Add path
           </Button>
         </div>
@@ -71,11 +78,13 @@ export const CollectionForm: React.FC<CollectionFormProps> = ({ onSubmit = () =>
               <Table.Row>
                 <Table.Cell key="1" css={{ display: 'flex', alignItems: 'center' }}>
                   <PathComponeent small>
-                    Users/notmedia/some/work/folder/path/to/proto/service/main.proto
+                    /Users/notmedia/some/work/folder/path/to/proto/service
                   </PathComponeent>
                   <Spacer y={0} />
                   <Button
                     size="xs"
+                    bordered
+                    borderWeight="light"
                     color="error"
                     icon={<FontAwesomeIcon icon={faTrash} />}
                     css={{ marginLeft: 'auto', minWidth: 10 }}
