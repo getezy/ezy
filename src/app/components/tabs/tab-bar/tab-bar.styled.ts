@@ -6,18 +6,6 @@ export const StyledTabBar = styled('div', {
   flexWrap: 'nowrap',
   overflow: 'auto',
 
-  '&::-webkit-scrollbar': {
-    width: 2,
-    height: 2,
-  },
-  '&::-webkit-scrollbar-track': {
-    backgroundColor: '$accents1',
-  },
-  '&::-webkit-scrollbar-thumb': {
-    boxShadow: 'inset 0 0 6px',
-    color: '$accents5',
-  },
-
   background: '$backgroundContrast',
   borderBottom: 'solid 1px $border',
 });

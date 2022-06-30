@@ -17,16 +17,6 @@ const PathComponeent = styled(Text, {
   overflowX: 'auto',
   overflowY: 'hidden',
   flex: 1,
-  '&::-webkit-scrollbar': {
-    height: 2,
-  },
-  '&::-webkit-scrollbar-track': {
-    backgroundColor: '$accents1',
-  },
-  '&::-webkit-scrollbar-thumb': {
-    boxShadow: 'inset 0 0 6px',
-    color: '$accents5',
-  },
 });
 
 export const CollectionForm: React.FC<CollectionFormProps> = ({ onSubmit = () => {}, id }) => {

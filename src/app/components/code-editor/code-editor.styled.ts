@@ -52,18 +52,4 @@ export const StyledCodeMirror = styled(CodeMirror, {
     border: 'none',
     color: '$yellow500',
   },
-
-  '.cm-scroller': {
-    '&::-webkit-scrollbar': {
-      width: 2,
-      height: 2,
-    },
-    '&::-webkit-scrollbar-track': {
-      backgroundColor: '$accents1',
-    },
-    '&::-webkit-scrollbar-thumb': {
-      boxShadow: 'inset 0 0 6px',
-      color: '$accents5',
-    },
-  },
 });

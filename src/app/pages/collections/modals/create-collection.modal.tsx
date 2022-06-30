@@ -21,20 +21,7 @@ export const CreateCollectionModal: React.FC<ModalProps> = ({ onClose = () => {}
         <Spacer />
         <Badge text="PROTO" color="primary" size="xs" bordered />
       </Modal.Header>
-      <Modal.Body
-        css={{
-          '&::-webkit-scrollbar': {
-            width: 2,
-          },
-          '&::-webkit-scrollbar-track': {
-            backgroundColor: '$accents1',
-          },
-          '&::-webkit-scrollbar-thumb': {
-            boxShadow: 'inset 0 0 6px',
-            color: '$accents5',
-          },
-        }}
-      >
+      <Modal.Body>
         <CollectionForm id="create-collection-form" onSubmit={handleSubmit} />
       </Modal.Body>
       <Modal.Footer>
