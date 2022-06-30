@@ -50,6 +50,8 @@ export const CollectionForm: React.FC<CollectionFormProps> = ({ onSubmit = () =>
           label="Protobuf path"
           accept=".proto"
           readOnly
+          color={errors.options?.path ? 'error' : 'default'}
+          {...register('options.path', { required: true })}
         />
         <Spacer />
         <div style={{ display: 'flex' }}>

@@ -43,14 +43,15 @@ const RemoveButton = styled('div', {
   alignContent: 'center',
   justifyContent: 'center',
 
-  backgroundColor: '$error',
-  width: 20,
-  borderRadius: 5,
-  color: '$text',
-  height: 20,
+  border: 'solid 1px $errorBorder',
+  borderRadius: '$squared',
+  width: 24,
+  height: 24,
+  color: '$error',
 
   '&:hover': {
-    backgroundColor: '$red500',
+    border: 'solid 1px $errorBorderHover',
+    color: '$errorLightContrast',
   },
 });
 
@@ -64,19 +65,19 @@ export const ColoredOption: React.FC<ColoredOptionProps> = ({ children, innerPro
   const { selectProps, data } = props;
   const { onRemove } = selectProps;
 
+  const handleRemoveButtonClick: React.MouseEventHandler<HTMLDivElement> = (event) => {
+    onRemove(data);
+    event.stopPropagation();
+  };
+
   return (
     <components.Option {...props} innerProps={innerProps}>
       <StyledSpan size={selectProps.size}>
         <ColorCircle size={selectProps.size} color={data.color} />
         <span style={{ overflow: 'hidden' }}>{data.label}</span>
-        <div style={{ marginLeft: 'auto', height: 20 }}>
+        <div style={{ marginLeft: 'auto', height: 24 }}>
           {props.isFocused && (
-            <RemoveButton
-              onClick={(e) => {
-                onRemove(data);
-                e.stopPropagation();
-              }}
-            >
+            <RemoveButton onClick={handleRemoveButtonClick}>
               <FontAwesomeIcon icon={faTrash} size="sm" />
             </RemoveButton>
           )}
