@@ -23,14 +23,20 @@ export type TreeProps<T extends TreeData> = {
 export const Tree: <T extends TreeData>(
   props: TreeProps<T>
 ) => React.ReactElement<TreeProps<T>> = ({ css, data, nodeRenderer }) => {
-  const [isOpen, setIsOpen] = React.useState<boolean[]>(new Array(data.length).fill(true));
+  const [isOpen, setIsOpen] = React.useState<{ [key: string]: boolean }>({});
 
-  const handleOpen = (index: number) => (value: boolean) => {
-    setIsOpen([...isOpen.slice(0, index), value, ...isOpen.slice(index + 1)]);
+  const handleIsOpen = (id: string) => (value: boolean) => {
+    setIsOpen({
+      ...isOpen,
+      [id]: value,
+    });
   };
 
-  const nodes = data.map((item, index) =>
-    nodeRenderer(item, { isOpen: isOpen[index], onCollapseToggle: handleOpen(index) })
+  const nodes = data.map((item) =>
+    nodeRenderer(item, {
+      isOpen: isOpen[item.id] || false,
+      onCollapseToggle: handleIsOpen(item.id),
+    })
   );
 
   return <StyledTree css={css}>{nodes}</StyledTree>;
