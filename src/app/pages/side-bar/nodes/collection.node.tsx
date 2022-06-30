@@ -140,6 +140,7 @@ export const collectionNodeRenderer: TreeNodeRenderer<Collection<CollectionType>
 ) => (
   <CollectionNode
     id={id}
+    key={id}
     name={name}
     type={type}
     data={children}

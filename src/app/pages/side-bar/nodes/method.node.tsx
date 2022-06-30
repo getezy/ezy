@@ -44,5 +44,5 @@ const GrpcMethodNode: React.FC<GrpcMethodNodeProps> = ({ id, name, type }) => {
 };
 
 export const grpcMethodNodeRenderer: TreeNodeRenderer<GRPCMethod> = ({ id, type, name }) => (
-  <GrpcMethodNode id={id} type={type} name={name} />
+  <GrpcMethodNode id={id} key={id} type={type} name={name} />
 );

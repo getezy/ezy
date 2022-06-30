@@ -23,7 +23,15 @@ export type TreeProps<T extends TreeData> = {
 export const Tree: <T extends TreeData>(
   props: TreeProps<T>
 ) => React.ReactElement<TreeProps<T>> = ({ css, data, nodeRenderer }) => {
-  const [isOpen, setIsOpen] = React.useState<{ [key: string]: boolean }>({});
+  const isOpenDefaultState = data.reduce(
+    (acc, item) => ({
+      ...acc,
+      [item.id]: true,
+    }),
+    {}
+  );
+
+  const [isOpen, setIsOpen] = React.useState<{ [key: string]: boolean }>(isOpenDefaultState);
 
   const handleIsOpen = (id: string) => (value: boolean) => {
     setIsOpen({

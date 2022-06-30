@@ -53,6 +53,7 @@ export const grpcServiceNodeRenderer: TreeNodeRenderer<GRPCService> = (
 ) => (
   <GrpcServiceNode
     id={id}
+    key={id}
     name={name}
     methods={methods}
     isOpen={isOpen}
