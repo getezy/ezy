@@ -1,4 +1,4 @@
-import { Container, Spacer } from '@nextui-org/react';
+import { Container, Spacer, styled, Text } from '@nextui-org/react';
 import React from 'react';
 
 import { ResizablePanel, Tab, Tabs } from '../../components';
@@ -6,6 +6,14 @@ import { useTabsStore } from '../../storage';
 import { Request } from './request';
 import { Response } from './response';
 import { SendHeader } from './send-header';
+
+const NoTabsContainer = styled('div', {
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  height: '100%',
+  width: '100%',
+});
 
 export const TabsContainer = (): JSX.Element => {
   const { activeTabId, closeTab, activateTab, moveTab } = useTabsStore((store) => store);
@@ -20,7 +28,7 @@ export const TabsContainer = (): JSX.Element => {
     </Tab>
   ));
 
-  return (
+  return tabs.length ? (
     <Tabs
       draggable
       activeKey={activeTabId}
@@ -31,5 +39,9 @@ export const TabsContainer = (): JSX.Element => {
     >
       {tabs}
     </Tabs>
+  ) : (
+    <NoTabsContainer>
+      <Text css={{ color: '$accents6', userSelect: 'none' }}>No tabs</Text>
+    </NoTabsContainer>
   );
 };
