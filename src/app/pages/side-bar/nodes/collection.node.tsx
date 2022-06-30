@@ -64,13 +64,12 @@ const CollectionNode: React.FC<CollectionNodeProps> = ({
   );
 
   const commandsContent = (
-    <Dropdown placement="right-top">
+    <Dropdown placement="right-top" disableAnimation>
       <Dropdown.Button
         auto
         light
         size="xs"
         color="gradient"
-        animated={false}
         css={{
           padding: 0,
           margin: 0,
