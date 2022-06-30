@@ -29,31 +29,28 @@ export const CollectionForm: React.FC<CollectionFormProps> = ({ onSubmit = () =>
   return (
     <form id={id} onSubmit={handleSubmit(onSubmit)}>
       <Container gap={0} css={{ display: 'flex', flexDirection: 'column' }}>
-        <Container
-          fluid
-          gap={0}
-          css={{
-            display: 'flex',
-            flexWrap: 'nowrap',
-            justifyContent: 'center',
-            alignItems: 'flex-end',
-          }}
-        >
-          <Input
-            autoFocus
-            bordered
-            borderWeight="light"
-            size="sm"
-            animated={false}
-            label="Name"
-            clearable
-            css={{ flex: 1 }}
-            color={errors.name ? 'error' : 'default'}
-            {...register('name', { required: true })}
-          />
-        </Container>
+        <Input
+          autoFocus
+          bordered
+          borderWeight="light"
+          size="sm"
+          animated={false}
+          label="Name"
+          clearable
+          color={errors.name ? 'error' : 'default'}
+          {...register('name', { required: true })}
+        />
         <Spacer />
-        <FileInput />
+        <FileInput
+          bordered
+          borderWeight="light"
+          buttonColor="success"
+          size="sm"
+          animated={false}
+          label="Protobuf path"
+          accept=".proto"
+          readOnly
+        />
         <Spacer />
         <div style={{ display: 'flex' }}>
           <Text weight="normal" size={14} css={{ userSelect: 'none', paddingLeft: 4 }}>

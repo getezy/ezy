@@ -23,7 +23,6 @@ export const Header: React.FC = () => {
       </Button>
       <CreateCollectionModal
         closeButton
-        preventClose
         blur
         open={createCollectionModalVisible}
         onClose={() => setCreateCollectionModalVisible(false)}

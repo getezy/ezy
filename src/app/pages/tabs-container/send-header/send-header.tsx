@@ -132,7 +132,6 @@ export const SendHeader: React.FC<SendHeaderProps> = ({ tab }) => {
       </Container>
       <CreateEnvironmentModal
         closeButton
-        preventClose
         blur
         open={createEnvironmentModalVisible}
         defaultValues={{
