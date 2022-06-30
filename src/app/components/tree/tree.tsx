@@ -20,15 +20,18 @@ export type TreeProps<T extends TreeData> = {
   nodeRenderer: TreeNodeRenderer<T>;
 };
 
-export const TreeFactory =
-  <T extends TreeData>(): React.FC<TreeProps<T>> =>
-  ({ css, data, nodeRenderer }) => {
-    const nodes = data.map((item) => {
-      // eslint-disable-next-line react-hooks/rules-of-hooks
-      const [isOpen, setIsOpen] = React.useState(true);
+export const Tree: <T extends TreeData>(
+  props: TreeProps<T>
+) => React.ReactElement<TreeProps<T>> = ({ css, data, nodeRenderer }) => {
+  const [isOpen, setIsOpen] = React.useState<boolean[]>(new Array(data.length).fill(true));
 
-      return nodeRenderer(item, { isOpen, onCollapseToggle: setIsOpen });
-    });
-
-    return <StyledTree css={css}>{nodes}</StyledTree>;
+  const handleOpen = (index: number) => (value: boolean) => {
+    setIsOpen([...isOpen.slice(0, index), value, ...isOpen.slice(index + 1)]);
   };
+
+  const nodes = data.map((item, index) =>
+    nodeRenderer(item, { isOpen: isOpen[index], onCollapseToggle: handleOpen(index) })
+  );
+
+  return <StyledTree css={css}>{nodes}</StyledTree>;
+};

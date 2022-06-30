@@ -8,7 +8,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Dropdown, Spacer, Text, Tooltip } from '@nextui-org/react';
 import React from 'react';
 
-import { TreeFactory, TreeNode, TreeNodeRenderer } from '../../../components';
+import { Tree, TreeNode, TreeNodeRenderer } from '../../../components';
 import {
   Collection,
   CollectionChildren,
@@ -25,19 +25,17 @@ type CollectionNodeProps = {
   name: string;
   type: CollectionType;
 
-  data: CollectionChildren<CollectionType>;
+  data?: CollectionChildren<CollectionType>;
 
   isOpen?: boolean;
   onCollapseToggle?: (isOpen: boolean) => void;
 };
 
-const GRPCServiceTree = TreeFactory<GRPCService>();
-
 const CollectionNode: React.FC<CollectionNodeProps> = ({
   id,
   name,
   type,
-  data,
+  data = [],
   isOpen,
   onCollapseToggle,
 }) => {
@@ -131,7 +129,7 @@ const CollectionNode: React.FC<CollectionNodeProps> = ({
       isOpen={isOpen}
       onCollapseToggle={onCollapseToggle}
     >
-      <GRPCServiceTree data={data} nodeRenderer={grpcServiceNodeRenderer} />
+      <Tree<GRPCService> data={data} nodeRenderer={grpcServiceNodeRenderer} />
     </TreeNode>
   );
 };

@@ -1,12 +1,10 @@
 import { Text } from '@nextui-org/react';
 import React from 'react';
 
-import { TreeFactory } from '../../components';
+import { Tree } from '../../components';
 import { Collection, CollectionType, useCollectionsStore } from '../../storage';
 import { collectionNodeRenderer } from './nodes';
 import { StyledSideBar } from './side-bar.styled';
-
-const CollectionTree = TreeFactory<Collection<CollectionType>>();
 
 export const ExplorerSideBar = (): JSX.Element => {
   const collections = useCollectionsStore((store) => store.collections);
@@ -26,7 +24,10 @@ export const ExplorerSideBar = (): JSX.Element => {
         }}
       /> */}
       {collections.length ? (
-        <CollectionTree data={collections} nodeRenderer={collectionNodeRenderer} />
+        <Tree<Collection<CollectionType>>
+          data={collections}
+          nodeRenderer={collectionNodeRenderer}
+        />
       ) : (
         <div
           style={{
