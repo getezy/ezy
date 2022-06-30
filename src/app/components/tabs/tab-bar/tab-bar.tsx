@@ -169,18 +169,16 @@ export const TabBar: React.FC<PropsWithChildren<TabBarProps>> = ({
     moveToActive();
   }, [activeKey, tabBarItems.length, activeTabBarItemIndex, isTabBarVisible]);
 
-  if (draggable) {
-    // eslint-disable-next-line react-hooks/rules-of-hooks
-    const sensors = useSensors(
-      // eslint-disable-next-line react-hooks/rules-of-hooks
-      useSensor(MouseSensor, {
-        activationConstraint: {
-          delay: 150,
-          tolerance: 30,
-        },
-      })
-    );
+  const sensors = useSensors(
+    useSensor(MouseSensor, {
+      activationConstraint: {
+        delay: 150,
+        tolerance: 30,
+      },
+    })
+  );
 
+  if (draggable) {
     const handleDragStart = (event: DragStartEvent) => {
       setActiveDraggingItem(event.active.id as string);
     };
