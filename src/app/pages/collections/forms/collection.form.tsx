@@ -68,32 +68,30 @@ export const CollectionForm: React.FC<CollectionFormProps> = ({ onSubmit = () =>
             Add path
           </Button>
         </div>
-        <Spacer />
-        <Container gap={0}>
-          <Table fixed bordered borderWeight="light" selectionMode="single" color="primary">
-            <Table.Header>
-              <Table.Column>Path</Table.Column>
-            </Table.Header>
-            <Table.Body>
-              <Table.Row>
-                <Table.Cell key="1" css={{ display: 'flex', alignItems: 'center' }}>
-                  <PathComponeent small>
-                    /Users/notmedia/some/work/folder/path/to/proto/service
-                  </PathComponeent>
-                  <Spacer y={0} />
-                  <Button
-                    size="xs"
-                    bordered
-                    borderWeight="light"
-                    color="error"
-                    icon={<FontAwesomeIcon icon={faTrash} />}
-                    css={{ marginLeft: 'auto', minWidth: 10 }}
-                  />
-                </Table.Cell>
-              </Table.Row>
-            </Table.Body>
-          </Table>
-        </Container>
+        <Spacer y={0.3} />
+        <Table fixed bordered borderWeight="light" selectionMode="single" color="primary">
+          <Table.Header>
+            <Table.Column>Path</Table.Column>
+          </Table.Header>
+          <Table.Body>
+            <Table.Row>
+              <Table.Cell key="1" css={{ display: 'flex', alignItems: 'center' }}>
+                <PathComponeent small>
+                  /Users/notmedia/some/work/folder/path/to/proto/service
+                </PathComponeent>
+                <Spacer y={0} />
+                <Button
+                  size="xs"
+                  bordered
+                  borderWeight="light"
+                  color="error"
+                  icon={<FontAwesomeIcon icon={faTrash} />}
+                  css={{ marginLeft: 'auto', minWidth: 10 }}
+                />
+              </Table.Cell>
+            </Table.Row>
+          </Table.Body>
+        </Table>
       </Container>
     </form>
   );
