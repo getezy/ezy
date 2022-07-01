@@ -101,7 +101,13 @@ export const CollectionForm: React.FC<CollectionFormProps> = ({ onSubmit = () =>
     register,
     handleSubmit,
     formState: { errors },
+    watch,
+    setValue,
   } = useForm<Collection<CollectionType>>();
+
+  React.useEffect(() => {
+    register('options.path', { required: true });
+  }, [register]);
 
   return (
     <form id={id} onSubmit={handleSubmit(onSubmit)}>
@@ -128,28 +134,9 @@ export const CollectionForm: React.FC<CollectionFormProps> = ({ onSubmit = () =>
           accept=".proto"
           readOnly
           color={errors.options?.path ? 'error' : 'default'}
-          {...register('options.path', { required: true })}
+          value={watch('options.path', '')}
+          onChange={(path) => setValue('options.path', path)}
         />
-        {/* <Controller
-          name="options.path"
-          control={control}
-          rules={{ required: true }}
-          defaultValue=""
-          render={({ field }) => (
-            <FileInput
-              bordered
-              borderWeight="light"
-              buttonColor="gradient"
-              size="sm"
-              animated={false}
-              label="Protobuf path"
-              accept=".proto"
-              readOnly
-              color={errors.options?.path ? 'error' : 'default'}
-              {...field}
-            />
-          )}
-        /> */}
         <Spacer />
         <Controller
           name="options.includeDirs"
