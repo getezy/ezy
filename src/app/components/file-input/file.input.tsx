@@ -7,13 +7,14 @@ const StyledFileInput = styled('input', {
   display: 'none',
 });
 
-export type FileInputProps = Partial<Omit<InputProps, 'type'>> & {
+export type FileInputProps = Partial<Omit<InputProps, 'type' | 'value'>> & {
   buttonColor?: NormalColors;
+  value?: string;
 };
 
 export const FileInput = React.forwardRef<FormElement, FileInputProps>(
-  ({ accept, buttonColor, ...props }, ref) => {
-    const [value, setValue] = React.useState<string>();
+  ({ accept, buttonColor, value = '', ...props }, ref) => {
+    const [inputValue, setInputValue] = React.useState<string>(value);
     const inputRef = React.useRef<HTMLInputElement>(null);
 
     const handleClick = () => {
@@ -21,7 +22,7 @@ export const FileInput = React.forwardRef<FormElement, FileInputProps>(
     };
 
     const handleChange: React.ChangeEventHandler<HTMLInputElement> = (event) => {
-      setValue((event.target.files || [])[0]?.path);
+      setInputValue((event.target.files || [])[0]?.path);
     };
 
     return (
@@ -30,7 +31,7 @@ export const FileInput = React.forwardRef<FormElement, FileInputProps>(
           {...props}
           ref={ref}
           contentRightStyling={false}
-          value={value}
+          value={inputValue}
           contentRight={
             <Button
               light
