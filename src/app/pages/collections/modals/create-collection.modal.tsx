@@ -14,7 +14,7 @@ export const CreateCollectionModal: React.FC<ModalProps> = ({ onClose = () => {}
   };
 
   return (
-    <Modal {...props} fullScreen onClose={onClose} css={{ backgroundColor: '$backgroundContrast' }}>
+    <Modal {...props} onClose={onClose} css={{ backgroundColor: 'transparent', maxHeight: '90vh' }}>
       <Modal.Header css={{ userSelect: 'none' }}>
         <Spacer />
         <Text>New Collection</Text>

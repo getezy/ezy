@@ -71,7 +71,7 @@ export const CollectionForm: React.FC<CollectionFormProps> = ({ onSubmit = () =>
           </Button>
         </div>
         <Spacer y={0.3} />
-        <Table fixed bordered borderWeight="light" selectionMode="single" color="primary">
+        <Table bordered borderWeight="light" fixed selectionMode="single" color="primary">
           <Table.Header>
             <Table.Column>Path</Table.Column>
           </Table.Header>
