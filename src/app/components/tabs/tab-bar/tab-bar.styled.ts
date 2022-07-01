@@ -7,5 +7,4 @@ export const StyledTabBar = styled('div', {
   overflow: 'auto',
 
   background: '$backgroundContrast',
-  borderBottom: 'solid 1px $border',
 });
