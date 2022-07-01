@@ -38,6 +38,9 @@ declare global {
         setItem: (key: string, val: any) => void;
         removeItem: (key: string) => void;
       };
+      selectDirectoryDialog: {
+        open: () => string[];
+      };
     };
   }
 }
