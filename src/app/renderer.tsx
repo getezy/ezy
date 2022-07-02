@@ -41,6 +41,9 @@ declare global {
       selectDirectoryDialog: {
         open: () => string[];
       };
+      protobuf: {
+        loadFromFile: (path: string, includeDirs?: string[]) => Promise<any>;
+      };
     };
   }
 }

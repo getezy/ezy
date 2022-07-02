@@ -1,11 +1,12 @@
 import { contextBridge } from 'electron';
 
-import { electronStorePreload, selectDirectoryDialogPreload } from './ipc';
+import { electronStorePreload, protobufPreload, selectDirectoryDialogPreload } from './ipc';
 
 const preload = () => {
   contextBridge.exposeInMainWorld('electron', {
     ...electronStorePreload(),
     ...selectDirectoryDialogPreload(),
+    ...protobufPreload(),
   });
 };
 
