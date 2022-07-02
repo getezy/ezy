@@ -11,6 +11,8 @@ import { Collection, CollectionType } from '../../../storage';
 export interface CollectionFormProps {
   id?: string;
 
+  defaultValues?: Partial<Collection<CollectionType>>;
+
   onSubmit: (payload: Collection<CollectionType>) => void;
 }
 
@@ -95,7 +97,11 @@ const IncludeDirectoriesContainer = React.forwardRef<
   );
 });
 
-export const CollectionForm: React.FC<CollectionFormProps> = ({ onSubmit = () => {}, id }) => {
+export const CollectionForm: React.FC<CollectionFormProps> = ({
+  onSubmit = () => {},
+  id,
+  defaultValues,
+}) => {
   const {
     control,
     register,
@@ -103,7 +109,7 @@ export const CollectionForm: React.FC<CollectionFormProps> = ({ onSubmit = () =>
     formState: { errors },
     watch,
     setValue,
-  } = useForm<Collection<CollectionType>>();
+  } = useForm<Collection<CollectionType>>({ defaultValues });
 
   React.useEffect(() => {
     register('options.path', { required: true });
@@ -134,7 +140,7 @@ export const CollectionForm: React.FC<CollectionFormProps> = ({ onSubmit = () =>
           accept=".proto"
           readOnly
           color={errors.options?.path ? 'error' : 'default'}
-          value={watch('options.path', '')}
+          value={watch('options.path', defaultValues?.options?.path || '')}
           onChange={(path) => setValue('options.path', path)}
         />
         <Spacer />

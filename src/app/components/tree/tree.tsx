@@ -15,14 +15,14 @@ export type TreeData = {
 export type TreeProps<T extends TreeData> = {
   css?: CSS;
 
-  data: T[];
+  data?: T[];
 
   nodeRenderer: TreeNodeRenderer<T>;
 };
 
 export const Tree: <T extends TreeData>(
   props: TreeProps<T>
-) => React.ReactElement<TreeProps<T>> = ({ css, data, nodeRenderer }) => {
+) => React.ReactElement<TreeProps<T>> = ({ css, data = [], nodeRenderer }) => {
   const isOpenDefaultState = data.reduce(
     (acc, item) => ({
       ...acc,

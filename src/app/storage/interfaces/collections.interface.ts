@@ -43,5 +43,6 @@ export interface CollectionsStorage {
   collections: Collection<CollectionType>[];
 
   createCollection: (collection: Omit<Collection<CollectionType>, 'id'>) => void;
+  updateCollection: (id: string, payload: Partial<Omit<Collection<CollectionType>, 'id'>>) => void;
   removeCollection: (id: string) => void;
 }

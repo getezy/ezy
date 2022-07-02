@@ -62,6 +62,27 @@ export const useCollectionsStore = create(
 
           return { ...state, collections: [...collections] };
         }),
+      updateCollection: (id, payload) =>
+        set((state) => {
+          const { collections } = get();
+          const collectionIndex = collections.findIndex((item) => item.id === id);
+
+          if (collectionIndex >= 0) {
+            return {
+              ...state,
+              collections: [
+                ...collections.slice(0, collectionIndex),
+                {
+                  ...collections[collectionIndex],
+                  ...payload,
+                },
+                ...collections.slice(collectionIndex + 1),
+              ],
+            };
+          }
+
+          return { ...state };
+        }),
       removeCollection: (id) =>
         set((state) => {
           const { collections } = get();
