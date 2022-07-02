@@ -3,53 +3,12 @@ import { nanoid } from 'nanoid';
 import create from 'zustand';
 import { persist } from 'zustand/middleware';
 
-import { Tab, TabsStorage } from './interfaces';
-
-const firstTabRequestId = nanoid();
-const secondTabRequestId = nanoid();
-const initialState: Tab[] = [
-  {
-    id: nanoid(),
-    title: 'First Tab',
-    url: '',
-    environmentId: null,
-    requestContainer: {
-      activeTabId: firstTabRequestId,
-      request: {
-        id: firstTabRequestId,
-      },
-      metadata: {
-        id: nanoid(),
-      },
-    },
-    response: {
-      id: nanoid(),
-    },
-  },
-  {
-    id: nanoid(),
-    title: 'Second Tab',
-    url: '',
-    environmentId: null,
-    requestContainer: {
-      activeTabId: secondTabRequestId,
-      request: {
-        id: secondTabRequestId,
-      },
-      metadata: {
-        id: nanoid(),
-      },
-    },
-    response: {
-      id: nanoid(),
-    },
-  },
-];
+import { TabsStorage } from './interfaces';
 
 export const useTabsStore = create(
   persist<TabsStorage>(
     (set, get) => ({
-      tabs: initialState,
+      tabs: [],
       activeTabId: undefined,
       createTab: (tab) =>
         set((state) => {

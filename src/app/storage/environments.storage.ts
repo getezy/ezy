@@ -1,14 +1,12 @@
 import create from 'zustand';
 import { persist } from 'zustand/middleware';
 
-import { Environment, EnvironmentsStorage } from './interfaces';
-
-const initialState: Environment[] = [];
+import { EnvironmentsStorage } from './interfaces';
 
 export const useEnvironmentsStore = create(
   persist<EnvironmentsStorage>(
     (set, get) => ({
-      environments: initialState,
+      environments: [],
       createEnvironment: (environment) =>
         set((state) => {
           const { environments } = get();
