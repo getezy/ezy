@@ -13,7 +13,6 @@ module.exports = function () {
 
     env: {
       type: 'node',
-      runner: 'node'
     },
   };
 };

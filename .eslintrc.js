@@ -38,6 +38,8 @@ module.exports = {
     'simple-import-sort/imports': [
       2,
       { 'groups': [['^\\u0000'], ['^[^.]'], ['^\\.'], ['^.+\\.s?css$']] }
-    ]
+    ],
+
+    'no-plusplus': 'off',
   }
 }

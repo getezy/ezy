@@ -25,6 +25,7 @@
  *  });
  * ```
  */
+import { GrpcObject } from '@grpc/grpc-js';
 import React from 'react';
 import * as ReactDOM from 'react-dom/client';
 
@@ -42,7 +43,7 @@ declare global {
         open: () => string[];
       };
       protobuf: {
-        loadFromFile: (path: string, includeDirs?: string[]) => Promise<any>;
+        loadFromFile: (path: string, includeDirs?: string[]) => Promise<GrpcObject>;
       };
     };
   }
