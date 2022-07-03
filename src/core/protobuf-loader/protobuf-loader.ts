@@ -2,20 +2,7 @@ import type { GrpcObject, ServiceDefinition } from '@grpc/grpc-js';
 import * as grpc from '@grpc/grpc-js';
 import * as protolaoder from '@grpc/proto-loader';
 
-export type Method = {
-  name: string;
-  isStream: boolean;
-};
-
-export type Service = {
-  name: string;
-  methods?: Method[];
-};
-
-export type Package = {
-  name: string;
-  services?: Service[];
-};
+import { MethodInfo, PackageInfo, ServiceInfo } from './interfaces';
 
 export class ProtobufLoader {
   static async loadFromFile(path: string, importPaths: string[] = []): Promise<GrpcObject> {
@@ -28,8 +15,8 @@ export class ProtobufLoader {
     return ast;
   }
 
-  static parse(ast: GrpcObject): Package[] {
-    const result: Package[] = [];
+  static parse(ast: GrpcObject): PackageInfo[] {
+    const result: PackageInfo[] = [];
 
     const packages = Object.keys(ast).filter((item) => item !== 'google');
 
@@ -42,8 +29,8 @@ export class ProtobufLoader {
     return result;
   }
 
-  private static parsePackage(name: string, astPackage: GrpcObject): Package {
-    const parsedPackage: Package = {
+  private static parsePackage(name: string, astPackage: GrpcObject): PackageInfo {
+    const parsedPackage: PackageInfo = {
       name,
     };
 
@@ -52,7 +39,7 @@ export class ProtobufLoader {
       (item) => astPackage[item].serviceName !== undefined
     );
 
-    const services: Service[] = [];
+    const services: ServiceInfo[] = [];
 
     for (let i = 0; i < astServices.length; i++) {
       const service = this.parseService(
@@ -70,17 +57,17 @@ export class ProtobufLoader {
     };
   }
 
-  private static parseService(name: string, astService: ServiceDefinition) {
-    const parsedService: Service = {
+  private static parseService(name: string, astService: ServiceDefinition): ServiceInfo {
+    const parsedService: ServiceInfo = {
       name,
     };
 
     const astMethods = Object.keys(astService);
 
-    const methods: Method[] = [];
+    const methods: MethodInfo[] = [];
 
     for (let i = 0; i < astMethods.length; i++) {
-      const method: Method = {
+      const method: MethodInfo = {
         name: astMethods[i],
         isStream:
           astService[astMethods[i]]?.requestStream || astService[astMethods[i]]?.responseStream,

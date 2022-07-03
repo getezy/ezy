@@ -2,14 +2,14 @@ import { ipcRenderer } from 'electron';
 
 export const electronStorePreload = () => ({
   store: {
-    getItem(val: any) {
-      return Promise.resolve().then(() => ipcRenderer.sendSync('electron-store:get', val));
+    getItem(value: any) {
+      return ipcRenderer.invoke('electron-store:get', value);
     },
-    setItem(property: string, val: any) {
-      ipcRenderer.send('electron-store:set', property, val);
+    setItem(key: string, value: any) {
+      return ipcRenderer.invoke('electron-store:set', key, value);
     },
-    removeItem(property: string) {
-      ipcRenderer.send('electron-store:remove', property);
+    removeItem(key: string) {
+      return ipcRenderer.invoke('electron-store:remove', key);
     },
   },
 });

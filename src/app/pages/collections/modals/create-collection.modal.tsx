@@ -8,7 +8,15 @@ import { CollectionForm } from '../forms';
 export const CreateCollectionModal: React.FC<ModalProps> = ({ onClose = () => {}, ...props }) => {
   const createCollection = useCollectionsStore((store) => store.createCollection);
 
-  const handleSubmit = (payload: Collection<CollectionType>) => {
+  const handleSubmit = async (payload: Collection<CollectionType>) => {
+    const proto = await window.electron.protobuf.loadFromFile(
+      payload.options.path,
+      payload.options.includeDirs
+    );
+
+    // eslint-disable-next-line no-console
+    console.log('proto: ', proto);
+
     createCollection(payload);
     onClose();
   };

@@ -4,17 +4,13 @@ import ElectronStore from 'electron-store';
 const store = new ElectronStore();
 
 export const electonStoreReigsterSubscibers = () => {
-  // IPC listener
-  ipcMain.on('electron-store:get', async (event, val) => {
-    // eslint-disable-next-line no-param-reassign
-    event.returnValue = store.get(val);
+  ipcMain.handle('electron-store:get', async (_event, value) => store.get(value));
+
+  ipcMain.handle('electron-store:set', async (_event, key, value) => {
+    store.set(key, value);
   });
 
-  ipcMain.on('electron-store:set', async (event, key, val) => {
-    store.set(key, val);
-  });
-
-  ipcMain.on('electron-store:remove', async (event, key) => {
+  ipcMain.handle('electron-store:remove', async (_event, key) => {
     store.reset(key);
   });
 };

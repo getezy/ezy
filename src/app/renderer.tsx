@@ -36,11 +36,11 @@ declare global {
     electron: {
       store: {
         getItem: (key: string) => any;
-        setItem: (key: string, val: any) => void;
+        setItem: (key: string, value: any) => void;
         removeItem: (key: string) => void;
       };
       selectDirectoryDialog: {
-        open: () => string[];
+        open: () => Promise<string[]>;
       };
       protobuf: {
         loadFromFile: (path: string, includeDirs?: string[]) => Promise<GrpcObject>;
