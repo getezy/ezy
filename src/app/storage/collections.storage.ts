@@ -2,47 +2,27 @@ import { nanoid } from 'nanoid';
 import create from 'zustand';
 import { persist } from 'zustand/middleware';
 
-import { Collection, CollectionsStorage, CollectionType, GRPCMethodType } from './interfaces';
-
-const collectionsInit: Collection<CollectionType>[] = [
-  {
-    id: nanoid(),
-    name: 'Backend',
-    type: CollectionType.GRPC,
-    options: {
-      path: 'test',
-      includeDirs: [],
-    },
-    children: [
-      {
-        id: nanoid(),
-        name: 'SimpleService',
-        methods: [
-          {
-            id: nanoid(),
-            name: 'SimpleUnaryRequest',
-            type: GRPCMethodType.UNARY,
-          },
-          {
-            id: nanoid(),
-            name: 'SimpleStreamRequest',
-            type: GRPCMethodType.STREAM,
-          },
-        ],
-      },
-    ],
-  },
-];
+import { Collection, CollectionsStorage, CollectionType } from './interfaces';
 
 export const useCollectionsStore = create(
   persist<CollectionsStorage>(
     (set, get) => ({
-      collections: collectionsInit,
+      collections: [],
       createCollection: (collection) =>
         set((state) => {
           const { collections } = get();
 
-          collections.push({ ...collection, id: nanoid() });
+          const newCollection: Collection<CollectionType> = {
+            ...collection,
+            id: nanoid(),
+            children: collection.children.map((service) => ({
+              ...service,
+              id: nanoid(),
+              methods: service.methods.map((method) => ({ ...method, id: nanoid() })),
+            })),
+          };
+
+          collections.push(newCollection);
 
           return { ...state, collections: [...collections] };
         }),

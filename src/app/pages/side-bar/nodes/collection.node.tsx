@@ -5,11 +5,12 @@ import {
   faTrash,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Dropdown, Text, Tooltip } from '@nextui-org/react';
+import { Dropdown, Spacer, Text, Tooltip } from '@nextui-org/react';
 import React from 'react';
 
 import { Tree, TreeNode, TreeNodeRenderer } from '../../../components';
 import { Collection, CollectionType, GRPCService, useCollectionsStore } from '../../../storage';
+import { ProtoBadge } from '../../collections/badge-types';
 import { UpdateCollectionModal } from '../../collections/modals';
 import { StyledNodeWrapper } from './node.styled';
 import { grpcServiceNodeRenderer } from './service.node';
@@ -39,6 +40,12 @@ const CollectionNode: React.FC<CollectionNodeProps> = ({ node, isOpen, onCollaps
 
   const content = (
     <StyledNodeWrapper>
+      {node.type === CollectionType.GRPC && (
+        <>
+          <ProtoBadge />
+          <Spacer x={0.3} />
+        </>
+      )}
       <Tooltip content={node.name} color="invert" placement="topStart" enterDelay={1000}>
         <Text size={12}>{node.name}</Text>
       </Tooltip>

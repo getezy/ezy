@@ -14,10 +14,13 @@ export const CreateCollectionModal: React.FC<ModalProps> = ({ onClose = () => {}
       payload.options.includeDirs
     );
 
-    // eslint-disable-next-line no-console
-    console.log('proto: ', proto);
+    createCollection({
+      ...payload,
+      type: CollectionType.GRPC,
+      // @ts-ignore
+      children: proto,
+    });
 
-    createCollection(payload);
     onClose();
   };
 
