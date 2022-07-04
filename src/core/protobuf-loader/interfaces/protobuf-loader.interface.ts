@@ -1,6 +1,11 @@
+export enum MethodType {
+  UNARY = 'unary',
+  STREAM = 'stream',
+}
+
 export type MethodInfo = {
   name: string;
-  isStream: boolean;
+  type: MethodType;
 };
 
 export type ServiceInfo = {

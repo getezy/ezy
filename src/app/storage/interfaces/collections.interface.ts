@@ -1,5 +1,5 @@
 export enum CollectionType {
-  'GRPC' = 'grpc',
+  GRPC = 'grpc',
 }
 
 export enum GRPCMethodType {

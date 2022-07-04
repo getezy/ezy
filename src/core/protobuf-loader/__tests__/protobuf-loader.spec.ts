@@ -1,5 +1,6 @@
 import { join } from 'path';
 
+import { MethodType } from '../interfaces';
 import { ProtobufLoader } from '../protobuf-loader';
 
 describe('ProtobufLoader', () => {
@@ -37,8 +38,12 @@ describe('ProtobufLoader', () => {
               name: 'SimpleService',
               methods: [
                 {
-                  name: 'SimpleRequest',
-                  isStream: false,
+                  name: 'SimpleUnaryRequest',
+                  type: MethodType.UNARY,
+                },
+                {
+                  name: 'SimpleStreamRequest',
+                  type: MethodType.STREAM,
                 },
               ],
             },

@@ -2,12 +2,12 @@ import type { GrpcObject, ServiceDefinition } from '@grpc/grpc-js';
 import * as grpc from '@grpc/grpc-js';
 import * as protolaoder from '@grpc/proto-loader';
 
-import { MethodInfo, PackageInfo, ServiceInfo } from './interfaces';
+import { MethodInfo, MethodType, PackageInfo, ServiceInfo } from './interfaces';
 
 export class ProtobufLoader {
-  static async loadFromFile(path: string, importPaths: string[] = []): Promise<GrpcObject> {
+  static async loadFromFile(path: string, includeDirs: string[] = []): Promise<GrpcObject> {
     const packageDefinition = await protolaoder.load(path, {
-      includeDirs: importPaths,
+      includeDirs,
     });
 
     const ast = grpc.loadPackageDefinition(packageDefinition);
@@ -69,8 +69,10 @@ export class ProtobufLoader {
     for (let i = 0; i < astMethods.length; i++) {
       const method: MethodInfo = {
         name: astMethods[i],
-        isStream:
-          astService[astMethods[i]]?.requestStream || astService[astMethods[i]]?.responseStream,
+        type:
+          astService[astMethods[i]]?.requestStream || astService[astMethods[i]]?.responseStream
+            ? MethodType.STREAM
+            : MethodType.UNARY,
       };
 
       methods.push(method);
