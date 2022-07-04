@@ -16,23 +16,17 @@ const collectionsInit: Collection<CollectionType>[] = [
     children: [
       {
         id: nanoid(),
-        name: 'simple_package',
-        services: [
+        name: 'SimpleService',
+        methods: [
           {
             id: nanoid(),
-            name: 'SimpleService',
-            methods: [
-              {
-                id: nanoid(),
-                name: 'SimpleUnaryRequest',
-                type: GRPCMethodType.UNARY,
-              },
-              {
-                id: nanoid(),
-                name: 'SimpleStreamRequest',
-                type: GRPCMethodType.STREAM,
-              },
-            ],
+            name: 'SimpleUnaryRequest',
+            type: GRPCMethodType.UNARY,
+          },
+          {
+            id: nanoid(),
+            name: 'SimpleStreamRequest',
+            type: GRPCMethodType.STREAM,
           },
         ],
       },

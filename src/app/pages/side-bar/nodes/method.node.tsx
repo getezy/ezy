@@ -37,7 +37,7 @@ const GrpcMethodNode: React.FC<GrpcMethodNodeProps> = ({ id, name, type }) => {
       id={id}
       key={id}
       content={content}
-      css={{ paddingLeft: 30 }}
+      css={{ paddingLeft: 20 }}
       onDoubleClick={handleDoubleClick}
     />
   );

@@ -38,7 +38,7 @@ const GrpcServiceNode: React.FC<GrpcServiceNodeProps> = ({
       id={id}
       key={id}
       content={content}
-      css={{ paddingLeft: 20 }}
+      css={{ paddingLeft: 10 }}
       isOpen={isOpen}
       onCollapseToggle={onCollapseToggle}
     >
