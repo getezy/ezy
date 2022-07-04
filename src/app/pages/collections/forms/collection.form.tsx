@@ -36,7 +36,6 @@ const IncludeDirectoriesContainer = React.forwardRef<
 
   const handleAddPathButtonClick = async () => {
     const paths = await window.electron.selectDirectoryDialog.open();
-    console.log('paths: ', paths);
     const newDirectories = [...directories, ...paths];
 
     setDirectories(newDirectories);

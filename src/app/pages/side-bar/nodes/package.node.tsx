@@ -2,30 +2,30 @@ import { Spacer, Text, Tooltip } from '@nextui-org/react';
 import React from 'react';
 
 import { Tree, TreeNode, TreeNodeRenderer } from '../../../components';
-import { GRPCMethod, GRPCService } from '../../../storage';
-import { ServiceBadge } from '../../collections/badge-types';
-import { grpcMethodNodeRenderer } from './method.node';
+import { GRPCPackage, GRPCService } from '../../../storage';
+import { PackageBadge } from '../../collections/badge-types';
 import { StyledNodeWrapper } from './node.styled';
+import { grpcServiceNodeRenderer } from './service.node';
 
-type GrpcServiceNodeProps = {
+type GrpcPackageNodeProps = {
   id: string;
   name: string;
-  methods?: GRPCMethod[];
+  services?: GRPCService[];
 
   isOpen?: boolean;
   onCollapseToggle?: (isOpen: boolean) => void;
 };
 
-const GrpcServiceNode: React.FC<GrpcServiceNodeProps> = ({
+const GrpcPackageNode: React.FC<GrpcPackageNodeProps> = ({
   id,
   name,
-  methods = [],
+  services = [],
   isOpen,
   onCollapseToggle,
 }) => {
   const content = (
     <StyledNodeWrapper>
-      <ServiceBadge />
+      <PackageBadge />
       <Spacer x={0.3} />
       <Tooltip content={name} color="invert" placement="topStart" enterDelay={1000}>
         <Text size={12}>{name}</Text>
@@ -38,24 +38,24 @@ const GrpcServiceNode: React.FC<GrpcServiceNodeProps> = ({
       id={id}
       key={id}
       content={content}
-      css={{ paddingLeft: 20 }}
+      css={{ paddingLeft: 10 }}
       isOpen={isOpen}
       onCollapseToggle={onCollapseToggle}
     >
-      <Tree<GRPCMethod> data={methods} nodeRenderer={grpcMethodNodeRenderer} />
+      <Tree<GRPCService> data={services} nodeRenderer={grpcServiceNodeRenderer} />
     </TreeNode>
   );
 };
 
-export const grpcServiceNodeRenderer: TreeNodeRenderer<GRPCService> = (
-  { id, name, methods },
+export const grpcPackageNodeRenderer: TreeNodeRenderer<GRPCPackage> = (
+  { id, name, services },
   { isOpen, onCollapseToggle }
 ) => (
-  <GrpcServiceNode
+  <GrpcPackageNode
     id={id}
     key={id}
     name={name}
-    methods={methods}
+    services={services}
     isOpen={isOpen}
     onCollapseToggle={onCollapseToggle}
   />

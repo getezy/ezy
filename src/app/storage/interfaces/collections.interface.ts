@@ -18,13 +18,19 @@ export interface GRPCService {
   methods: GRPCMethod[];
 }
 
+export interface GRPCPackage {
+  id: string;
+  name: string;
+  services: GRPCService[];
+}
+
 export interface GRPCCollectionOptions {
   path: string;
   includeDirs?: string[];
 }
 
 export type CollectionChildren<T extends CollectionType> = T extends CollectionType.GRPC
-  ? GRPCService[]
+  ? GRPCPackage[]
   : never;
 
 export type CollectionOptions<T extends CollectionType> = T extends CollectionType.GRPC

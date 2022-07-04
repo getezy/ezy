@@ -1,7 +1,7 @@
 import React from 'react';
 import * as ReactDOM from 'react-dom/client';
 
-import { ServiceInfo } from '../core';
+import { PackageInfo } from '../core';
 import App from './App';
 
 declare global {
@@ -16,7 +16,7 @@ declare global {
         open: () => Promise<string[]>;
       };
       protobuf: {
-        loadFromFile: (path: string, includeDirs?: string[]) => Promise<ServiceInfo[]>;
+        loadFromFile: (path: string, includeDirs?: string[]) => Promise<PackageInfo[]>;
       };
     };
   }
