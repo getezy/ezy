@@ -1,60 +1,45 @@
-import type { GrpcObject, ServiceDefinition } from '@grpc/grpc-js';
-import * as grpc from '@grpc/grpc-js';
+import type {
+  MethodDefinition,
+  PackageDefinition,
+  ProtobufTypeDefinition,
+  ServiceDefinition,
+} from '@grpc/proto-loader';
 import * as protolaoder from '@grpc/proto-loader';
 
-import { MethodInfo, MethodType, PackageInfo, ServiceInfo } from './interfaces';
+import { MethodInfo, MethodType, ServiceInfo } from './interfaces';
+
+function instanceOfProtobufTypeDefinition(object: any): object is ProtobufTypeDefinition {
+  return 'type' in object;
+}
+
+function instanceOfMethodDefinition(object: any): object is MethodDefinition<object, object> {
+  return 'requestType' in object;
+}
 
 export class ProtobufLoader {
-  static async loadFromFile(path: string, includeDirs: string[] = []): Promise<GrpcObject> {
-    const packageDefinition = await protolaoder.load(path, {
+  static async loadFromFile(path: string, includeDirs: string[] = []): Promise<PackageDefinition> {
+    const ast = await protolaoder.load(path, {
       includeDirs,
     });
-
-    const ast = grpc.loadPackageDefinition(packageDefinition);
 
     return ast;
   }
 
-  static parse(ast: GrpcObject): PackageInfo[] {
-    const result: PackageInfo[] = [];
-
-    const packages = Object.keys(ast).filter((item) => item !== 'google');
-
-    for (let i = 0; i < packages.length; i++) {
-      const parsedPackage = this.parsePackage(packages[i], ast[packages[i]] as GrpcObject);
-
-      result.push(parsedPackage);
-    }
-
-    return result;
-  }
-
-  private static parsePackage(name: string, astPackage: GrpcObject): PackageInfo {
-    const parsedPackage: PackageInfo = {
-      name,
-    };
-
-    const astServices = Object.keys(astPackage).filter(
-      // @ts-ignore
-      (item) => astPackage[item].serviceName !== undefined
-    );
-
+  static parse(ast: PackageDefinition): ServiceInfo[] {
     const services: ServiceInfo[] = [];
 
-    for (let i = 0; i < astServices.length; i++) {
-      const service = this.parseService(
-        astServices[i],
-        // @ts-ignore
-        astPackage[astServices[i]].service as ServiceDefinition
-      );
+    const packages = Object.keys(ast);
+    for (let i = 0; i < packages.length; i++) {
+      const astItem = ast[packages[i]];
 
-      services.push(service);
+      if (!instanceOfProtobufTypeDefinition(astItem)) {
+        const parsedService = this.parseService(packages[i], astItem);
+
+        services.push(parsedService);
+      }
     }
 
-    return {
-      ...parsedPackage,
-      services,
-    };
+    return services;
   }
 
   private static parseService(name: string, astService: ServiceDefinition): ServiceInfo {
@@ -67,15 +52,17 @@ export class ProtobufLoader {
     const methods: MethodInfo[] = [];
 
     for (let i = 0; i < astMethods.length; i++) {
-      const method: MethodInfo = {
-        name: astMethods[i],
-        type:
-          astService[astMethods[i]]?.requestStream || astService[astMethods[i]]?.responseStream
-            ? MethodType.STREAM
-            : MethodType.UNARY,
-      };
+      const astItem = astService[astMethods[i]];
 
-      methods.push(method);
+      if (instanceOfMethodDefinition(astItem)) {
+        const method: MethodInfo = {
+          name: astMethods[i],
+          type:
+            astItem.requestStream || astItem.responseStream ? MethodType.STREAM : MethodType.UNARY,
+        };
+
+        methods.push(method);
+      }
     }
 
     return {

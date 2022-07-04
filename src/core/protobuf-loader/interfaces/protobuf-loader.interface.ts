@@ -12,8 +12,3 @@ export type ServiceInfo = {
   name: string;
   methods?: MethodInfo[];
 };
-
-export type PackageInfo = {
-  name: string;
-  services?: ServiceInfo[];
-};

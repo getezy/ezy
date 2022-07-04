@@ -7,45 +7,59 @@ describe('ProtobufLoader', () => {
   describe('ProtobufLoader:loadFromFile', () => {
     it('load simple proto', async () => {
       const ast = await ProtobufLoader.loadFromFile(
-        join(__dirname, './fixtures/simple/simple.proto')
+        join(__dirname, './fixtures/proto/simple.proto')
       );
 
       expect(ast).toBeDefined();
-      // @ts-ignore
-      expect(ast.simple_package.SimpleService).toBeDefined();
+      expect(ast['simple_package.SimpleService']).toBeDefined();
     });
 
     it('load proto that does not exist', async () => {
       expect(() =>
-        ProtobufLoader.loadFromFile(join(__dirname, './fixtures/simple/another.proto'))
+        ProtobufLoader.loadFromFile(join(__dirname, './fixtures/proto/another.proto'))
       ).rejects.toThrow();
     });
   });
 
   describe('ProtobufLoader:parse', () => {
-    it('should parse simple proto', async () => {
+    it('should parse basic proto without package defenition', async () => {
       const ast = await ProtobufLoader.loadFromFile(
-        join(__dirname, './fixtures/simple/simple.proto')
+        join(__dirname, './fixtures/proto/basic.proto')
       );
 
       const packages = ProtobufLoader.parse(ast);
 
       expect(packages).toEqual([
         {
-          name: 'simple_package',
-          services: [
+          name: 'BasicService',
+          methods: [
             {
-              name: 'SimpleService',
-              methods: [
-                {
-                  name: 'SimpleUnaryRequest',
-                  type: MethodType.UNARY,
-                },
-                {
-                  name: 'SimpleStreamRequest',
-                  type: MethodType.STREAM,
-                },
-              ],
+              name: 'BasicRequest',
+              type: MethodType.UNARY,
+            },
+          ],
+        },
+      ]);
+    });
+
+    it('should parse simple proto', async () => {
+      const ast = await ProtobufLoader.loadFromFile(
+        join(__dirname, './fixtures/proto/simple.proto')
+      );
+
+      const packages = ProtobufLoader.parse(ast);
+
+      expect(packages).toEqual([
+        {
+          name: 'simple_package.SimpleService',
+          methods: [
+            {
+              name: 'SimpleUnaryRequest',
+              type: MethodType.UNARY,
+            },
+            {
+              name: 'SimpleStreamRequest',
+              type: MethodType.STREAM,
             },
           ],
         },
