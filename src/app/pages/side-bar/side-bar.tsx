@@ -3,7 +3,9 @@ import React from 'react';
 
 import { Tree } from '../../components';
 import { Collection, CollectionType, useCollectionsStore } from '../../storage';
+import { LogsBar } from './logs-bar';
 import { collectionNodeRenderer } from './nodes';
+import { SearchBar } from './search-bar';
 import { StyledSideBar } from './side-bar.styled';
 
 export const ExplorerSideBar = (): JSX.Element => {
@@ -11,18 +13,7 @@ export const ExplorerSideBar = (): JSX.Element => {
 
   return (
     <StyledSideBar>
-      {/* <Input
-        bordered
-        borderWeight="light"
-        fullWidth
-        animated={false}
-        placeholder="Search..."
-        clearable
-        size="sm"
-        css={{
-          padding: 10,
-        }}
-      /> */}
+      <SearchBar />
       {collections.length ? (
         <Tree<Collection<CollectionType>>
           data={collections}
@@ -40,6 +31,7 @@ export const ExplorerSideBar = (): JSX.Element => {
           <Text css={{ color: '$accents6' }}>No collections</Text>
         </div>
       )}
+      <LogsBar hasNewLogs />
     </StyledSideBar>
   );
 };
