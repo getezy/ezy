@@ -1,15 +1,26 @@
 import { faSquarePlus } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Button } from '@nextui-org/react';
+import { Button, styled } from '@nextui-org/react';
 import React from 'react';
 
 import { CreateCollectionModal } from './collections';
+
+const HeaderWrapper = styled('div', {
+  display: 'flex',
+});
 
 export const Header: React.FC = () => {
   const [createCollectionModalVisible, setCreateCollectionModalVisible] = React.useState(false);
 
   return (
-    <div>
+    <HeaderWrapper>
+      {/* <Button
+        auto
+        light
+        size="sm"
+        color="gradient"
+        icon={<FontAwesomeIcon icon={faListSquares} />}
+      /> */}
       <Button
         auto
         bordered
@@ -27,6 +38,6 @@ export const Header: React.FC = () => {
         open={createCollectionModalVisible}
         onClose={() => setCreateCollectionModalVisible(false)}
       />
-    </div>
+    </HeaderWrapper>
   );
 };
