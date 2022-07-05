@@ -1,7 +1,9 @@
 import { BrowserWindow, dialog, ipcMain, OpenDialogOptions } from 'electron';
 
+import { DialogChannel } from './constants';
+
 export const dialogRegisterSubscibers = (mainWindow: BrowserWindow) => {
-  ipcMain.handle('dialog:open', async (_event, options: OpenDialogOptions) => {
+  ipcMain.handle(DialogChannel.OPEN, async (_event, options: OpenDialogOptions) => {
     const { canceled, filePaths } = await dialog.showOpenDialog(mainWindow, options);
 
     if (!canceled) {

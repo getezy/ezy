@@ -1,15 +1,17 @@
 import { ipcRenderer } from 'electron';
 
+import { ElectronStoreChannel } from './constants';
+
 export const electronStorePreload = () => ({
   store: {
     getItem(value: any) {
-      return ipcRenderer.invoke('electron-store:get', value);
+      return ipcRenderer.invoke(ElectronStoreChannel.GET, value);
     },
     setItem(key: string, value: any) {
-      return ipcRenderer.invoke('electron-store:set', key, value);
+      return ipcRenderer.invoke(ElectronStoreChannel.SET, key, value);
     },
     removeItem(key: string) {
-      return ipcRenderer.invoke('electron-store:remove', key);
+      return ipcRenderer.invoke(ElectronStoreChannel.REMOVE, key);
     },
   },
 });
