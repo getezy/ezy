@@ -5,7 +5,6 @@ export const StyledSideBar = styled('div', {
   flexWrap: 'nowrap',
   flexDirection: 'column',
   userSelect: 'none',
-  overflow: 'auto',
 
   height: 'calc(100vh - 50px)',
   width: 250,
