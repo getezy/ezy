@@ -1,3 +1,4 @@
+import { OpenDialogOptions } from 'electron';
 import React from 'react';
 import * as ReactDOM from 'react-dom/client';
 
@@ -12,8 +13,8 @@ declare global {
         setItem: (key: string, value: any) => void;
         removeItem: (key: string) => void;
       };
-      selectDirectoryDialog: {
-        open: () => Promise<string[]>;
+      dialog: {
+        open: (options: OpenDialogOptions) => Promise<string[]>;
       };
       protobuf: {
         loadFromFile: (path: string, includeDirs?: string[]) => Promise<ServiceInfo[]>;
