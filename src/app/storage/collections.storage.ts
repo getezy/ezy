@@ -2,7 +2,13 @@ import { nanoid } from 'nanoid';
 import create from 'zustand';
 import { persist } from 'zustand/middleware';
 
-import { Collection, CollectionsStorage, CollectionType } from './interfaces';
+import {
+  Collection,
+  CollectionChildren,
+  CollectionsStorage,
+  CollectionType,
+  GRPCMethod,
+} from './interfaces';
 
 export const useCollectionsStore = create(
   persist<CollectionsStorage>(
@@ -55,6 +61,44 @@ export const useCollectionsStore = create(
             collections: collections.filter((item) => item.id !== id),
           };
         }),
+      filterCollection(search) {
+        const { collections } = get();
+
+        return collections.reduce((acc: Collection<CollectionType>[], collection) => {
+          if (collection.type === CollectionType.GRPC) {
+            const filteredServices = collection.children.reduce(
+              (children: CollectionChildren<CollectionType.GRPC>, service) => {
+                const filteredMethods = service.methods.reduce((methods: GRPCMethod[], method) => {
+                  if (method.name.toLowerCase().includes(search)) {
+                    methods.push(method);
+                  }
+
+                  return methods;
+                }, []);
+
+                if (filteredMethods.length || service.name.toLowerCase().includes(search)) {
+                  children.push({
+                    ...service,
+                    methods: filteredMethods,
+                  });
+                }
+
+                return children;
+              },
+              []
+            );
+
+            if (filteredServices.length || collection.name.toLowerCase().includes(search)) {
+              acc.push({
+                ...collection,
+                children: filteredServices,
+              });
+            }
+          }
+
+          return acc;
+        }, []);
+      },
     }),
     {
       name: 'collections',

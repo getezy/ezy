@@ -42,7 +42,7 @@ export const Tree: <T extends TreeData>(
 
   const nodes = data.map((item) =>
     nodeRenderer(item, {
-      isOpen: isOpen[item.id] || false,
+      isOpen: isOpen[item.id],
       onCollapseToggle: handleIsOpen(item.id),
     })
   );
