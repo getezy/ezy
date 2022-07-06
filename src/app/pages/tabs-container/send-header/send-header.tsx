@@ -1,4 +1,4 @@
-import { faFloppyDisk, faPaperPlane } from '@fortawesome/free-solid-svg-icons';
+import { faFloppyDisk, faLock, faLockOpen, faPaperPlane } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Button, Container, Input, Spacer } from '@nextui-org/react';
 import React from 'react';
@@ -119,6 +119,9 @@ export const SendHeader: React.FC<SendHeaderProps> = ({ tab }) => {
             />
           }
         />
+        <Spacer x={0.2} />
+        <Button auto size="sm" light color="success" icon={<FontAwesomeIcon icon={faLock} />} />
+        <Button auto size="sm" light color="default" icon={<FontAwesomeIcon icon={faLockOpen} />} />
         <Spacer x={0.5} />
         <SendButton
           size="sm"
