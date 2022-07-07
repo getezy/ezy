@@ -1,3 +1,6 @@
+/* eslint-disable no-param-reassign */
+
+import { produce } from 'immer';
 import { nanoid } from 'nanoid';
 import create from 'zustand';
 import { persist } from 'zustand/middleware';
@@ -15,52 +18,39 @@ export const useCollectionsStore = create(
     (set, get) => ({
       collections: [],
       createCollection: (collection) =>
-        set((state) => {
-          const { collections } = get();
-
-          const newCollection: Collection<CollectionType> = {
-            ...collection,
-            id: nanoid(),
-            children: collection.children.map((service) => ({
-              ...service,
+        set(
+          produce<CollectionsStorage>((state) => {
+            state.collections.push({
+              ...collection,
               id: nanoid(),
-              methods: service.methods.map((method) => ({ ...method, id: nanoid() })),
-            })),
-          };
-
-          collections.push(newCollection);
-
-          return { ...state, collections: [...collections] };
-        }),
+              children: collection.children.map((service) => ({
+                ...service,
+                id: nanoid(),
+                methods: service.methods.map((method) => ({ ...method, id: nanoid() })),
+              })),
+            });
+          })
+        ),
       updateCollection: (id, payload) =>
-        set((state) => {
-          const { collections } = get();
-          const collectionIndex = collections.findIndex((item) => item.id === id);
+        set(
+          produce<CollectionsStorage>((state) => {
+            const index = state.collections.findIndex((item) => item.id === id);
 
-          if (collectionIndex >= 0) {
-            return {
-              ...state,
-              collections: [
-                ...collections.slice(0, collectionIndex),
-                {
-                  ...collections[collectionIndex],
-                  ...payload,
-                },
-                ...collections.slice(collectionIndex + 1),
-              ],
-            };
-          }
-
-          return { ...state };
-        }),
+            if (index !== -1) {
+              state.collections[index] = {
+                ...state.collections[index],
+                ...payload,
+              };
+            }
+          })
+        ),
       removeCollection: (id) =>
-        set((state) => {
-          const { collections } = get();
-          return {
-            ...state,
-            collections: collections.filter((item) => item.id !== id),
-          };
-        }),
+        set(
+          produce<CollectionsStorage>((state) => {
+            const index = state.collections.findIndex((collection) => collection.id === id);
+            state.collections.splice(index, 1);
+          })
+        ),
       filterCollection(search) {
         const { collections } = get();
 

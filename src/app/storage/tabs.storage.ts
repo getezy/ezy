@@ -1,4 +1,7 @@
+/* eslint-disable no-param-reassign */
+
 import { arrayMove } from '@dnd-kit/sortable';
+import { produce } from 'immer';
 import { nanoid } from 'nanoid';
 import create from 'zustand';
 import { persist } from 'zustand/middleware';
@@ -7,78 +10,72 @@ import { TabsStorage } from './interfaces';
 
 export const useTabsStore = create(
   persist<TabsStorage>(
-    (set, get) => ({
+    (set) => ({
       tabs: [],
       activeTabId: undefined,
       createTab: (tab) =>
-        set((state) => {
-          const { tabs } = get();
+        set(
+          produce<TabsStorage>((state) => {
+            const tabId = nanoid();
+            const requestTabId = nanoid();
 
-          const tabId = nanoid();
-          const requestTabId = nanoid();
+            state.tabs.push({
+              ...tab,
+              id: tabId,
+              environmentId: null,
+              url: '',
+              requestContainer: {
+                activeTabId: requestTabId,
+                request: { id: requestTabId },
+                metadata: { id: nanoid() },
+              },
+              response: { id: nanoid() },
+            });
 
-          tabs.push({
-            ...tab,
-            id: tabId,
-            environmentId: null,
-            url: '',
-            requestContainer: {
-              activeTabId: requestTabId,
-              request: { id: requestTabId },
-              metadata: { id: nanoid() },
-            },
-            response: { id: nanoid() },
-          });
-
-          return { ...state, activeTabId: tabId, tabs: [...tabs] };
-        }),
+            state.activeTabId = tabId;
+          })
+        ),
       closeTab: (id) =>
-        set((state) => {
-          const { tabs, activeTabId } = get();
+        set(
+          produce<TabsStorage>((state) => {
+            const closedTabIndex = state.tabs.findIndex((tab) => tab.id === id);
 
-          const closedTabIndex = tabs.findIndex((tab) => tab.id === id);
+            if (state.activeTabId === id) {
+              state.activeTabId =
+                state.tabs[closedTabIndex + 1]?.id || state.tabs[closedTabIndex - 1]?.id;
+            }
 
-          return {
-            ...state,
-            tabs: tabs.filter((item) => item.id !== id),
-            activeTabId:
-              id === activeTabId
-                ? tabs[closedTabIndex + 1]?.id || tabs[closedTabIndex - 1]?.id
-                : activeTabId,
-          };
-        }),
-      activateTab: (id) => set((state) => ({ ...state, activeTabId: id })),
+            state.tabs.splice(closedTabIndex, 1);
+          })
+        ),
+      activateTab: (id) =>
+        set(
+          produce<TabsStorage>((state) => {
+            state.activeTabId = id;
+          })
+        ),
       moveTab: (currentId, overId) =>
-        set((state) => {
-          const { tabs } = get();
+        set(
+          produce<TabsStorage>((state) => {
+            const oldIndex = state.tabs.findIndex((item) => item.id === currentId);
+            const newIndex = state.tabs.findIndex((item) => item.id === overId);
 
-          const oldIndex = tabs.findIndex((item) => item.id === currentId);
-          const newIndex = tabs.findIndex((item) => item.id === overId);
-
-          return { ...state, tabs: arrayMove(tabs, oldIndex, newIndex) };
-        }),
+            state.tabs = arrayMove(state.tabs, oldIndex, newIndex);
+          })
+        ),
       updateTab: (tab) =>
-        set((state) => {
-          const { tabs } = get();
+        set(
+          produce<TabsStorage>((state) => {
+            const index = state.tabs.findIndex((item) => item.id === tab.id);
 
-          const currentTabIndex = tabs.findIndex((item) => item.id === tab.id);
-
-          if (currentTabIndex >= 0) {
-            return {
-              ...state,
-              tabs: [
-                ...tabs.slice(0, currentTabIndex),
-                {
-                  ...tabs[currentTabIndex],
-                  ...tab,
-                },
-                ...tabs.slice(currentTabIndex + 1),
-              ],
-            };
-          }
-
-          return { ...state };
-        }),
+            if (index !== -1) {
+              state.tabs[index] = {
+                ...state.tabs[index],
+                ...tab,
+              };
+            }
+          })
+        ),
     }),
     {
       name: 'tabs',

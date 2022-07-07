@@ -1,3 +1,6 @@
+/* eslint-disable no-param-reassign */
+
+import { produce } from 'immer';
 import create from 'zustand';
 import { persist } from 'zustand/middleware';
 
@@ -5,19 +8,29 @@ import { LogStorage } from './interfaces';
 
 export const useLogsStore = create(
   persist<LogStorage>(
-    (set, get) => ({
+    (set) => ({
       logs: [],
       newLogsAvailable: false,
       createLog: (log) =>
-        set((state) => {
-          const { logs } = get();
-
-          logs.push(log);
-
-          return { ...state, logs, newLogsAvailable: true };
-        }),
-      clearLogs: () => set((state) => ({ ...state, logs: [], newLogsAvailable: false })),
-      markAsReadLogs: () => set((state) => ({ ...state, newLogsAvailable: false })),
+        set(
+          produce<LogStorage>((state) => {
+            state.logs.push(log);
+            state.newLogsAvailable = true;
+          })
+        ),
+      clearLogs: () =>
+        set(
+          produce<LogStorage>((state) => {
+            state.logs = [];
+            state.newLogsAvailable = false;
+          })
+        ),
+      markAsReadLogs: () =>
+        set(
+          produce<LogStorage>((state) => {
+            state.newLogsAvailable = false;
+          })
+        ),
     }),
     {
       name: 'logs',

@@ -91,6 +91,7 @@
     "electron-squirrel-startup": "1.0.0",
     "electron-store": "8.0.2",
     "i18next": "21.8.13",
+    "immer": "^9.0.15",
     "lodash": "^4.17.21",
     "nanoid": "4.0.0",
     "re-resizable": "6.9.9",
