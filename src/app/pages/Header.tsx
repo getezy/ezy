@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Button, Spacer, styled } from '@nextui-org/react';
 import React from 'react';
 
+import { useLogsStore } from '../storage';
 import { CreateCollectionModal } from './collections';
 import { LogsButton, LogsModal } from './logs';
 
@@ -16,10 +17,16 @@ const HeaderWrapper = styled('div', {
 export const Header: React.FC = () => {
   const [createCollectionModalVisible, setCreateCollectionModalVisible] = React.useState(false);
   const [logsModalVisible, setLogsModalVisible] = React.useState(false);
+  const { newLogsAvailable, markAsReadLogs } = useLogsStore((store) => store);
+
+  const handleLogsButtonClick = () => {
+    setLogsModalVisible(true);
+    markAsReadLogs();
+  };
 
   return (
     <HeaderWrapper>
-      <LogsButton badgeVisible={false} onClick={() => setLogsModalVisible(true)} />
+      <LogsButton badgeVisible={newLogsAvailable} onClick={handleLogsButtonClick} />
       <Spacer />
       <Button
         auto

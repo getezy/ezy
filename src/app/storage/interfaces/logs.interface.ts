@@ -4,7 +4,9 @@ export interface LogItem {
 
 export interface LogStorage {
   logs: LogItem[];
+  newLogsAvailable: boolean;
 
   createLog: (log: LogItem) => void;
   clearLogs: () => void;
+  markAsReadLogs: () => void;
 }

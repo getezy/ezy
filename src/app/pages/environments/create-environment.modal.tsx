@@ -37,12 +37,13 @@ export const CreateEnvironmentModal: React.FC<CreateEnvironmentModalProps> = ({
         />
       </Modal.Body>
       <Modal.Footer>
-        <Button auto bordered size="sm" color="error" onClick={onClose}>
+        <Button auto bordered borderWeight="light" size="sm" color="error" onClick={onClose}>
           Cancel
         </Button>
         <Button
           auto
           bordered
+          borderWeight="light"
           size="sm"
           color="gradient"
           type="submit"
