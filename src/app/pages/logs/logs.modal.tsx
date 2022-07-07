@@ -7,8 +7,8 @@ import React from 'react';
 import { useLogsStore } from '../../storage';
 
 const LogItem = styled('div', {
-  paddingLeft: 24,
-  paddingRight: 24,
+  paddingLeft: 10,
+  paddingRight: 10,
   '&:hover': {
     backgroundColor: '$accents1',
   },
