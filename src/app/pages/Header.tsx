@@ -1,12 +1,15 @@
-import { faSquarePlus } from '@fortawesome/free-solid-svg-icons';
+import { faListSquares, faSquarePlus } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Button, styled } from '@nextui-org/react';
+import { Button, Spacer, styled } from '@nextui-org/react';
 import React from 'react';
 
 import { CreateCollectionModal } from './collections';
 
 const HeaderWrapper = styled('div', {
   display: 'flex',
+  flexWrap: 'nowrap',
+  alignItems: 'center',
+  overflow: 'hidden',
 });
 
 export const Header: React.FC = () => {
@@ -14,13 +17,16 @@ export const Header: React.FC = () => {
 
   return (
     <HeaderWrapper>
-      {/* <Button
+      <Spacer x={0.2} />
+      <Button
         auto
         light
-        size="sm"
-        color="gradient"
-        icon={<FontAwesomeIcon icon={faListSquares} />}
-      /> */}
+        size="xs"
+        color="default"
+        css={{ minWidth: 10 }}
+        icon={<FontAwesomeIcon size="sm" icon={faListSquares} />}
+      />
+      <Spacer />
       <Button
         auto
         bordered
@@ -32,6 +38,7 @@ export const Header: React.FC = () => {
       >
         Add collection
       </Button>
+      <Spacer />
       <CreateCollectionModal
         closeButton
         blur

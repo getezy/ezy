@@ -120,8 +120,20 @@ export const SendHeader: React.FC<SendHeaderProps> = ({ tab }) => {
           }
         />
         <Spacer x={0.2} />
-        <Button auto size="sm" light color="success" icon={<FontAwesomeIcon icon={faLock} />} />
-        <Button auto size="sm" light color="default" icon={<FontAwesomeIcon icon={faLockOpen} />} />
+        <Button
+          size="sm"
+          light
+          color="success"
+          css={{ minWidth: 10 }}
+          icon={<FontAwesomeIcon icon={faLock} />}
+        />
+        <Button
+          size="sm"
+          light
+          color="default"
+          css={{ minWidth: 10 }}
+          icon={<FontAwesomeIcon icon={faLockOpen} />}
+        />
         <Spacer x={0.5} />
         <SendButton
           size="sm"

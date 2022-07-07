@@ -55,10 +55,9 @@ const CollectionNode: React.FC<CollectionNodeProps> = ({ node, isOpen, onCollaps
   const commandsContent = (
     <Dropdown placement="right-top" disableAnimation>
       <Dropdown.Button
-        auto
         light
         size="xs"
-        color="gradient"
+        color="default"
         css={{
           padding: 0,
           margin: 0,

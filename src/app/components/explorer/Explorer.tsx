@@ -6,6 +6,7 @@ import { ExplorerHeader } from './explorer-header';
 const ExplorerGridStyles: CSS = {
   margin: 0,
   minWidth: '250px',
+  maxWidth: '250px',
   background: '$backgroundContrast',
   borderRight: 'solid $border 1px',
 };
