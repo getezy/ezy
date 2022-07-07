@@ -1,7 +1,7 @@
 import * as grpc from '@grpc/grpc-js';
 import { join } from 'path';
 
-import { ProtobufLoader } from '../../../protobuf-loader';
+import { ProtobufLoader } from '../../../protobuf';
 import { GrpcClient } from '../grpc-client';
 
 function createBasicService(error: any, response: any) {

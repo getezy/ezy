@@ -1,2 +1,2 @@
 export * from './clients';
-export * from './protobuf-loader';
+export * from './protobuf';
