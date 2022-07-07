@@ -1,9 +1,10 @@
-import { faListSquares, faSquarePlus } from '@fortawesome/free-solid-svg-icons';
+import { faSquarePlus } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Button, Spacer, styled } from '@nextui-org/react';
 import React from 'react';
 
 import { CreateCollectionModal } from './collections';
+import { LogsButton, LogsModal } from './logs';
 
 const HeaderWrapper = styled('div', {
   display: 'flex',
@@ -14,18 +15,11 @@ const HeaderWrapper = styled('div', {
 
 export const Header: React.FC = () => {
   const [createCollectionModalVisible, setCreateCollectionModalVisible] = React.useState(false);
+  const [logsModalVisible, setLogsModalVisible] = React.useState(false);
 
   return (
     <HeaderWrapper>
-      <Spacer x={0.2} />
-      <Button
-        auto
-        light
-        size="xs"
-        color="default"
-        css={{ minWidth: 10 }}
-        icon={<FontAwesomeIcon size="sm" icon={faListSquares} />}
-      />
+      <LogsButton badgeVisible={false} onClick={() => setLogsModalVisible(true)} />
       <Spacer />
       <Button
         auto
@@ -44,6 +38,13 @@ export const Header: React.FC = () => {
         blur
         open={createCollectionModalVisible}
         onClose={() => setCreateCollectionModalVisible(false)}
+      />
+      <LogsModal
+        open={logsModalVisible}
+        closeButton
+        fullScreen
+        scroll
+        onClose={() => setLogsModalVisible(false)}
       />
     </HeaderWrapper>
   );

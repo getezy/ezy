@@ -26,7 +26,9 @@ export const ColorPickerInput: React.FC<ColorPickerInputProps> = ({ value, onCha
       <ColorCircle color={value} />
       <Spacer x={0.25} />
       <ColorPicker
-        trigger={<Button auto light size="sm" icon={<FontAwesomeIcon icon={faFill} />} />}
+        trigger={
+          <Button light size="sm" icon={<FontAwesomeIcon icon={faFill} />} css={{ minWidth: 10 }} />
+        }
         isOpen={colorPickerVisible}
         onOpenChange={(isVisible) => setColorPickerVisible(isVisible)}
         color={value}

@@ -133,7 +133,7 @@ export const CollectionForm: React.FC<CollectionFormProps> = ({
         <FileInput
           bordered
           borderWeight="light"
-          buttonColor="gradient"
+          buttonColor="default"
           size="sm"
           animated={false}
           label="Protobuf path"
