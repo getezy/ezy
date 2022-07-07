@@ -1,3 +1,4 @@
+import { Metadata } from '@grpc/grpc-js';
 import { OpenDialogOptions } from 'electron';
 import React from 'react';
 import * as ReactDOM from 'react-dom/client';
@@ -18,6 +19,17 @@ declare global {
       };
       protobuf: {
         loadFromFile: (path: string, includeDirs?: string[]) => Promise<ServiceInfo[]>;
+      };
+      grpcClient: {
+        sendUnaryRequest: (
+          path: string,
+          includeDirs: string[],
+          serviceName: string,
+          methodName: string,
+          address: string,
+          payload: Record<string, unknown>,
+          metadata?: Metadata
+        ) => Promise<Record<string, unknown>>;
       };
     };
   }

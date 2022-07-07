@@ -1,0 +1,9 @@
+syntax = "proto3";
+
+message BasicMessage {
+  string id = 1;
+}
+
+service BasicService {
+  rpc BasicRequest(BasicMessage) returns (BasicMessage);
+}

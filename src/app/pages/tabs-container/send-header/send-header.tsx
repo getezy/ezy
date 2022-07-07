@@ -75,6 +75,17 @@ export const SendHeader: React.FC<SendHeaderProps> = ({ tab }) => {
     setCreateEnvironmentModalVisible(false);
   };
 
+  const handleSendButtonClick = async () => {
+    await window.electron.grpcClient.sendUnaryRequest(
+      'path',
+      [],
+      'BasicService',
+      tab.title,
+      tab.url,
+      { id: '123' }
+    );
+  };
+
   return (
     <>
       <Container gap={0.5} fluid css={{ display: 'flex', flexWrap: 'nowrap' }}>
@@ -96,7 +107,7 @@ export const SendHeader: React.FC<SendHeaderProps> = ({ tab }) => {
           borderWeight="light"
           animated={false}
           clearable
-          placeholder="127.0.0.1:3000"
+          placeholder="0.0.0.0:3000"
           css={{ flex: 5 }}
           value={url}
           onChange={handleUrlChange}
@@ -141,6 +152,7 @@ export const SendHeader: React.FC<SendHeaderProps> = ({ tab }) => {
           borderWeight="light"
           color="gradient"
           iconRight={<FontAwesomeIcon icon={faPaperPlane} />}
+          onClick={handleSendButtonClick}
         >
           Send
         </SendButton>
