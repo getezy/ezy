@@ -21,32 +21,32 @@ export const SendHeader: React.FC<SendHeaderProps> = ({ tab }) => {
   const [createEnvironmentModalVisible, setCreateEnvironmentModalVisible] = React.useState(false);
 
   const [selectedEnvironment, setSelectedEnvironment] = React.useState<Environment | null>(
-    environments.find((item) => item.value === tab.environmentId) || null
+    environments.find((item) => item.id === tab.environmentId) || null
   );
 
-  const [url, setUrl] = React.useState(selectedEnvironment?.url || tab.url);
+  const [url, setUrl] = React.useState(selectedEnvironment?.url || tab.url || '');
 
   const handleEnvironmentChange = (value: MultiValue<Environment> | SingleValue<Environment>) => {
     const environment = value as Environment;
 
     const updatedTab: Tab = {
       ...tab,
-      environmentId: environment?.value || null,
-      url: environment?.url || '',
+      environmentId: environment?.id,
+      url: environment?.url,
     };
 
     setSelectedEnvironment(environment);
-    setUrl(environment?.url || '');
+    setUrl(environment?.url);
     updateTab(updatedTab);
   };
 
   const handleRemoveEnvironment = (environment: Environment) => {
-    removeEnvironment(environment.value);
+    removeEnvironment(environment.id);
 
-    if (selectedEnvironment?.value === environment.value) {
+    if (selectedEnvironment?.id === environment.id) {
       const updatedTab: Tab = {
         ...tab,
-        environmentId: null,
+        environmentId: undefined,
       };
 
       setSelectedEnvironment(null);
@@ -57,7 +57,7 @@ export const SendHeader: React.FC<SendHeaderProps> = ({ tab }) => {
   const handleUrlChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const updatedTab: Tab = {
       ...tab,
-      environmentId: null,
+      environmentId: undefined,
       url: e.target.value,
     };
 
@@ -80,7 +80,7 @@ export const SendHeader: React.FC<SendHeaderProps> = ({ tab }) => {
       { path: 'path' },
       'BasicService',
       tab.title,
-      tab.url,
+      tab.url || '',
       { id: '123' }
     );
   };

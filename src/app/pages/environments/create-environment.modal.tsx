@@ -19,7 +19,8 @@ export const CreateEnvironmentModal: React.FC<CreateEnvironmentModalProps> = ({
   const createEnvironment = useEnvironmentsStore((store) => store.createEnvironment);
 
   const handleSubmit = (payload: Environment) => {
-    const environment = { ...payload, value: nanoid() };
+    const environment: Environment = { ...payload, id: nanoid() };
+
     createEnvironment(environment);
     onCreate(environment);
   };

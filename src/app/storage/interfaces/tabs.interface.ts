@@ -22,8 +22,8 @@ export interface TabRequestContainer {
 export interface Tab {
   id: string;
   title: string;
-  environmentId: string | null;
-  url: string;
+  environmentId?: string;
+  url?: string;
 
   requestContainer: TabRequestContainer;
 

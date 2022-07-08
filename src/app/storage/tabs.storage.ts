@@ -22,8 +22,6 @@ export const useTabsStore = create(
             state.tabs.push({
               ...tab,
               id: tabId,
-              environmentId: null,
-              url: '',
               requestContainer: {
                 activeTabId: requestTabId,
                 request: { id: requestTabId },

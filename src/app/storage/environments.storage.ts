@@ -17,7 +17,7 @@ export const useEnvironmentsStore = create(
       removeEnvironment: (id) =>
         set(
           produce<EnvironmentsStorage>((state) => {
-            const index = state.environments.findIndex((environment) => environment.value === id);
+            const index = state.environments.findIndex((environment) => environment.id === id);
             if (index !== -1) state.environments.splice(index, 1);
           })
         ),

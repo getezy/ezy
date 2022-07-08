@@ -30,6 +30,7 @@ export const ColoredSelect: React.FC<ColoredSelectProps> = ({
     className="react-select"
     classNamePrefix="react-select"
     isSearchable={false}
+    getOptionValue={(option) => option.id}
     components={{
       SingleValue: ColoredSingleValue,
       // @ts-ignore
