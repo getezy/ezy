@@ -1,15 +1,16 @@
 import { Spacer, Text, Tooltip } from '@nextui-org/react';
 import React from 'react';
 
+import { GrpcMethodType } from '../../../../core/protobuf/interfaces';
 import { TreeNode, TreeNodeRenderer } from '../../../components';
-import { GRPCMethod, GRPCMethodType, useTabsStore } from '../../../storage';
+import { GrpcMethod, useTabsStore } from '../../../storage';
 import { StreamBadge, UnaryBadge } from '../../collections/badge-types';
 import { StyledNodeWrapper } from './node.styled';
 
 type GrpcMethodNodeProps = {
   id: string;
   name: string;
-  type: GRPCMethodType;
+  type: GrpcMethodType;
 };
 
 const GrpcMethodNode: React.FC<GrpcMethodNodeProps> = ({ id, name, type }) => {
@@ -23,8 +24,8 @@ const GrpcMethodNode: React.FC<GrpcMethodNodeProps> = ({ id, name, type }) => {
 
   const content = (
     <StyledNodeWrapper>
-      {type === GRPCMethodType.UNARY && <UnaryBadge />}
-      {type === GRPCMethodType.STREAM && <StreamBadge />}
+      {type === GrpcMethodType.UNARY && <UnaryBadge />}
+      {type === GrpcMethodType.STREAM && <StreamBadge />}
       <Spacer x={0.3} />
       <Tooltip content={name} color="invert" placement="topStart" enterDelay={1000}>
         <Text size={12}>{name}</Text>
@@ -43,6 +44,6 @@ const GrpcMethodNode: React.FC<GrpcMethodNodeProps> = ({ id, name, type }) => {
   );
 };
 
-export const grpcMethodNodeRenderer: TreeNodeRenderer<GRPCMethod> = ({ id, type, name }) => (
+export const grpcMethodNodeRenderer: TreeNodeRenderer<GrpcMethod> = ({ id, type, name }) => (
   <GrpcMethodNode id={id} key={id} type={type} name={name} />
 );

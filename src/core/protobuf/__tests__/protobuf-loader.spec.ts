@@ -1,6 +1,6 @@
 import { join } from 'path';
 
-import { MethodType } from '../interfaces';
+import { GrpcMethodType } from '../interfaces';
 import { ProtobufLoader } from '../protobuf-loader';
 
 describe('ProtobufLoader', () => {
@@ -35,7 +35,7 @@ describe('ProtobufLoader', () => {
           methods: [
             {
               name: 'BasicRequest',
-              type: MethodType.UNARY,
+              type: GrpcMethodType.UNARY,
             },
           ],
         },
@@ -55,11 +55,11 @@ describe('ProtobufLoader', () => {
           methods: [
             {
               name: 'SimpleUnaryRequest',
-              type: MethodType.UNARY,
+              type: GrpcMethodType.UNARY,
             },
             {
               name: 'SimpleStreamRequest',
-              type: MethodType.STREAM,
+              type: GrpcMethodType.STREAM,
             },
           ],
         },

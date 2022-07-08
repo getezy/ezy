@@ -1,34 +1,23 @@
+import { GrpcMethodInfo, GrpcOptions, GrpcServiceInfo } from '../../../core/protobuf/interfaces';
+
 export enum CollectionType {
   GRPC = 'grpc',
 }
 
-export enum GRPCMethodType {
-  UNARY = 'unary',
-  STREAM = 'stream',
-}
-
-export interface GRPCMethod {
+export interface GrpcMethod extends GrpcMethodInfo {
   id: string;
-  name: string;
-  type: GRPCMethodType;
 }
-export interface GRPCService {
+export interface GrpcService extends GrpcServiceInfo {
   id: string;
-  name: string;
-  methods: GRPCMethod[];
-}
-
-export interface GRPCCollectionOptions {
-  path: string;
-  includeDirs?: string[];
+  methods?: GrpcMethod[];
 }
 
 export type CollectionChildren<T extends CollectionType> = T extends CollectionType.GRPC
-  ? GRPCService[]
+  ? GrpcService[]
   : never;
 
 export type CollectionOptions<T extends CollectionType> = T extends CollectionType.GRPC
-  ? GRPCCollectionOptions
+  ? GrpcOptions
   : never;
 
 export interface Collection<T extends CollectionType> {

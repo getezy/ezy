@@ -10,7 +10,7 @@ import {
   CollectionChildren,
   CollectionsStorage,
   CollectionType,
-  GRPCMethod,
+  GrpcMethod,
 } from './interfaces';
 
 export const useCollectionsStore = create(
@@ -26,7 +26,7 @@ export const useCollectionsStore = create(
               children: collection.children.map((service) => ({
                 ...service,
                 id: nanoid(),
-                methods: service.methods.map((method) => ({ ...method, id: nanoid() })),
+                methods: (service.methods || []).map((method) => ({ ...method, id: nanoid() })),
               })),
             });
           })
@@ -58,13 +58,16 @@ export const useCollectionsStore = create(
           if (collection.type === CollectionType.GRPC) {
             const filteredServices = collection.children.reduce(
               (children: CollectionChildren<CollectionType.GRPC>, service) => {
-                const filteredMethods = service.methods.reduce((methods: GRPCMethod[], method) => {
-                  if (method.name.toLowerCase().includes(search)) {
-                    methods.push(method);
-                  }
+                const filteredMethods = (service.methods || []).reduce(
+                  (methods: GrpcMethod[], method) => {
+                    if (method.name.toLowerCase().includes(search)) {
+                      methods.push(method);
+                    }
 
-                  return methods;
-                }, []);
+                    return methods;
+                  },
+                  []
+                );
 
                 if (filteredMethods.length || service.name.toLowerCase().includes(search)) {
                   children.push({

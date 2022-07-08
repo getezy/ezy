@@ -2,7 +2,7 @@ import { Spacer, Text, Tooltip } from '@nextui-org/react';
 import React from 'react';
 
 import { Tree, TreeNode, TreeNodeRenderer } from '../../../components';
-import { GRPCMethod, GRPCService } from '../../../storage';
+import { GrpcMethod, GrpcService } from '../../../storage';
 import { ServiceBadge } from '../../collections/badge-types';
 import { grpcMethodNodeRenderer } from './method.node';
 import { StyledNodeWrapper } from './node.styled';
@@ -10,7 +10,7 @@ import { StyledNodeWrapper } from './node.styled';
 type GrpcServiceNodeProps = {
   id: string;
   name: string;
-  methods?: GRPCMethod[];
+  methods?: GrpcMethod[];
 
   isOpen?: boolean;
   onCollapseToggle?: (isOpen: boolean) => void;
@@ -42,12 +42,12 @@ const GrpcServiceNode: React.FC<GrpcServiceNodeProps> = ({
       isOpen={isOpen}
       onCollapseToggle={onCollapseToggle}
     >
-      <Tree<GRPCMethod> data={methods} nodeRenderer={grpcMethodNodeRenderer} />
+      <Tree<GrpcMethod> data={methods} nodeRenderer={grpcMethodNodeRenderer} />
     </TreeNode>
   );
 };
 
-export const grpcServiceNodeRenderer: TreeNodeRenderer<GRPCService> = (
+export const grpcServiceNodeRenderer: TreeNodeRenderer<GrpcService> = (
   { id, name, methods },
   { isOpen, onCollapseToggle }
 ) => (

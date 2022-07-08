@@ -1,14 +1,19 @@
-export enum MethodType {
+export enum GrpcMethodType {
   UNARY = 'unary',
   STREAM = 'stream',
 }
 
-export type MethodInfo = {
+export type GrpcMethodInfo = {
   name: string;
-  type: MethodType;
+  type: GrpcMethodType;
 };
 
-export type ServiceInfo = {
+export type GrpcServiceInfo = {
   name: string;
-  methods?: MethodInfo[];
+  methods?: GrpcMethodInfo[];
+};
+
+export type GrpcOptions = {
+  path: string;
+  includeDirs?: string[];
 };

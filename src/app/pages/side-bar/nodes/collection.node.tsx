@@ -9,7 +9,7 @@ import { Dropdown, Spacer, Text, Tooltip } from '@nextui-org/react';
 import React from 'react';
 
 import { Tree, TreeNode, TreeNodeRenderer } from '../../../components';
-import { Collection, CollectionType, GRPCService, useCollectionsStore } from '../../../storage';
+import { Collection, CollectionType, GrpcService, useCollectionsStore } from '../../../storage';
 import { ProtoBadge } from '../../collections/badge-types';
 import { UpdateCollectionModal } from '../../collections/modals';
 import { StyledNodeWrapper } from './node.styled';
@@ -117,7 +117,7 @@ const CollectionNode: React.FC<CollectionNodeProps> = ({ node, isOpen, onCollaps
         isOpen={isOpen}
         onCollapseToggle={onCollapseToggle}
       >
-        <Tree<GRPCService> data={node.children} nodeRenderer={grpcServiceNodeRenderer} />
+        <Tree<GrpcService> data={node.children} nodeRenderer={grpcServiceNodeRenderer} />
       </TreeNode>
       <UpdateCollectionModal
         closeButton

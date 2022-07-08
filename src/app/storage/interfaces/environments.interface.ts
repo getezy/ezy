@@ -1,5 +1,7 @@
 export interface Environment {
-  // for compatibility with react-select, value === id
+  /**
+   * For compatibility with react-select, value === id
+   */
   value: string;
   label: string;
   url: string;

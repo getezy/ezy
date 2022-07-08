@@ -6,7 +6,7 @@ import type {
 } from '@grpc/proto-loader';
 import * as protolaoder from '@grpc/proto-loader';
 
-import { MethodInfo, MethodType, ServiceInfo } from './interfaces';
+import { GrpcMethodInfo, GrpcMethodType, GrpcServiceInfo } from './interfaces';
 
 function instanceOfProtobufTypeDefinition(object: any): object is ProtobufTypeDefinition {
   return 'type' in object;
@@ -25,8 +25,8 @@ export class ProtobufLoader {
     return ast;
   }
 
-  static parse(ast: PackageDefinition): ServiceInfo[] {
-    const services: ServiceInfo[] = [];
+  static parse(ast: PackageDefinition): GrpcServiceInfo[] {
+    const services: GrpcServiceInfo[] = [];
 
     const packages = Object.keys(ast);
     for (let i = 0; i < packages.length; i++) {
@@ -42,23 +42,25 @@ export class ProtobufLoader {
     return services;
   }
 
-  private static parseService(name: string, astService: ServiceDefinition): ServiceInfo {
-    const parsedService: ServiceInfo = {
+  private static parseService(name: string, astService: ServiceDefinition): GrpcServiceInfo {
+    const parsedService: GrpcServiceInfo = {
       name,
     };
 
     const astMethods = Object.keys(astService);
 
-    const methods: MethodInfo[] = [];
+    const methods: GrpcMethodInfo[] = [];
 
     for (let i = 0; i < astMethods.length; i++) {
       const astItem = astService[astMethods[i]];
 
       if (instanceOfMethodDefinition(astItem)) {
-        const method: MethodInfo = {
+        const method: GrpcMethodInfo = {
           name: astMethods[i],
           type:
-            astItem.requestStream || astItem.responseStream ? MethodType.STREAM : MethodType.UNARY,
+            astItem.requestStream || astItem.responseStream
+              ? GrpcMethodType.STREAM
+              : GrpcMethodType.UNARY,
         };
 
         methods.push(method);
