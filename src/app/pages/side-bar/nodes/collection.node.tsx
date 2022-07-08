@@ -23,10 +23,10 @@ type CollectionNodeProps = {
 };
 
 const CollectionNode: React.FC<CollectionNodeProps> = ({ node, isOpen, onCollapseToggle }) => {
-  const { removeCollection } = useCollectionsStore((store) => store);
+  const { removeCollection, updateCollection } = useCollectionsStore((store) => store);
   const [updateCollectionModalVisible, setUpdateCollectionModalVisible] = React.useState(false);
 
-  const handleSelectionChange = (keys: 'all' | Set<string | number>) => {
+  const handleSelectionChange = async (keys: 'all' | Set<string | number>) => {
     if (typeof keys !== 'string') {
       if (keys.has('delete')) {
         removeCollection(node.id);
@@ -34,6 +34,10 @@ const CollectionNode: React.FC<CollectionNodeProps> = ({ node, isOpen, onCollaps
 
       if (keys.has('settings')) {
         setUpdateCollectionModalVisible(true);
+      }
+
+      if (keys.has('synchronize')) {
+        await updateCollection(node.id, node);
       }
     }
   };
