@@ -24,7 +24,7 @@ export interface Collection<T extends CollectionType> {
   id: string;
   name: string;
   type: T;
-  children: CollectionChildren<T>;
+  children?: CollectionChildren<T>;
   options: CollectionOptions<T>;
 }
 

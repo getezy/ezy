@@ -30,66 +30,69 @@ export const useCollectionsStore = create(
     (set, get) => ({
       collections: [],
       createCollection: async (collection) => {
-        try {
-          const proto = await window.electron.protobuf.loadFromFile(collection.options);
+        if (collection.type === CollectionType.GRPC) {
+          try {
+            const proto = await window.electron.protobuf.loadFromFile(collection.options);
 
-          set(
-            produce<CollectionsStorage>((state) => {
-              state.collections.push({
-                ...collection,
-                id: nanoid(),
-                children: proto.map((service) => ({
-                  ...service,
+            set(
+              produce<CollectionsStorage>((state) => {
+                state.collections.push({
+                  ...collection,
                   id: nanoid(),
-                  methods: (service.methods || []).map((method) => ({ ...method, id: nanoid() })),
-                })),
-              });
-            })
-          );
-        } catch (error) {
-          useLogsStore.getState().createLog({ message: parseError(error) });
+                  children: proto.map((service) => ({
+                    ...service,
+                    id: nanoid(),
+                    methods: (service.methods || []).map((method) => ({ ...method, id: nanoid() })),
+                  })),
+                });
+              })
+            );
+          } catch (error) {
+            useLogsStore.getState().createLog({ message: parseError(error) });
+          }
         }
       },
       updateCollection: async (id, collection) => {
-        try {
-          const proto = await window.electron.protobuf.loadFromFile(collection.options);
+        if (collection.type === CollectionType.GRPC) {
+          try {
+            const proto = await window.electron.protobuf.loadFromFile(collection.options);
 
-          set(
-            produce<CollectionsStorage>((state) => {
-              const index = state.collections.findIndex((item) => item.id === id);
+            set(
+              produce<CollectionsStorage>((state) => {
+                const index = state.collections.findIndex((item) => item.id === id);
 
-              if (index !== -1) {
-                state.collections[index] = {
-                  ...state.collections[index],
-                  ...collection,
-                  children: proto.reduce((services, service) => {
-                    const oldService = state.collections[index].children.find(
-                      (item) => item.name === service.name
-                    );
+                if (index !== -1) {
+                  state.collections[index] = {
+                    ...state.collections[index],
+                    ...collection,
+                    children: proto.reduce((services, service) => {
+                      const oldChildren = state.collections[index].children || [];
+                      const oldService = oldChildren.find((item) => item.name === service.name);
 
-                    services.push({
-                      id: oldService?.id || nanoid(),
-                      ...service,
-                      methods: service.methods?.reduce((methods, method) => {
-                        methods.push({
-                          id:
-                            oldService?.methods?.find((item) => item.name === service.name)?.id ||
-                            nanoid(),
-                          ...method,
-                        });
+                      services.push({
+                        id: oldService?.id || nanoid(),
+                        ...service,
+                        methods: service.methods?.reduce((methods, method) => {
+                          methods.push({
+                            id:
+                              oldService?.methods?.find((item) => item.name === service.name)?.id ||
+                              nanoid(),
+                            ...method,
+                          });
 
-                        return methods;
-                      }, [] as GrpcMethod[]),
-                    });
+                          return methods;
+                        }, [] as GrpcMethod[]),
+                      });
 
-                    return services;
-                  }, [] as GrpcService[]),
-                };
-              }
-            })
-          );
-        } catch (error) {
-          useLogsStore.getState().createLog({ message: parseError(error) });
+                      return services;
+                    }, [] as GrpcService[]),
+                  };
+                }
+              })
+            );
+          } catch (error) {
+            useLogsStore.getState().createLog({ message: parseError(error) });
+          }
         }
       },
       removeCollection: (id) =>
@@ -104,7 +107,7 @@ export const useCollectionsStore = create(
 
         return collections.reduce((acc: Collection<CollectionType>[], collection) => {
           if (collection.type === CollectionType.GRPC) {
-            const filteredServices = collection.children.reduce(
+            const filteredServices = (collection.children || []).reduce(
               (children: CollectionChildren<CollectionType.GRPC>, service) => {
                 const filteredMethods = (service.methods || []).reduce(
                   (methods: GrpcMethod[], method) => {
