@@ -1,15 +1,12 @@
 import { ipcMain } from 'electron';
 
-import { ProtobufLoader } from '../../../core';
+import { GrpcOptions, ProtobufLoader } from '../../../core';
 import { ProtobufChannel } from './constants';
 
 export const protobufRegisterSubscibers = () => {
-  ipcMain.handle(
-    ProtobufChannel.LOAD_FROM_FILE,
-    async (_event, path: string, includeDirs?: string[]) => {
-      const ast = await ProtobufLoader.loadFromFile(path, includeDirs);
+  ipcMain.handle(ProtobufChannel.LOAD_FROM_FILE, async (_event, options: GrpcOptions) => {
+    const ast = await ProtobufLoader.loadFromFile(options);
 
-      return ProtobufLoader.parse(ast);
-    }
-  );
+    return ProtobufLoader.parse(ast);
+  });
 };

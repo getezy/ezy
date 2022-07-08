@@ -6,7 +6,7 @@ import type {
 } from '@grpc/proto-loader';
 import * as protolaoder from '@grpc/proto-loader';
 
-import { GrpcMethodInfo, GrpcMethodType, GrpcServiceInfo } from './interfaces';
+import { GrpcMethodInfo, GrpcMethodType, GrpcOptions, GrpcServiceInfo } from './interfaces';
 
 function instanceOfProtobufTypeDefinition(object: any): object is ProtobufTypeDefinition {
   return 'type' in object;
@@ -17,9 +17,9 @@ function instanceOfMethodDefinition(object: any): object is MethodDefinition<obj
 }
 
 export class ProtobufLoader {
-  static async loadFromFile(path: string, includeDirs: string[] = []): Promise<PackageDefinition> {
-    const ast = await protolaoder.load(path, {
-      includeDirs,
+  static async loadFromFile(options: GrpcOptions): Promise<PackageDefinition> {
+    const ast = await protolaoder.load(options.path, {
+      includeDirs: options.includeDirs || [],
     });
 
     return ast;

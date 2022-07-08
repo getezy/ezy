@@ -6,9 +6,9 @@ import { ProtobufLoader } from '../protobuf-loader';
 describe('ProtobufLoader', () => {
   describe('ProtobufLoader:loadFromFile', () => {
     it('should load simple proto', async () => {
-      const ast = await ProtobufLoader.loadFromFile(
-        join(__dirname, '../../__tests__/fixtures/proto/simple.proto')
-      );
+      const ast = await ProtobufLoader.loadFromFile({
+        path: join(__dirname, '../../__tests__/fixtures/proto/simple.proto'),
+      });
 
       expect(ast).toBeDefined();
       expect(ast['simple_package.v1.SimpleService']).toBeDefined();
@@ -16,16 +16,18 @@ describe('ProtobufLoader', () => {
 
     it('should load proto that does not exist', async () => {
       expect(() =>
-        ProtobufLoader.loadFromFile(join(__dirname, '../../__tests__/fixtures/proto/another.proto'))
+        ProtobufLoader.loadFromFile({
+          path: join(__dirname, '../../__tests__/fixtures/proto/another.proto'),
+        })
       ).rejects.toThrow();
     });
   });
 
   describe('ProtobufLoader:parse', () => {
     it('should parse basic proto without package definition', async () => {
-      const ast = await ProtobufLoader.loadFromFile(
-        join(__dirname, '../../__tests__/fixtures/proto/basic.proto')
-      );
+      const ast = await ProtobufLoader.loadFromFile({
+        path: join(__dirname, '../../__tests__/fixtures/proto/basic.proto'),
+      });
 
       const packages = ProtobufLoader.parse(ast);
 
@@ -43,9 +45,9 @@ describe('ProtobufLoader', () => {
     });
 
     it('should parse simple proto', async () => {
-      const ast = await ProtobufLoader.loadFromFile(
-        join(__dirname, '../../__tests__/fixtures/proto/simple.proto')
-      );
+      const ast = await ProtobufLoader.loadFromFile({
+        path: join(__dirname, '../../__tests__/fixtures/proto/simple.proto'),
+      });
 
       const packages = ProtobufLoader.parse(ast);
 

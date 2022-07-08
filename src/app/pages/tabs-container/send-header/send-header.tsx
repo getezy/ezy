@@ -77,8 +77,7 @@ export const SendHeader: React.FC<SendHeaderProps> = ({ tab }) => {
 
   const handleSendButtonClick = async () => {
     await window.electron.grpcClient.sendUnaryRequest(
-      'path',
-      [],
+      { path: 'path' },
       'BasicService',
       tab.title,
       tab.url,

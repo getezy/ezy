@@ -32,9 +32,9 @@ function createSimpleService(error: any, response: any) {
 
 describe('GrpcClient', () => {
   it('should send unary request', async () => {
-    const packageDefinition = await ProtobufLoader.loadFromFile(
-      join(__dirname, '../../../__tests__/fixtures/proto/basic.proto')
-    );
+    const packageDefinition = await ProtobufLoader.loadFromFile({
+      path: join(__dirname, '../../../__tests__/fixtures/proto/basic.proto'),
+    });
 
     const payload = {
       id: 'testid',
@@ -59,9 +59,9 @@ describe('GrpcClient', () => {
   });
 
   it('should send unary request with error', async () => {
-    const packageDefinition = await ProtobufLoader.loadFromFile(
-      join(__dirname, '../../../__tests__/fixtures/proto/basic.proto')
-    );
+    const packageDefinition = await ProtobufLoader.loadFromFile({
+      path: join(__dirname, '../../../__tests__/fixtures/proto/basic.proto'),
+    });
 
     const payload = {
       id: 'testid',
@@ -88,9 +88,9 @@ describe('GrpcClient', () => {
   });
 
   it('should send unary request with package definition', async () => {
-    const packageDefinition = await ProtobufLoader.loadFromFile(
-      join(__dirname, '../../../__tests__/fixtures/proto/simple.proto')
-    );
+    const packageDefinition = await ProtobufLoader.loadFromFile({
+      path: join(__dirname, '../../../__tests__/fixtures/proto/simple.proto'),
+    });
 
     const payload = {
       id: 'testid',
@@ -115,9 +115,9 @@ describe('GrpcClient', () => {
   });
 
   it('should throw error when no methid definition exist', async () => {
-    const packageDefinition = await ProtobufLoader.loadFromFile(
-      join(__dirname, '../../../__tests__/fixtures/proto/simple.proto')
-    );
+    const packageDefinition = await ProtobufLoader.loadFromFile({
+      path: join(__dirname, '../../../__tests__/fixtures/proto/simple.proto'),
+    });
 
     await expect(
       GrpcClient.sendUnaryRequest(

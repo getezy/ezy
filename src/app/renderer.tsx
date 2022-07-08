@@ -3,7 +3,7 @@ import { OpenDialogOptions } from 'electron';
 import React from 'react';
 import * as ReactDOM from 'react-dom/client';
 
-import { GrpcServiceInfo } from '../core/protobuf/interfaces';
+import { GrpcOptions, GrpcServiceInfo } from '../core/protobuf/interfaces';
 import App from './App';
 
 declare global {
@@ -22,8 +22,7 @@ declare global {
       };
       grpcClient: {
         sendUnaryRequest: (
-          path: string,
-          includeDirs: string[],
+          options: GrpcOptions,
           serviceName: string,
           methodName: string,
           address: string,
