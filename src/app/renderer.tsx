@@ -18,7 +18,7 @@ declare global {
         open: (options: OpenDialogOptions) => Promise<string[]>;
       };
       protobuf: {
-        loadFromFile: (path: string, includeDirs?: string[]) => Promise<GrpcServiceInfo[]>;
+        loadFromFile: (options: GrpcOptions) => Promise<GrpcServiceInfo[]>;
       };
       grpcClient: {
         sendUnaryRequest: (

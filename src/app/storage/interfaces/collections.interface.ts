@@ -31,7 +31,7 @@ export interface Collection<T extends CollectionType> {
 export interface CollectionsStorage {
   collections: Collection<CollectionType>[];
 
-  createCollection: (collection: Omit<Collection<CollectionType>, 'id'>) => void;
+  createCollection: (collection: Omit<Collection<CollectionType>, 'id'>) => Promise<void>;
   updateCollection: (id: string, payload: Partial<Omit<Collection<CollectionType>, 'id'>>) => void;
   removeCollection: (id: string) => void;
   filterCollection: (search: string) => Collection<CollectionType>[];

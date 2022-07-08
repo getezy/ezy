@@ -12,25 +12,43 @@ import {
   CollectionType,
   GrpcMethod,
 } from './interfaces';
+import { useLogsStore } from './logs.storage';
+
+function parseError(error: any): string {
+  if (error?.message && typeof error.message === 'string') {
+    const message = error.message.split('Error: ');
+
+    return message.length > 1 ? message[1] : error.message;
+  }
+
+  return error;
+}
 
 export const useCollectionsStore = create(
   persist<CollectionsStorage>(
     (set, get) => ({
       collections: [],
-      createCollection: (collection) =>
-        set(
-          produce<CollectionsStorage>((state) => {
-            state.collections.push({
-              ...collection,
-              id: nanoid(),
-              children: collection.children.map((service) => ({
-                ...service,
+      createCollection: async (collection) => {
+        try {
+          const proto = await window.electron.protobuf.loadFromFile(collection.options);
+
+          set(
+            produce<CollectionsStorage>((state) => {
+              state.collections.push({
+                ...collection,
                 id: nanoid(),
-                methods: (service.methods || []).map((method) => ({ ...method, id: nanoid() })),
-              })),
-            });
-          })
-        ),
+                children: proto.map((service) => ({
+                  ...service,
+                  id: nanoid(),
+                  methods: (service.methods || []).map((method) => ({ ...method, id: nanoid() })),
+                })),
+              });
+            })
+          );
+        } catch (error) {
+          useLogsStore.getState().createLog({ message: parseError(error) });
+        }
+      },
       updateCollection: (id, payload) =>
         set(
           produce<CollectionsStorage>((state) => {
