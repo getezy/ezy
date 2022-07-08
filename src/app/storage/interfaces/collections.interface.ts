@@ -32,7 +32,10 @@ export interface CollectionsStorage {
   collections: Collection<CollectionType>[];
 
   createCollection: (collection: Omit<Collection<CollectionType>, 'id'>) => Promise<void>;
-  updateCollection: (id: string, payload: Partial<Omit<Collection<CollectionType>, 'id'>>) => void;
+  updateCollection: (
+    id: string,
+    collection: Omit<Collection<CollectionType>, 'id'>
+  ) => Promise<void>;
   removeCollection: (id: string) => void;
   filterCollection: (search: string) => Collection<CollectionType>[];
 }

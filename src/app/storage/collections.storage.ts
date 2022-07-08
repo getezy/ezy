@@ -11,6 +11,7 @@ import {
   CollectionsStorage,
   CollectionType,
   GrpcMethod,
+  GrpcService,
 } from './interfaces';
 import { useLogsStore } from './logs.storage';
 
@@ -49,19 +50,48 @@ export const useCollectionsStore = create(
           useLogsStore.getState().createLog({ message: parseError(error) });
         }
       },
-      updateCollection: (id, payload) =>
-        set(
-          produce<CollectionsStorage>((state) => {
-            const index = state.collections.findIndex((item) => item.id === id);
+      updateCollection: async (id, collection) => {
+        try {
+          const proto = await window.electron.protobuf.loadFromFile(collection.options);
 
-            if (index !== -1) {
-              state.collections[index] = {
-                ...state.collections[index],
-                ...payload,
-              };
-            }
-          })
-        ),
+          set(
+            produce<CollectionsStorage>((state) => {
+              const index = state.collections.findIndex((item) => item.id === id);
+
+              if (index !== -1) {
+                state.collections[index] = {
+                  ...state.collections[index],
+                  ...collection,
+                  children: proto.reduce((services, service) => {
+                    const oldService = state.collections[index].children.find(
+                      (item) => item.name === service.name
+                    );
+
+                    services.push({
+                      id: oldService?.id || nanoid(),
+                      ...service,
+                      methods: service.methods?.reduce((methods, method) => {
+                        methods.push({
+                          id:
+                            oldService?.methods?.find((item) => item.name === service.name)?.id ||
+                            nanoid(),
+                          ...method,
+                        });
+
+                        return methods;
+                      }, [] as GrpcMethod[]),
+                    });
+
+                    return services;
+                  }, [] as GrpcService[]),
+                };
+              }
+            })
+          );
+        } catch (error) {
+          useLogsStore.getState().createLog({ message: parseError(error) });
+        }
+      },
       removeCollection: (id) =>
         set(
           produce<CollectionsStorage>((state) => {

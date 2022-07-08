@@ -16,8 +16,9 @@ export const UpdateCollectionModal: React.FC<UpdateCollectionModalProps> = ({
 }) => {
   const updateCollection = useCollectionsStore((store) => store.updateCollection);
 
-  const handleSubmit = (payload: Collection<CollectionType>) => {
-    updateCollection(payload.id, payload);
+  const handleSubmit = async (payload: Collection<CollectionType>) => {
+    await updateCollection(payload.id, payload);
+
     onClose();
   };
 
