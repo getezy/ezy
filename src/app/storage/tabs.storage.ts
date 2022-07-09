@@ -17,6 +17,7 @@ export const useTabsStore = create(
         set(
           produce<TabsStorage>((state) => {
             const tabId = nanoid();
+            console.log('tabId: ', tabId);
             const requestTabId = nanoid();
 
             state.tabs.push({
@@ -71,6 +72,19 @@ export const useTabsStore = create(
                 ...state.tabs[index],
                 ...tab,
               };
+            }
+          })
+        ),
+      updateTabs: (payload, where) =>
+        set(
+          produce<TabsStorage>((state) => {
+            for (let i = 0; i < state.tabs.length; i++) {
+              if (state.tabs[i].environmentId === where.environmentId) {
+                state.tabs[i] = {
+                  ...state.tabs[i],
+                  ...payload,
+                };
+              }
             }
           })
         ),

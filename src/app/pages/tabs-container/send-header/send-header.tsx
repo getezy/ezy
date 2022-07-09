@@ -14,7 +14,7 @@ export interface SendHeaderProps {
 }
 
 export const SendHeader: React.FC<SendHeaderProps> = ({ tab }) => {
-  const { updateTab } = useTabsStore((store) => store);
+  const { updateTab, updateTabs } = useTabsStore((store) => store);
   const { removeEnvironment } = useEnvironmentsStore((store) => store);
   const environments = useEnvironmentsStore((store) => store.environments);
 
@@ -23,6 +23,12 @@ export const SendHeader: React.FC<SendHeaderProps> = ({ tab }) => {
   const [selectedEnvironment, setSelectedEnvironment] = React.useState<Environment | null>(
     environments.find((item) => item.id === tab.environmentId) || null
   );
+
+  React.useEffect(() => {
+    if (!tab.environmentId && !!selectedEnvironment) {
+      setSelectedEnvironment(null);
+    }
+  }, [tab.environmentId]);
 
   const [url, setUrl] = React.useState(selectedEnvironment?.url || tab.url || '');
 
@@ -44,14 +50,10 @@ export const SendHeader: React.FC<SendHeaderProps> = ({ tab }) => {
     removeEnvironment(environment.id);
 
     if (selectedEnvironment?.id === environment.id) {
-      const updatedTab: Tab = {
-        ...tab,
-        environmentId: undefined,
-      };
-
       setSelectedEnvironment(null);
-      updateTab(updatedTab);
     }
+
+    updateTabs({ environmentId: undefined }, { environmentId: environment.id });
   };
 
   const handleUrlChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {

@@ -30,6 +30,10 @@ export interface Tab {
   response: TabResponse;
 }
 
+export interface UpdateTabsWhere {
+  environmentId?: string;
+}
+
 export interface TabsStorage {
   tabs: Tab[];
 
@@ -40,4 +44,5 @@ export interface TabsStorage {
   activateTab: (id: string) => void;
   moveTab: (currentId: string, overId: string | undefined) => void;
   updateTab: (tab: Partial<Tab> & Pick<Tab, 'id'>) => void;
+  updateTabs: (payload: Partial<Omit<Tab, 'id'>>, where: UpdateTabsWhere) => void;
 }
