@@ -10,27 +10,17 @@ import { CreateEnvironmentModal } from '../../environments';
 import { SendButton } from './send-button.styled';
 
 export interface SendHeaderProps {
-  tab: Tab;
+  tabId: string;
 }
 
-export const SendHeader: React.FC<SendHeaderProps> = ({ tab }) => {
-  const { updateTab, updateTabs } = useTabsStore((store) => store);
-  const { removeEnvironment } = useEnvironmentsStore((store) => store);
-  const environments = useEnvironmentsStore((store) => store.environments);
+export const SendHeader: React.FC<SendHeaderProps> = ({ tabId }) => {
+  const { updateTab, updateTabs, tabs } = useTabsStore((store) => store);
+  const { removeEnvironment, environments } = useEnvironmentsStore((store) => store);
+
+  const tab = tabs.find((item) => item.id === tabId)!;
+  const selectedEnvironment = environments.find((item) => item.id === tab.environmentId) || null;
 
   const [createEnvironmentModalVisible, setCreateEnvironmentModalVisible] = React.useState(false);
-
-  const [selectedEnvironment, setSelectedEnvironment] = React.useState<Environment | null>(
-    environments.find((item) => item.id === tab.environmentId) || null
-  );
-
-  React.useEffect(() => {
-    if (!tab.environmentId && !!selectedEnvironment) {
-      setSelectedEnvironment(null);
-    }
-  }, [tab.environmentId]);
-
-  const [url, setUrl] = React.useState(selectedEnvironment?.url || tab.url || '');
 
   const handleEnvironmentChange = (value: MultiValue<Environment> | SingleValue<Environment>) => {
     const environment = value as Environment;
@@ -41,18 +31,11 @@ export const SendHeader: React.FC<SendHeaderProps> = ({ tab }) => {
       url: environment?.url,
     };
 
-    setSelectedEnvironment(environment);
-    setUrl(environment?.url);
     updateTab(updatedTab);
   };
 
   const handleRemoveEnvironment = (environment: Environment) => {
     removeEnvironment(environment.id);
-
-    if (selectedEnvironment?.id === environment.id) {
-      setSelectedEnvironment(null);
-    }
-
     updateTabs({ environmentId: undefined }, { environmentId: environment.id });
   };
 
@@ -63,8 +46,6 @@ export const SendHeader: React.FC<SendHeaderProps> = ({ tab }) => {
       url: e.target.value,
     };
 
-    setUrl(e.target.value);
-    setSelectedEnvironment(null);
     updateTab(updatedTab);
   };
 
@@ -110,7 +91,7 @@ export const SendHeader: React.FC<SendHeaderProps> = ({ tab }) => {
           clearable
           placeholder="0.0.0.0:3000"
           css={{ flex: 5 }}
-          value={url}
+          value={tab.url || ''}
           onChange={handleUrlChange}
           contentRight={
             <Button
@@ -163,7 +144,7 @@ export const SendHeader: React.FC<SendHeaderProps> = ({ tab }) => {
         blur
         open={createEnvironmentModalVisible}
         defaultValues={{
-          url,
+          url: tab.url || '',
         }}
         onCreate={handleCreateEnvironmentModalSubmit}
         onClose={handleCreateEnvironmentModalClose}

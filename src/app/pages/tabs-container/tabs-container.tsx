@@ -21,9 +21,12 @@ export const TabsContainer = (): JSX.Element => {
   const tabs = useTabsStore((store) => store.tabs).map((tab) => (
     <Tab title={tab.title} id={tab.id} key={tab.id} closable>
       <Container gap={0} fluid css={{ paddingTop: 20 }}>
-        <SendHeader tab={tab} />
+        <SendHeader tabId={tab.id} />
         <Spacer />
-        <ResizablePanel firstNode={<Request tab={tab} />} secondNode={<Response tab={tab} />} />
+        <ResizablePanel
+          firstNode={<Request tabId={tab.id} />}
+          secondNode={<Response tabId={tab.id} />}
+        />
       </Container>
     </Tab>
   ));

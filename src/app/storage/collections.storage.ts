@@ -102,7 +102,7 @@ export const useCollectionsStore = create(
             state.collections.splice(index, 1);
           })
         ),
-      filterCollection(search) {
+      filterCollections(search) {
         const { collections } = get();
 
         return collections.reduce((acc: Collection<CollectionType>[], collection) => {

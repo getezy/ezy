@@ -11,18 +11,9 @@ const TreeWrapper = styled('div', {
 });
 
 export const ExplorerSideBar = (): JSX.Element => {
-  const filterCollections = useCollectionsStore((store) => store.filterCollection);
-
   const [filter, setFilter] = React.useState('');
-  const [collections, setCollections] = React.useState(filterCollections(filter));
 
-  useCollectionsStore.subscribe(() => {
-    setCollections(filterCollections(filter));
-  });
-
-  React.useEffect(() => {
-    setCollections(filterCollections(filter));
-  }, [filter]);
+  const collections = useCollectionsStore((store) => store.filterCollections(filter));
 
   const handleSearchInputChange = (event: React.ChangeEvent<FormElement>) => {
     const search = event.target.value.toLowerCase();

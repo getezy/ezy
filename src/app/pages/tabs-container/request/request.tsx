@@ -2,7 +2,7 @@ import { styled } from '@nextui-org/react';
 import React from 'react';
 
 import { CodeEditor, Tab, Tabs } from '../../../components';
-import { Tab as ITab, useTabsStore } from '../../../storage';
+import { useTabsStore } from '../../../storage';
 
 const StyledContainer = styled('div', {
   width: '100%',
@@ -10,31 +10,26 @@ const StyledContainer = styled('div', {
 });
 
 export interface RequestProps {
-  tab: ITab;
+  tabId: string;
 }
 
-export const Request: React.FC<RequestProps> = ({ tab }) => {
-  const { updateTab } = useTabsStore((store) => store);
-
-  const [activeTabId, setActiveTabId] = React.useState<string>(
-    tab.requestContainer.activeTabId || tab.requestContainer.request.id
-  );
+export const Request: React.FC<RequestProps> = ({ tabId }) => {
+  const { updateTab, tabs } = useTabsStore((store) => store);
+  const tab = tabs.find((item) => item.id === tabId)!;
+  const activeTabId = tab.requestContainer.activeTabId || tab.requestContainer.request.id;
 
   const handleTabActivate = (key: string) => {
-    const updatedTab = {
+    updateTab({
       ...tab,
       requestContainer: {
         ...tab.requestContainer,
         activeTabId: key,
       },
-    };
-
-    setActiveTabId(key);
-    updateTab(updatedTab);
+    });
   };
 
   const handleRequestChange = (requestValue: string) => {
-    const updatedTab = {
+    updateTab({
       ...tab,
       requestContainer: {
         ...tab.requestContainer,
@@ -43,13 +38,11 @@ export const Request: React.FC<RequestProps> = ({ tab }) => {
           value: requestValue,
         },
       },
-    };
-
-    updateTab(updatedTab);
+    });
   };
 
   const handleMetadataChange = (metadataValue: string) => {
-    const updatedTab = {
+    updateTab({
       ...tab,
       requestContainer: {
         ...tab.requestContainer,
@@ -58,9 +51,7 @@ export const Request: React.FC<RequestProps> = ({ tab }) => {
           value: metadataValue,
         },
       },
-    };
-
-    updateTab(updatedTab);
+    });
   };
 
   return (
