@@ -5,7 +5,7 @@ import React from 'react';
 import { MultiValue, SingleValue } from 'react-select';
 
 import { ColoredSelect } from '../../../components';
-import { Environment, Tab, useEnvironmentsStore, useTabsStore } from '../../../storage';
+import { Environment, useEnvironmentsStore, useTabsStore } from '../../../storage';
 import { CreateEnvironmentModal } from '../../environments';
 import { SendButton } from './send-button.styled';
 
@@ -25,13 +25,11 @@ export const SendHeader: React.FC<SendHeaderProps> = ({ tabId }) => {
   const handleEnvironmentChange = (value: MultiValue<Environment> | SingleValue<Environment>) => {
     const environment = value as Environment;
 
-    const updatedTab: Tab = {
+    updateTab({
       ...tab,
       environmentId: environment?.id,
       url: environment?.url,
-    };
-
-    updateTab(updatedTab);
+    });
   };
 
   const handleRemoveEnvironment = (environment: Environment) => {
@@ -40,13 +38,11 @@ export const SendHeader: React.FC<SendHeaderProps> = ({ tabId }) => {
   };
 
   const handleUrlChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const updatedTab: Tab = {
+    updateTab({
       ...tab,
       environmentId: undefined,
       url: e.target.value,
-    };
-
-    updateTab(updatedTab);
+    });
   };
 
   const handleCreateEnvironmentModalSubmit = (environment: Environment) => {
@@ -64,7 +60,8 @@ export const SendHeader: React.FC<SendHeaderProps> = ({ tabId }) => {
       'BasicService',
       tab.title,
       tab.url || '',
-      { id: '123' }
+      JSON.parse(tab.requestContainer.request.value || '{}'),
+      JSON.parse(tab.requestContainer.metadata.value || '{}')
     );
   };
 

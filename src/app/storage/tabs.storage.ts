@@ -17,7 +17,6 @@ export const useTabsStore = create(
         set(
           produce<TabsStorage>((state) => {
             const tabId = nanoid();
-            console.log('tabId: ', tabId);
             const requestTabId = nanoid();
 
             state.tabs.push({

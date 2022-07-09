@@ -14,6 +14,7 @@ import {
   GrpcService,
 } from './interfaces';
 import { useLogsStore } from './logs.storage';
+import { useTabsStore } from './tabs.storage';
 
 function parseError(error: any): string {
   if (error?.message && typeof error.message === 'string') {
@@ -55,6 +56,7 @@ export const useCollectionsStore = create(
       updateCollection: async (id, collection) => {
         if (collection.type === CollectionType.GRPC) {
           try {
+            const methodIds: string[] = [];
             const proto = await window.electron.protobuf.loadFromFile(collection.options);
 
             set(
@@ -73,12 +75,16 @@ export const useCollectionsStore = create(
                         id: oldService?.id || nanoid(),
                         ...service,
                         methods: service.methods?.reduce((methods, method) => {
+                          const methodId =
+                            oldService?.methods?.find((item) => item.name === service.name)?.id ||
+                            nanoid();
+
                           methods.push({
-                            id:
-                              oldService?.methods?.find((item) => item.name === service.name)?.id ||
-                              nanoid(),
+                            id: methodId,
                             ...method,
                           });
+
+                          methodIds.push(methodId);
 
                           return methods;
                         }, [] as GrpcMethod[]),
@@ -90,6 +96,13 @@ export const useCollectionsStore = create(
                 }
               })
             );
+
+            const { tabs, closeTab } = useTabsStore.getState();
+            for (let i = 0; i < tabs.length; i++) {
+              if (!methodIds.includes(tabs[i].info?.methodId)) {
+                closeTab(tabs[i].id);
+              }
+            }
           } catch (error) {
             useLogsStore.getState().createLog({ message: parseError(error) });
           }

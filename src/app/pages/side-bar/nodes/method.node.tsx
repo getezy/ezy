@@ -3,22 +3,26 @@ import React from 'react';
 
 import { GrpcMethodType } from '../../../../core/protobuf/interfaces';
 import { TreeNode, TreeNodeRenderer } from '../../../components';
-import { GrpcMethod, useTabsStore } from '../../../storage';
+import { CollectionType, GrpcMethod, useTabsStore } from '../../../storage';
 import { StreamBadge, UnaryBadge } from '../../collections/badge-types';
 import { StyledNodeWrapper } from './node.styled';
 
 type GrpcMethodNodeProps = {
   id: string;
-  name: string;
+  title: string;
   type: GrpcMethodType;
 };
 
-const GrpcMethodNode: React.FC<GrpcMethodNodeProps> = ({ id, name, type }) => {
+const GrpcMethodNode: React.FC<GrpcMethodNodeProps> = ({ id, title, type }) => {
   const { createTab } = useTabsStore((store) => store);
 
   const handleDoubleClick = () => {
     createTab({
-      title: name,
+      type: CollectionType.GRPC,
+      title,
+      info: {
+        methodId: id,
+      },
     });
   };
 
@@ -27,8 +31,8 @@ const GrpcMethodNode: React.FC<GrpcMethodNodeProps> = ({ id, name, type }) => {
       {type === GrpcMethodType.UNARY && <UnaryBadge />}
       {type === GrpcMethodType.STREAM && <StreamBadge />}
       <Spacer x={0.3} />
-      <Tooltip content={name} color="invert" placement="topStart" enterDelay={1000}>
-        <Text size={12}>{name}</Text>
+      <Tooltip content={title} color="invert" placement="topStart" enterDelay={1000}>
+        <Text size={12}>{title}</Text>
       </Tooltip>
     </StyledNodeWrapper>
   );
@@ -45,5 +49,5 @@ const GrpcMethodNode: React.FC<GrpcMethodNodeProps> = ({ id, name, type }) => {
 };
 
 export const grpcMethodNodeRenderer: TreeNodeRenderer<GrpcMethod> = ({ id, type, name }) => (
-  <GrpcMethodNode id={id} key={id} type={type} name={name} />
+  <GrpcMethodNode id={id} key={id} type={type} title={name} />
 );

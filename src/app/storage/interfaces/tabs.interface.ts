@@ -1,3 +1,5 @@
+import { CollectionType } from './collections.interface';
+
 export interface TabRequest {
   id: string;
   value?: string;
@@ -19,9 +21,18 @@ export interface TabRequestContainer {
   metadata: TabMetadata;
 }
 
-export interface Tab {
+export interface GrpcTabInfo {
+  methodId: string;
+}
+
+export type TabInfo<T extends CollectionType> = T extends CollectionType.GRPC ? GrpcTabInfo : never;
+
+export interface Tab<T extends CollectionType> {
   id: string;
   title: string;
+  type: T;
+  info: TabInfo<T>;
+
   environmentId?: string;
   url?: string;
 
@@ -35,14 +46,14 @@ export interface UpdateTabsWhere {
 }
 
 export interface TabsStorage {
-  tabs: Tab[];
+  tabs: Tab<CollectionType>[];
 
   activeTabId: string | undefined;
 
-  createTab: (tab: Pick<Tab, 'title'>) => void;
+  createTab: (tab: Pick<Tab<CollectionType>, 'title' | 'info' | 'type'>) => void;
   closeTab: (id: string) => void;
   activateTab: (id: string) => void;
   moveTab: (currentId: string, overId: string | undefined) => void;
-  updateTab: (tab: Partial<Tab> & Pick<Tab, 'id'>) => void;
-  updateTabs: (payload: Partial<Omit<Tab, 'id'>>, where: UpdateTabsWhere) => void;
+  updateTab: (tab: Partial<Tab<CollectionType>> & Pick<Tab<CollectionType>, 'id'>) => void;
+  updateTabs: (payload: Partial<Omit<Tab<CollectionType>, 'id'>>, where: UpdateTabsWhere) => void;
 }
