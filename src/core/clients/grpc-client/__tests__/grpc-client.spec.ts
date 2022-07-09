@@ -58,6 +58,38 @@ describe('GrpcClient', () => {
     ).resolves.toEqual(payload);
   });
 
+  it('should send unary request width metadata', async () => {
+    const packageDefinition = await ProtobufLoader.loadFromFile({
+      path: join(__dirname, '../../../__tests__/fixtures/proto/basic.proto'),
+    });
+
+    const payload = {
+      id: 'testid',
+    };
+
+    const metadata = {
+      'x-user-token': 'token',
+    };
+
+    const BasicService = createBasicService(null, payload);
+
+    jest.spyOn(grpc, 'loadPackageDefinition').mockImplementationOnce(() => ({
+      // @ts-ignore
+      BasicService,
+    }));
+
+    await expect(
+      GrpcClient.sendUnaryRequest(
+        packageDefinition,
+        'BasicService',
+        'BasicRequest',
+        '127.0.0.1:3000',
+        payload,
+        metadata
+      )
+    ).resolves.toEqual(payload);
+  });
+
   it('should send unary request with error', async () => {
     const packageDefinition = await ProtobufLoader.loadFromFile({
       path: join(__dirname, '../../../__tests__/fixtures/proto/basic.proto'),

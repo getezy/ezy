@@ -1,4 +1,4 @@
-import { Metadata } from '@grpc/grpc-js';
+import { MetadataValue } from '@grpc/grpc-js';
 import { ipcRenderer } from 'electron';
 
 import { GrpcOptions } from '../../../../core';
@@ -12,7 +12,7 @@ export const grpcClientPreload = () => ({
       methodName: string,
       address: string,
       payload: Record<string, unknown>,
-      metadata?: Metadata
+      metadata?: Record<string, MetadataValue>
     ) {
       return ipcRenderer.invoke(
         GrpcClientChannel.SEND_UNARY_REQUEST,

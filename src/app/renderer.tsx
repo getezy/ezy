@@ -1,4 +1,4 @@
-import { Metadata } from '@grpc/grpc-js';
+import type { MetadataValue } from '@grpc/grpc-js';
 import { OpenDialogOptions } from 'electron';
 import React from 'react';
 import * as ReactDOM from 'react-dom/client';
@@ -27,7 +27,7 @@ declare global {
           methodName: string,
           address: string,
           payload: Record<string, unknown>,
-          metadata?: Metadata
+          metadata?: Record<string, MetadataValue>
         ) => Promise<Record<string, unknown>>;
       };
     };

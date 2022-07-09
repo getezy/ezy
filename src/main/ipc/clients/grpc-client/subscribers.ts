@@ -1,4 +1,4 @@
-import { Metadata } from '@grpc/grpc-js';
+import { MetadataValue } from '@grpc/grpc-js';
 import { ipcMain } from 'electron';
 
 import { GrpcClient, GrpcOptions, ProtobufLoader } from '../../../../core';
@@ -14,7 +14,7 @@ export const grpcClientRegisterSubscibers = () => {
       methodName: string,
       address: string,
       payload: Record<string, unknown>,
-      metadata?: Metadata
+      metadata?: Record<string, MetadataValue>
     ) => {
       const ast = await ProtobufLoader.loadFromFile(options);
 
