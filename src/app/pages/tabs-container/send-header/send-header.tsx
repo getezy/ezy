@@ -70,9 +70,7 @@ export const SendHeader: React.FC<SendHeaderProps> = ({ tab }) => {
         if (collection && service && tab.url && tab.url.length > 0) {
           const result = await window.electron.grpcClient.sendUnaryRequest(
             collection.options,
-            service.name,
-            tab.title,
-            tab.url,
+            { serviceName: service.name, methodName: tab.title, address: tab.url },
             JSON.parse(tab.requestContainer.request.value || '{}'),
             JSON.parse(tab.requestContainer.metadata.value || '{}')
           );

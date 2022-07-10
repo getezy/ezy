@@ -3,6 +3,7 @@ import { join } from 'path';
 
 import { ProtobufLoader } from '../../../protobuf';
 import { GrpcClient } from '../grpc-client';
+import { GrpcClientRequestOptions } from '../interfaces';
 
 function createBasicService(error: any, response: any) {
   const BasicService = jest.fn(() => ({
@@ -36,6 +37,12 @@ describe('GrpcClient', () => {
       path: join(__dirname, '../../../__tests__/fixtures/proto/basic.proto'),
     });
 
+    const requestOptions: GrpcClientRequestOptions = {
+      serviceName: 'BasicService',
+      methodName: 'BasicRequest',
+      address: '127.0.0.1:3000',
+    };
+
     const payload = {
       id: 'testid',
     };
@@ -48,13 +55,7 @@ describe('GrpcClient', () => {
     }));
 
     await expect(
-      GrpcClient.sendUnaryRequest(
-        packageDefinition,
-        'BasicService',
-        'BasicRequest',
-        '127.0.0.1:3000',
-        payload
-      )
+      GrpcClient.sendUnaryRequest(packageDefinition, requestOptions, payload)
     ).resolves.toEqual(payload);
   });
 
@@ -62,6 +63,12 @@ describe('GrpcClient', () => {
     const packageDefinition = await ProtobufLoader.loadFromFile({
       path: join(__dirname, '../../../__tests__/fixtures/proto/basic.proto'),
     });
+
+    const requestOptions: GrpcClientRequestOptions = {
+      serviceName: 'BasicService',
+      methodName: 'BasicRequest',
+      address: '127.0.0.1:3000',
+    };
 
     const payload = {
       id: 'testid',
@@ -79,14 +86,7 @@ describe('GrpcClient', () => {
     }));
 
     await expect(
-      GrpcClient.sendUnaryRequest(
-        packageDefinition,
-        'BasicService',
-        'BasicRequest',
-        '127.0.0.1:3000',
-        payload,
-        metadata
-      )
+      GrpcClient.sendUnaryRequest(packageDefinition, requestOptions, payload, metadata)
     ).resolves.toEqual(payload);
   });
 
@@ -94,6 +94,12 @@ describe('GrpcClient', () => {
     const packageDefinition = await ProtobufLoader.loadFromFile({
       path: join(__dirname, '../../../__tests__/fixtures/proto/basic.proto'),
     });
+
+    const requestOptions: GrpcClientRequestOptions = {
+      serviceName: 'BasicService',
+      methodName: 'BasicRequest',
+      address: '127.0.0.1:3000',
+    };
 
     const payload = {
       id: 'testid',
@@ -109,13 +115,7 @@ describe('GrpcClient', () => {
     }));
 
     await expect(
-      GrpcClient.sendUnaryRequest(
-        packageDefinition,
-        'BasicService',
-        'BasicRequest',
-        '127.0.0.1:3000',
-        payload
-      )
+      GrpcClient.sendUnaryRequest(packageDefinition, requestOptions, payload)
     ).resolves.toEqual(error);
   });
 
@@ -123,6 +123,12 @@ describe('GrpcClient', () => {
     const packageDefinition = await ProtobufLoader.loadFromFile({
       path: join(__dirname, '../../../__tests__/fixtures/proto/simple.proto'),
     });
+
+    const requestOptions: GrpcClientRequestOptions = {
+      serviceName: 'simple_package.v1.SimpleService',
+      methodName: 'SimpleUnaryRequest',
+      address: '127.0.0.1:3000',
+    };
 
     const payload = {
       id: 'testid',
@@ -136,29 +142,23 @@ describe('GrpcClient', () => {
     }));
 
     await expect(
-      GrpcClient.sendUnaryRequest(
-        packageDefinition,
-        'simple_package.v1.SimpleService',
-        'SimpleUnaryRequest',
-        '127.0.0.1:3000',
-        payload
-      )
+      GrpcClient.sendUnaryRequest(packageDefinition, requestOptions, payload)
     ).resolves.toEqual(payload);
   });
 
-  it('should throw error when no methid definition exist', async () => {
+  it('should throw error when no method definition exist', async () => {
     const packageDefinition = await ProtobufLoader.loadFromFile({
       path: join(__dirname, '../../../__tests__/fixtures/proto/simple.proto'),
     });
 
+    const requestOptions: GrpcClientRequestOptions = {
+      serviceName: 'simple_package.v1.SimpleService',
+      methodName: 'SomeRequest',
+      address: '127.0.0.1:3000',
+    };
+
     await expect(
-      GrpcClient.sendUnaryRequest(
-        packageDefinition,
-        'simple_package.v1.SimpleService',
-        'SomeRequest',
-        '127.0.0.1:3000',
-        {}
-      )
+      GrpcClient.sendUnaryRequest(packageDefinition, requestOptions, {})
     ).rejects.toThrowError('No method definition');
   });
 });

@@ -3,6 +3,7 @@ import { OpenDialogOptions } from 'electron';
 import React from 'react';
 import * as ReactDOM from 'react-dom/client';
 
+import { GrpcClientRequestOptions } from '../core/clients/grpc-client/interfaces';
 import { GrpcOptions, GrpcServiceInfo } from '../core/protobuf/interfaces';
 import App from './App';
 
@@ -23,9 +24,7 @@ declare global {
       grpcClient: {
         sendUnaryRequest: (
           options: GrpcOptions,
-          serviceName: string,
-          methodName: string,
-          address: string,
+          requestOptions: GrpcClientRequestOptions,
           payload: Record<string, unknown>,
           metadata?: Record<string, MetadataValue>
         ) => Promise<Record<string, unknown>>;
