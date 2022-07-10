@@ -60,8 +60,16 @@ describe('ProtobufLoader', () => {
               type: GrpcMethodType.UNARY,
             },
             {
-              name: 'SimpleStreamRequest',
-              type: GrpcMethodType.STREAM,
+              name: 'SimpleClientStreamRequest',
+              type: GrpcMethodType.CLIENT_STREAMING,
+            },
+            {
+              name: 'SimpleServerStreamRequest',
+              type: GrpcMethodType.SERVER_STREAMING,
+            },
+            {
+              name: 'SimpleBidirectionalStreamRequest',
+              type: GrpcMethodType.BIDIRECTIONAL_STREAMING,
             },
           ],
         },

@@ -10,5 +10,13 @@ message SimpleMessage {
 
 service SimpleService {
   rpc SimpleUnaryRequest(SimpleMessage) returns (google.protobuf.Empty);
-  rpc SimpleStreamRequest(stream SimpleMessage) returns (google.protobuf.Empty);
+
+  rpc SimpleClientStreamRequest(stream SimpleMessage)
+    returns (google.protobuf.Empty);
+
+  rpc SimpleServerStreamRequest(google.protobuf.Empty)
+    returns (stream SimpleMessage);
+
+  rpc SimpleBidirectionalStreamRequest(stream SimpleMessage)
+    returns (stream SimpleMessage);
 }

@@ -57,10 +57,7 @@ export class ProtobufLoader {
       if (instanceOfMethodDefinition(astItem)) {
         const method: GrpcMethodInfo = {
           name: astMethods[i],
-          type:
-            astItem.requestStream || astItem.responseStream
-              ? GrpcMethodType.STREAM
-              : GrpcMethodType.UNARY,
+          type: this.getMethodType(astItem),
         };
 
         methods.push(method);
@@ -71,5 +68,18 @@ export class ProtobufLoader {
       ...parsedService,
       methods,
     };
+  }
+
+  private static getMethodType(method: MethodDefinition<object, object>): GrpcMethodType {
+    if (method.requestStream && method.responseStream) {
+      return GrpcMethodType.BIDIRECTIONAL_STREAMING;
+    }
+    if (method.requestStream) {
+      return GrpcMethodType.CLIENT_STREAMING;
+    }
+    if (method.responseStream) {
+      return GrpcMethodType.SERVER_STREAMING;
+    }
+    return GrpcMethodType.UNARY;
   }
 }

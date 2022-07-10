@@ -42,7 +42,7 @@ const GrpcMethodNode: React.FC<GrpcMethodNodeProps> = ({ node }) => {
   const content = (
     <StyledNodeWrapper>
       {node.type === GrpcMethodType.UNARY && <UnaryBadge />}
-      {node.type === GrpcMethodType.STREAM && <StreamBadge />}
+      {node.type !== GrpcMethodType.UNARY && <StreamBadge />}
       <Spacer x={0.3} />
       <Tooltip content={node.name} color="invert" placement="topStart" enterDelay={1000}>
         <Text size={12}>{node.name}</Text>

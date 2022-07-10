@@ -1,6 +1,8 @@
 export enum GrpcMethodType {
   UNARY = 'unary',
-  STREAM = 'stream',
+  SERVER_STREAMING = 'server-streaming',
+  CLIENT_STREAMING = 'client-streaming',
+  BIDIRECTIONAL_STREAMING = 'bidirectional-streaming',
 }
 
 export type GrpcMethodInfo = {
