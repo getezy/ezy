@@ -2,7 +2,7 @@ import { styled } from '@nextui-org/react';
 import React from 'react';
 
 import { CodeEditor, Tab, Tabs } from '../../../components';
-import { useTabsStore } from '../../../storage';
+import { CollectionType, Tab as ITab, useTabsStore } from '../../../storage';
 
 const StyledContainer = styled('div', {
   width: '100%',
@@ -10,12 +10,11 @@ const StyledContainer = styled('div', {
 });
 
 export interface RequestProps {
-  tabId: string;
+  tab: ITab<CollectionType>;
 }
 
-export const Request: React.FC<RequestProps> = ({ tabId }) => {
-  const { updateTab, tabs } = useTabsStore((store) => store);
-  const tab = tabs.find((item) => item.id === tabId)!;
+export const Request: React.FC<RequestProps> = ({ tab }) => {
+  const { updateTab } = useTabsStore((store) => store);
   const activeTabId = tab.requestContainer.activeTabId || tab.requestContainer.request.id;
 
   const handleTabActivate = (key: string) => {

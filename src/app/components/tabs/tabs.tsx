@@ -24,15 +24,11 @@ export const Tabs: React.FC<TabsProps> = ({
 }) => {
   const tabs = React.Children.toArray(children) as React.ReactElement<TabProps>[];
 
-  const tabsContents = React.useMemo(
-    () =>
-      tabs.map((tab) => (
-        <TabContent active={activeKey === tab.props.id} key={tab.key}>
-          {tab}
-        </TabContent>
-      )),
-    [activeKey]
-  );
+  const tabsContents = tabs.map((tab) => (
+    <TabContent active={activeKey === tab.props.id} key={tab.key}>
+      {tab}
+    </TabContent>
+  ));
 
   return (
     <StyledTabs>

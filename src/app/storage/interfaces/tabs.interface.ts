@@ -22,7 +22,12 @@ export interface TabRequestContainer {
 }
 
 export interface GrpcTabInfo {
+  serviceId: string;
   methodId: string;
+}
+
+export interface BasicTabInfo {
+  collectionId: string;
 }
 
 export type TabInfo<T extends CollectionType> = T extends CollectionType.GRPC ? GrpcTabInfo : never;
@@ -31,7 +36,7 @@ export interface Tab<T extends CollectionType> {
   id: string;
   title: string;
   type: T;
-  info: TabInfo<T>;
+  info: TabInfo<T> & BasicTabInfo;
 
   environmentId?: string;
   url?: string;

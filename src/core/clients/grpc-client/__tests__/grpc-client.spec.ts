@@ -116,7 +116,7 @@ describe('GrpcClient', () => {
         '127.0.0.1:3000',
         payload
       )
-    ).rejects.toEqual(error);
+    ).resolves.toEqual(error);
   });
 
   it('should send unary request with package definition', async () => {

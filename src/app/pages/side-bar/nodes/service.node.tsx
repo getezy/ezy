@@ -8,55 +8,40 @@ import { grpcMethodNodeRenderer } from './method.node';
 import { StyledNodeWrapper } from './node.styled';
 
 type GrpcServiceNodeProps = {
-  id: string;
-  name: string;
-  methods?: GrpcMethod[];
+  node: GrpcService;
 
   isOpen?: boolean;
   onCollapseToggle?: (isOpen: boolean) => void;
 };
 
-const GrpcServiceNode: React.FC<GrpcServiceNodeProps> = ({
-  id,
-  name,
-  methods = [],
-  isOpen,
-  onCollapseToggle,
-}) => {
+const GrpcServiceNode: React.FC<GrpcServiceNodeProps> = ({ node, isOpen, onCollapseToggle }) => {
   const content = (
     <StyledNodeWrapper>
       <ServiceBadge />
       <Spacer x={0.3} />
-      <Tooltip content={name} color="invert" placement="topStart" enterDelay={1000}>
-        <Text size={12}>{name}</Text>
+      <Tooltip content={node.name} color="invert" placement="topStart" enterDelay={1000}>
+        <Text size={12}>{node.name}</Text>
       </Tooltip>
     </StyledNodeWrapper>
   );
 
   return (
     <TreeNode
-      id={id}
-      key={id}
+      id={node.id}
+      key={node.id}
       content={content}
       css={{ paddingLeft: 10 }}
       isOpen={isOpen}
       onCollapseToggle={onCollapseToggle}
     >
-      <Tree<GrpcMethod> data={methods} nodeRenderer={grpcMethodNodeRenderer} />
+      <Tree<GrpcMethod> data={node.methods} nodeRenderer={grpcMethodNodeRenderer} />
     </TreeNode>
   );
 };
 
 export const grpcServiceNodeRenderer: TreeNodeRenderer<GrpcService> = (
-  { id, name, methods },
+  data,
   { isOpen, onCollapseToggle }
 ) => (
-  <GrpcServiceNode
-    id={id}
-    key={id}
-    name={name}
-    methods={methods}
-    isOpen={isOpen}
-    onCollapseToggle={onCollapseToggle}
-  />
+  <GrpcServiceNode key={data.id} node={data} isOpen={isOpen} onCollapseToggle={onCollapseToggle} />
 );

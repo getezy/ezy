@@ -2,7 +2,7 @@ import { styled } from '@nextui-org/react';
 import React from 'react';
 
 import { CodeEditor, Tab, Tabs } from '../../../components';
-import { useTabsStore } from '../../../storage';
+import { CollectionType, Tab as ITab } from '../../../storage';
 
 const StyledContainer = styled('div', {
   borderLeft: 'solid 1px $border',
@@ -10,26 +10,21 @@ const StyledContainer = styled('div', {
 });
 
 export interface ResponseProps {
-  tabId: string;
+  tab: ITab<CollectionType>;
 }
 
-export const Response: React.FC<ResponseProps> = ({ tabId }) => {
-  const { tabs } = useTabsStore((store) => store);
-  const tab = tabs.find((item) => item.id === tabId)!;
-
-  return (
-    // for horizontal alignment height: 100%
-    <StyledContainer>
-      <Tabs activeKey={tab.response.id} activeBar={{ color: 'secondary', position: 'bottom' }}>
-        <Tab title="Response" id={tab.response.id} key={tab.response.id}>
-          <CodeEditor
-            readOnly
-            maxWidth="100%"
-            height="calc(100vh - 152px)"
-            value={tab.response.value}
-          />
-        </Tab>
-      </Tabs>
-    </StyledContainer>
-  );
-};
+export const Response: React.FC<ResponseProps> = ({ tab }) => (
+  // for horizontal alignment height: 100%
+  <StyledContainer>
+    <Tabs activeKey={tab.response.id} activeBar={{ color: 'secondary', position: 'bottom' }}>
+      <Tab title="Response" id={tab.response.id} key={tab.response.id}>
+        <CodeEditor
+          readOnly
+          maxWidth="100%"
+          height="calc(100vh - 152px)"
+          value={tab.response.value}
+        />
+      </Tab>
+    </Tabs>
+  </StyledContainer>
+);

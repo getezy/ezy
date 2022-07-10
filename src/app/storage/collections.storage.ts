@@ -76,7 +76,7 @@ export const useCollectionsStore = create(
                         ...service,
                         methods: service.methods?.reduce((methods, method) => {
                           const methodId =
-                            oldService?.methods?.find((item) => item.name === service.name)?.id ||
+                            oldService?.methods?.find((item) => item.name === method.name)?.id ||
                             nanoid();
 
                           methods.push({
@@ -99,7 +99,10 @@ export const useCollectionsStore = create(
 
             const { tabs, closeTab } = useTabsStore.getState();
             for (let i = 0; i < tabs.length; i++) {
-              if (!methodIds.includes(tabs[i].info?.methodId)) {
+              if (
+                tabs[i].info?.collectionId === id &&
+                !methodIds.includes(tabs[i].info?.methodId)
+              ) {
                 closeTab(tabs[i].id);
               }
             }

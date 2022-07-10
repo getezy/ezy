@@ -16,17 +16,14 @@ const NoTabsContainer = styled('div', {
 });
 
 export const TabsContainer = (): JSX.Element => {
-  const { activeTabId, closeTab, activateTab, moveTab } = useTabsStore((store) => store);
+  const { activeTabId, closeTab, activateTab, moveTab, tabs } = useTabsStore((store) => store);
 
-  const tabs = useTabsStore((store) => store.tabs).map((tab) => (
+  const tabsContent = tabs.map((tab) => (
     <Tab title={tab.title} id={tab.id} key={tab.id} closable>
       <Container gap={0} fluid css={{ paddingTop: 20 }}>
-        <SendHeader tabId={tab.id} />
+        <SendHeader tab={tab} />
         <Spacer />
-        <ResizablePanel
-          firstNode={<Request tabId={tab.id} />}
-          secondNode={<Response tabId={tab.id} />}
-        />
+        <ResizablePanel firstNode={<Request tab={tab} />} secondNode={<Response tab={tab} />} />
       </Container>
     </Tab>
   ));
@@ -40,7 +37,7 @@ export const TabsContainer = (): JSX.Element => {
       onTabDragEnd={moveTab}
       activeBar={{ color: 'warning', position: 'bottom' }}
     >
-      {tabs}
+      {tabsContent}
     </Tabs>
   ) : (
     <NoTabsContainer>

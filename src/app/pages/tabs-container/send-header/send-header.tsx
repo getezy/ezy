@@ -5,19 +5,24 @@ import React from 'react';
 import { MultiValue, SingleValue } from 'react-select';
 
 import { ColoredSelect } from '../../../components';
-import { Environment, useEnvironmentsStore, useTabsStore } from '../../../storage';
+import {
+  CollectionType,
+  Environment,
+  Tab,
+  useEnvironmentsStore,
+  useTabsStore,
+} from '../../../storage';
 import { CreateEnvironmentModal } from '../../environments';
 import { SendButton } from './send-button.styled';
 
 export interface SendHeaderProps {
-  tabId: string;
+  tab: Tab<CollectionType>;
 }
 
-export const SendHeader: React.FC<SendHeaderProps> = ({ tabId }) => {
-  const { updateTab, updateTabs, tabs } = useTabsStore((store) => store);
+export const SendHeader: React.FC<SendHeaderProps> = ({ tab }) => {
+  const { updateTab, updateTabs } = useTabsStore((store) => store);
   const { removeEnvironment, environments } = useEnvironmentsStore((store) => store);
 
-  const tab = tabs.find((item) => item.id === tabId)!;
   const selectedEnvironment = environments.find((item) => item.id === tab.environmentId) || null;
 
   const [createEnvironmentModalVisible, setCreateEnvironmentModalVisible] = React.useState(false);
@@ -55,14 +60,17 @@ export const SendHeader: React.FC<SendHeaderProps> = ({ tabId }) => {
   };
 
   const handleSendButtonClick = async () => {
-    await window.electron.grpcClient.sendUnaryRequest(
-      { path: 'path' },
+    const result = await window.electron.grpcClient.sendUnaryRequest(
+      {
+        path: '/Users/notmedia/work/protogun/protogun/src/core/__tests__/fixtures/proto/basic.proto',
+      },
       'BasicService',
       tab.title,
       tab.url || '',
       JSON.parse(tab.requestContainer.request.value || '{}'),
       JSON.parse(tab.requestContainer.metadata.value || '{}')
     );
+    console.log('result: ', result);
   };
 
   return (
