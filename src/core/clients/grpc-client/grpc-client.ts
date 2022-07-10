@@ -11,12 +11,10 @@ function instanceOfServiceClientConstructor(object: any): object is ServiceClien
 }
 
 export class GrpcClient {
-  static async sendUnaryRequest(
+  private static loadService(
     packageDefinition: PackageDefinition,
-    requestOptions: GrpcClientRequestOptions,
-    payload: Record<string, unknown>,
-    metadata?: Record<string, MetadataValue>
-  ): Promise<Record<string, unknown>> {
+    requestOptions: GrpcClientRequestOptions
+  ) {
     const ast = grpc.loadPackageDefinition(packageDefinition);
     const ServiceClient = _.get(ast, requestOptions.serviceName);
 
@@ -27,26 +25,66 @@ export class GrpcClient {
         client[requestOptions.methodName] &&
         typeof client[requestOptions.methodName] === 'function'
       ) {
-        return new Promise((resolve) => {
-          client[requestOptions.methodName](
-            payload,
-            metadata ? MetadataParser.parse(metadata) : new grpc.Metadata(),
-            (error: ServerErrorResponse, response: any) => {
-              if (error) {
-                return resolve({
-                  code: error.code,
-                  details: error.details,
-                  metadata: error.metadata,
-                });
-              }
-
-              return resolve(response);
-            }
-          );
-        });
+        return client;
       }
+
+      throw new Error('No method definition');
     }
 
-    throw new Error('No method definition');
+    throw new Error('No service definition');
   }
+
+  static async sendUnaryRequest(
+    packageDefinition: PackageDefinition,
+    requestOptions: GrpcClientRequestOptions,
+    payload: Record<string, unknown>,
+    metadata?: Record<string, MetadataValue>
+  ): Promise<Record<string, unknown>> {
+    const client = this.loadService(packageDefinition, requestOptions);
+
+    return new Promise((resolve) => {
+      client[requestOptions.methodName](
+        payload,
+        metadata ? MetadataParser.parse(metadata) : new grpc.Metadata(),
+        (error: ServerErrorResponse, response: any) => {
+          if (error) {
+            return resolve({
+              code: error.code,
+              details: error.details,
+              metadata: error.metadata,
+            });
+          }
+
+          return resolve(response);
+        }
+      );
+    });
+  }
+
+  // static async sendClientStreamingRequest(
+  //   packageDefinition: PackageDefinition,
+  //   requestOptions: GrpcClientRequestOptions,
+  //   payload: Record<string, unknown>,
+  //   metadata?: Record<string, MetadataValue>
+  // ): Promise<Record<string, unknown>> {
+  //   const client = this.loadService(packageDefinition, requestOptions);
+
+  //   return new Promise((resolve) => {
+  //     client[requestOptions.methodName](
+  //       payload,
+  //       metadata ? MetadataParser.parse(metadata) : new grpc.Metadata(),
+  //       (error: ServerErrorResponse, response: any) => {
+  //         if (error) {
+  //           return resolve({
+  //             code: error.code,
+  //             details: error.details,
+  //             metadata: error.metadata,
+  //           });
+  //         }
+
+  //         return resolve(response);
+  //       }
+  //     );
+  //   });
+  // }
 }

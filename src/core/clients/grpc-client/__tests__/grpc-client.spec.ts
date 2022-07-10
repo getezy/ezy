@@ -146,6 +146,22 @@ describe('GrpcClient', () => {
     ).resolves.toEqual(payload);
   });
 
+  it('should throw error when no service definition exist', async () => {
+    const packageDefinition = await ProtobufLoader.loadFromFile({
+      path: join(__dirname, '../../../__tests__/fixtures/proto/simple.proto'),
+    });
+
+    const requestOptions: GrpcClientRequestOptions = {
+      serviceName: 'SomeService',
+      methodName: 'SomeRequest',
+      address: '127.0.0.1:3000',
+    };
+
+    await expect(
+      GrpcClient.sendUnaryRequest(packageDefinition, requestOptions, {})
+    ).rejects.toThrowError('No service definition');
+  });
+
   it('should throw error when no method definition exist', async () => {
     const packageDefinition = await ProtobufLoader.loadFromFile({
       path: join(__dirname, '../../../__tests__/fixtures/proto/simple.proto'),

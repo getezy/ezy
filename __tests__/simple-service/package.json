@@ -1,10 +1,10 @@
 {
-  "name": "basic-service",
+  "name": "simple-service",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "proto": "grpc_tools_node_protoc --js_out=import_style=commonjs,binary:./ --grpc_out=grpc_js:./ proto/basic.proto"
+    "proto": "grpc_tools_node_protoc --js_out=import_style=commonjs,binary:./ --grpc_out=grpc_js:./ proto/simple.proto"
   },
   "dependencies": {
     "@grpc/grpc-js": "^1.6.7",
