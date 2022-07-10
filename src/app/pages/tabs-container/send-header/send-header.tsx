@@ -9,6 +9,7 @@ import {
   CollectionType,
   Environment,
   Tab,
+  useCollectionsStore,
   useEnvironmentsStore,
   useTabsStore,
 } from '../../../storage';
@@ -22,6 +23,7 @@ export interface SendHeaderProps {
 export const SendHeader: React.FC<SendHeaderProps> = ({ tab }) => {
   const { updateTab, updateTabs } = useTabsStore((store) => store);
   const { removeEnvironment, environments } = useEnvironmentsStore((store) => store);
+  const collections = useCollectionsStore((store) => store.collections);
 
   const selectedEnvironment = environments.find((item) => item.id === tab.environmentId) || null;
 
@@ -60,17 +62,33 @@ export const SendHeader: React.FC<SendHeaderProps> = ({ tab }) => {
   };
 
   const handleSendButtonClick = async () => {
-    const result = await window.electron.grpcClient.sendUnaryRequest(
-      {
-        path: '/Users/notmedia/work/protogun/protogun/src/core/__tests__/fixtures/proto/basic.proto',
-      },
-      'BasicService',
-      tab.title,
-      tab.url || '',
-      JSON.parse(tab.requestContainer.request.value || '{}'),
-      JSON.parse(tab.requestContainer.metadata.value || '{}')
-    );
-    console.log('result: ', result);
+    if (tab.type === CollectionType.GRPC) {
+      try {
+        const collection = collections.find((item) => item.id === tab.info.collectionId);
+        const service = collection?.children?.find((item) => item.id === tab.info.serviceId);
+
+        if (collection && service && tab.url && tab.url.length > 0) {
+          const result = await window.electron.grpcClient.sendUnaryRequest(
+            collection.options,
+            service.name,
+            tab.title,
+            tab.url,
+            JSON.parse(tab.requestContainer.request.value || '{}'),
+            JSON.parse(tab.requestContainer.metadata.value || '{}')
+          );
+
+          updateTab({
+            ...tab,
+            response: {
+              ...tab.response,
+              value: JSON.stringify(result, null, 2),
+            },
+          });
+        }
+      } catch (error) {
+        console.log('error: ', error);
+      }
+    }
   };
 
   return (
