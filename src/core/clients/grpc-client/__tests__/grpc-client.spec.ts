@@ -1,4 +1,5 @@
 import * as grpc from '@grpc/grpc-js';
+import { ClientReadableStreamImpl } from '@grpc/grpc-js/build/src/call';
 import { join } from 'path';
 
 import { ProtobufLoader } from '../../../protobuf';
@@ -23,6 +24,7 @@ function createSimpleService(error: any, response: any) {
     SimpleUnaryRequest: jest.fn((_payload, _metadata, callback) => {
       callback(error, response);
     }),
+    // SimpleServerStreamRequest: jest.fn(() => new ClientReadableStreamImpl(jest.fn())),
   }));
 
   // @ts-ignore
@@ -32,149 +34,169 @@ function createSimpleService(error: any, response: any) {
 }
 
 describe('GrpcClient', () => {
-  it('should send unary request', async () => {
-    const packageDefinition = await ProtobufLoader.loadFromFile({
-      path: join(__dirname, '../../../__tests__/fixtures/proto/basic.proto'),
+  describe('GrpcClient::SendUnaryRequest', () => {
+    it('should send unary request', async () => {
+      const packageDefinition = await ProtobufLoader.loadFromFile({
+        path: join(__dirname, '../../../__tests__/fixtures/proto/basic.proto'),
+      });
+
+      const requestOptions: GrpcClientRequestOptions = {
+        serviceName: 'BasicService',
+        methodName: 'BasicRequest',
+        address: '127.0.0.1:3000',
+      };
+
+      const payload = {
+        id: 'testid',
+      };
+
+      const BasicService = createBasicService(null, payload);
+
+      jest.spyOn(grpc, 'loadPackageDefinition').mockImplementationOnce(() => ({
+        // @ts-ignore
+        BasicService,
+      }));
+
+      await expect(
+        GrpcClient.sendUnaryRequest(packageDefinition, requestOptions, payload)
+      ).resolves.toEqual(payload);
     });
 
-    const requestOptions: GrpcClientRequestOptions = {
-      serviceName: 'BasicService',
-      methodName: 'BasicRequest',
-      address: '127.0.0.1:3000',
-    };
+    it('should send unary request width metadata', async () => {
+      const packageDefinition = await ProtobufLoader.loadFromFile({
+        path: join(__dirname, '../../../__tests__/fixtures/proto/basic.proto'),
+      });
 
-    const payload = {
-      id: 'testid',
-    };
+      const requestOptions: GrpcClientRequestOptions = {
+        serviceName: 'BasicService',
+        methodName: 'BasicRequest',
+        address: '127.0.0.1:3000',
+      };
 
-    const BasicService = createBasicService(null, payload);
+      const payload = {
+        id: 'testid',
+      };
 
-    jest.spyOn(grpc, 'loadPackageDefinition').mockImplementationOnce(() => ({
-      // @ts-ignore
-      BasicService,
-    }));
+      const metadata = {
+        'x-user-token': 'token',
+      };
 
-    await expect(
-      GrpcClient.sendUnaryRequest(packageDefinition, requestOptions, payload)
-    ).resolves.toEqual(payload);
+      const BasicService = createBasicService(null, payload);
+
+      jest.spyOn(grpc, 'loadPackageDefinition').mockImplementationOnce(() => ({
+        // @ts-ignore
+        BasicService,
+      }));
+
+      await expect(
+        GrpcClient.sendUnaryRequest(packageDefinition, requestOptions, payload, metadata)
+      ).resolves.toEqual(payload);
+    });
+
+    it('should send unary request with error', async () => {
+      const packageDefinition = await ProtobufLoader.loadFromFile({
+        path: join(__dirname, '../../../__tests__/fixtures/proto/basic.proto'),
+      });
+
+      const requestOptions: GrpcClientRequestOptions = {
+        serviceName: 'BasicService',
+        methodName: 'BasicRequest',
+        address: '127.0.0.1:3000',
+      };
+
+      const payload = {
+        id: 'testid',
+      };
+
+      const error = { code: 14, details: 'No connection established' };
+
+      const BasicService = createBasicService(error, null);
+
+      jest.spyOn(grpc, 'loadPackageDefinition').mockImplementationOnce(() => ({
+        // @ts-ignore
+        BasicService,
+      }));
+
+      await expect(
+        GrpcClient.sendUnaryRequest(packageDefinition, requestOptions, payload)
+      ).resolves.toEqual(error);
+    });
+
+    it('should send unary request with package definition', async () => {
+      const packageDefinition = await ProtobufLoader.loadFromFile({
+        path: join(__dirname, '../../../__tests__/fixtures/proto/simple.proto'),
+      });
+
+      const requestOptions: GrpcClientRequestOptions = {
+        serviceName: 'simple_package.v1.SimpleService',
+        methodName: 'SimpleUnaryRequest',
+        address: '127.0.0.1:3000',
+      };
+
+      const payload = {
+        id: 'testid',
+      };
+
+      const SimpleService = createSimpleService(null, payload);
+
+      jest.spyOn(grpc, 'loadPackageDefinition').mockImplementationOnce(() => ({
+        // @ts-ignore
+        'simple_package.v1.SimpleService': SimpleService,
+      }));
+
+      await expect(
+        GrpcClient.sendUnaryRequest(packageDefinition, requestOptions, payload)
+      ).resolves.toEqual(payload);
+    });
+
+    it('should throw error when no service definition exist', async () => {
+      const packageDefinition = await ProtobufLoader.loadFromFile({
+        path: join(__dirname, '../../../__tests__/fixtures/proto/simple.proto'),
+      });
+
+      const requestOptions: GrpcClientRequestOptions = {
+        serviceName: 'SomeService',
+        methodName: 'SomeRequest',
+        address: '127.0.0.1:3000',
+      };
+
+      await expect(
+        GrpcClient.sendUnaryRequest(packageDefinition, requestOptions, {})
+      ).rejects.toThrowError('No service definition');
+    });
+
+    it('should throw error when no method definition exist', async () => {
+      const packageDefinition = await ProtobufLoader.loadFromFile({
+        path: join(__dirname, '../../../__tests__/fixtures/proto/simple.proto'),
+      });
+
+      const requestOptions: GrpcClientRequestOptions = {
+        serviceName: 'simple_package.v1.SimpleService',
+        methodName: 'SomeRequest',
+        address: '127.0.0.1:3000',
+      };
+
+      await expect(
+        GrpcClient.sendUnaryRequest(packageDefinition, requestOptions, {})
+      ).rejects.toThrowError('No method definition');
+    });
   });
 
-  it('should send unary request width metadata', async () => {
-    const packageDefinition = await ProtobufLoader.loadFromFile({
-      path: join(__dirname, '../../../__tests__/fixtures/proto/basic.proto'),
+  describe('GrpcClient::SendServerStreamingRequest', () => {
+    it('should send server streaming request', async () => {
+      const packageDefinition = await ProtobufLoader.loadFromFile({
+        path: join(__dirname, '../../../__tests__/fixtures/proto/simple.proto'),
+      });
+
+      const requestOptions: GrpcClientRequestOptions = {
+        serviceName: 'simple_package.v1.SimpleService',
+        methodName: 'SimpleServerStreamRequest',
+        address: '127.0.0.1:3000',
+      };
+
+      const call = GrpcClient.sendServerStreamingRequest(packageDefinition, requestOptions, {});
+
+      expect(call instanceof ClientReadableStreamImpl).toBe(true);
     });
-
-    const requestOptions: GrpcClientRequestOptions = {
-      serviceName: 'BasicService',
-      methodName: 'BasicRequest',
-      address: '127.0.0.1:3000',
-    };
-
-    const payload = {
-      id: 'testid',
-    };
-
-    const metadata = {
-      'x-user-token': 'token',
-    };
-
-    const BasicService = createBasicService(null, payload);
-
-    jest.spyOn(grpc, 'loadPackageDefinition').mockImplementationOnce(() => ({
-      // @ts-ignore
-      BasicService,
-    }));
-
-    await expect(
-      GrpcClient.sendUnaryRequest(packageDefinition, requestOptions, payload, metadata)
-    ).resolves.toEqual(payload);
-  });
-
-  it('should send unary request with error', async () => {
-    const packageDefinition = await ProtobufLoader.loadFromFile({
-      path: join(__dirname, '../../../__tests__/fixtures/proto/basic.proto'),
-    });
-
-    const requestOptions: GrpcClientRequestOptions = {
-      serviceName: 'BasicService',
-      methodName: 'BasicRequest',
-      address: '127.0.0.1:3000',
-    };
-
-    const payload = {
-      id: 'testid',
-    };
-
-    const error = { code: 14, details: 'No connection established' };
-
-    const BasicService = createBasicService(error, null);
-
-    jest.spyOn(grpc, 'loadPackageDefinition').mockImplementationOnce(() => ({
-      // @ts-ignore
-      BasicService,
-    }));
-
-    await expect(
-      GrpcClient.sendUnaryRequest(packageDefinition, requestOptions, payload)
-    ).resolves.toEqual(error);
-  });
-
-  it('should send unary request with package definition', async () => {
-    const packageDefinition = await ProtobufLoader.loadFromFile({
-      path: join(__dirname, '../../../__tests__/fixtures/proto/simple.proto'),
-    });
-
-    const requestOptions: GrpcClientRequestOptions = {
-      serviceName: 'simple_package.v1.SimpleService',
-      methodName: 'SimpleUnaryRequest',
-      address: '127.0.0.1:3000',
-    };
-
-    const payload = {
-      id: 'testid',
-    };
-
-    const SimpleService = createSimpleService(null, payload);
-
-    jest.spyOn(grpc, 'loadPackageDefinition').mockImplementationOnce(() => ({
-      // @ts-ignore
-      'simple_package.v1.SimpleService': SimpleService,
-    }));
-
-    await expect(
-      GrpcClient.sendUnaryRequest(packageDefinition, requestOptions, payload)
-    ).resolves.toEqual(payload);
-  });
-
-  it('should throw error when no service definition exist', async () => {
-    const packageDefinition = await ProtobufLoader.loadFromFile({
-      path: join(__dirname, '../../../__tests__/fixtures/proto/simple.proto'),
-    });
-
-    const requestOptions: GrpcClientRequestOptions = {
-      serviceName: 'SomeService',
-      methodName: 'SomeRequest',
-      address: '127.0.0.1:3000',
-    };
-
-    await expect(
-      GrpcClient.sendUnaryRequest(packageDefinition, requestOptions, {})
-    ).rejects.toThrowError('No service definition');
-  });
-
-  it('should throw error when no method definition exist', async () => {
-    const packageDefinition = await ProtobufLoader.loadFromFile({
-      path: join(__dirname, '../../../__tests__/fixtures/proto/simple.proto'),
-    });
-
-    const requestOptions: GrpcClientRequestOptions = {
-      serviceName: 'simple_package.v1.SimpleService',
-      methodName: 'SomeRequest',
-      address: '127.0.0.1:3000',
-    };
-
-    await expect(
-      GrpcClient.sendUnaryRequest(packageDefinition, requestOptions, {})
-    ).rejects.toThrowError('No method definition');
   });
 });

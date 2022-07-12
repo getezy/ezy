@@ -21,7 +21,6 @@ if (require('electron-squirrel-startup')) {
 }
 
 electonStoreReigsterSubscibers();
-grpcClientRegisterSubscibers();
 protobufRegisterSubscibers();
 
 const createWindow = (): void => {
@@ -42,6 +41,7 @@ const createWindow = (): void => {
   mainWindow.webContents.openDevTools();
 
   dialogRegisterSubscibers(mainWindow);
+  grpcClientRegisterSubscibers(mainWindow);
 };
 
 // This method will be called when Electron has finished

@@ -12,4 +12,7 @@ export const globalStyles = globalCss({
     boxShadow: 'inset 0 0 6px',
     color: '$accents5',
   },
+  '::-webkit-scrollbar-corner': {
+    background: 'transparent',
+  },
 });

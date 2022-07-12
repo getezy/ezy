@@ -1,4 +1,9 @@
-import type { MetadataValue, ServerErrorResponse, ServiceClientConstructor } from '@grpc/grpc-js';
+import type {
+  ClientReadableStream,
+  MetadataValue,
+  ServerErrorResponse,
+  ServiceClientConstructor,
+} from '@grpc/grpc-js';
 import * as grpc from '@grpc/grpc-js';
 import type { PackageDefinition } from '@grpc/proto-loader';
 import * as _ from 'lodash';
@@ -42,11 +47,13 @@ export class GrpcClient {
   ): Promise<Record<string, unknown>> {
     const client = this.loadService(packageDefinition, requestOptions);
 
+    const method = client[requestOptions.methodName];
+
     return new Promise((resolve) => {
-      client[requestOptions.methodName](
+      method(
         payload,
         metadata ? MetadataParser.parse(metadata) : new grpc.Metadata(),
-        (error: ServerErrorResponse, response: any) => {
+        (error: ServerErrorResponse, response: Record<string, unknown>) => {
           if (error) {
             return resolve({
               code: error.code,
@@ -61,30 +68,19 @@ export class GrpcClient {
     });
   }
 
-  // static async sendClientStreamingRequest(
-  //   packageDefinition: PackageDefinition,
-  //   requestOptions: GrpcClientRequestOptions,
-  //   payload: Record<string, unknown>,
-  //   metadata?: Record<string, MetadataValue>
-  // ): Promise<Record<string, unknown>> {
-  //   const client = this.loadService(packageDefinition, requestOptions);
+  static sendServerStreamingRequest<T = Record<string, unknown>>(
+    packageDefinition: PackageDefinition,
+    requestOptions: GrpcClientRequestOptions,
+    payload: Record<string, unknown>,
+    metadata?: Record<string, MetadataValue>
+  ): ClientReadableStream<T> {
+    const client = this.loadService(packageDefinition, requestOptions);
 
-  //   return new Promise((resolve) => {
-  //     client[requestOptions.methodName](
-  //       payload,
-  //       metadata ? MetadataParser.parse(metadata) : new grpc.Metadata(),
-  //       (error: ServerErrorResponse, response: any) => {
-  //         if (error) {
-  //           return resolve({
-  //             code: error.code,
-  //             details: error.details,
-  //             metadata: error.metadata,
-  //           });
-  //         }
+    const call: ClientReadableStream<T> = client[requestOptions.methodName](
+      payload,
+      metadata ? MetadataParser.parse(metadata) : new grpc.Metadata()
+    );
 
-  //         return resolve(response);
-  //       }
-  //     );
-  //   });
-  // }
+    return call;
+  }
 }

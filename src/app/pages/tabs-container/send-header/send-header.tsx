@@ -4,6 +4,7 @@ import { Button, Container, Input, Spacer } from '@nextui-org/react';
 import React from 'react';
 import { MultiValue, SingleValue } from 'react-select';
 
+import { GrpcMethodType } from '../../../../core/protobuf/interfaces';
 import { ColoredSelect } from '../../../components';
 import {
   CollectionType,
@@ -66,22 +67,55 @@ export const SendHeader: React.FC<SendHeaderProps> = ({ tab }) => {
       try {
         const collection = collections.find((item) => item.id === tab.info.collectionId);
         const service = collection?.children?.find((item) => item.id === tab.info.serviceId);
+        const method = service?.methods?.find((item) => item.id === tab.info.methodId);
 
-        if (collection && service && tab.url && tab.url.length > 0) {
-          const result = await window.electron.grpcClient.sendUnaryRequest(
-            collection.options,
-            { serviceName: service.name, methodName: tab.title, address: tab.url },
-            JSON.parse(tab.requestContainer.request.value || '{}'),
-            JSON.parse(tab.requestContainer.metadata.value || '{}')
-          );
+        if (collection && service && method && tab.url && tab.url.length > 0) {
+          if (method.type === GrpcMethodType.UNARY) {
+            const result = await window.electron.grpcClient.unaryRequest.send(
+              collection.options,
+              { serviceName: service.name, methodName: method.name, address: tab.url },
+              JSON.parse(tab.requestContainer.request.value || '{}'),
+              JSON.parse(tab.requestContainer.metadata.value || '{}')
+            );
 
-          updateTab({
-            ...tab,
-            response: {
-              ...tab.response,
-              value: JSON.stringify(result, null, 2),
-            },
-          });
+            updateTab({
+              ...tab,
+              response: {
+                ...tab.response,
+                value: JSON.stringify(result, null, 2),
+              },
+            });
+          }
+
+          if (method.type === GrpcMethodType.SERVER_STREAMING) {
+            await window.electron.grpcClient.serverStreaming.send(
+              collection.options,
+              { serviceName: service.name, methodName: method.name, address: tab.url },
+              JSON.parse(tab.requestContainer.request.value || '{}'),
+              JSON.parse(tab.requestContainer.metadata.value || '{}')
+            );
+
+            //   addSubsbcribers(
+            //     streamId,
+            //     (data) => {
+            //       updateTab({
+            //         ...tab,
+            //         response: {
+            //           ...tab.response,
+            //           value: JSON.stringify(data, null, 2),
+            //         },
+            //       });
+            //     },
+            //     (error) => {
+            //       rem(streamId);
+            //       console.log('error: ', error);
+            //     },
+            //     () => {
+            //       rem(streamId);
+            //       console.log('stream ended');
+            //     }
+            //   );
+          }
         }
       } catch (error) {
         console.log('error: ', error);
