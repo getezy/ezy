@@ -34,8 +34,8 @@ function createSimpleService(error: any, response: any) {
 }
 
 describe('GrpcClient', () => {
-  describe('GrpcClient::SendUnaryRequest', () => {
-    it('should send unary request', async () => {
+  describe('GrpcClient::InvokeUnaryRequest', () => {
+    it('should invoke unary request', async () => {
       const packageDefinition = await ProtobufLoader.loadFromFile({
         path: join(__dirname, '../../../__tests__/fixtures/proto/basic.proto'),
       });
@@ -58,11 +58,11 @@ describe('GrpcClient', () => {
       }));
 
       await expect(
-        GrpcClient.sendUnaryRequest(packageDefinition, requestOptions, payload)
+        GrpcClient.invokeUnaryRequest(packageDefinition, requestOptions, payload)
       ).resolves.toEqual(payload);
     });
 
-    it('should send unary request width metadata', async () => {
+    it('should invoke unary request width metadata', async () => {
       const packageDefinition = await ProtobufLoader.loadFromFile({
         path: join(__dirname, '../../../__tests__/fixtures/proto/basic.proto'),
       });
@@ -89,11 +89,11 @@ describe('GrpcClient', () => {
       }));
 
       await expect(
-        GrpcClient.sendUnaryRequest(packageDefinition, requestOptions, payload, metadata)
+        GrpcClient.invokeUnaryRequest(packageDefinition, requestOptions, payload, metadata)
       ).resolves.toEqual(payload);
     });
 
-    it('should send unary request with error', async () => {
+    it('should invoke unary request with error', async () => {
       const packageDefinition = await ProtobufLoader.loadFromFile({
         path: join(__dirname, '../../../__tests__/fixtures/proto/basic.proto'),
       });
@@ -118,11 +118,11 @@ describe('GrpcClient', () => {
       }));
 
       await expect(
-        GrpcClient.sendUnaryRequest(packageDefinition, requestOptions, payload)
+        GrpcClient.invokeUnaryRequest(packageDefinition, requestOptions, payload)
       ).resolves.toEqual(error);
     });
 
-    it('should send unary request with package definition', async () => {
+    it('should invoke unary request with package definition', async () => {
       const packageDefinition = await ProtobufLoader.loadFromFile({
         path: join(__dirname, '../../../__tests__/fixtures/proto/simple.proto'),
       });
@@ -145,7 +145,7 @@ describe('GrpcClient', () => {
       }));
 
       await expect(
-        GrpcClient.sendUnaryRequest(packageDefinition, requestOptions, payload)
+        GrpcClient.invokeUnaryRequest(packageDefinition, requestOptions, payload)
       ).resolves.toEqual(payload);
     });
 
@@ -161,7 +161,7 @@ describe('GrpcClient', () => {
       };
 
       await expect(
-        GrpcClient.sendUnaryRequest(packageDefinition, requestOptions, {})
+        GrpcClient.invokeUnaryRequest(packageDefinition, requestOptions, {})
       ).rejects.toThrowError('No service definition');
     });
 
@@ -177,13 +177,13 @@ describe('GrpcClient', () => {
       };
 
       await expect(
-        GrpcClient.sendUnaryRequest(packageDefinition, requestOptions, {})
+        GrpcClient.invokeUnaryRequest(packageDefinition, requestOptions, {})
       ).rejects.toThrowError('No method definition');
     });
   });
 
-  describe('GrpcClient::SendServerStreamingRequest', () => {
-    it('should send server streaming request', async () => {
+  describe('GrpcClient::InvokeServerStreamingRequest', () => {
+    it('should invoke server streaming request', async () => {
       const packageDefinition = await ProtobufLoader.loadFromFile({
         path: join(__dirname, '../../../__tests__/fixtures/proto/simple.proto'),
       });
@@ -194,7 +194,7 @@ describe('GrpcClient', () => {
         address: '127.0.0.1:3000',
       };
 
-      const call = GrpcClient.sendServerStreamingRequest(packageDefinition, requestOptions, {});
+      const call = GrpcClient.invokeServerStreamingRequest(packageDefinition, requestOptions, {});
 
       expect(call instanceof ClientReadableStreamImpl).toBe(true);
     });

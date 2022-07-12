@@ -49,7 +49,7 @@ export const grpcClientRegisterSubscibers = (mainWindow: BrowserWindow) => {
     ) => {
       const ast = await ProtobufLoader.loadFromFile(options);
 
-      return GrpcClient.sendUnaryRequest(ast, requestOptions, payload, metadata);
+      return GrpcClient.invokeUnaryRequest(ast, requestOptions, payload, metadata);
     }
   );
 
@@ -64,7 +64,7 @@ export const grpcClientRegisterSubscibers = (mainWindow: BrowserWindow) => {
     ) => {
       const ast = await ProtobufLoader.loadFromFile(options);
 
-      const call = GrpcClient.sendServerStreamingRequest(ast, requestOptions, payload, metadata);
+      const call = GrpcClient.invokeServerStreamingRequest(ast, requestOptions, payload, metadata);
 
       return registerServerStreamingRequest(call, mainWindow);
     }

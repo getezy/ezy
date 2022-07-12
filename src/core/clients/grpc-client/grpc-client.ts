@@ -16,7 +16,7 @@ function instanceOfServiceClientConstructor(object: any): object is ServiceClien
 }
 
 export class GrpcClient {
-  private static loadService(
+  private static loadClient(
     packageDefinition: PackageDefinition,
     requestOptions: GrpcClientRequestOptions
   ) {
@@ -39,13 +39,13 @@ export class GrpcClient {
     throw new Error('No service definition');
   }
 
-  static async sendUnaryRequest(
+  static async invokeUnaryRequest(
     packageDefinition: PackageDefinition,
     requestOptions: GrpcClientRequestOptions,
     payload: Record<string, unknown>,
     metadata?: Record<string, MetadataValue>
   ): Promise<Record<string, unknown>> {
-    const client = this.loadService(packageDefinition, requestOptions);
+    const client = this.loadClient(packageDefinition, requestOptions);
 
     const method = client[requestOptions.methodName];
 
@@ -68,13 +68,13 @@ export class GrpcClient {
     });
   }
 
-  static sendServerStreamingRequest<T = Record<string, unknown>>(
+  static invokeServerStreamingRequest<T = Record<string, unknown>>(
     packageDefinition: PackageDefinition,
     requestOptions: GrpcClientRequestOptions,
     payload: Record<string, unknown>,
     metadata?: Record<string, MetadataValue>
   ): ClientReadableStream<T> {
-    const client = this.loadService(packageDefinition, requestOptions);
+    const client = this.loadClient(packageDefinition, requestOptions);
 
     const call: ClientReadableStream<T> = client[requestOptions.methodName](
       payload,
