@@ -1,12 +1,10 @@
 import { ipcRenderer } from 'electron';
 
-import { GrpcOptions } from '../../../core';
+import { GrpcOptions, GrpcServiceInfo } from '../../../core';
 import { ProtobufChannel } from './constants';
 
-export const protobufPreload = () => ({
-  protobuf: {
-    loadFromFile(options: GrpcOptions) {
-      return ipcRenderer.invoke(ProtobufChannel.LOAD_FROM_FILE, options);
-    },
+export const Protobuf = {
+  loadFromFile(options: GrpcOptions): Promise<GrpcServiceInfo[]> {
+    return ipcRenderer.invoke(ProtobufChannel.LOAD_FROM_FILE, options);
   },
-});
+};

@@ -34,7 +34,7 @@ export const useLogsStore = create(
     }),
     {
       name: 'logs',
-      getStorage: () => window.electron.store,
+      getStorage: () => window.electronStore,
     }
   )
 );

@@ -33,7 +33,7 @@ export const useCollectionsStore = create(
       createCollection: async (collection) => {
         if (collection.type === CollectionType.GRPC) {
           try {
-            const proto = await window.electron.protobuf.loadFromFile(collection.options);
+            const proto = await window.protobuf.loadFromFile(collection.options);
 
             set(
               produce<CollectionsStorage>((state) => {
@@ -57,7 +57,7 @@ export const useCollectionsStore = create(
         if (collection.type === CollectionType.GRPC) {
           try {
             const methodIds: string[] = [];
-            const proto = await window.electron.protobuf.loadFromFile(collection.options);
+            const proto = await window.protobuf.loadFromFile(collection.options);
 
             set(
               produce<CollectionsStorage>((state) => {
@@ -162,7 +162,7 @@ export const useCollectionsStore = create(
     }),
     {
       name: 'collections',
-      getStorage: () => window.electron.store,
+      getStorage: () => window.electronStore,
     }
   )
 );

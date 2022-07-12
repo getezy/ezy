@@ -90,7 +90,7 @@ export const useTabsStore = create(
     }),
     {
       name: 'tabs',
-      getStorage: () => window.electron.store,
+      getStorage: () => window.electronStore,
     }
   )
 );

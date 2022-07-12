@@ -24,7 +24,7 @@ export const useEnvironmentsStore = create(
     }),
     {
       name: 'environments',
-      getStorage: () => window.electron.store,
+      getStorage: () => window.electronStore,
     }
   )
 );

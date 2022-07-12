@@ -1,14 +1,13 @@
 import { contextBridge } from 'electron';
 
-import { dialogPreload, electronStorePreload, grpcClientPreload, protobufPreload } from './ipc';
+import { ElectronDialog, ElectronStore, GrpcClient, Protobuf } from './ipc';
 
-const preload = () => {
-  contextBridge.exposeInMainWorld('electron', {
-    ...electronStorePreload(),
-    ...dialogPreload(),
-    ...protobufPreload(),
-    ...grpcClientPreload(),
-  });
-};
+contextBridge.exposeInMainWorld('electronDialog', ElectronDialog);
 
-preload();
+contextBridge.exposeInMainWorld('electronStore', ElectronStore);
+
+contextBridge.exposeInMainWorld('protobuf', Protobuf);
+
+contextBridge.exposeInMainWorld('clients', {
+  grpc: GrpcClient,
+});

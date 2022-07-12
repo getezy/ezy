@@ -11,7 +11,7 @@ export const useSettingsStore = create(
     }),
     {
       name: 'settings',
-      getStorage: () => window.electron.store,
+      getStorage: () => window.electronStore,
     }
   )
 );

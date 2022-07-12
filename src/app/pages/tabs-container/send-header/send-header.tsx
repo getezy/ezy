@@ -71,7 +71,7 @@ export const SendHeader: React.FC<SendHeaderProps> = ({ tab }) => {
 
         if (collection && service && method && tab.url && tab.url.length > 0) {
           if (method.type === GrpcMethodType.UNARY) {
-            const result = await window.electron.grpcClient.unaryRequest.send(
+            const result = await window.clients.grpc.unary.invoke(
               collection.options,
               { serviceName: service.name, methodName: method.name, address: tab.url },
               JSON.parse(tab.requestContainer.request.value || '{}'),
@@ -88,7 +88,7 @@ export const SendHeader: React.FC<SendHeaderProps> = ({ tab }) => {
           }
 
           if (method.type === GrpcMethodType.SERVER_STREAMING) {
-            await window.electron.grpcClient.serverStreaming.send(
+            await window.clients.grpc.serverStreaming.invoke(
               collection.options,
               { serviceName: service.name, methodName: method.name, address: tab.url },
               JSON.parse(tab.requestContainer.request.value || '{}'),
