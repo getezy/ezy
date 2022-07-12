@@ -8,4 +8,5 @@ export enum GrpcClientServerStreamingChannel {
   DATA = 'grpc-client:server-streaming-request:data',
   ERROR = 'grpc-client:server-streaming-request:error',
   END = 'grpc-client:server-streaming-request:end',
+  CANCEL = 'grpc-client:server-streaming-request:cancel',
 }

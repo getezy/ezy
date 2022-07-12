@@ -71,6 +71,7 @@ export const SendHeader: React.FC<SendHeaderProps> = ({ tab }) => {
 
         if (collection && service && method && tab.url && tab.url.length > 0) {
           if (method.type === GrpcMethodType.UNARY) {
+            console.log('method: ', method);
             const result = await window.clients.grpc.unary.invoke(
               collection.options,
               { serviceName: service.name, methodName: method.name, address: tab.url },
@@ -92,29 +93,23 @@ export const SendHeader: React.FC<SendHeaderProps> = ({ tab }) => {
               collection.options,
               { serviceName: service.name, methodName: method.name, address: tab.url },
               JSON.parse(tab.requestContainer.request.value || '{}'),
-              JSON.parse(tab.requestContainer.metadata.value || '{}')
+              JSON.parse(tab.requestContainer.metadata.value || '{}'),
+              (data) => {
+                updateTab({
+                  ...tab,
+                  response: {
+                    ...tab.response,
+                    value: JSON.stringify(data, null, 2),
+                  },
+                });
+              },
+              (error) => {
+                console.log('stream error: ', error);
+              },
+              () => {
+                console.log('stream ended');
+              }
             );
-
-            //   addSubsbcribers(
-            //     streamId,
-            //     (data) => {
-            //       updateTab({
-            //         ...tab,
-            //         response: {
-            //           ...tab.response,
-            //           value: JSON.stringify(data, null, 2),
-            //         },
-            //       });
-            //     },
-            //     (error) => {
-            //       rem(streamId);
-            //       console.log('error: ', error);
-            //     },
-            //     () => {
-            //       rem(streamId);
-            //       console.log('stream ended');
-            //     }
-            //   );
           }
         }
       } catch (error) {

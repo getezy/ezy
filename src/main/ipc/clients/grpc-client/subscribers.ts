@@ -18,18 +18,27 @@ function registerServerStreamingRequest(
 ): string {
   const id = nanoid();
 
+  const removeListeners = () => {
+    call.removeAllListeners(GrpcClientServerStreamingChannel.DATA);
+    call.removeAllListeners(GrpcClientServerStreamingChannel.ERROR);
+    call.removeAllListeners(GrpcClientServerStreamingChannel.END);
+    serverStreamingRequests.delete(id);
+  };
+
   call.on('data', (data) => {
     mainWindow.webContents.send(GrpcClientServerStreamingChannel.DATA, id, data);
   });
 
   call.on('error', (error) => {
     mainWindow.webContents.send(GrpcClientServerStreamingChannel.ERROR, id, error);
-    serverStreamingRequests.delete(id);
+
+    removeListeners();
   });
 
   call.on('end', () => {
     mainWindow.webContents.send(GrpcClientServerStreamingChannel.END, id);
-    serverStreamingRequests.delete(id);
+
+    removeListeners();
   });
 
   serverStreamingRequests.set(id, call);
@@ -74,7 +83,7 @@ export const grpcClientRegisterSubscibers = (mainWindow: BrowserWindow) => {
     const call = serverStreamingRequests.get(id);
 
     if (call) {
-      call.cancel();
+      call.emit(GrpcClientServerStreamingChannel.CANCEL, id);
     }
 
     serverStreamingRequests.delete(id);

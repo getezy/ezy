@@ -1,8 +1,16 @@
+/* eslint-disable @typescript-eslint/no-use-before-define */
+
 import { MetadataValue, ServerErrorResponse } from '@grpc/grpc-js';
-import { IpcRenderer, ipcRenderer, IpcRendererEvent } from 'electron';
+import { ipcRenderer, IpcRendererEvent } from 'electron';
 
 import { GrpcClientRequestOptions, GrpcOptions } from '../../../../core';
 import { GrpcClientChannel, GrpcClientServerStreamingChannel } from './constants';
+
+export type OnDataCallback = (data: Record<string, unknown>) => void;
+
+export type OnErrorCallback = (error: ServerErrorResponse) => void;
+
+export type OnEndCallback = () => void;
 
 export const GrpcClient = {
   unary: {
@@ -22,35 +30,70 @@ export const GrpcClient = {
     },
   },
   serverStreaming: {
-    invoke(
+    async invoke(
       options: GrpcOptions,
       requestOptions: GrpcClientRequestOptions,
       payload: Record<string, unknown>,
-      metadata?: Record<string, MetadataValue>
+      metadata: Record<string, MetadataValue>,
+      onData: OnDataCallback,
+      onError: OnErrorCallback,
+      onEnd: OnEndCallback
     ): Promise<string> {
-      return ipcRenderer.invoke(
+      const streamId = await ipcRenderer.invoke(
         GrpcClientChannel.INVOKE_SERVER_STREAMING_REQUEST,
         options,
         requestOptions,
         payload,
         metadata
       );
+
+      const onDataCallback = (
+        event: IpcRendererEvent,
+        id: string,
+        data: Record<string, unknown>
+      ) => {
+        if (id === streamId) {
+          onData(data);
+        }
+      };
+
+      const onErrorCallback = (event: IpcRendererEvent, id: string, error: ServerErrorResponse) => {
+        if (id === streamId) {
+          onError(error);
+          removeListeners();
+        }
+      };
+
+      const onEndCallback = (event: IpcRendererEvent, id: string) => {
+        if (id === streamId) {
+          onEnd();
+          removeListeners();
+        }
+      };
+
+      const onCancelCallback = (event: IpcRendererEvent, id: string) => {
+        if (id === streamId) {
+          removeListeners();
+        }
+      };
+
+      const removeListeners = () => {
+        ipcRenderer.removeListener(GrpcClientServerStreamingChannel.DATA, onDataCallback);
+        ipcRenderer.removeListener(GrpcClientServerStreamingChannel.ERROR, onErrorCallback);
+        ipcRenderer.removeListener(GrpcClientServerStreamingChannel.END, onEndCallback);
+        ipcRenderer.removeListener(GrpcClientServerStreamingChannel.CANCEL, onCancelCallback);
+      };
+
+      ipcRenderer.on(GrpcClientServerStreamingChannel.DATA, onDataCallback);
+      ipcRenderer.on(GrpcClientServerStreamingChannel.ERROR, onErrorCallback);
+      ipcRenderer.on(GrpcClientServerStreamingChannel.END, onEndCallback);
+      ipcRenderer.on(GrpcClientServerStreamingChannel.CANCEL, onCancelCallback);
+
+      return streamId;
     },
-    cancel(id: string): Promise<void> {
-      return ipcRenderer.invoke(GrpcClientChannel.CANCEL_SERVER_STREAMING_REQUEST, id);
-    },
-    onData(
-      callback: (event: IpcRendererEvent, id: string, data: Record<string, unknown>) => void
-    ): IpcRenderer {
-      return ipcRenderer.on(GrpcClientServerStreamingChannel.DATA, callback);
-    },
-    onError(
-      callback: (event: IpcRendererEvent, id: string, error: ServerErrorResponse) => void
-    ): IpcRenderer {
-      return ipcRenderer.on(GrpcClientServerStreamingChannel.ERROR, callback);
-    },
-    onEnd(callback: (event: IpcRendererEvent, id: string) => void): IpcRenderer {
-      return ipcRenderer.on(GrpcClientServerStreamingChannel.END, callback);
+    async cancel(id: string): Promise<void> {
+      ipcRenderer.emit(GrpcClientServerStreamingChannel.CANCEL, id);
+      await ipcRenderer.invoke(GrpcClientChannel.CANCEL_SERVER_STREAMING_REQUEST, id);
     },
   },
 };

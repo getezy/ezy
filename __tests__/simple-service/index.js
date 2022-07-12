@@ -29,10 +29,14 @@ function simpleServerStreamRequest(call) {
   for(let i = 0; i < random; i++) {
     var message = new messages.SimpleMessage();
     message.setId(i.toString());
-    call.write(message);
-  }
 
-  call.end();
+    setTimeout((index, data) => {
+      call.write(data);
+      if (index === random - 1) {
+        call.end();
+      }
+    }, 1000 * (i + 1), i, message);
+  }
 }
 
 function simpleBidirectionalStreamRequest(call) {
