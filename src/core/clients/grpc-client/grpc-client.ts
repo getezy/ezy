@@ -1,5 +1,7 @@
 import type {
+  ClientDuplexStream,
   ClientReadableStream,
+  ClientWritableStream,
   MetadataValue,
   ServerErrorResponse,
   ServiceClientConstructor,
@@ -68,16 +70,58 @@ export class GrpcClient {
     });
   }
 
-  static invokeServerStreamingRequest<T = Record<string, unknown>>(
+  static invokeServerStreamingRequest<ResponseType = Record<string, unknown>>(
     packageDefinition: PackageDefinition,
     requestOptions: GrpcClientRequestOptions,
     payload: Record<string, unknown>,
     metadata?: Record<string, MetadataValue>
-  ): ClientReadableStream<T> {
+  ): ClientReadableStream<ResponseType> {
     const client = this.loadClient(packageDefinition, requestOptions);
 
-    const call: ClientReadableStream<T> = client[requestOptions.methodName](
+    const call: ClientReadableStream<ResponseType> = client[requestOptions.methodName](
       payload,
+      metadata ? MetadataParser.parse(metadata) : new grpc.Metadata()
+    );
+
+    return call;
+  }
+
+  static invokeClientStreamingRequest<RequestType = Record<string, unknown>>(
+    packageDefinition: PackageDefinition,
+    requestOptions: GrpcClientRequestOptions,
+    metadata?: Record<string, MetadataValue>
+  ): ClientWritableStream<RequestType> {
+    const client = this.loadClient(packageDefinition, requestOptions);
+
+    const call: ClientWritableStream<RequestType> = client[requestOptions.methodName](
+      metadata ? MetadataParser.parse(metadata) : new grpc.Metadata(),
+      (error: ServerErrorResponse, response: Record<string, unknown>) => {
+        if (error) {
+          return call.emit('error', {
+            code: error.code,
+            details: error.details,
+            metadata: error.metadata,
+          });
+        }
+
+        return call.emit('data', response);
+      }
+    );
+
+    return call;
+  }
+
+  static invokeBidirectionalStreamingRequest<
+    RequestType = Record<string, unknown>,
+    ResponseType = Record<string, unknown>
+  >(
+    packageDefinition: PackageDefinition,
+    requestOptions: GrpcClientRequestOptions,
+    metadata?: Record<string, MetadataValue>
+  ): ClientDuplexStream<RequestType, ResponseType> {
+    const client = this.loadClient(packageDefinition, requestOptions);
+
+    const call: ClientDuplexStream<RequestType, ResponseType> = client[requestOptions.methodName](
       metadata ? MetadataParser.parse(metadata) : new grpc.Metadata()
     );
 

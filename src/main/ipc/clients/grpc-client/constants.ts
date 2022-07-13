@@ -1,12 +1,49 @@
+/**
+ * Represents channel from renderer process
+ */
 export enum GrpcClientChannel {
-  SEND_UNARY_REQUEST = 'grpc-client:send-unary-request',
-  INVOKE_SERVER_STREAMING_REQUEST = 'grpc-client:invoke-server-streaming-request',
-  CANCEL_SERVER_STREAMING_REQUEST = 'grpc-client:cancel-server-streaming-request',
+  INVOKE_UNARY_REQUEST = 'grpc-client-channel:unary-request:invoke',
+
+  INVOKE_SERVER_STREAMING_REQUEST = 'grpc-client-channel:server-streaming-request:invoke',
+  CANCEL_SERVER_STREAMING_REQUEST = 'grpc-client-channel:server-streaming-request:cancel',
+
+  INVOKE_CLIENT_STREAMING_REQUEST = 'grpc-client-channel:client-streaming-request:invoke',
+  SEND_CLIENT_STREAMING_REQUEST = 'grpc-client-channel:client-streaming-request:send',
+  END_CLIENT_STREAMING_REQUEST = 'grpc-client-channel:client-streaming-request:end',
+  CANCEL_CLIENT_STREAMING_REQUEST = 'grpc-client-channel:client-streaming-request:cancel',
+
+  INVOKE_BIDIRECTIONAL_STREAMING_REQUEST = 'grpc-client-channel:bidirectional-streaming-request:invoke',
+  SEND_BIDIRECTIONAL_STREAMING_REQUEST = 'grpc-client-channel:bidirectional-streaming-request:invoke',
+  END_BIDIRECTIONAL_STREAMING_REQUEST = 'grpc-client-channel:bidirectional-streaming-request:invoke',
+  CANCEL_BIDIRECTIONAL_STREAMING_REQUEST = 'grpc-client-channel:bidirectional-streaming-request:invoke',
 }
 
+/**
+ * Represents channel from main process
+ */
 export enum GrpcClientServerStreamingChannel {
   DATA = 'grpc-client:server-streaming-request:data',
   ERROR = 'grpc-client:server-streaming-request:error',
   END = 'grpc-client:server-streaming-request:end',
   CANCEL = 'grpc-client:server-streaming-request:cancel',
+}
+
+/**
+ * Represents channel from main process
+ */
+export enum GrpcClientClientStreamingChannel {
+  DATA = 'grpc-client:client-streaming-request:data',
+  ERROR = 'grpc-client:client-streaming-request:error',
+  END = 'grpc-client:client-streaming-request:end',
+  CANCEL = 'grpc-client:client-streaming-request:cancel',
+}
+
+/**
+ * Represents channel from main process
+ */
+export enum GrpcClientBidirectionalStreamingChannel {
+  DATA = 'grpc-client:bidirectional-streaming-request:data',
+  ERROR = 'grpc-client:bidirectional-streaming-request:error',
+  END = 'grpc-client:bidirectional-streaming-request:end',
+  CANCEL = 'grpc-client:bidirectional-streaming-request:cancel',
 }
