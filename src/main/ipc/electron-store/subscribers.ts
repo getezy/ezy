@@ -5,7 +5,7 @@ import { ElectronStoreChannel } from './constants';
 
 const store = new ElectronStore();
 
-export const electonStoreReigsterSubscibers = () => {
+export const registerElectronStoreSubscribers = () => {
   ipcMain.handle(ElectronStoreChannel.GET, async (_event, value) => store.get(value));
 
   ipcMain.handle(ElectronStoreChannel.SET, async (_event, key, value) => {

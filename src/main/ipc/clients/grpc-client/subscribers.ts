@@ -37,7 +37,7 @@ function registerServerStreamingRequest(
   return id;
 }
 
-export const grpcClientRegisterSubscibers = (mainWindow: BrowserWindow) => {
+export const registerGrpcClientSubscribers = (mainWindow: BrowserWindow) => {
   ipcMain.handle(
     GrpcClientChannel.SEND_UNARY_REQUEST,
     async (
