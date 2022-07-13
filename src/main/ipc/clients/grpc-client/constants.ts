@@ -13,9 +13,9 @@ export enum GrpcClientChannel {
   CANCEL_CLIENT_STREAMING_REQUEST = 'grpc-client-channel:client-streaming-request:cancel',
 
   INVOKE_BIDIRECTIONAL_STREAMING_REQUEST = 'grpc-client-channel:bidirectional-streaming-request:invoke',
-  SEND_BIDIRECTIONAL_STREAMING_REQUEST = 'grpc-client-channel:bidirectional-streaming-request:invoke',
-  END_BIDIRECTIONAL_STREAMING_REQUEST = 'grpc-client-channel:bidirectional-streaming-request:invoke',
-  CANCEL_BIDIRECTIONAL_STREAMING_REQUEST = 'grpc-client-channel:bidirectional-streaming-request:invoke',
+  SEND_BIDIRECTIONAL_STREAMING_REQUEST = 'grpc-client-channel:bidirectional-streaming-request:send',
+  END_BIDIRECTIONAL_STREAMING_REQUEST = 'grpc-client-channel:bidirectional-streaming-request:end',
+  CANCEL_BIDIRECTIONAL_STREAMING_REQUEST = 'grpc-client-channel:bidirectional-streaming-request:cancel',
 }
 
 /**
