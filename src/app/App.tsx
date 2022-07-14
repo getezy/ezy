@@ -4,10 +4,10 @@ import { useEffectOnce } from 'react-use';
 
 import { Main } from './pages';
 import { ThemeType, useCollectionsStore, useSettingsStore } from './storage';
-import { darkTheme, globalStyles, lightTheme } from './themes';
+import { DarkTheme, globalStyles, LightTheme } from './themes';
 
 function App(): JSX.Element {
-  const theme = useSettingsStore((store) => store.type) === ThemeType.Dark ? darkTheme : lightTheme;
+  const theme = useSettingsStore((store) => store.type) === ThemeType.Dark ? DarkTheme : LightTheme;
   const { collections, updateCollection } = useCollectionsStore((store) => store);
 
   globalStyles();

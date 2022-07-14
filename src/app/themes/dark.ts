@@ -1,6 +1,6 @@
 import { createTheme } from '@nextui-org/react';
 
-export const darkTheme = createTheme({
+export const DarkTheme = createTheme({
   type: 'dark',
   theme: {
     colors: {
