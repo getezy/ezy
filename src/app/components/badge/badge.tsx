@@ -114,7 +114,7 @@ export type BadgeProps = {
 } & VariantProps<typeof StyledBadge>;
 
 export const Badge: React.FC<BadgeProps> = ({
-  color,
+  color = 'primary',
   text,
   weight = 'bold',
   size = 'sm',

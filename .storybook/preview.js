@@ -18,7 +18,7 @@ export const globalTypes = {
     description: 'Global theme for components',
     defaultValue: 'Dark',
     toolbar: {
-      icon: 'circlehollow',
+      icon: 'paintbrush',
       items: [
         'Light',
         'Dark',
