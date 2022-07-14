@@ -45,11 +45,16 @@ function simpleBidirectionalStreamRequest(call) {
 
     var message = new messages.SimpleMessage();
     message.setId(data.toString());
-    call.write(message);
+
+    setTimeout((mes) => {
+      call.write(mes);
+    }, 2000, message);
   });
 
   call.on('end', function() {
-    call.end();
+    setTimeout((mes) => {
+      call.end();
+    }, 5000);
   });
 }
 
