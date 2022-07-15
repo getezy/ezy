@@ -4,8 +4,8 @@ import { Button, Container, Input, Spacer } from '@nextui-org/react';
 import React from 'react';
 import { MultiValue, SingleValue } from 'react-select';
 
-import { GrpcMethodType } from '../../../../core/protobuf/interfaces';
-import { ColoredSelect } from '../../../components';
+import { GrpcMethodType } from '../../../../../../core/protobuf/interfaces';
+import { ColoredSelect } from '../../../../../components';
 import {
   CollectionType,
   Environment,
@@ -13,8 +13,8 @@ import {
   useCollectionsStore,
   useEnvironmentsStore,
   useTabsStore,
-} from '../../../storage';
-import { CreateEnvironmentModal } from '../../environments';
+} from '../../../../../storage';
+import { CreateEnvironmentModal } from '../../../../environments';
 import { SendButton } from './send-button.styled';
 
 export interface SendHeaderProps {

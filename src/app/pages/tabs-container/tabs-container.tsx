@@ -3,9 +3,7 @@ import React from 'react';
 
 import { ResizablePanel, Tab, Tabs } from '../../components';
 import { useTabsStore } from '../../storage';
-import { Request } from './request';
-import { Response } from './response';
-import { SendHeader } from './send-header';
+import { Request, Response, SendHeader } from './collection-types';
 
 const NoTabsContainer = styled('div', {
   display: 'flex',

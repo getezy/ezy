@@ -1,8 +1,8 @@
 import { styled } from '@nextui-org/react';
 import React from 'react';
 
-import { CodeEditor, Tab, Tabs } from '../../../components';
-import { CollectionType, Tab as ITab } from '../../../storage';
+import { CodeEditor, Tab, Tabs } from '../../../../../components';
+import { CollectionType, Tab as ITab } from '../../../../../storage';
 
 const StyledContainer = styled('div', {
   borderLeft: 'solid 1px $border',

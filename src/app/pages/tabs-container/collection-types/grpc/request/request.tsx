@@ -1,8 +1,8 @@
 import { styled } from '@nextui-org/react';
 import React from 'react';
 
-import { CodeEditor, Tab, Tabs } from '../../../components';
-import { CollectionType, Tab as ITab, useTabsStore } from '../../../storage';
+import { CodeEditor, Tab, Tabs } from '../../../../../components';
+import { CollectionType, Tab as ITab, useTabsStore } from '../../../../../storage';
 
 const StyledContainer = styled('div', {
   width: '100%',

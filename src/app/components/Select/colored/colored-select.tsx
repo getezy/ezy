@@ -8,7 +8,7 @@ import { ColoredOption } from './colored-option';
 import { ColoredSingleValue } from './colored-single-value';
 
 export type ColoredSelectProps = SelectProps<Environment> & {
-  onRemove: (item: Environment) => void;
+  onRemove?: (item: Environment) => void;
 };
 
 const TypedColoredSelect = React.memo(SelectFactory<Environment>());
