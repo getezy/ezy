@@ -1,9 +1,9 @@
-import { Container, Spacer, styled, Text } from '@nextui-org/react';
+import { Container, styled, Text } from '@nextui-org/react';
 import React from 'react';
 
-import { ResizablePanel, Tab, Tabs } from '../../components';
-import { useTabsStore } from '../../storage';
-import { Request, Response, SendHeader } from './collection-types';
+import { Tab, Tabs } from '../../components';
+import { CollectionType, useTabsStore } from '../../storage';
+import { GrpcTabContainer } from './collection-types';
 
 const NoTabsContainer = styled('div', {
   display: 'flex',
@@ -19,9 +19,7 @@ export const TabsContainer = (): JSX.Element => {
   const tabsContent = tabs.map((tab) => (
     <Tab title={tab.title} id={tab.id} key={tab.id} closable>
       <Container gap={0} fluid css={{ paddingTop: 20 }}>
-        <SendHeader tab={tab} />
-        <Spacer />
-        <ResizablePanel firstNode={<Request tab={tab} />} secondNode={<Response tab={tab} />} />
+        {tab.type === CollectionType.GRPC && <GrpcTabContainer tab={tab} />}
       </Container>
     </Tab>
   ));

@@ -71,7 +71,6 @@ export const SendHeader: React.FC<SendHeaderProps> = ({ tab }) => {
 
         if (collection && service && method && tab.url && tab.url.length > 0) {
           if (method.type === GrpcMethodType.UNARY) {
-            console.log('method: ', method);
             const result = await window.clients.grpc.unary.invoke(
               collection.options,
               { serviceName: service.name, methodName: method.name, address: tab.url },

@@ -1,3 +1,4 @@
+import { GrpcMethodType } from '../../../core/protobuf/interfaces';
 import { CollectionType } from './collections.interface';
 
 export interface TabRequest {
@@ -24,6 +25,7 @@ export interface TabRequestContainer {
 export interface GrpcTabInfo {
   serviceId: string;
   methodId: string;
+  methodType: GrpcMethodType;
 }
 
 export interface BasicTabInfo {

@@ -34,6 +34,7 @@ const GrpcMethodNode: React.FC<GrpcMethodNodeProps> = ({ node }) => {
           collectionId: nodeCollection.id,
           serviceId: nodeService.id,
           methodId: node.id,
+          methodType: node.type,
         },
       });
     }
