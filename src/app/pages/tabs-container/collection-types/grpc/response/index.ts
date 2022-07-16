@@ -1,1 +1,1 @@
-export * from './response';
+export * from './unary-response';

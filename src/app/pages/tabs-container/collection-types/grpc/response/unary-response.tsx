@@ -9,11 +9,11 @@ const StyledContainer = styled('div', {
   width: '100%',
 });
 
-export interface ResponseProps {
+export interface UnaryResponseProps {
   tab: ITab<CollectionType>;
 }
 
-export const Response: React.FC<ResponseProps> = ({ tab }) => (
+export const UnaryResponse: React.FC<UnaryResponseProps> = ({ tab }) => (
   // for horizontal alignment height: 100%
   <StyledContainer>
     <Tabs activeKey={tab.response.id} activeBar={{ color: 'secondary', position: 'bottom' }}>

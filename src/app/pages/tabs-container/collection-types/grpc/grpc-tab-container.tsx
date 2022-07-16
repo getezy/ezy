@@ -5,7 +5,7 @@ import { GrpcMethodType } from '../../../../../core/protobuf/interfaces';
 import { ResizablePanel } from '../../../../components';
 import { CollectionType, Tab } from '../../../../storage';
 import { Request } from './request';
-import { Response } from './response';
+import { UnaryResponse } from './response';
 import { SendHeader } from './send-header';
 
 export interface GrpcTabContainerProps {
@@ -18,7 +18,10 @@ export const GrpcTabContainer: React.FC<GrpcTabContainerProps> = ({ tab }) => {
       <>
         <SendHeader tab={tab} />
         <Spacer />
-        <ResizablePanel firstNode={<Request tab={tab} />} secondNode={<Response tab={tab} />} />
+        <ResizablePanel
+          firstNode={<Request tab={tab} />}
+          secondNode={<UnaryResponse tab={tab} />}
+        />
       </>
     );
   }
@@ -27,7 +30,7 @@ export const GrpcTabContainer: React.FC<GrpcTabContainerProps> = ({ tab }) => {
     <>
       <SendHeader tab={tab} />
       <Spacer />
-      <ResizablePanel firstNode={<Request tab={tab} />} secondNode={<Response tab={tab} />} />
+      <ResizablePanel firstNode={<Request tab={tab} />} secondNode={<UnaryResponse tab={tab} />} />
     </>
   );
 };

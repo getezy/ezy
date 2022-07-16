@@ -49,10 +49,8 @@ export class GrpcClient {
   ): Promise<Record<string, unknown>> {
     const client = this.loadClient(packageDefinition, requestOptions);
 
-    const method = client[requestOptions.methodName];
-
     return new Promise((resolve) => {
-      method(
+      client[requestOptions.methodName](
         payload,
         metadata ? MetadataParser.parse(metadata) : new grpc.Metadata(),
         (error: ServerErrorResponse, response: Record<string, unknown>) => {
