@@ -9,8 +9,6 @@ const StyledContainer = styled('div', {
   flex: 1,
 
   overflow: 'hidden',
-
-  borderLeft: 'solid 1px $border',
 });
 
 export interface UnaryResponseProps {
