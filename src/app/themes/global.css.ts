@@ -1,6 +1,11 @@
 import { globalCss } from '@nextui-org/react';
 
 export const globalStyles = globalCss({
+  '#root > div': {
+    height: '100vh',
+    width: '100vw',
+  },
+
   '::-webkit-scrollbar': {
     height: 2,
     width: 2,

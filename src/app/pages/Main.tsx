@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Explorer } from '../components';
+import { Explorer } from './explorer';
 import { Header } from './header';
 import { ExplorerSideBar } from './side-bar';
 import { TabsContainer } from './tabs-container';

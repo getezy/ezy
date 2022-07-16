@@ -1,10 +1,7 @@
-import { Container, CSS } from '@nextui-org/react';
+import { Container, CSS, Spacer } from '@nextui-org/react';
 import React from 'react';
 
 const ExporerHeaderContainerStyles: CSS = {
-  display: 'flex',
-  alignContent: 'center',
-  height: 50,
   background: '$backgroundContrast',
   borderBottom: 'solid $border 1px',
 };
@@ -15,6 +12,8 @@ export interface ExplorerHeaderProps {
 
 export const ExplorerHeader: React.FC<ExplorerHeaderProps> = ({ children }) => (
   <Container gap={0} css={ExporerHeaderContainerStyles}>
+    <Spacer y={0.5} />
     {children}
+    <Spacer y={0.5} />
   </Container>
 );
