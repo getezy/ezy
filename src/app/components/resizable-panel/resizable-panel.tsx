@@ -15,6 +15,7 @@ export interface ResizablePanelProps {
 
 const ResizablePanelWrapper = styled('div', {
   display: 'flex',
+  flexDirection: 'column',
   height: '100%',
   width: '100%',
   overflow: 'hidden',
@@ -31,6 +32,12 @@ const ResizablePanelWrapper = styled('div', {
 });
 
 const StyledResizable = styled(Resizable, {
+  display: 'flex',
+
+  width: '100%',
+  height: '100%',
+
+  overflow: 'hidden',
   variants: {
     alignment: {
       [ResizablePanelAlignment.Horizontal]: {
@@ -48,8 +55,11 @@ const StyledResizable = styled(Resizable, {
 });
 
 const StyledSecondNode = styled('div', {
+  display: 'flex',
+
   width: '100%',
   height: '100%',
+
   overflow: 'hidden',
 });
 

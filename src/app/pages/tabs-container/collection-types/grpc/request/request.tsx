@@ -5,7 +5,11 @@ import { CodeEditor, Tab, Tabs } from '../../../../../components';
 import { CollectionType, Tab as ITab, useTabsStore } from '../../../../../storage';
 
 const StyledContainer = styled('div', {
-  width: '100%',
+  display: 'flex',
+  flex: 1,
+
+  overflow: 'hidden',
+
   backgroundColor: '$backgroundContrast',
 });
 
@@ -67,8 +71,9 @@ export const Request: React.FC<RequestProps> = ({ tab }) => {
           key={tab.requestContainer.request.id}
         >
           <CodeEditor
+            height="100%"
             maxWidth="100%"
-            height="calc(100vh - 152px)"
+            width="100%"
             value={tab.requestContainer.request.value}
             onChange={handleRequestChange}
           />
@@ -79,8 +84,9 @@ export const Request: React.FC<RequestProps> = ({ tab }) => {
           key={tab.requestContainer.metadata.id}
         >
           <CodeEditor
+            height="100%"
             maxWidth="100%"
-            height="calc(100vh - 152px)"
+            width="100%"
             value={tab.requestContainer.metadata.value}
             onChange={handleMetadataChange}
           />

@@ -1,4 +1,4 @@
-import { Spacer } from '@nextui-org/react';
+import { Container, Spacer } from '@nextui-org/react';
 import React from 'react';
 
 import { GrpcMethodType } from '../../../../../core/protobuf/interfaces';
@@ -27,10 +27,15 @@ export const GrpcTabContainer: React.FC<GrpcTabContainerProps> = ({ tab }) => {
   }
 
   return (
-    <>
+    <Container
+      gap={0}
+      display="flex"
+      css={{ flex: 1, flexDirection: 'column', flexWrap: 'nowrap' }}
+    >
+      <Spacer />
       <SendHeader tab={tab} />
       <Spacer />
       <ResizablePanel firstNode={<Request tab={tab} />} secondNode={<UnaryResponse tab={tab} />} />
-    </>
+    </Container>
   );
 };

@@ -119,7 +119,7 @@ export const SendHeader: React.FC<SendHeaderProps> = ({ tab }) => {
 
   return (
     <>
-      <Container gap={0.5} fluid css={{ display: 'flex', flexWrap: 'nowrap' }}>
+      <Container gap={0.5} fluid css={{ display: 'flex', flexWrap: 'nowrap', height: 30 }}>
         <ColoredSelect
           bordered
           borderWeight="light"

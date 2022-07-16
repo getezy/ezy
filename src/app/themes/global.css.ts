@@ -18,6 +18,6 @@ export const globalStyles = globalCss({
     color: '$accents5',
   },
   '::-webkit-scrollbar-corner': {
-    background: 'transparent',
+    background: '$accents1',
   },
 });

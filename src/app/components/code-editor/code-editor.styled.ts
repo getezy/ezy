@@ -5,6 +5,7 @@ export const StyledCodeMirror = styled(CodeMirror, {
   '&': {
     color: '$text',
     backgroundColor: '$backgroundContrast',
+    width: '100%',
   },
 
   '.cm-content': {

@@ -3,7 +3,11 @@
 import { styled, VariantProps } from '@nextui-org/react';
 import React, { PropsWithChildren } from 'react';
 
-const StyledTab = styled('div');
+const StyledTab = styled('div', {
+  display: 'flex',
+  flex: 1,
+  overflow: 'hidden',
+});
 
 export type TabProps = {
   title: string;

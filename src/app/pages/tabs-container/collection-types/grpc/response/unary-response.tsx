@@ -5,8 +5,12 @@ import { CodeEditor, Tab, Tabs } from '../../../../../components';
 import { CollectionType, Tab as ITab } from '../../../../../storage';
 
 const StyledContainer = styled('div', {
+  display: 'flex',
+  flex: 1,
+
+  overflow: 'hidden',
+
   borderLeft: 'solid 1px $border',
-  width: '100%',
 });
 
 export interface UnaryResponseProps {
@@ -14,16 +18,10 @@ export interface UnaryResponseProps {
 }
 
 export const UnaryResponse: React.FC<UnaryResponseProps> = ({ tab }) => (
-  // for horizontal alignment height: 100%
   <StyledContainer>
     <Tabs activeKey={tab.response.id} activeBar={{ color: 'secondary', position: 'bottom' }}>
       <Tab title="Response" id={tab.response.id} key={tab.response.id}>
-        <CodeEditor
-          readOnly
-          maxWidth="100%"
-          height="calc(100vh - 152px)"
-          value={tab.response.value}
-        />
+        <CodeEditor height="100%" maxWidth="100%" width="100%" value={tab.response.value} />
       </Tab>
     </Tabs>
   </StyledContainer>

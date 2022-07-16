@@ -25,6 +25,6 @@ export const Explorer: React.FC<ExplorerProps> = ({ children, header, sideBar })
       <ExplorerHeader>{header}</ExplorerHeader>
       {sideBar}
     </Grid>
-    <Grid css={{ width: '100%', overflow: 'hidden' }}>{children}</Grid>
+    <Grid css={{ display: 'flex', flex: 1, overflow: 'hidden' }}>{children}</Grid>
   </Grid.Container>
 );

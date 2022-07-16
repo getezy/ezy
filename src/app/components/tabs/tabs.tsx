@@ -8,7 +8,9 @@ import { TabContent } from './tab-content';
 const StyledTabs = styled('div', {
   display: 'flex',
   flexDirection: 'column',
-  height: '100%',
+  flex: 1,
+
+  overflow: 'hidden',
 });
 
 export type TabsProps = PropsWithChildren<TabBarProps>;
