@@ -1,6 +1,6 @@
 import { faFloppyDisk, faPaperPlane } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Button, Container, Input, Spacer } from '@nextui-org/react';
+import { Button, Container, Input, Loading, Spacer } from '@nextui-org/react';
 import React from 'react';
 import { MultiValue, SingleValue } from 'react-select';
 
@@ -28,6 +28,7 @@ export const SendHeader: React.FC<SendHeaderProps> = ({ tab }) => {
 
   const selectedEnvironment = environments.find((item) => item.id === tab.environmentId) || null;
 
+  const [isLoading, setIsLoading] = React.useState(false);
   const [createEnvironmentModalVisible, setCreateEnvironmentModalVisible] = React.useState(false);
 
   const handleEnvironmentChange = (value: MultiValue<Environment> | SingleValue<Environment>) => {
@@ -65,6 +66,7 @@ export const SendHeader: React.FC<SendHeaderProps> = ({ tab }) => {
   const handleSendButtonClick = async () => {
     if (tab.type === CollectionType.GRPC) {
       try {
+        setIsLoading(true);
         const collection = collections.find((item) => item.id === tab.info.collectionId);
         const service = collection?.children?.find((item) => item.id === tab.info.serviceId);
         const method = service?.methods?.find((item) => item.id === tab.info.methodId);
@@ -113,6 +115,8 @@ export const SendHeader: React.FC<SendHeaderProps> = ({ tab }) => {
         }
       } catch (error) {
         console.log('error: ', error);
+      } finally {
+        setIsLoading(false);
       }
     }
   };
@@ -185,7 +189,7 @@ export const SendHeader: React.FC<SendHeaderProps> = ({ tab }) => {
           iconRight={<FontAwesomeIcon icon={faPaperPlane} />}
           onClick={handleSendButtonClick}
         >
-          Send
+          {isLoading ? <Loading type="gradient" color="currentColor" size="xs" /> : 'Send'}
         </SendButton>
       </Container>
       <CreateEnvironmentModal

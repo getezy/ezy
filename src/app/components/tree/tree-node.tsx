@@ -56,6 +56,8 @@ export const TreeNode: React.FC<PropsWithChildren<TreeNodeProps>> = ({
   onDoubleClick,
   css,
 }) => {
+  const [isHovered, setIsHovered] = React.useState(false);
+
   const isCollapsible = !!children;
 
   const handleCollapseToggle = () => {
@@ -78,12 +80,27 @@ export const TreeNode: React.FC<PropsWithChildren<TreeNodeProps>> = ({
     }
   };
 
+  const handleMouseEnter = () => {
+    setIsHovered(true);
+  };
+
+  const handleMouseLeave = () => {
+    setIsHovered(false);
+  };
+
   return (
     <>
-      <StyledTreeNode key={id} css={css} onClick={handleClick} onDoubleClick={handleDoubleClick}>
+      <StyledTreeNode
+        key={id}
+        css={css}
+        onClick={handleClick}
+        onDoubleClick={handleDoubleClick}
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+      >
         {content}
         <StyledCommandsPanelWrapper>
-          {commandsContent}
+          {isHovered && commandsContent}
           {isCollapsible && <CollapseButton isOpen={isOpen} onClick={handleCollapseToggle} />}
         </StyledCommandsPanelWrapper>
       </StyledTreeNode>
