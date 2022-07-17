@@ -45,7 +45,7 @@ export const StreamResponse: React.FC<StreamResponseProps> = ({ tab }) => (
           <ListItem>
             <Collapse title="test" css={{ flex: 1, overflow: 'auto' }}>
               <CodeEditor
-                height="100%"
+                height="200px"
                 maxWidth="100%"
                 width="100%"
                 readOnly

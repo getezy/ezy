@@ -47,7 +47,7 @@ export const ColoredSingleValue: React.FC<ColoredSingleValueProps> = ({
 }) => (
   <components.SingleValue {...props} selectProps={selectProps} data={data}>
     <StyledSpan size={selectProps.size}>
-      <ColorCircle color={data.color} size={selectProps.size} />
+      <ColorCircle color={data.color} size={selectProps.size} shadow />
       {data.label}
     </StyledSpan>
   </components.SingleValue>

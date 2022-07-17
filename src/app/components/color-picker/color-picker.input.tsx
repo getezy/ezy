@@ -23,7 +23,7 @@ export const ColorPickerInput: React.FC<ColorPickerInputProps> = ({ value, onCha
 
   return (
     <StyledWrapper>
-      <ColorCircle color={value} />
+      <ColorCircle size="md" color={value} shadow />
       <Spacer x={0.25} />
       <ColorPicker
         trigger={

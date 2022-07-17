@@ -73,7 +73,7 @@ export const ColoredOption: React.FC<ColoredOptionProps> = ({ children, innerPro
   return (
     <components.Option {...props} innerProps={innerProps}>
       <StyledSpan size={selectProps.size}>
-        <ColorCircle size={selectProps.size} color={data.color} />
+        <ColorCircle size={selectProps.size} color={data.color} shadow />
         <span style={{ overflow: 'hidden' }}>{data.label}</span>
         <div style={{ marginLeft: 'auto', height: 24 }}>
           {props.isFocused && (

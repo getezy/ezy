@@ -1,4 +1,5 @@
 import { styled, VariantProps } from '@nextui-org/react';
+import chroma from 'chroma-js';
 import React from 'react';
 
 const StyledCircle = styled('div', {
@@ -34,8 +35,15 @@ const StyledCircle = styled('div', {
 
 export type CircleProps = {
   color: string;
+  shadow?: boolean;
 } & VariantProps<typeof StyledCircle>;
 
-export const ColorCircle: React.FC<CircleProps> = ({ color, size = 'sm' }) => (
-  <StyledCircle css={{ backgroundColor: color }} size={size} />
+export const ColorCircle: React.FC<CircleProps> = ({ color, size = 'sm', shadow = false }) => (
+  <StyledCircle
+    css={{
+      backgroundColor: color,
+      boxShadow: shadow ? `0 0 1em ${chroma(color).brighten(1).hex()}` : undefined,
+    }}
+    size={size}
+  />
 );
