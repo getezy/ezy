@@ -1,7 +1,11 @@
-import { CSS, NormalWeights, styled, Text, VariantProps } from '@nextui-org/react';
+import { CSS, NormalWeights, Spacer, styled, Text, VariantProps } from '@nextui-org/react';
 import React from 'react';
 
 const StyledBadge = styled('div', {
+  display: 'flex',
+  flexWrap: 'nowrap',
+  alignItems: 'center',
+
   fontSize: '$$badgeFontSize',
   width: 'fit-content',
   userSelect: 'none',
@@ -39,22 +43,23 @@ const StyledBadge = styled('div', {
     size: {
       xs: {
         $$badgeFontSize: '9px',
+        $$badgeHeight: '18px',
       },
       sm: {
         $$badgeFontSize: '$fontSizes$sm',
-        $$badgeHeight: 26,
+        $$badgeHeight: '26px',
       },
       md: {
         $$badgeFontSize: '$fontSizes$md',
-        $$badgeHeight: 30,
+        $$badgeHeight: '30px',
       },
       lg: {
         $$badgeFontSize: '$fontSizes$lg',
-        $$badgeHeight: 34,
+        $$badgeHeight: '34px',
       },
       xl: {
         $$badgeFontSize: '$fontSizes$xl',
-        $$badgeHeight: 38,
+        $$badgeHeight: '38px',
       },
     },
   },
@@ -110,8 +115,20 @@ const StyledBadge = styled('div', {
 export type BadgeProps = {
   text: string;
   weight?: NormalWeights;
+  icon?: React.ReactElement;
   css?: CSS;
 } & VariantProps<typeof StyledBadge>;
+
+type IconWrapperProps = {
+  icon: React.ReactElement;
+};
+
+const IconWrapper: React.FC<IconWrapperProps> = ({ icon }) => (
+  <>
+    <Spacer inline x={0.2} />
+    {icon}
+  </>
+);
 
 export const Badge: React.FC<BadgeProps> = ({
   color = 'primary',
@@ -119,11 +136,13 @@ export const Badge: React.FC<BadgeProps> = ({
   weight = 'bold',
   size = 'sm',
   bordered = false,
+  icon,
   css,
 }) => (
   <StyledBadge color={color} size={size} bordered={bordered} css={css}>
-    <Text css={{ fontSize: 'inherit', color: 'inherit' }} weight={weight}>
+    <Text css={{ fontSize: 'inherit', color: '$text' }} weight={weight}>
       {text}
     </Text>
+    {icon && <IconWrapper icon={icon} />}
   </StyledBadge>
 );
