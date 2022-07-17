@@ -58,7 +58,6 @@ export const Request: React.FC<RequestProps> = ({ tab }) => {
   };
 
   return (
-    // for horizontal alignment height: 100%
     <StyledContainer>
       <Tabs
         activeKey={activeTabId}
