@@ -1,1 +1,2 @@
-export * from './send-header';
+export * from './send-header.unary';
+export * from './send-header.stream';

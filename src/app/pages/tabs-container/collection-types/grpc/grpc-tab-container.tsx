@@ -6,7 +6,7 @@ import { ResizablePanel } from '../../../../components';
 import { CollectionType, Tab } from '../../../../storage';
 import { Request } from './request';
 import { StreamResponse, UnaryResponse } from './response';
-import { SendHeader } from './send-header';
+import { StreamSendHeader, UnarySendHeader } from './send-header';
 
 export interface GrpcTabContainerProps {
   tab: Tab<CollectionType.GRPC>;
@@ -22,7 +22,7 @@ export const GrpcTabContainer: React.FC<GrpcTabContainerProps> = ({ tab }) => {
         css={{ flex: 1, flexDirection: 'column', flexWrap: 'nowrap' }}
       >
         <Spacer />
-        <SendHeader tab={tab} />
+        <StreamSendHeader tab={tab} />
         <Spacer />
         <ResizablePanel
           firstNode={<Request tab={tab} />}
@@ -40,7 +40,7 @@ export const GrpcTabContainer: React.FC<GrpcTabContainerProps> = ({ tab }) => {
       css={{ flex: 1, flexDirection: 'column', flexWrap: 'nowrap' }}
     >
       <Spacer />
-      <SendHeader tab={tab} />
+      <UnarySendHeader tab={tab} />
       <Spacer />
       <ResizablePanel firstNode={<Request tab={tab} />} secondNode={<UnaryResponse tab={tab} />} />
     </Container>
