@@ -22,20 +22,23 @@ export const UnarySendHeader: React.FC<SendHeaderProps> = ({ tab }) => {
         const service = collection?.children?.find((item) => item.id === tab.info.serviceId);
         const method = service?.methods?.find((item) => item.id === tab.info.methodId);
 
-        if (collection && service && method && tab.url && tab.url.length > 0) {
+        if (collection && service && method && tab.data.url && tab.data.url.length > 0) {
           if (method.type === GrpcMethodType.UNARY) {
             const result = await window.clients.grpc.unary.invoke(
               collection.options,
-              { serviceName: service.name, methodName: method.name, address: tab.url },
-              JSON.parse(tab.requestContainer.request.value || '{}'),
-              JSON.parse(tab.requestContainer.metadata.value || '{}')
+              { serviceName: service.name, methodName: method.name, address: tab.data.url },
+              JSON.parse(tab.data.requestTabs.request.value || '{}'),
+              JSON.parse(tab.data.requestTabs.metadata.value || '{}')
             );
 
             updateTab({
               ...tab,
-              response: {
-                ...tab.response,
-                value: JSON.stringify(result, null, 2),
+              data: {
+                ...tab.data,
+                response: {
+                  ...tab.data.response,
+                  value: JSON.stringify(result, null, 2),
+                },
               },
             });
           }

@@ -17,9 +17,9 @@ export interface UnaryResponseProps {
 
 export const UnaryResponse: React.FC<UnaryResponseProps> = ({ tab }) => (
   <StyledContainer>
-    <Tabs activeKey={tab.response.id} activeBar={{ color: 'secondary', position: 'bottom' }}>
-      <Tab title="Response" id={tab.response.id} key={tab.response.id}>
-        <CodeEditor height="100%" maxWidth="100%" width="100%" value={tab.response.value} />
+    <Tabs activeKey={tab.data.response.id} activeBar={{ color: 'secondary', position: 'bottom' }}>
+      <Tab title="Response" id={tab.data.response.id} key={tab.data.response.id}>
+        <CodeEditor height="100%" maxWidth="100%" width="100%" value={tab.data.response.value} />
       </Tab>
     </Tabs>
   </StyledContainer>

@@ -12,7 +12,7 @@ type GrpcMethodNodeProps = {
 };
 
 const GrpcMethodNode: React.FC<GrpcMethodNodeProps> = ({ node }) => {
-  const { createTab } = useTabsStore((store) => store);
+  const { createGrpcTab } = useTabsStore((store) => store);
   const collections = useCollectionsStore((store) => store.collections);
 
   const handleDoubleClick = () => {
@@ -27,7 +27,7 @@ const GrpcMethodNode: React.FC<GrpcMethodNodeProps> = ({ node }) => {
     );
 
     if (nodeCollection && nodeService) {
-      createTab({
+      createGrpcTab({
         type: CollectionType.GRPC,
         title: node.name,
         info: {

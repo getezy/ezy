@@ -39,8 +39,8 @@ const ListItem = styled('li', {
 
 export const StreamResponse: React.FC<StreamResponseProps> = ({ tab }) => (
   <StyledContainer>
-    <Tabs activeKey={tab.response.id} activeBar={{ color: 'secondary', position: 'bottom' }}>
-      <Tab title="Response" id={tab.response.id} key={tab.response.id}>
+    <Tabs activeKey={tab.data.response.id} activeBar={{ color: 'secondary', position: 'bottom' }}>
+      <Tab title="Response" id={tab.data.response.id} key={tab.data.response.id}>
         <ListWrapper>
           <ListItem>
             <Collapse title="test" css={{ flex: 1, overflow: 'auto' }}>
@@ -49,7 +49,7 @@ export const StreamResponse: React.FC<StreamResponseProps> = ({ tab }) => (
                 maxWidth="100%"
                 width="100%"
                 readOnly
-                value={tab.requestContainer.request.value}
+                value={tab.data.requestTabs.request.value}
               />
             </Collapse>
           </ListItem>

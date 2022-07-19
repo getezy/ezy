@@ -19,14 +19,17 @@ export interface RequestProps {
 
 export const Request: React.FC<RequestProps> = ({ tab }) => {
   const { updateTab } = useTabsStore((store) => store);
-  const activeTabId = tab.requestContainer.activeTabId || tab.requestContainer.request.id;
+  const activeTabId = tab.data.requestTabs.activeTabId || tab.data.requestTabs.request.id;
 
   const handleTabActivate = (key: string) => {
     updateTab({
       ...tab,
-      requestContainer: {
-        ...tab.requestContainer,
-        activeTabId: key,
+      data: {
+        ...tab.data,
+        requestTabs: {
+          ...tab.data.requestTabs,
+          activeTabId: key,
+        },
       },
     });
   };
@@ -34,11 +37,14 @@ export const Request: React.FC<RequestProps> = ({ tab }) => {
   const handleRequestChange = (requestValue: string) => {
     updateTab({
       ...tab,
-      requestContainer: {
-        ...tab.requestContainer,
-        request: {
-          ...tab.requestContainer.request,
-          value: requestValue,
+      data: {
+        ...tab.data,
+        requestTabs: {
+          ...tab.data.requestTabs,
+          request: {
+            ...tab.data.requestTabs.request,
+            value: requestValue,
+          },
         },
       },
     });
@@ -47,11 +53,14 @@ export const Request: React.FC<RequestProps> = ({ tab }) => {
   const handleMetadataChange = (metadataValue: string) => {
     updateTab({
       ...tab,
-      requestContainer: {
-        ...tab.requestContainer,
-        metadata: {
-          ...tab.requestContainer.metadata,
-          value: metadataValue,
+      data: {
+        ...tab.data,
+        requestTabs: {
+          ...tab.data.requestTabs,
+          metadata: {
+            ...tab.data.requestTabs.metadata,
+            value: metadataValue,
+          },
         },
       },
     });
@@ -66,27 +75,27 @@ export const Request: React.FC<RequestProps> = ({ tab }) => {
       >
         <Tab
           title="Request"
-          id={tab.requestContainer.request.id}
-          key={tab.requestContainer.request.id}
+          id={tab.data.requestTabs.request.id}
+          key={tab.data.requestTabs.request.id}
         >
           <CodeEditor
             height="100%"
             maxWidth="100%"
             width="100%"
-            value={tab.requestContainer.request.value}
+            value={tab.data.requestTabs.request.value}
             onChange={handleRequestChange}
           />
         </Tab>
         <Tab
           title="Metadata"
-          id={tab.requestContainer.metadata.id}
-          key={tab.requestContainer.metadata.id}
+          id={tab.data.requestTabs.metadata.id}
+          key={tab.data.requestTabs.metadata.id}
         >
           <CodeEditor
             height="100%"
             maxWidth="100%"
             width="100%"
-            value={tab.requestContainer.metadata.value}
+            value={tab.data.requestTabs.metadata.value}
             onChange={handleMetadataChange}
           />
         </Tab>

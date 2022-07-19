@@ -6,28 +6,30 @@ import { nanoid } from 'nanoid';
 import create from 'zustand';
 import { persist } from 'zustand/middleware';
 
-import { TabsStorage } from './interfaces';
+import { CollectionType, TabsStorage } from './interfaces';
 
 export const useTabsStore = create(
   persist<TabsStorage>(
     (set) => ({
       tabs: [],
       activeTabId: undefined,
-      createTab: (tab) =>
+      createGrpcTab: (payload) =>
         set(
           produce<TabsStorage>((state) => {
             const tabId = nanoid();
             const requestTabId = nanoid();
 
             state.tabs.push({
-              ...tab,
+              ...payload,
               id: tabId,
-              requestContainer: {
-                activeTabId: requestTabId,
-                request: { id: requestTabId },
-                metadata: { id: nanoid() },
+              data: {
+                requestTabs: {
+                  activeTabId: requestTabId,
+                  request: { id: requestTabId },
+                  metadata: { id: nanoid() },
+                },
+                response: { id: nanoid() },
               },
-              response: { id: nanoid() },
             });
 
             state.activeTabId = tabId;
@@ -74,14 +76,17 @@ export const useTabsStore = create(
             }
           })
         ),
-      updateTabs: (payload, where) =>
+      updateGrpcTabsEnvironment: (currentEnvironmentId, newEnvironmentId) =>
         set(
           produce<TabsStorage>((state) => {
             for (let i = 0; i < state.tabs.length; i++) {
-              if (state.tabs[i].environmentId === where.environmentId) {
-                state.tabs[i] = {
-                  ...state.tabs[i],
-                  ...payload,
+              if (
+                state.tabs[i].type === CollectionType.GRPC &&
+                state.tabs[i].data.environmentId === currentEnvironmentId
+              ) {
+                state.tabs[i].data = {
+                  ...state.tabs[i].data,
+                  environmentId: newEnvironmentId,
                 };
               }
             }

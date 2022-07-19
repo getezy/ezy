@@ -19,10 +19,11 @@ export interface SendHeaderProps {
 }
 
 export const SendHeader: React.FC<PropsWithChildren<SendHeaderProps>> = ({ tab, children }) => {
-  const { updateTab, updateTabs } = useTabsStore((store) => store);
+  const { updateTab, updateGrpcTabsEnvironment } = useTabsStore((store) => store);
   const { removeEnvironment, environments } = useEnvironmentsStore((store) => store);
 
-  const selectedEnvironment = environments.find((item) => item.id === tab.environmentId) || null;
+  const selectedEnvironment =
+    environments.find((item) => item.id === tab.data.environmentId) || null;
 
   const [createEnvironmentModalVisible, setCreateEnvironmentModalVisible] = React.useState(false);
 
@@ -31,21 +32,27 @@ export const SendHeader: React.FC<PropsWithChildren<SendHeaderProps>> = ({ tab, 
 
     updateTab({
       ...tab,
-      environmentId: environment?.id,
-      url: environment?.url,
+      data: {
+        ...tab.data,
+        environmentId: environment?.id,
+        url: environment?.url,
+      },
     });
   };
 
   const handleRemoveEnvironment = (environment: Environment) => {
     removeEnvironment(environment.id);
-    updateTabs({ environmentId: undefined }, { environmentId: environment.id });
+    updateGrpcTabsEnvironment(environment.id, undefined);
   };
 
   const handleUrlChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     updateTab({
       ...tab,
-      environmentId: undefined,
-      url: e.target.value,
+      data: {
+        ...tab.data,
+        environmentId: undefined,
+        url: e.target.value,
+      },
     });
   };
 
@@ -89,7 +96,7 @@ export const SendHeader: React.FC<PropsWithChildren<SendHeaderProps>> = ({ tab, 
           clearable
           placeholder="0.0.0.0:3000"
           css={{ flex: 5 }}
-          value={tab.url || ''}
+          value={tab.data.url || ''}
           onChange={handleUrlChange}
           contentRight={
             <Button
@@ -132,7 +139,7 @@ export const SendHeader: React.FC<PropsWithChildren<SendHeaderProps>> = ({ tab, 
         blur
         open={createEnvironmentModalVisible}
         defaultValues={{
-          url: tab.url || '',
+          url: tab.data.url || '',
         }}
         onCreate={handleCreateEnvironmentModalSubmit}
         onClose={handleCreateEnvironmentModalClose}
