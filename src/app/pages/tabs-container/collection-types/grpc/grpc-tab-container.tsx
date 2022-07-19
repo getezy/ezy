@@ -13,14 +13,18 @@ export interface GrpcTabContainerProps {
 }
 
 export const GrpcTabContainer: React.FC<GrpcTabContainerProps> = ({ tab }) => {
+  let content = (
+    <>
+      <Spacer />
+      <UnarySendHeader tab={tab} />
+      <Spacer />
+      <ResizablePanel firstNode={<Request tab={tab} />} secondNode={<UnaryResponse tab={tab} />} />
+    </>
+  );
+
   if (tab.info.methodType === GrpcMethodType.SERVER_STREAMING) {
-    return (
-      <Container
-        gap={0}
-        fluid
-        display="flex"
-        css={{ flex: 1, flexDirection: 'column', flexWrap: 'nowrap' }}
-      >
+    content = (
+      <>
         <Spacer />
         <StreamSendHeader tab={tab} />
         <Spacer />
@@ -28,7 +32,7 @@ export const GrpcTabContainer: React.FC<GrpcTabContainerProps> = ({ tab }) => {
           firstNode={<Request tab={tab} />}
           secondNode={<StreamResponse tab={tab} />}
         />
-      </Container>
+      </>
     );
   }
 
@@ -39,10 +43,7 @@ export const GrpcTabContainer: React.FC<GrpcTabContainerProps> = ({ tab }) => {
       display="flex"
       css={{ flex: 1, flexDirection: 'column', flexWrap: 'nowrap' }}
     >
-      <Spacer />
-      <UnarySendHeader tab={tab} />
-      <Spacer />
-      <ResizablePanel firstNode={<Request tab={tab} />} secondNode={<UnaryResponse tab={tab} />} />
+      {content}
     </Container>
   );
 };
