@@ -4,7 +4,7 @@ import { Loading, Spacer } from '@nextui-org/react';
 import React from 'react';
 
 import { GrpcMethodType } from '../../../../../../core/protobuf/interfaces';
-import { CollectionType, useCollectionsStore, useTabsStore } from '../../../../../storage';
+import { useCollectionsStore, useTabsStore } from '../../../../../storage';
 import { SendButton } from './send-button.styled';
 import { SendHeader, SendHeaderProps } from './send-header.basic';
 
@@ -15,39 +15,37 @@ export const UnarySendHeader: React.FC<SendHeaderProps> = ({ tab }) => {
   const [isLoading, setIsLoading] = React.useState(false);
 
   const handleSendButtonClick = async () => {
-    if (tab.type === CollectionType.GRPC) {
-      try {
-        setIsLoading(true);
-        const collection = collections.find((item) => item.id === tab.info.collectionId);
-        const service = collection?.children?.find((item) => item.id === tab.info.serviceId);
-        const method = service?.methods?.find((item) => item.id === tab.info.methodId);
+    try {
+      setIsLoading(true);
+      const collection = collections.find((item) => item.id === tab.info.collectionId);
+      const service = collection?.children?.find((item) => item.id === tab.info.serviceId);
+      const method = service?.methods?.find((item) => item.id === tab.info.methodId);
 
-        if (collection && service && method && tab.data.url && tab.data.url.length > 0) {
-          if (method.type === GrpcMethodType.UNARY) {
-            const result = await window.clients.grpc.unary.invoke(
-              collection.options,
-              { serviceName: service.name, methodName: method.name, address: tab.data.url },
-              JSON.parse(tab.data.requestTabs.request.value || '{}'),
-              JSON.parse(tab.data.requestTabs.metadata.value || '{}')
-            );
+      if (collection && service && method && tab.data.url && tab.data.url.length > 0) {
+        if (method.type === GrpcMethodType.UNARY) {
+          const result = await window.clients.grpc.unary.invoke(
+            collection.options,
+            { serviceName: service.name, methodName: method.name, address: tab.data.url },
+            JSON.parse(tab.data.requestTabs.request.value || '{}'),
+            JSON.parse(tab.data.requestTabs.metadata.value || '{}')
+          );
 
-            updateTab({
-              ...tab,
-              data: {
-                ...tab.data,
-                response: {
-                  ...tab.data.response,
-                  value: JSON.stringify(result, null, 2),
-                },
+          updateTab({
+            ...tab,
+            data: {
+              ...tab.data,
+              response: {
+                ...tab.data.response,
+                value: JSON.stringify(result, null, 2),
               },
-            });
-          }
+            },
+          });
         }
-      } catch (error) {
-        console.log('error: ', error);
-      } finally {
-        setIsLoading(false);
       }
+    } catch (error) {
+      console.log('error: ', error);
+    } finally {
+      setIsLoading(false);
     }
   };
 

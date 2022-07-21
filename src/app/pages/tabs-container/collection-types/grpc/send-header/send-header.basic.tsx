@@ -15,7 +15,7 @@ import {
 import { CreateEnvironmentModal } from '../../../../environments';
 
 export interface SendHeaderProps {
-  tab: Tab<CollectionType>;
+  tab: Tab<CollectionType.GRPC>;
 }
 
 export const SendHeader: React.FC<PropsWithChildren<SendHeaderProps>> = ({ tab, children }) => {

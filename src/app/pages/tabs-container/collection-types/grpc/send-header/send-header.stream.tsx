@@ -4,7 +4,7 @@ import { Button, Loading, Spacer } from '@nextui-org/react';
 import React from 'react';
 
 import { GrpcMethodType } from '../../../../../../core/protobuf/interfaces';
-import { CollectionType, useCollectionsStore, useTabsStore } from '../../../../../storage';
+import { useCollectionsStore, useTabsStore } from '../../../../../storage';
 import { SendHeader, SendHeaderProps } from './send-header.basic';
 
 export const StreamSendHeader: React.FC<SendHeaderProps> = ({ tab }) => {
@@ -15,48 +15,47 @@ export const StreamSendHeader: React.FC<SendHeaderProps> = ({ tab }) => {
   const [callId, setCallId] = React.useState<string | null>(null);
 
   const handleSendButtonClick = async () => {
-    if (tab.type === CollectionType.GRPC) {
-      try {
-        setIsLoading(true);
-        const collection = collections.find((item) => item.id === tab.info.collectionId);
-        const service = collection?.children?.find((item) => item.id === tab.info.serviceId);
-        const method = service?.methods?.find((item) => item.id === tab.info.methodId);
+    try {
+      setIsLoading(true);
+      const collection = collections.find((item) => item.id === tab.info.collectionId);
+      const service = collection?.children?.find((item) => item.id === tab.info.serviceId);
+      const method = service?.methods?.find((item) => item.id === tab.info.methodId);
 
-        if (collection && service && method && tab.data.url && tab.data.url.length > 0) {
-          if (method.type === GrpcMethodType.SERVER_STREAMING) {
-            const id = await window.clients.grpc.serverStreaming.invoke(
-              collection.options,
-              { serviceName: service.name, methodName: method.name, address: tab.data.url },
-              JSON.parse(tab.data.requestTabs.request.value || '{}'),
-              JSON.parse(tab.data.requestTabs.metadata.value || '{}'),
-              (data) => {
-                updateTab({
-                  ...tab,
-                  data: {
-                    ...tab.data,
-                    response: {
-                      ...tab.data.response,
-                      value: JSON.stringify(data, null, 2),
-                    },
+      if (collection && service && method && tab.data.url && tab.data.url.length > 0) {
+        if (method.type === GrpcMethodType.SERVER_STREAMING) {
+          const id = await window.clients.grpc.serverStreaming.invoke(
+            collection.options,
+            { serviceName: service.name, methodName: method.name, address: tab.data.url },
+            JSON.parse(tab.data.requestTabs.request.value || '{}'),
+            JSON.parse(tab.data.requestTabs.metadata.value || '{}'),
+            (data) => {
+              updateTab({
+                ...tab,
+                data: {
+                  ...tab.data,
+                  response: {
+                    ...tab.data.response,
+                    value: JSON.stringify(data, null, 2),
                   },
-                });
-              },
-              (error) => {
-                console.log('stream error: ', error);
-              },
-              () => {
-                console.log('stream ended');
-              }
-            );
+                },
+              });
+            },
+            (error) => {
+              console.log('stream error: ', error);
+              setIsLoading(false);
+            },
+            () => {
+              console.log('stream ended');
+              setIsLoading(false);
+            }
+          );
 
-            setCallId(id);
-          }
+          setCallId(id);
         }
-      } catch (error) {
-        console.log('error: ', error);
-      } finally {
-        setIsLoading(false);
       }
+    } catch (error) {
+      console.log('error: ', error);
+      setIsLoading(false);
     }
   };
 
