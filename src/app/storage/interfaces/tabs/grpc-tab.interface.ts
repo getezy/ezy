@@ -15,9 +15,23 @@ export interface GrpcTabUnaryResponse {
   value?: string;
 }
 
+export enum GrpcStreamMessageType {
+  CLIENT_MESSAGE = 'client-message',
+  SERVER_MESSAGE = 'server-message',
+  STARTED = 'started',
+  ENDED = 'ended',
+  CANCELED = 'canceled',
+}
+
+export interface GrpcStreamMessage {
+  id: string;
+  type: GrpcStreamMessageType;
+  value: string;
+}
+
 export interface GrpcTabStreamResponse {
   id: string;
-  value: string[];
+  messages: GrpcStreamMessage[];
 }
 
 export interface GrpcTabInfo<T extends GrpcMethodType> {

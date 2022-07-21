@@ -1,11 +1,10 @@
-import { faPaperPlane } from '@fortawesome/free-solid-svg-icons';
+import { faStop } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Loading, Spacer } from '@nextui-org/react';
+import { Button, Loading, Spacer } from '@nextui-org/react';
 import React from 'react';
 
 import { GrpcMethodType } from '../../../../../../core/protobuf/interfaces';
 import { CollectionType, useCollectionsStore, useTabsStore } from '../../../../../storage';
-import { SendButton } from './send-button.styled';
 import { SendHeader, SendHeaderProps } from './send-header.basic';
 
 export const StreamSendHeader: React.FC<SendHeaderProps> = ({ tab }) => {
@@ -13,6 +12,7 @@ export const StreamSendHeader: React.FC<SendHeaderProps> = ({ tab }) => {
   const collections = useCollectionsStore((store) => store.collections);
 
   const [isLoading, setIsLoading] = React.useState(false);
+  const [callId, setCallId] = React.useState<string | null>(null);
 
   const handleSendButtonClick = async () => {
     if (tab.type === CollectionType.GRPC) {
@@ -24,7 +24,7 @@ export const StreamSendHeader: React.FC<SendHeaderProps> = ({ tab }) => {
 
         if (collection && service && method && tab.data.url && tab.data.url.length > 0) {
           if (method.type === GrpcMethodType.SERVER_STREAMING) {
-            await window.clients.grpc.serverStreaming.invoke(
+            const id = await window.clients.grpc.serverStreaming.invoke(
               collection.options,
               { serviceName: service.name, methodName: method.name, address: tab.data.url },
               JSON.parse(tab.data.requestTabs.request.value || '{}'),
@@ -48,6 +48,8 @@ export const StreamSendHeader: React.FC<SendHeaderProps> = ({ tab }) => {
                 console.log('stream ended');
               }
             );
+
+            setCallId(id);
           }
         }
       } catch (error) {
@@ -58,19 +60,42 @@ export const StreamSendHeader: React.FC<SendHeaderProps> = ({ tab }) => {
     }
   };
 
+  const handleCancelButtonClick = async () => {
+    if (callId) {
+      await window.clients.grpc.serverStreaming.cancel(callId);
+      setCallId(null);
+      setIsLoading(false);
+    }
+  };
+
   return (
     <SendHeader tab={tab}>
+      {isLoading && (
+        <>
+          <Spacer x={0.5} />
+          <Button
+            size="sm"
+            color="error"
+            bordered
+            borderWeight="light"
+            css={{ minWidth: 10 }}
+            icon={<FontAwesomeIcon icon={faStop} />}
+            onClick={handleCancelButtonClick}
+          />
+        </>
+      )}
       <Spacer x={0.5} />
-      <SendButton
+      <Button
         size="sm"
         bordered
         borderWeight="light"
         color="gradient"
-        iconRight={<FontAwesomeIcon icon={faPaperPlane} />}
+        disabled={isLoading}
+        css={{ minWidth: 60 }}
         onClick={handleSendButtonClick}
       >
-        {isLoading ? <Loading type="gradient" color="currentColor" size="xs" /> : 'Send'}
-      </SendButton>
+        {isLoading ? <Loading type="gradient" color="currentColor" size="xs" /> : 'Invoke'}
+      </Button>
     </SendHeader>
   );
 };

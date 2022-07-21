@@ -9,7 +9,6 @@ const StyledTree = styled('ul', {
 
 export type TreeData = {
   id: string;
-  name: string;
 };
 
 export type TreeProps<T extends TreeData> = {
@@ -17,16 +16,23 @@ export type TreeProps<T extends TreeData> = {
 
   data?: T[];
 
+  defaultCollapse?: boolean;
+
   nodeRenderer: TreeNodeRenderer<T>;
 };
 
 export const Tree: <T extends TreeData>(
   props: TreeProps<T>
-) => React.ReactElement<TreeProps<T>> = ({ css, data = [], nodeRenderer }) => {
+) => React.ReactElement<TreeProps<T>> = ({
+  css,
+  data = [],
+  defaultCollapse = true,
+  nodeRenderer,
+}) => {
   const isOpenDefaultState = data.reduce(
     (acc, item) => ({
       ...acc,
-      [item.id]: true,
+      [item.id]: defaultCollapse,
     }),
     {}
   );

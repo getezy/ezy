@@ -16,8 +16,6 @@ export const CollapseButton: React.FC<CollapseButtonProps> = ({ isOpen, onClick 
     size="xs"
     animated={false}
     css={{
-      padding: 0,
-      margin: 0,
       minWidth: 10,
       marginLeft: 'auto',
       '&:hover': {

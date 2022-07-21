@@ -61,10 +61,8 @@ const CollectionNode: React.FC<CollectionNodeProps> = ({ node, isOpen, onCollaps
       <Dropdown.Button
         light
         size="xs"
-        color="default"
+        color="warning"
         css={{
-          padding: 0,
-          margin: 0,
           minWidth: 10,
           marginLeft: 'auto',
           color: '$accents9',
