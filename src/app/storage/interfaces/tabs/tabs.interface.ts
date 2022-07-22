@@ -2,7 +2,9 @@ import { GrpcMethodType } from '../../../../core/protobuf/interfaces';
 import { CollectionType } from '../collections.interface';
 import { GrpcTabData, GrpcTabInfo } from './grpc-tab.interface';
 
-export type TabData<T extends CollectionType> = T extends CollectionType.GRPC ? GrpcTabData : never;
+export type TabData<T extends CollectionType> = T extends CollectionType.GRPC
+  ? GrpcTabData<GrpcMethodType>
+  : never;
 
 export type TabInfo<T extends CollectionType> = T extends CollectionType.GRPC
   ? GrpcTabInfo<GrpcMethodType>

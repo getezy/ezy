@@ -41,7 +41,11 @@ export interface GrpcTabInfo<T extends GrpcMethodType> {
   methodType: T;
 }
 
-export interface GrpcTabData<T extends GrpcMethodType = GrpcMethodType.UNARY> {
+export type GrpcTabDataResponse<T extends GrpcMethodType> = T extends GrpcMethodType.UNARY
+  ? GrpcTabUnaryResponse
+  : GrpcTabStreamResponse;
+
+export interface GrpcTabData<T extends GrpcMethodType> {
   environmentId?: string;
   url?: string;
 
@@ -51,5 +55,5 @@ export interface GrpcTabData<T extends GrpcMethodType = GrpcMethodType.UNARY> {
     metadata: GrpcTabRequestMetadata;
   };
 
-  response: T extends GrpcMethodType.UNARY ? GrpcTabUnaryResponse : GrpcTabStreamResponse;
+  response: GrpcTabDataResponse<T>;
 }
