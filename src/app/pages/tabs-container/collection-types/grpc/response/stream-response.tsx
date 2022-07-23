@@ -87,7 +87,6 @@ export const reponseNodeRenderer: TreeNodeRenderer<GrpcStreamMessage> = (
   data,
   { isOpen, onCollapseToggle }
 ) => {
-  // TODO: switch node renderer to react component
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const [, copyToClipboard] = useCopyToClipboard();
 
