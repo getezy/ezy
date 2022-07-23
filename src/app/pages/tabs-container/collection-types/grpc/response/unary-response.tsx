@@ -3,7 +3,7 @@ import React from 'react';
 
 import { GrpcMethodType } from '../../../../../../core/protobuf/interfaces';
 import { CodeEditor, Tab, Tabs } from '../../../../../components';
-import { CollectionType, GrpcTabDataResponse, Tab as ITab } from '../../../../../storage';
+import { CollectionType, GrpcResponse, Tab as ITab } from '../../../../../storage';
 
 const StyledContainer = styled('div', {
   display: 'flex',
@@ -17,7 +17,7 @@ export interface UnaryResponseProps {
 }
 
 export const UnaryResponse: React.FC<UnaryResponseProps> = ({ tab }) => {
-  const { value } = tab.data.response as GrpcTabDataResponse<GrpcMethodType.UNARY>;
+  const { value } = tab.data.response as GrpcResponse<GrpcMethodType.UNARY>;
 
   return (
     <StyledContainer>

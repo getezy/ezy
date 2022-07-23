@@ -1,16 +1,16 @@
 import { GrpcMethodType } from '../../../../core/protobuf/interfaces';
 
-export interface GrpcTabRequest {
+export interface GrpcRequest {
   id: string;
   value?: string;
 }
 
-export interface GrpcTabRequestMetadata {
+export interface GrpcRequestMetadata {
   id: string;
   value?: string;
 }
 
-export interface GrpcTabUnaryResponse {
+export interface GrpcUnaryResponse {
   id: string;
   value?: string;
 }
@@ -29,7 +29,7 @@ export interface GrpcStreamMessage {
   value: string;
 }
 
-export interface GrpcTabStreamResponse {
+export interface GrpcStreamResponse {
   id: string;
   messages: GrpcStreamMessage[];
 }
@@ -41,9 +41,9 @@ export interface GrpcTabInfo<T extends GrpcMethodType> {
   methodType: T;
 }
 
-export type GrpcTabDataResponse<T extends GrpcMethodType> = T extends GrpcMethodType.UNARY
-  ? GrpcTabUnaryResponse
-  : GrpcTabStreamResponse;
+export type GrpcResponse<T extends GrpcMethodType> = T extends GrpcMethodType.UNARY
+  ? GrpcUnaryResponse
+  : GrpcStreamResponse;
 
 export interface GrpcTabData<T extends GrpcMethodType> {
   environmentId?: string;
@@ -51,9 +51,9 @@ export interface GrpcTabData<T extends GrpcMethodType> {
 
   requestTabs: {
     activeTabId: string | undefined;
-    request: GrpcTabRequest;
-    metadata: GrpcTabRequestMetadata;
+    request: GrpcRequest;
+    metadata: GrpcRequestMetadata;
   };
 
-  response: GrpcTabDataResponse<T>;
+  response: GrpcResponse<T>;
 }

@@ -2,21 +2,20 @@ import { GrpcMethodType } from '../../../../core/protobuf/interfaces';
 import { CollectionType } from '../collections.interface';
 import { GrpcTabData, GrpcTabInfo } from './grpc-tab.interface';
 
-export type TabData<T extends CollectionType> = T extends CollectionType.GRPC
-  ? GrpcTabData<GrpcMethodType>
-  : never;
-
-export type TabInfo<T extends CollectionType> = T extends CollectionType.GRPC
-  ? GrpcTabInfo<GrpcMethodType>
-  : never;
-
-export interface Tab<T extends CollectionType> {
+export type Tab<T extends CollectionType, TabInfo = any, TabData = any> = {
   id: string;
   title: string;
   type: T;
-  info: TabInfo<T>;
-  data: TabData<T>;
-}
+
+  info: TabInfo;
+  data: TabData;
+};
+
+export type GrpcTab<T extends GrpcMethodType> = Tab<
+  CollectionType.GRPC,
+  GrpcTabInfo<T>,
+  GrpcTabData<T>
+>;
 
 export interface TabsStorage {
   tabs: Tab<CollectionType>[];
