@@ -1,8 +1,9 @@
 import { styled } from '@nextui-org/react';
 import React from 'react';
 
+import { GrpcMethodType } from '../../../../../../core/protobuf/interfaces';
 import { CodeEditor, Tab, Tabs } from '../../../../../components';
-import { CollectionType, Tab as ITab, useTabsStore } from '../../../../../storage';
+import { GrpcTab, useTabsStore } from '../../../../../storage';
 
 const StyledContainer = styled('div', {
   display: 'flex',
@@ -14,7 +15,7 @@ const StyledContainer = styled('div', {
 });
 
 export interface RequestProps {
-  tab: ITab<CollectionType>;
+  tab: GrpcTab<GrpcMethodType>;
 }
 
 export const Request: React.FC<RequestProps> = ({ tab }) => {

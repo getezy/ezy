@@ -8,7 +8,7 @@ import { useCollectionsStore, useTabsStore } from '../../../../../storage';
 import { SendButton } from './send-button.styled';
 import { SendHeader, SendHeaderProps } from './send-header.basic';
 
-export const UnarySendHeader: React.FC<SendHeaderProps> = ({ tab }) => {
+export const UnarySendHeader: React.FC<SendHeaderProps<GrpcMethodType.UNARY>> = ({ tab }) => {
   const { updateTab } = useTabsStore((store) => store);
   const collections = useCollectionsStore((store) => store.collections);
 

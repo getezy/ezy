@@ -11,16 +11,12 @@ import { Button, Spacer, styled, Text } from '@nextui-org/react';
 import React from 'react';
 import { useCopyToClipboard } from 'react-use';
 
+import { GrpcMethodType } from '../../../../../../core/protobuf/interfaces';
 import { CodeEditor, Tab, Tabs, Tree, TreeNode, TreeNodeRenderer } from '../../../../../components';
-import {
-  CollectionType,
-  GrpcStreamMessage,
-  GrpcStreamMessageType,
-  Tab as ITab,
-} from '../../../../../storage';
+import { GrpcStreamMessage, GrpcStreamMessageType, GrpcTab } from '../../../../../storage';
 
 export interface StreamResponseProps {
-  tab: ITab<CollectionType>;
+  tab: GrpcTab<GrpcMethodType.SERVER_STREAMING>;
 }
 
 const StyledContainer = styled('div', {

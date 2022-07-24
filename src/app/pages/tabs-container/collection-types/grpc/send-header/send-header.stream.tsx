@@ -7,7 +7,9 @@ import { GrpcMethodType } from '../../../../../../core/protobuf/interfaces';
 import { useCollectionsStore, useTabsStore } from '../../../../../storage';
 import { SendHeader, SendHeaderProps } from './send-header.basic';
 
-export const StreamSendHeader: React.FC<SendHeaderProps> = ({ tab }) => {
+export const StreamSendHeader: React.FC<SendHeaderProps<GrpcMethodType.SERVER_STREAMING>> = ({
+  tab,
+}) => {
   const { updateTab } = useTabsStore((store) => store);
   const collections = useCollectionsStore((store) => store.collections);
 

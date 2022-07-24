@@ -4,21 +4,19 @@ import { Button, Container, Input, Spacer } from '@nextui-org/react';
 import React, { PropsWithChildren } from 'react';
 import { MultiValue, SingleValue } from 'react-select';
 
+import { GrpcMethodType } from '../../../../../../core/protobuf/interfaces';
 import { ColoredSelect } from '../../../../../components';
-import {
-  CollectionType,
-  Environment,
-  Tab,
-  useEnvironmentsStore,
-  useTabsStore,
-} from '../../../../../storage';
+import { Environment, GrpcTab, useEnvironmentsStore, useTabsStore } from '../../../../../storage';
 import { CreateEnvironmentModal } from '../../../../environments';
 
-export interface SendHeaderProps {
-  tab: Tab<CollectionType.GRPC>;
+export interface SendHeaderProps<T extends GrpcMethodType> {
+  tab: GrpcTab<T>;
 }
 
-export const SendHeader: React.FC<PropsWithChildren<SendHeaderProps>> = ({ tab, children }) => {
+export const SendHeader: React.FC<PropsWithChildren<SendHeaderProps<GrpcMethodType>>> = ({
+  tab,
+  children,
+}) => {
   const { updateTab, updateGrpcTabsEnvironment } = useTabsStore((store) => store);
   const { removeEnvironment, environments } = useEnvironmentsStore((store) => store);
 

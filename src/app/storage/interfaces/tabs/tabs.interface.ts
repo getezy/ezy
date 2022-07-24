@@ -17,15 +17,28 @@ export type GrpcTab<T extends GrpcMethodType> = Tab<
   GrpcTabData<T>
 >;
 
+export function isGrpcTabUnaryCall(
+  tab: GrpcTab<GrpcMethodType>
+): tab is GrpcTab<GrpcMethodType.UNARY> {
+  return tab.info.methodType === GrpcMethodType.UNARY;
+}
+
+export function isGrpcTabServerStreamingCall(
+  tab: GrpcTab<GrpcMethodType>
+): tab is GrpcTab<GrpcMethodType.SERVER_STREAMING> {
+  return tab.info.methodType === GrpcMethodType.SERVER_STREAMING;
+}
+
 export interface TabsStorage {
   tabs: Tab<CollectionType>[];
 
   activeTabId: string | undefined;
 
-  createGrpcTab: (payload: Pick<Tab<CollectionType.GRPC>, 'title' | 'type' | 'info'>) => void;
   closeTab: (id: string) => void;
   activateTab: (id: string) => void;
   moveTab: (currentId: string, overId: string | undefined) => void;
+
+  createGrpcTab: (payload: Pick<Tab<CollectionType.GRPC>, 'title' | 'type' | 'info'>) => void;
   updateTab: (tab: Partial<Tab<CollectionType>> & Pick<Tab<CollectionType>, 'id'>) => void;
   updateGrpcTabsEnvironment: (currentEnvironmentId: string, newEnvironmentId?: string) => void;
 }
