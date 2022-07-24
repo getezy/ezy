@@ -17,7 +17,7 @@ export const SendHeader: React.FC<PropsWithChildren<SendHeaderProps<GrpcMethodTy
   tab,
   children,
 }) => {
-  const { updateTab, updateGrpcTabsEnvironment } = useTabsStore((store) => store);
+  const { updateGrpcTabData, updateGrpcTabsEnvironment } = useTabsStore((store) => store);
   const { removeEnvironment, environments } = useEnvironmentsStore((store) => store);
 
   const selectedEnvironment =
@@ -28,13 +28,9 @@ export const SendHeader: React.FC<PropsWithChildren<SendHeaderProps<GrpcMethodTy
   const handleEnvironmentChange = (value: MultiValue<Environment> | SingleValue<Environment>) => {
     const environment = value as Environment;
 
-    updateTab({
-      ...tab,
-      data: {
-        ...tab.data,
-        environmentId: environment?.id,
-        url: environment?.url,
-      },
+    updateGrpcTabData(tab.id, {
+      environmentId: environment?.id,
+      url: environment?.url,
     });
   };
 
@@ -44,13 +40,9 @@ export const SendHeader: React.FC<PropsWithChildren<SendHeaderProps<GrpcMethodTy
   };
 
   const handleUrlChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    updateTab({
-      ...tab,
-      data: {
-        ...tab.data,
-        environmentId: undefined,
-        url: e.target.value,
-      },
+    updateGrpcTabData(tab.id, {
+      environmentId: undefined,
+      url: e.target.value,
     });
   };
 

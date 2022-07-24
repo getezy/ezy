@@ -13,28 +13,6 @@ export const useTabsStore = create(
     (set) => ({
       tabs: [],
       activeTabId: undefined,
-      createGrpcTab: (payload) =>
-        set(
-          produce<TabsStorage>((state) => {
-            const tabId = nanoid();
-            const requestTabId = nanoid();
-
-            state.tabs.push({
-              ...payload,
-              id: tabId,
-              data: {
-                requestTabs: {
-                  activeTabId: requestTabId,
-                  request: { id: requestTabId },
-                  metadata: { id: nanoid() },
-                },
-                response: { id: nanoid() },
-              },
-            });
-
-            state.activeTabId = tabId;
-          })
-        ),
       closeTab: (id) =>
         set(
           produce<TabsStorage>((state) => {
@@ -63,15 +41,38 @@ export const useTabsStore = create(
             state.tabs = arrayMove(state.tabs, oldIndex, newIndex);
           })
         ),
-      updateTab: (tab) =>
+
+      createGrpcTab: (payload) =>
         set(
           produce<TabsStorage>((state) => {
-            const index = state.tabs.findIndex((item) => item.id === tab.id);
+            const tabId = nanoid();
+            const requestTabId = nanoid();
+
+            state.tabs.push({
+              ...payload,
+              id: tabId,
+              data: {
+                requestTabs: {
+                  activeTabId: requestTabId,
+                  request: { id: requestTabId },
+                  metadata: { id: nanoid() },
+                },
+                response: { id: nanoid() },
+              },
+            });
+
+            state.activeTabId = tabId;
+          })
+        ),
+      updateGrpcTabData: (id, data) =>
+        set(
+          produce<TabsStorage>((state) => {
+            const index = state.tabs.findIndex((item) => item.id === id);
 
             if (index !== -1) {
-              state.tabs[index] = {
-                ...state.tabs[index],
-                ...tab,
+              state.tabs[index].data = {
+                ...state.tabs[index].data,
+                ...data,
               };
             }
           })

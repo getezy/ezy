@@ -19,49 +19,37 @@ export interface RequestProps {
 }
 
 export const Request: React.FC<RequestProps> = ({ tab }) => {
-  const { updateTab } = useTabsStore((store) => store);
+  const { updateGrpcTabData } = useTabsStore((store) => store);
   const activeTabId = tab.data.requestTabs.activeTabId || tab.data.requestTabs.request.id;
 
   const handleTabActivate = (key: string) => {
-    updateTab({
-      ...tab,
-      data: {
-        ...tab.data,
-        requestTabs: {
-          ...tab.data.requestTabs,
-          activeTabId: key,
-        },
+    updateGrpcTabData(tab.id, {
+      requestTabs: {
+        ...tab.data.requestTabs,
+        activeTabId: key,
       },
     });
   };
 
   const handleRequestChange = (requestValue: string) => {
-    updateTab({
-      ...tab,
-      data: {
-        ...tab.data,
-        requestTabs: {
-          ...tab.data.requestTabs,
-          request: {
-            ...tab.data.requestTabs.request,
-            value: requestValue,
-          },
+    updateGrpcTabData(tab.id, {
+      requestTabs: {
+        ...tab.data.requestTabs,
+        request: {
+          ...tab.data.requestTabs.request,
+          value: requestValue,
         },
       },
     });
   };
 
   const handleMetadataChange = (metadataValue: string) => {
-    updateTab({
-      ...tab,
-      data: {
-        ...tab.data,
-        requestTabs: {
-          ...tab.data.requestTabs,
-          metadata: {
-            ...tab.data.requestTabs.metadata,
-            value: metadataValue,
-          },
+    updateGrpcTabData(tab.id, {
+      requestTabs: {
+        ...tab.data.requestTabs,
+        metadata: {
+          ...tab.data.requestTabs.metadata,
+          value: metadataValue,
         },
       },
     });

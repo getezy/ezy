@@ -26,12 +26,12 @@ export enum GrpcStreamMessageType {
 export interface GrpcStreamMessage {
   id: string;
   type: GrpcStreamMessageType;
-  value: string;
+  value?: string;
 }
 
 export interface GrpcStreamResponse {
   id: string;
-  messages: GrpcStreamMessage[];
+  messages?: GrpcStreamMessage[];
 }
 
 export interface GrpcTabInfo<T extends GrpcMethodType> {

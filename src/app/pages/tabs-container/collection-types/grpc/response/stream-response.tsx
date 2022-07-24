@@ -86,7 +86,7 @@ export const reponseNodeRenderer: TreeNodeRenderer<GrpcStreamMessage> = (
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const [, copyToClipboard] = useCopyToClipboard();
 
-  const handleCopyButtonClick = () => copyToClipboard(data.value);
+  const handleCopyButtonClick = () => copyToClipboard(data.value || '');
 
   const content = (
     <ContentWrapper>
@@ -136,7 +136,7 @@ export const StreamResponse: React.FC<StreamResponseProps> = ({ tab }) => (
       <Tab title="Response" id={tab.data.response.id} key={tab.data.response.id}>
         <ListWrapper>
           <Tree<GrpcStreamMessage>
-            data={[]}
+            data={tab.data.response.messages || []}
             defaultCollapse={false}
             nodeRenderer={reponseNodeRenderer}
           />

@@ -38,7 +38,7 @@ export interface TabsStorage {
   activateTab: (id: string) => void;
   moveTab: (currentId: string, overId: string | undefined) => void;
 
-  createGrpcTab: (payload: Pick<Tab<CollectionType.GRPC>, 'title' | 'type' | 'info'>) => void;
-  updateTab: (tab: Partial<Tab<CollectionType>> & Pick<Tab<CollectionType>, 'id'>) => void;
+  createGrpcTab: (payload: Pick<GrpcTab<GrpcMethodType>, 'title' | 'type' | 'info'>) => void;
+  updateGrpcTabData: <T extends GrpcMethodType>(id: string, data: Partial<GrpcTabData<T>>) => void;
   updateGrpcTabsEnvironment: (currentEnvironmentId: string, newEnvironmentId?: string) => void;
 }

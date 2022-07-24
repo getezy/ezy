@@ -9,7 +9,7 @@ import { SendButton } from './send-button.styled';
 import { SendHeader, SendHeaderProps } from './send-header.basic';
 
 export const UnarySendHeader: React.FC<SendHeaderProps<GrpcMethodType.UNARY>> = ({ tab }) => {
-  const { updateTab } = useTabsStore((store) => store);
+  const { updateGrpcTabData } = useTabsStore((store) => store);
   const collections = useCollectionsStore((store) => store.collections);
 
   const [isLoading, setIsLoading] = React.useState(false);
@@ -30,14 +30,10 @@ export const UnarySendHeader: React.FC<SendHeaderProps<GrpcMethodType.UNARY>> = 
             JSON.parse(tab.data.requestTabs.metadata.value || '{}')
           );
 
-          updateTab({
-            ...tab,
-            data: {
-              ...tab.data,
-              response: {
-                ...tab.data.response,
-                value: JSON.stringify(result, null, 2),
-              },
+          updateGrpcTabData<GrpcMethodType.UNARY>(tab.id, {
+            response: {
+              ...tab.data.response,
+              value: JSON.stringify(result, null, 2),
             },
           });
         }

@@ -1,16 +1,17 @@
 import { faStop } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Button, Loading, Spacer } from '@nextui-org/react';
+import { nanoid } from 'nanoid';
 import React from 'react';
 
 import { GrpcMethodType } from '../../../../../../core/protobuf/interfaces';
-import { useCollectionsStore, useTabsStore } from '../../../../../storage';
+import { GrpcStreamMessageType, useCollectionsStore, useTabsStore } from '../../../../../storage';
 import { SendHeader, SendHeaderProps } from './send-header.basic';
 
 export const StreamSendHeader: React.FC<SendHeaderProps<GrpcMethodType.SERVER_STREAMING>> = ({
   tab,
 }) => {
-  const { updateTab } = useTabsStore((store) => store);
+  const { updateGrpcTabData } = useTabsStore((store) => store);
   const collections = useCollectionsStore((store) => store.collections);
 
   const [isLoading, setIsLoading] = React.useState(false);
@@ -31,14 +32,17 @@ export const StreamSendHeader: React.FC<SendHeaderProps<GrpcMethodType.SERVER_ST
             JSON.parse(tab.data.requestTabs.request.value || '{}'),
             JSON.parse(tab.data.requestTabs.metadata.value || '{}'),
             (data) => {
-              updateTab({
-                ...tab,
-                data: {
-                  ...tab.data,
-                  response: {
-                    ...tab.data.response,
-                    value: JSON.stringify(data, null, 2),
-                  },
+              updateGrpcTabData<GrpcMethodType.SERVER_STREAMING>(tab.id, {
+                response: {
+                  ...tab.data.response,
+                  messages: [
+                    {
+                      id: nanoid(),
+                      type: GrpcStreamMessageType.SERVER_MESSAGE,
+                      value: JSON.stringify(data, null, 2),
+                    },
+                    ...(tab.data.response.messages || []),
+                  ],
                 },
               });
             },
