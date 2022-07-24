@@ -1,73 +1,33 @@
 import { faStop } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Button, Loading, Spacer } from '@nextui-org/react';
-import { nanoid } from 'nanoid';
 import React from 'react';
 
 import { GrpcMethodType } from '../../../../../../core/protobuf/interfaces';
-import { GrpcStreamMessageType, useCollectionsStore, useTabsStore } from '../../../../../storage';
+import { useGrpcClient } from './hooks/grpc-client';
 import { SendHeader, SendHeaderProps } from './send-header.basic';
 
 export const StreamSendHeader: React.FC<SendHeaderProps<GrpcMethodType.SERVER_STREAMING>> = ({
   tab,
 }) => {
-  const { updateGrpcTabData } = useTabsStore((store) => store);
-  const collections = useCollectionsStore((store) => store.collections);
+  const { invoke, cancel } = useGrpcClient();
 
   const [isLoading, setIsLoading] = React.useState(false);
   const [callId, setCallId] = React.useState<string | null>(null);
 
   const handleSendButtonClick = async () => {
-    try {
-      setIsLoading(true);
-      const collection = collections.find((item) => item.id === tab.info.collectionId);
-      const service = collection?.children?.find((item) => item.id === tab.info.serviceId);
-      const method = service?.methods?.find((item) => item.id === tab.info.methodId);
+    setIsLoading(true);
 
-      if (collection && service && method && tab.data.url && tab.data.url.length > 0) {
-        if (method.type === GrpcMethodType.SERVER_STREAMING) {
-          const id = await window.clients.grpc.serverStreaming.invoke(
-            collection.options,
-            { serviceName: service.name, methodName: method.name, address: tab.data.url },
-            JSON.parse(tab.data.requestTabs.request.value || '{}'),
-            JSON.parse(tab.data.requestTabs.metadata.value || '{}'),
-            (data) => {
-              updateGrpcTabData<GrpcMethodType.SERVER_STREAMING>(tab.id, {
-                response: {
-                  ...tab.data.response,
-                  messages: [
-                    {
-                      id: nanoid(),
-                      type: GrpcStreamMessageType.SERVER_MESSAGE,
-                      value: JSON.stringify(data, null, 2),
-                    },
-                    ...(tab.data.response.messages || []),
-                  ],
-                },
-              });
-            },
-            (error) => {
-              console.log('stream error: ', error);
-              setIsLoading(false);
-            },
-            () => {
-              console.log('stream ended');
-              setIsLoading(false);
-            }
-          );
-
-          setCallId(id);
-        }
-      }
-    } catch (error) {
-      console.log('error: ', error);
+    const id = await invoke(tab, () => {
       setIsLoading(false);
-    }
+    });
+
+    setCallId(id);
   };
 
   const handleCancelButtonClick = async () => {
     if (callId) {
-      await window.clients.grpc.serverStreaming.cancel(callId);
+      await cancel(callId);
       setCallId(null);
       setIsLoading(false);
     }

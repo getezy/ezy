@@ -1,6 +1,6 @@
 import { GrpcMethodType } from '../../../../core/protobuf/interfaces';
 import { CollectionType } from '../collections.interface';
-import { GrpcTabData, GrpcTabInfo } from './grpc-tab.interface';
+import { GrpcStreamMessage, GrpcTabData, GrpcTabInfo } from './grpc-tab.interface';
 
 export type Tab<T extends CollectionType, TabInfo = any, TabData = any> = {
   id: string;
@@ -39,6 +39,7 @@ export interface TabsStorage {
   moveTab: (currentId: string, overId: string | undefined) => void;
 
   createGrpcTab: (payload: Pick<GrpcTab<GrpcMethodType>, 'title' | 'type' | 'info'>) => void;
+  addGrpcStreamMessage: (id: string, message: GrpcStreamMessage) => void;
   updateGrpcTabData: <T extends GrpcMethodType>(id: string, data: Partial<GrpcTabData<T>>) => void;
   updateGrpcTabsEnvironment: (currentEnvironmentId: string, newEnvironmentId?: string) => void;
 }
