@@ -3,7 +3,6 @@ import {
   faArrowRight,
   faCheck,
   faClone,
-  faExclamationTriangle,
   faPlay,
   faStop,
 } from '@fortawesome/free-solid-svg-icons';
@@ -85,11 +84,6 @@ const StreamIcons = {
       <FontAwesomeIcon size="xs" icon={faStop} />
     </IconWrapper>
   ),
-  [GrpcStreamMessageType.ERROR]: (
-    <IconWrapper css={{ color: '$error' }}>
-      <FontAwesomeIcon size="xs" icon={faExclamationTriangle} />
-    </IconWrapper>
-  ),
 };
 
 const StreamText = {
@@ -98,7 +92,6 @@ const StreamText = {
   [GrpcStreamMessageType.STARTED]: <Text size={14}>Stream started</Text>,
   [GrpcStreamMessageType.ENDED]: <Text size={14}>Stream ended</Text>,
   [GrpcStreamMessageType.CANCELED]: <Text size={14}>Stream canceled</Text>,
-  [GrpcStreamMessageType.ERROR]: <Text size={14}>Server error</Text>,
 };
 
 export const ReponseNode: React.FC<TreeNodeRendererProps<GrpcStreamMessage>> = ({

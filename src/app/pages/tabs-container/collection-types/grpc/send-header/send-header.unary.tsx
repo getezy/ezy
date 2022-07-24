@@ -4,45 +4,21 @@ import { Loading, Spacer } from '@nextui-org/react';
 import React from 'react';
 
 import { GrpcMethodType } from '../../../../../../core/protobuf/interfaces';
-import { useCollectionsStore, useTabsStore } from '../../../../../storage';
+import { useUnaryCall } from '../hooks';
 import { SendButton } from './send-button.styled';
 import { SendHeader, SendHeaderProps } from './send-header.basic';
 
 export const UnarySendHeader: React.FC<SendHeaderProps<GrpcMethodType.UNARY>> = ({ tab }) => {
-  const { updateGrpcTabData } = useTabsStore((store) => store);
-  const collections = useCollectionsStore((store) => store.collections);
+  const { invoke } = useUnaryCall();
 
   const [isLoading, setIsLoading] = React.useState(false);
 
   const handleSendButtonClick = async () => {
-    try {
-      setIsLoading(true);
-      const collection = collections.find((item) => item.id === tab.info.collectionId);
-      const service = collection?.children?.find((item) => item.id === tab.info.serviceId);
-      const method = service?.methods?.find((item) => item.id === tab.info.methodId);
+    setIsLoading(true);
 
-      if (collection && service && method && tab.data.url && tab.data.url.length > 0) {
-        if (method.type === GrpcMethodType.UNARY) {
-          const result = await window.clients.grpc.unary.invoke(
-            collection.options,
-            { serviceName: service.name, methodName: method.name, address: tab.data.url },
-            JSON.parse(tab.data.requestTabs.request.value || '{}'),
-            JSON.parse(tab.data.requestTabs.metadata.value || '{}')
-          );
+    await invoke(tab);
 
-          updateGrpcTabData<GrpcMethodType.UNARY>(tab.id, {
-            response: {
-              ...tab.data.response,
-              value: JSON.stringify(result, null, 2),
-            },
-          });
-        }
-      }
-    } catch (error) {
-      console.log('error: ', error);
-    } finally {
-      setIsLoading(false);
-    }
+    setIsLoading(false);
   };
 
   return (

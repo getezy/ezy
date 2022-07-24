@@ -1,38 +1,23 @@
 import { nanoid } from 'nanoid';
 
-import { GrpcClientRequestOptions } from '../../../../../../../core/clients/grpc-client/interfaces';
-import { GrpcMethodType, GrpcOptions } from '../../../../../../../core/protobuf/interfaces';
+import { GrpcMethodType } from '../../../../../../core/protobuf/interfaces';
 import {
   GrpcStreamMessageType,
   GrpcTab,
   useCollectionsStore,
   useTabsStore,
-} from '../../../../../../storage';
+} from '../../../../../storage';
+import { getOptions } from './prepare-request';
 
-export function useGrpcClient() {
+export function useServerStreaming() {
   const collections = useCollectionsStore((store) => store.collections);
   const { updateGrpcTabData, addGrpcStreamMessage } = useTabsStore((store) => store);
-
-  function getOptions(tab: GrpcTab<GrpcMethodType>): [GrpcOptions, GrpcClientRequestOptions] {
-    const collection = collections.find((item) => item.id === tab.info.collectionId);
-    const service = collection?.children?.find((item) => item.id === tab.info.serviceId);
-    const method = service?.methods?.find((item) => item.id === tab.info.methodId);
-
-    if (collection && service && method && tab.data.url) {
-      return [
-        collection.options,
-        { serviceName: service.name, methodName: method.name, address: tab.data.url },
-      ];
-    }
-
-    throw new Error(`Couldn't get request options. Try to sync collection.`);
-  }
 
   async function invoke(
     tab: GrpcTab<GrpcMethodType.SERVER_STREAMING>,
     onEnd: () => void
   ): Promise<string> {
-    const [grpcOptions, requestOptions] = getOptions(tab);
+    const [grpcOptions, requestOptions] = getOptions(collections, tab);
 
     updateGrpcTabData(tab.id, {
       response: {
@@ -63,7 +48,7 @@ export function useGrpcClient() {
       (error) => {
         const message = {
           id: nanoid(),
-          type: GrpcStreamMessageType.ERROR,
+          type: GrpcStreamMessageType.CANCELED,
           value: JSON.stringify(error, null, 2),
         };
 

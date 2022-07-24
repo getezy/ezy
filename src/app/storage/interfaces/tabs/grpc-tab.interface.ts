@@ -21,7 +21,6 @@ export enum GrpcStreamMessageType {
   STARTED = 'started',
   ENDED = 'ended',
   CANCELED = 'canceled',
-  ERROR = 'error',
 }
 
 export interface GrpcStreamMessage {

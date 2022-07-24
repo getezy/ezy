@@ -4,13 +4,13 @@ import { Button, Loading, Spacer } from '@nextui-org/react';
 import React from 'react';
 
 import { GrpcMethodType } from '../../../../../../core/protobuf/interfaces';
-import { useGrpcClient } from './hooks/grpc-client';
+import { useServerStreaming } from '../hooks';
 import { SendHeader, SendHeaderProps } from './send-header.basic';
 
 export const StreamSendHeader: React.FC<SendHeaderProps<GrpcMethodType.SERVER_STREAMING>> = ({
   tab,
 }) => {
-  const { invoke, cancel } = useGrpcClient();
+  const { invoke, cancel } = useServerStreaming();
 
   const [isLoading, setIsLoading] = React.useState(false);
   const [callId, setCallId] = React.useState<string | null>(null);
