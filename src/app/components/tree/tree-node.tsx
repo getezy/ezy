@@ -40,10 +40,9 @@ export type TreeNodeProps = {
   css?: CSS;
 };
 
-export type TreeNodeRenderer<T> = (
-  data: T,
-  node: Partial<TreeNodeProps>
-) => React.ReactElement<TreeNodeProps>;
+export type TreeNodeRendererProps<T> = Partial<TreeNodeProps> & {
+  data: T;
+};
 
 export const TreeNode: React.FC<PropsWithChildren<TreeNodeProps>> = ({
   id,

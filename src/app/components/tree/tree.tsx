@@ -1,7 +1,7 @@
 import { CSS, styled } from '@nextui-org/react';
-import React from 'react';
+import React, { PropsWithChildren } from 'react';
 
-import { TreeNodeRenderer } from './tree-node';
+import { TreeNodeProps } from './tree-node';
 
 const StyledTree = styled('ul', {
   margin: 0,
@@ -17,18 +17,11 @@ export type TreeProps<T extends TreeData> = {
   data?: T[];
 
   defaultCollapse?: boolean;
-
-  nodeRenderer: TreeNodeRenderer<T>;
 };
 
 export const Tree: <T extends TreeData>(
-  props: TreeProps<T>
-) => React.ReactElement<TreeProps<T>> = ({
-  css,
-  data = [],
-  defaultCollapse = true,
-  nodeRenderer,
-}) => {
+  props: PropsWithChildren<TreeProps<T>>
+) => React.ReactElement<TreeProps<T>> = ({ css, data = [], defaultCollapse = true, children }) => {
   const isOpenDefaultState = data.reduce(
     (acc, item) => ({
       ...acc,
@@ -46,11 +39,12 @@ export const Tree: <T extends TreeData>(
     });
   };
 
-  const nodes = data.map((item) =>
-    nodeRenderer(item, {
-      isOpen: isOpen[item.id],
-      onCollapseToggle: handleIsOpen(item.id),
-    })
+  const nodes = (React.Children.toArray(children) as React.ReactElement<TreeNodeProps>[]).map(
+    (node) =>
+      React.cloneElement(node, {
+        isOpen: isOpen[node.props.id],
+        onCollapseToggle: handleIsOpen(node.props.id),
+      })
   );
 
   return <StyledTree css={css}>{nodes}</StyledTree>;

@@ -3,7 +3,7 @@ import React from 'react';
 
 import { Tree } from '../../components';
 import { Collection, CollectionType, useCollectionsStore } from '../../storage';
-import { collectionNodeRenderer } from './nodes';
+import { CollectionNode } from './nodes';
 import { StyledSideBar } from './side-bar.styled';
 
 const TreeWrapper = styled('div', {
@@ -38,10 +38,11 @@ export const ExplorerSideBar = (): JSX.Element => {
       />
       <TreeWrapper>
         {collections.length ? (
-          <Tree<Collection<CollectionType>>
-            data={collections}
-            nodeRenderer={collectionNodeRenderer}
-          />
+          <Tree<Collection<CollectionType>> data={collections}>
+            {collections.map((collection) => (
+              <CollectionNode id={collection.id} key={collection.id} data={collection} />
+            ))}
+          </Tree>
         ) : (
           <div
             style={{

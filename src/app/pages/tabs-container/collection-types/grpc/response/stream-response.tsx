@@ -12,7 +12,14 @@ import React from 'react';
 import { useCopyToClipboard } from 'react-use';
 
 import { GrpcMethodType } from '../../../../../../core/protobuf/interfaces';
-import { CodeEditor, Tab, Tabs, Tree, TreeNode, TreeNodeRenderer } from '../../../../../components';
+import {
+  CodeEditor,
+  Tab,
+  Tabs,
+  Tree,
+  TreeNode,
+  TreeNodeRendererProps,
+} from '../../../../../components';
 import { GrpcStreamMessage, GrpcStreamMessageType, GrpcTab } from '../../../../../storage';
 
 export interface StreamResponseProps {
@@ -79,11 +86,11 @@ const StreamIcons = {
   ),
 };
 
-export const reponseNodeRenderer: TreeNodeRenderer<GrpcStreamMessage> = (
+export const ReponseNode: React.FC<TreeNodeRendererProps<GrpcStreamMessage>> = ({
   data,
-  { isOpen, onCollapseToggle }
-) => {
-  // eslint-disable-next-line react-hooks/rules-of-hooks
+  isOpen,
+  onCollapseToggle,
+}) => {
   const [, copyToClipboard] = useCopyToClipboard();
 
   const handleCopyButtonClick = () => copyToClipboard(data.value || '');
@@ -135,11 +142,11 @@ export const StreamResponse: React.FC<StreamResponseProps> = ({ tab }) => (
     <Tabs activeKey={tab.data.response.id} activeBar={{ color: 'secondary', position: 'bottom' }}>
       <Tab title="Response" id={tab.data.response.id} key={tab.data.response.id}>
         <ListWrapper>
-          <Tree<GrpcStreamMessage>
-            data={tab.data.response.messages || []}
-            defaultCollapse={false}
-            nodeRenderer={reponseNodeRenderer}
-          />
+          <Tree<GrpcStreamMessage> data={tab.data.response.messages} defaultCollapse={false}>
+            {tab.data.response.messages?.map((message) => (
+              <ReponseNode id={message.id} key={message.id} data={message} />
+            ))}
+          </Tree>
         </ListWrapper>
       </Tab>
     </Tabs>

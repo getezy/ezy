@@ -8,28 +8,25 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Dropdown, Spacer, Text, Tooltip } from '@nextui-org/react';
 import React from 'react';
 
-import { Tree, TreeNode, TreeNodeRenderer } from '../../../components';
+import { Tree, TreeNode, TreeNodeRendererProps } from '../../../components';
 import { Collection, CollectionType, GrpcService, useCollectionsStore } from '../../../storage';
 import { ProtoBadge } from '../../collections/badge-types';
 import { UpdateCollectionModal } from '../../collections/modals';
 import { StyledNodeWrapper } from './node.styled';
-import { grpcServiceNodeRenderer } from './service.node';
+import { GrpcServiceNode } from './service.node';
 
-type CollectionNodeProps = {
-  node: Collection<CollectionType>;
-
-  isOpen?: boolean;
-  onCollapseToggle?: (isOpen: boolean) => void;
-};
-
-const CollectionNode: React.FC<CollectionNodeProps> = ({ node, isOpen, onCollapseToggle }) => {
+export const CollectionNode: React.FC<TreeNodeRendererProps<Collection<CollectionType>>> = ({
+  data,
+  isOpen,
+  onCollapseToggle,
+}) => {
   const { removeCollection, updateCollection } = useCollectionsStore((store) => store);
   const [updateCollectionModalVisible, setUpdateCollectionModalVisible] = React.useState(false);
 
   const handleSelectionChange = async (keys: 'all' | Set<string | number>) => {
     if (typeof keys !== 'string') {
       if (keys.has('delete')) {
-        removeCollection(node.id);
+        removeCollection(data.id);
       }
 
       if (keys.has('settings')) {
@@ -37,21 +34,21 @@ const CollectionNode: React.FC<CollectionNodeProps> = ({ node, isOpen, onCollaps
       }
 
       if (keys.has('synchronize')) {
-        await updateCollection(node.id, node);
+        await updateCollection(data.id, data);
       }
     }
   };
 
   const content = (
     <StyledNodeWrapper>
-      {node.type === CollectionType.GRPC && (
+      {data.type === CollectionType.GRPC && (
         <>
           <ProtoBadge />
           <Spacer x={0.3} />
         </>
       )}
-      <Tooltip content={node.name} color="invert" placement="topStart" enterDelay={1000}>
-        <Text size={12}>{node.name}</Text>
+      <Tooltip content={data.name} color="invert" placement="topStart" enterDelay={1000}>
+        <Text size={12}>{data.name}</Text>
       </Tooltip>
     </StyledNodeWrapper>
   );
@@ -112,29 +109,26 @@ const CollectionNode: React.FC<CollectionNodeProps> = ({ node, isOpen, onCollaps
   return (
     <>
       <TreeNode
-        id={node.id}
-        key={node.id}
+        id={data.id}
+        key={data.id}
         content={content}
         commandsContent={commandsContent}
         isOpen={isOpen}
         onCollapseToggle={onCollapseToggle}
       >
-        <Tree<GrpcService> data={node.children} nodeRenderer={grpcServiceNodeRenderer} />
+        <Tree<GrpcService> data={data.children}>
+          {data.children?.map((service) => (
+            <GrpcServiceNode id={service.id} key={service.id} data={service} />
+          ))}
+        </Tree>
       </TreeNode>
       <UpdateCollectionModal
         closeButton
         blur
-        defaultValues={node}
+        defaultValues={data}
         open={updateCollectionModalVisible}
         onClose={() => setUpdateCollectionModalVisible(false)}
       />
     </>
   );
 };
-
-export const collectionNodeRenderer: TreeNodeRenderer<Collection<CollectionType>> = (
-  data,
-  { isOpen, onCollapseToggle }
-) => (
-  <CollectionNode key={data.id} node={data} isOpen={isOpen} onCollapseToggle={onCollapseToggle} />
-);
