@@ -1,3 +1,5 @@
+import { MetadataValue } from '@grpc/grpc-js';
+
 import { GrpcClientRequestOptions } from '../../../../../../core/clients/grpc-client/interfaces';
 import { GrpcMethodType, GrpcOptions } from '../../../../../../core/protobuf/interfaces';
 import { Collection, CollectionType, GrpcTab } from '../../../../../storage';
@@ -18,4 +20,17 @@ export function getOptions(
   }
 
   throw new Error(`Couldn't get request options. Try to sync collection.`);
+}
+
+export function parseRequest(
+  tab: GrpcTab<GrpcMethodType>
+): [Record<string, unknown>, Record<string, MetadataValue>] {
+  try {
+    const request = JSON.parse(tab.data.requestTabs.request.value || '{}');
+    const metadata = JSON.parse(tab.data.requestTabs.metadata.value || '{}');
+
+    return [request, metadata];
+  } catch (error) {
+    throw new Error(`Couldn't parse request.`);
+  }
 }

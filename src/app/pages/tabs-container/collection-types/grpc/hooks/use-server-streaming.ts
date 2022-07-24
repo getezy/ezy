@@ -7,7 +7,7 @@ import {
   useCollectionsStore,
   useTabsStore,
 } from '../../../../../storage';
-import { getOptions } from './prepare-request';
+import { getOptions, parseRequest } from './prepare-request';
 
 export function useServerStreaming() {
   const collections = useCollectionsStore((store) => store.collections);
@@ -18,6 +18,7 @@ export function useServerStreaming() {
     onEnd: () => void
   ): Promise<string> {
     const [grpcOptions, requestOptions] = getOptions(collections, tab);
+    const [request, metadata] = parseRequest(tab);
 
     updateGrpcTabData(tab.id, {
       response: {
@@ -34,8 +35,8 @@ export function useServerStreaming() {
     const id = await window.clients.grpc.serverStreaming.invoke(
       grpcOptions,
       requestOptions,
-      JSON.parse(tab.data.requestTabs.request.value || '{}'),
-      JSON.parse(tab.data.requestTabs.metadata.value || '{}'),
+      request,
+      metadata,
       (data) => {
         const message = {
           id: nanoid(),

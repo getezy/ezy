@@ -1,6 +1,6 @@
 import { GrpcMethodType } from '../../../../../../core/protobuf/interfaces';
 import { GrpcTab, useCollectionsStore, useTabsStore } from '../../../../../storage';
-import { getOptions } from './prepare-request';
+import { getOptions, parseRequest } from './prepare-request';
 
 export function useUnaryCall() {
   const collections = useCollectionsStore((store) => store.collections);
@@ -8,12 +8,13 @@ export function useUnaryCall() {
 
   async function invoke(tab: GrpcTab<GrpcMethodType.UNARY>): Promise<void> {
     const [grpcOptions, requestOptions] = getOptions(collections, tab);
+    const [request, metadata] = parseRequest(tab);
 
     const result = await window.clients.grpc.unary.invoke(
       grpcOptions,
       requestOptions,
-      JSON.parse(tab.data.requestTabs.request.value || '{}'),
-      JSON.parse(tab.data.requestTabs.metadata.value || '{}')
+      request,
+      metadata
     );
 
     updateGrpcTabData<GrpcMethodType.UNARY>(tab.id, {
