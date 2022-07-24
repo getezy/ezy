@@ -93,12 +93,12 @@ const StreamIcons = {
 };
 
 const StreamText = {
-  [GrpcStreamMessageType.CLIENT_MESSAGE]: <Text>Client message</Text>,
-  [GrpcStreamMessageType.SERVER_MESSAGE]: <Text>Server message</Text>,
-  [GrpcStreamMessageType.STARTED]: <Text>Stream started</Text>,
-  [GrpcStreamMessageType.ENDED]: <Text>Stream ended</Text>,
-  [GrpcStreamMessageType.CANCELED]: <Text>Stream canceled</Text>,
-  [GrpcStreamMessageType.ERROR]: <Text>Server error</Text>,
+  [GrpcStreamMessageType.CLIENT_MESSAGE]: <Text size={14}>Client message</Text>,
+  [GrpcStreamMessageType.SERVER_MESSAGE]: <Text size={14}>Server message</Text>,
+  [GrpcStreamMessageType.STARTED]: <Text size={14}>Stream started</Text>,
+  [GrpcStreamMessageType.ENDED]: <Text size={14}>Stream ended</Text>,
+  [GrpcStreamMessageType.CANCELED]: <Text size={14}>Stream canceled</Text>,
+  [GrpcStreamMessageType.ERROR]: <Text size={14}>Server error</Text>,
 };
 
 export const ReponseNode: React.FC<TreeNodeRendererProps<GrpcStreamMessage>> = ({
@@ -146,9 +146,7 @@ export const ReponseNode: React.FC<TreeNodeRendererProps<GrpcStreamMessage>> = (
       onCollapseToggle={onCollapseToggle}
     >
       {data.value && (
-        <div style={{ paddingTop: 10 }}>
-          <CodeEditor maxHeight="250px" maxWidth="100%" width="100%" readOnly value={data.value} />
-        </div>
+        <CodeEditor maxHeight="250px" maxWidth="100%" width="100%" readOnly value={data.value} />
       )}
     </TreeNode>
   );
@@ -159,7 +157,7 @@ export const StreamResponse: React.FC<StreamResponseProps> = ({ tab }) => (
     <Tabs activeKey={tab.data.response.id} activeBar={{ color: 'secondary', position: 'bottom' }}>
       <Tab title="Response" id={tab.data.response.id} key={tab.data.response.id}>
         <ListWrapper>
-          <Tree<GrpcStreamMessage> data={tab.data.response.messages}>
+          <Tree<GrpcStreamMessage> data={tab.data.response.messages} defaultIsOpen={false}>
             {tab.data.response.messages?.map((message) => (
               <ReponseNode id={message.id} key={message.id} data={message} />
             ))}

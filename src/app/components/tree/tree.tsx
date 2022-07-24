@@ -16,16 +16,16 @@ export type TreeProps<T extends TreeData> = {
 
   data?: T[];
 
-  defaultCollapse?: boolean;
+  defaultIsOpen?: boolean;
 };
 
 export const Tree: <T extends TreeData>(
   props: PropsWithChildren<TreeProps<T>>
-) => React.ReactElement<TreeProps<T>> = ({ css, data = [], defaultCollapse = true, children }) => {
+) => React.ReactElement<TreeProps<T>> = ({ css, data = [], defaultIsOpen = true, children }) => {
   const isOpenDefaultState = data.reduce(
     (acc, item) => ({
       ...acc,
-      [item.id]: defaultCollapse,
+      [item.id]: defaultIsOpen,
     }),
     {}
   );
@@ -42,7 +42,7 @@ export const Tree: <T extends TreeData>(
   const nodes = (React.Children.toArray(children) as React.ReactElement<TreeNodeProps>[]).map(
     (node) =>
       React.cloneElement(node, {
-        isOpen: isOpen[node.props.id],
+        isOpen: isOpen[node.props.id] !== undefined ? isOpen[node.props.id] : defaultIsOpen,
         onCollapseToggle: handleIsOpen(node.props.id),
       })
   );
