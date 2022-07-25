@@ -1,11 +1,8 @@
-import { faPaperPlane } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Loading, Spacer } from '@nextui-org/react';
+import { Button, Loading, Spacer } from '@nextui-org/react';
 import React from 'react';
 
 import { GrpcMethodType } from '../../../../../../core/protobuf/interfaces';
 import { useUnaryCall } from '../hooks';
-import { SendButton } from './send-button.styled';
 import { SendHeader, SendHeaderProps } from './send-header.basic';
 
 export const UnarySendHeader: React.FC<SendHeaderProps<GrpcMethodType.UNARY>> = ({ tab }) => {
@@ -13,7 +10,7 @@ export const UnarySendHeader: React.FC<SendHeaderProps<GrpcMethodType.UNARY>> = 
 
   const [isLoading, setIsLoading] = React.useState(false);
 
-  const handleSendButtonClick = async () => {
+  const handleInvokeButtonClick = async () => {
     setIsLoading(true);
 
     await invoke(tab);
@@ -24,16 +21,17 @@ export const UnarySendHeader: React.FC<SendHeaderProps<GrpcMethodType.UNARY>> = 
   return (
     <SendHeader tab={tab}>
       <Spacer x={0.5} />
-      <SendButton
+      <Button
         size="sm"
         bordered
         borderWeight="light"
         color="gradient"
-        iconRight={<FontAwesomeIcon icon={faPaperPlane} />}
-        onClick={handleSendButtonClick}
+        disabled={isLoading}
+        css={{ minWidth: 60 }}
+        onClick={handleInvokeButtonClick}
       >
-        {isLoading ? <Loading type="gradient" color="currentColor" size="xs" /> : 'Send'}
-      </SendButton>
+        {isLoading ? <Loading type="gradient" color="currentColor" size="xs" /> : 'Invoke'}
+      </Button>
     </SendHeader>
   );
 };

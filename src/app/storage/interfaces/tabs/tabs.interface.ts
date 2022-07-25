@@ -35,6 +35,12 @@ export function isGrpcTabClientStreaming(
   return tab.info.methodType === GrpcMethodType.CLIENT_STREAMING;
 }
 
+export function isGrpcTabBidirectionalStreaming(
+  tab: GrpcTab<GrpcMethodType>
+): tab is GrpcTab<GrpcMethodType.BIDIRECTIONAL_STREAMING> {
+  return tab.info.methodType === GrpcMethodType.BIDIRECTIONAL_STREAMING;
+}
+
 export interface TabsStorage {
   tabs: Tab<CollectionType>[];
 
@@ -45,7 +51,11 @@ export interface TabsStorage {
   moveTab: (currentId: string, overId: string | undefined) => void;
 
   createGrpcTab: (payload: Pick<GrpcTab<GrpcMethodType>, 'title' | 'type' | 'info'>) => void;
-  addGrpcStreamMessage: (id: string, message: GrpcStreamMessage) => void;
+  addGrpcStreamMessage: (
+    id: string,
+    message: Omit<GrpcStreamMessage, 'id'>,
+    forceClear?: boolean
+  ) => void;
   updateGrpcTabData: <T extends GrpcMethodType>(id: string, data: Partial<GrpcTabData<T>>) => void;
   updateGrpcTabsEnvironment: (currentEnvironmentId: string, newEnvironmentId?: string) => void;
 }

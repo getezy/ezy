@@ -1,4 +1,4 @@
-import { faStop } from '@fortawesome/free-solid-svg-icons';
+import { faXmark } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Button, Loading, Spacer } from '@nextui-org/react';
 import React from 'react';
@@ -15,7 +15,7 @@ export const ServerStreamingSendHeader: React.FC<
   const [isLoading, setIsLoading] = React.useState(false);
   const [callId, setCallId] = React.useState<string | null>(null);
 
-  const handleSendButtonClick = async () => {
+  const handleInvokeButtonClick = async () => {
     setIsLoading(true);
 
     const id = await invoke(tab, () => {
@@ -27,7 +27,7 @@ export const ServerStreamingSendHeader: React.FC<
 
   const handleCancelButtonClick = async () => {
     if (callId) {
-      await cancel(callId);
+      await cancel(tab, callId);
       setCallId(null);
       setIsLoading(false);
     }
@@ -44,7 +44,7 @@ export const ServerStreamingSendHeader: React.FC<
             bordered
             borderWeight="light"
             css={{ minWidth: 10 }}
-            icon={<FontAwesomeIcon icon={faStop} />}
+            icon={<FontAwesomeIcon icon={faXmark} />}
             onClick={handleCancelButtonClick}
           />
         </>
@@ -57,7 +57,7 @@ export const ServerStreamingSendHeader: React.FC<
         color="gradient"
         disabled={isLoading}
         css={{ minWidth: 60 }}
-        onClick={handleSendButtonClick}
+        onClick={handleInvokeButtonClick}
       >
         {isLoading ? <Loading type="gradient" color="currentColor" size="xs" /> : 'Invoke'}
       </Button>

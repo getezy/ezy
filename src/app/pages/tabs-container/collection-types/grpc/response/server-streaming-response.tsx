@@ -1,13 +1,6 @@
-import {
-  faArrowLeft,
-  faArrowRight,
-  faCheck,
-  faClone,
-  faPlay,
-  faStop,
-} from '@fortawesome/free-solid-svg-icons';
+import { faClone } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Button, Spacer, styled, Text } from '@nextui-org/react';
+import { Button, Spacer, styled } from '@nextui-org/react';
 import React from 'react';
 import { useCopyToClipboard } from 'react-use';
 
@@ -20,7 +13,8 @@ import {
   TreeNode,
   TreeNodeRendererProps,
 } from '../../../../../components';
-import { GrpcStreamMessage, GrpcStreamMessageType, GrpcTab } from '../../../../../storage';
+import { GrpcStreamMessage, GrpcTab } from '../../../../../storage';
+import { StreamIcons, StreamMessageTypeText } from './stream-icons';
 
 export interface ServerStreamingResponseProps {
   tab: GrpcTab<GrpcMethodType.SERVER_STREAMING>;
@@ -45,54 +39,16 @@ const ListWrapper = styled('ul', {
   backgroundColor: '$backgroundContrast',
 });
 
-const IconWrapper = styled('div');
-
 const ContentWrapper = styled('div', {
   display: 'flex',
   flexWrap: 'nowrap',
   alignItems: 'center',
-  paddingLeft: 10,
+  paddingLeft: 5,
   marginRight: 10,
   overflow: 'hidden',
   userSelect: 'none',
   flex: 1,
 });
-
-const StreamIcons = {
-  [GrpcStreamMessageType.CLIENT_MESSAGE]: (
-    <IconWrapper css={{ color: '$warning' }}>
-      <FontAwesomeIcon size="xs" icon={faArrowRight} />
-    </IconWrapper>
-  ),
-  [GrpcStreamMessageType.SERVER_MESSAGE]: (
-    <IconWrapper css={{ color: '$secondary' }}>
-      <FontAwesomeIcon size="xs" icon={faArrowLeft} />
-    </IconWrapper>
-  ),
-  [GrpcStreamMessageType.STARTED]: (
-    <IconWrapper css={{ color: '$primary' }}>
-      <FontAwesomeIcon size="xs" icon={faPlay} />
-    </IconWrapper>
-  ),
-  [GrpcStreamMessageType.ENDED]: (
-    <IconWrapper css={{ color: '$success' }}>
-      <FontAwesomeIcon size="xs" icon={faCheck} />
-    </IconWrapper>
-  ),
-  [GrpcStreamMessageType.CANCELED]: (
-    <IconWrapper css={{ color: '$error' }}>
-      <FontAwesomeIcon size="xs" icon={faStop} />
-    </IconWrapper>
-  ),
-};
-
-const StreamText = {
-  [GrpcStreamMessageType.CLIENT_MESSAGE]: <Text size={14}>Client message</Text>,
-  [GrpcStreamMessageType.SERVER_MESSAGE]: <Text size={14}>Server message</Text>,
-  [GrpcStreamMessageType.STARTED]: <Text size={14}>Stream started</Text>,
-  [GrpcStreamMessageType.ENDED]: <Text size={14}>Stream ended</Text>,
-  [GrpcStreamMessageType.CANCELED]: <Text size={14}>Stream canceled</Text>,
-};
 
 const ReponseNode: React.FC<TreeNodeRendererProps<GrpcStreamMessage>> = ({
   data,
@@ -106,8 +62,8 @@ const ReponseNode: React.FC<TreeNodeRendererProps<GrpcStreamMessage>> = ({
   const content = (
     <ContentWrapper>
       {StreamIcons[data.type]}
-      <Spacer />
-      {StreamText[data.type]}
+      <Spacer x={0.2} />
+      {StreamMessageTypeText[data.type]}
     </ContentWrapper>
   );
 

@@ -16,9 +16,10 @@ export interface GrpcUnaryResponse {
 }
 
 export enum GrpcStreamMessageType {
+  STARTED = 'started',
   CLIENT_MESSAGE = 'client-message',
   SERVER_MESSAGE = 'server-message',
-  STARTED = 'started',
+  ERROR = 'error',
   ENDED = 'ended',
   CANCELED = 'canceled',
 }

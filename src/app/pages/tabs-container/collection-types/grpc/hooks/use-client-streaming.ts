@@ -1,5 +1,3 @@
-import { nanoid } from 'nanoid';
-
 import { GrpcMethodType } from '../../../../../../core/protobuf/interfaces';
 import {
   GrpcStreamMessageType,
@@ -7,11 +5,11 @@ import {
   useCollectionsStore,
   useTabsStore,
 } from '../../../../../storage';
-import { getOptions, parseMetadata } from './prepare-request';
+import { getOptions, parseMetadata, parseRequest } from './prepare-request';
 
 export function useClientStreaming() {
   const collections = useCollectionsStore((store) => store.collections);
-  const { updateGrpcTabData, addGrpcStreamMessage } = useTabsStore((store) => store);
+  const { addGrpcStreamMessage } = useTabsStore((store) => store);
 
   async function invoke(
     tab: GrpcTab<GrpcMethodType.CLIENT_STREAMING>,
@@ -20,49 +18,36 @@ export function useClientStreaming() {
     const [grpcOptions, requestOptions] = getOptions(collections, tab);
     const metadata = parseMetadata(tab);
 
-    updateGrpcTabData(tab.id, {
-      response: {
-        ...tab.data.response,
-        messages: [
-          {
-            id: nanoid(),
-            type: GrpcStreamMessageType.STARTED,
-          },
-        ],
+    addGrpcStreamMessage(
+      tab.id,
+      {
+        type: GrpcStreamMessageType.STARTED,
       },
-    });
+      true
+    );
 
     const id = await window.clients.grpc.clientStreaming.invoke(
       grpcOptions,
       requestOptions,
       metadata,
       (data) => {
-        const message = {
-          id: nanoid(),
+        addGrpcStreamMessage(tab.id, {
           type: GrpcStreamMessageType.SERVER_MESSAGE,
           value: JSON.stringify(data, null, 2),
-        };
-
-        addGrpcStreamMessage(tab.id, message);
+        });
       },
       (error) => {
-        const message = {
-          id: nanoid(),
-          type: GrpcStreamMessageType.CANCELED,
-          value: error.message,
-        };
-
-        addGrpcStreamMessage(tab.id, message);
+        addGrpcStreamMessage(tab.id, {
+          type: GrpcStreamMessageType.ERROR,
+          value: JSON.stringify(error, null, 2),
+        });
 
         onEnd();
       },
       () => {
-        const message = {
-          id: nanoid(),
+        addGrpcStreamMessage(tab.id, {
           type: GrpcStreamMessageType.ENDED,
-        };
-
-        addGrpcStreamMessage(tab.id, message);
+        });
 
         onEnd();
       }
@@ -71,9 +56,32 @@ export function useClientStreaming() {
     return id;
   }
 
-  function cancel(id: string): Promise<void> {
-    return window.clients.grpc.clientStreaming.cancel(id);
+  function send(tab: GrpcTab<GrpcMethodType.CLIENT_STREAMING>, callId: string): Promise<void> {
+    const request = parseRequest(tab);
+
+    addGrpcStreamMessage(tab.id, {
+      type: GrpcStreamMessageType.CLIENT_MESSAGE,
+      value: tab.data.requestTabs.request.value,
+    });
+
+    return window.clients.grpc.clientStreaming.send(callId, request);
   }
 
-  return { invoke, cancel };
+  function end(tab: GrpcTab<GrpcMethodType.CLIENT_STREAMING>, callId: string): Promise<void> {
+    addGrpcStreamMessage(tab.id, {
+      type: GrpcStreamMessageType.ENDED,
+    });
+
+    return window.clients.grpc.clientStreaming.end(callId);
+  }
+
+  function cancel(tab: GrpcTab<GrpcMethodType.CLIENT_STREAMING>, callId: string): Promise<void> {
+    addGrpcStreamMessage(tab.id, {
+      type: GrpcStreamMessageType.CANCELED,
+    });
+
+    return window.clients.grpc.clientStreaming.cancel(callId);
+  }
+
+  return { invoke, cancel, send, end };
 }

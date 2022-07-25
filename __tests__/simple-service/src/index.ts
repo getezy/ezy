@@ -21,8 +21,8 @@ const SimpleService: SimpleServiceServer = {
   clientStreamingRequest(call, callback) {
     const result: string[] = [];
 
-    call.on('data', (data) => {
-      result.push(data.toString());
+    call.on('data', (data: SimpleMessage) => {
+      result.push(data.id.toString());
     });
 
     call.on('end', () => {
@@ -34,8 +34,8 @@ const SimpleService: SimpleServiceServer = {
   clientStreamingRequestWithError(call, callback) {
     const result: string[] = [];
 
-    call.on('data', (data) => {
-      result.push(data.toString());
+    call.on('data', (data: SimpleMessage) => {
+      result.push(data.id.toString());
     });
 
     call.on('end', () => {
@@ -70,8 +70,8 @@ const SimpleService: SimpleServiceServer = {
   },
 
   bidirectionalStreamingRequest(call) {
-    call.on('data', (data) => {
-      const message = SimpleMessage.fromJSON({ id: data.toString() });
+    call.on('data', (data: SimpleMessage) => {
+      const message = SimpleMessage.fromJSON({ id: data.id.toString() });
 
       setTimeout(
         (mes) => {
