@@ -4,40 +4,9 @@ import { Button, Spacer, styled } from '@nextui-org/react';
 import React from 'react';
 import { useCopyToClipboard } from 'react-use';
 
-import { GrpcMethodType } from '../../../../../../core/protobuf/interfaces';
-import {
-  CodeEditor,
-  Tab,
-  Tabs,
-  Tree,
-  TreeNode,
-  TreeNodeRendererProps,
-} from '../../../../../components';
-import { GrpcStreamMessage, GrpcTab } from '../../../../../storage';
+import { CodeEditor, TreeNode, TreeNodeRendererProps } from '../../../../../../components';
+import { GrpcStreamMessage } from '../../../../../../storage';
 import { StreamIcons, StreamMessageTypeText } from './stream-icons';
-
-export interface ServerStreamingResponseProps {
-  tab: GrpcTab<GrpcMethodType.SERVER_STREAMING>;
-}
-
-const StyledContainer = styled('div', {
-  display: 'flex',
-  flex: 1,
-
-  overflow: 'hidden',
-});
-
-const ListWrapper = styled('ul', {
-  display: 'flex',
-  flexDirection: 'column',
-  flex: 1,
-
-  margin: 0,
-
-  overflow: 'auto',
-
-  backgroundColor: '$backgroundContrast',
-});
 
 const ContentWrapper = styled('div', {
   display: 'flex',
@@ -50,7 +19,7 @@ const ContentWrapper = styled('div', {
   flex: 1,
 });
 
-const ReponseNode: React.FC<TreeNodeRendererProps<GrpcStreamMessage>> = ({
+export const ReponseNode: React.FC<TreeNodeRendererProps<GrpcStreamMessage>> = ({
   data,
   isOpen,
   onCollapseToggle,
@@ -107,19 +76,3 @@ const ReponseNode: React.FC<TreeNodeRendererProps<GrpcStreamMessage>> = ({
     </TreeNode>
   );
 };
-
-export const ServerStreamingResponse: React.FC<ServerStreamingResponseProps> = ({ tab }) => (
-  <StyledContainer>
-    <Tabs activeKey={tab.data.response.id} activeBar={{ color: 'secondary', position: 'bottom' }}>
-      <Tab title="Response" id={tab.data.response.id} key={tab.data.response.id}>
-        <ListWrapper>
-          <Tree<GrpcStreamMessage> data={tab.data.response.messages} defaultIsOpen={false}>
-            {tab.data.response.messages?.map((message) => (
-              <ReponseNode id={message.id} key={message.id} data={message} />
-            ))}
-          </Tree>
-        </ListWrapper>
-      </Tab>
-    </Tabs>
-  </StyledContainer>
-);

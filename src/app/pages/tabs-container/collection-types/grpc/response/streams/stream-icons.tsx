@@ -10,7 +10,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { styled, Text } from '@nextui-org/react';
 import React from 'react';
 
-import { GrpcStreamMessageType } from '../../../../../storage';
+import { GrpcStreamMessageType } from '../../../../../../storage';
 
 const IconWrapper = styled('div', {
   display: 'flex',
