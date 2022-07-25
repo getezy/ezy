@@ -85,11 +85,11 @@ export function useBidirectionalStreaming() {
     tab: GrpcTab<GrpcMethodType.BIDIRECTIONAL_STREAMING>,
     callId: string
   ): Promise<void> {
-    await window.clients.grpc.bidirectionalStreaming.cancel(callId);
-
     addGrpcStreamMessage(tab.id, {
       type: GrpcStreamMessageType.CANCELED,
     });
+
+    await window.clients.grpc.bidirectionalStreaming.cancel(callId);
   }
 
   return { invoke, cancel, send, end };

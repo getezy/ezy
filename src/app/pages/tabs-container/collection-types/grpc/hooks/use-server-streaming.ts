@@ -63,11 +63,11 @@ export function useServerStreaming() {
     tab: GrpcTab<GrpcMethodType.SERVER_STREAMING>,
     callId: string
   ): Promise<void> {
-    await window.clients.grpc.serverStreaming.cancel(callId);
-
     addGrpcStreamMessage(tab.id, {
       type: GrpcStreamMessageType.CANCELED,
     });
+
+    await window.clients.grpc.serverStreaming.cancel(callId);
   }
 
   return { invoke, cancel };
