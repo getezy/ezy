@@ -6,7 +6,7 @@ import { nanoid } from 'nanoid';
 import create from 'zustand';
 import { persist } from 'zustand/middleware';
 
-import { CollectionType, isGrpcTabServerStreamingCall, TabsStorage } from './interfaces';
+import { CollectionType, isGrpcTabServerStreaming, TabsStorage } from './interfaces';
 
 export const useTabsStore = create(
   persist<TabsStorage>(
@@ -99,7 +99,7 @@ export const useTabsStore = create(
             const index = state.tabs.findIndex((tab) => tab.id === id);
             if (index !== -1) {
               const tab = state.tabs[index];
-              if (isGrpcTabServerStreamingCall(tab)) {
+              if (isGrpcTabServerStreaming(tab)) {
                 const messages = tab.data.response.messages || [];
                 messages.push(message);
               }

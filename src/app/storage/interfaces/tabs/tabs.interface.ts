@@ -23,10 +23,16 @@ export function isGrpcTabUnaryCall(
   return tab.info.methodType === GrpcMethodType.UNARY;
 }
 
-export function isGrpcTabServerStreamingCall(
+export function isGrpcTabServerStreaming(
   tab: GrpcTab<GrpcMethodType>
 ): tab is GrpcTab<GrpcMethodType.SERVER_STREAMING> {
   return tab.info.methodType === GrpcMethodType.SERVER_STREAMING;
+}
+
+export function isGrpcTabClientStreaming(
+  tab: GrpcTab<GrpcMethodType>
+): tab is GrpcTab<GrpcMethodType.CLIENT_STREAMING> {
+  return tab.info.methodType === GrpcMethodType.CLIENT_STREAMING;
 }
 
 export interface TabsStorage {

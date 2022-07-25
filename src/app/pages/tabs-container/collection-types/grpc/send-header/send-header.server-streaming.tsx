@@ -7,9 +7,9 @@ import { GrpcMethodType } from '../../../../../../core/protobuf/interfaces';
 import { useServerStreaming } from '../hooks';
 import { SendHeader, SendHeaderProps } from './send-header.basic';
 
-export const StreamSendHeader: React.FC<SendHeaderProps<GrpcMethodType.SERVER_STREAMING>> = ({
-  tab,
-}) => {
+export const ServerStreamingSendHeader: React.FC<
+  SendHeaderProps<GrpcMethodType.SERVER_STREAMING>
+> = ({ tab }) => {
   const { invoke, cancel } = useServerStreaming();
 
   const [isLoading, setIsLoading] = React.useState(false);

@@ -7,18 +7,17 @@ import {
   useCollectionsStore,
   useTabsStore,
 } from '../../../../../storage';
-import { getOptions, parseMetadata, parseRequest } from './prepare-request';
+import { getOptions, parseMetadata } from './prepare-request';
 
-export function useServerStreaming() {
+export function useClientStreaming() {
   const collections = useCollectionsStore((store) => store.collections);
   const { updateGrpcTabData, addGrpcStreamMessage } = useTabsStore((store) => store);
 
   async function invoke(
-    tab: GrpcTab<GrpcMethodType.SERVER_STREAMING>,
+    tab: GrpcTab<GrpcMethodType.CLIENT_STREAMING>,
     onEnd: () => void
   ): Promise<string> {
     const [grpcOptions, requestOptions] = getOptions(collections, tab);
-    const request = parseRequest(tab);
     const metadata = parseMetadata(tab);
 
     updateGrpcTabData(tab.id, {
@@ -33,10 +32,9 @@ export function useServerStreaming() {
       },
     });
 
-    const id = await window.clients.grpc.serverStreaming.invoke(
+    const id = await window.clients.grpc.clientStreaming.invoke(
       grpcOptions,
       requestOptions,
-      request,
       metadata,
       (data) => {
         const message = {
@@ -74,7 +72,7 @@ export function useServerStreaming() {
   }
 
   function cancel(id: string): Promise<void> {
-    return window.clients.grpc.serverStreaming.cancel(id);
+    return window.clients.grpc.clientStreaming.cancel(id);
   }
 
   return { invoke, cancel };

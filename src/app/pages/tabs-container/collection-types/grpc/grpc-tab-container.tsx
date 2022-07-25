@@ -3,10 +3,19 @@ import React from 'react';
 
 import { GrpcMethodType } from '../../../../../core/protobuf/interfaces';
 import { ResizablePanel } from '../../../../components';
-import { GrpcTab, isGrpcTabServerStreamingCall, isGrpcTabUnaryCall } from '../../../../storage';
+import {
+  GrpcTab,
+  isGrpcTabClientStreaming,
+  isGrpcTabServerStreaming,
+  isGrpcTabUnaryCall,
+} from '../../../../storage';
 import { Request } from './request';
-import { StreamResponse, UnaryResponse } from './response';
-import { StreamSendHeader, UnarySendHeader } from './send-header';
+import { ClientStreamingResponse, ServerStreamingResponse, UnaryResponse } from './response';
+import {
+  ClientStreamingSendHeader,
+  ServerStreamingSendHeader,
+  UnarySendHeader,
+} from './send-header';
 
 export interface GrpcTabContainerProps {
   tab: GrpcTab<GrpcMethodType>;
@@ -29,15 +38,29 @@ export const GrpcTabContainer: React.FC<GrpcTabContainerProps> = ({ tab }) => {
     );
   }
 
-  if (isGrpcTabServerStreamingCall(tab)) {
+  if (isGrpcTabServerStreaming(tab)) {
     content = (
       <>
         <Spacer />
-        <StreamSendHeader tab={tab} />
+        <ServerStreamingSendHeader tab={tab} />
         <Spacer />
         <ResizablePanel
           firstNode={<Request tab={tab} />}
-          secondNode={<StreamResponse tab={tab} />}
+          secondNode={<ServerStreamingResponse tab={tab} />}
+        />
+      </>
+    );
+  }
+
+  if (isGrpcTabClientStreaming(tab)) {
+    content = (
+      <>
+        <Spacer />
+        <ClientStreamingSendHeader tab={tab} />
+        <Spacer />
+        <ResizablePanel
+          firstNode={<Request tab={tab} />}
+          secondNode={<ClientStreamingResponse tab={tab} />}
         />
       </>
     );

@@ -22,7 +22,7 @@ import {
 } from '../../../../../components';
 import { GrpcStreamMessage, GrpcStreamMessageType, GrpcTab } from '../../../../../storage';
 
-export interface StreamResponseProps {
+export interface ServerStreamingResponseProps {
   tab: GrpcTab<GrpcMethodType.SERVER_STREAMING>;
 }
 
@@ -94,7 +94,7 @@ const StreamText = {
   [GrpcStreamMessageType.CANCELED]: <Text size={14}>Stream canceled</Text>,
 };
 
-export const ReponseNode: React.FC<TreeNodeRendererProps<GrpcStreamMessage>> = ({
+const ReponseNode: React.FC<TreeNodeRendererProps<GrpcStreamMessage>> = ({
   data,
   isOpen,
   onCollapseToggle,
@@ -152,7 +152,7 @@ export const ReponseNode: React.FC<TreeNodeRendererProps<GrpcStreamMessage>> = (
   );
 };
 
-export const StreamResponse: React.FC<StreamResponseProps> = ({ tab }) => (
+export const ServerStreamingResponse: React.FC<ServerStreamingResponseProps> = ({ tab }) => (
   <StyledContainer>
     <Tabs activeKey={tab.data.response.id} activeBar={{ color: 'secondary', position: 'bottom' }}>
       <Tab title="Response" id={tab.data.response.id} key={tab.data.response.id}>

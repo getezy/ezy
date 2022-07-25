@@ -1,2 +1,3 @@
 export * from './unary-response';
-export * from './stream-response';
+export * from './server-streaming-response';
+export * from './client-streaming-response';

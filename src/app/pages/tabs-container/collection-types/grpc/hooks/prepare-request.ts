@@ -22,15 +22,22 @@ export function getOptions(
   throw new Error(`Couldn't get request options. Try to sync collection.`);
 }
 
-export function parseRequest(
-  tab: GrpcTab<GrpcMethodType>
-): [Record<string, unknown>, Record<string, MetadataValue>] {
+export function parseRequest(tab: GrpcTab<GrpcMethodType>): Record<string, unknown> {
   try {
     const request = JSON.parse(tab.data.requestTabs.request.value || '{}');
-    const metadata = JSON.parse(tab.data.requestTabs.metadata.value || '{}');
 
-    return [request, metadata];
+    return request;
   } catch (error) {
     throw new Error(`Couldn't parse request.`);
+  }
+}
+
+export function parseMetadata(tab: GrpcTab<GrpcMethodType>): Record<string, MetadataValue> {
+  try {
+    const metadata = JSON.parse(tab.data.requestTabs.metadata.value || '{}');
+
+    return metadata;
+  } catch (error) {
+    throw new Error(`Couldn't parse metadata.`);
   }
 }
