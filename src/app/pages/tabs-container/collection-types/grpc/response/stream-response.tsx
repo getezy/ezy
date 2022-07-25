@@ -139,7 +139,14 @@ export const ReponseNode: React.FC<TreeNodeRendererProps<GrpcStreamMessage>> = (
       onCollapseToggle={onCollapseToggle}
     >
       {data.value && (
-        <CodeEditor maxHeight="250px" maxWidth="100%" width="100%" readOnly value={data.value} />
+        <CodeEditor
+          maxHeight="250px"
+          maxWidth="100%"
+          width="100%"
+          readOnly
+          value={data.value}
+          basicSetup={{ highlightActiveLine: false, highlightActiveLineGutter: false }}
+        />
       )}
     </TreeNode>
   );

@@ -101,7 +101,7 @@ export const useTabsStore = create(
               const tab = state.tabs[index];
               if (isGrpcTabServerStreamingCall(tab)) {
                 const messages = tab.data.response.messages || [];
-                messages.unshift(message);
+                messages.push(message);
               }
             }
           })

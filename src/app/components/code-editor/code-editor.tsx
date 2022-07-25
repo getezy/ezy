@@ -4,6 +4,7 @@ import { json } from '@codemirror/lang-json';
 // import { linter, lintGutter } from '@codemirror/lint';
 import { keymap, ViewUpdate } from '@codemirror/view';
 import { useTheme } from '@nextui-org/react';
+import { BasicSetupOptions } from '@uiw/react-codemirror';
 import React from 'react';
 
 import { StyledCodeMirror } from './code-editor.styled';
@@ -22,6 +23,8 @@ export interface CodeEditorProps {
 
   readOnly?: boolean;
 
+  basicSetup?: BasicSetupOptions;
+
   onChange?(value: string, viewUpdate?: ViewUpdate): void;
 }
 
@@ -32,6 +35,7 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
   width = 'auto',
   value,
   readOnly = false,
+  basicSetup,
   onChange = () => {},
 }) => {
   const { theme, isDark } = useTheme();
@@ -48,6 +52,7 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
       onChange={onChange}
       basicSetup={{
         searchKeymap: false,
+        ...basicSetup,
       }}
       theme={createTheme(
         {

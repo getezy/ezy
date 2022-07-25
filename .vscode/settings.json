@@ -1,11 +1,7 @@
 {
   "eslint.workingDirectories": [
     {
-      "directory": "src",
-      "changeProcessCWD": true
-    },
-    {
-      "directory": "stories",
+      "directory": ".",
       "changeProcessCWD": true
     },
     {
