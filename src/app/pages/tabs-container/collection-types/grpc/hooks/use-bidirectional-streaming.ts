@@ -39,7 +39,7 @@ export function useBidirectionalStreaming() {
       (error) => {
         addGrpcStreamMessage(tab.id, {
           type: GrpcStreamMessageType.ERROR,
-          value: JSON.stringify(error, null, 2),
+          value: error.message,
         });
 
         onEnd();
