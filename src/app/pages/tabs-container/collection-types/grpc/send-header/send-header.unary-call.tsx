@@ -5,7 +5,7 @@ import { GrpcMethodType } from '../../../../../../core/protobuf/interfaces';
 import { useUnaryCall } from '../hooks';
 import { SendHeader, SendHeaderProps } from './send-header.basic';
 
-export const UnarySendHeader: React.FC<SendHeaderProps<GrpcMethodType.UNARY>> = ({ tab }) => {
+export const UnaryCallSendHeader: React.FC<SendHeaderProps<GrpcMethodType.UNARY>> = ({ tab }) => {
   const { invoke } = useUnaryCall();
 
   const [isLoading, setIsLoading] = React.useState(false);

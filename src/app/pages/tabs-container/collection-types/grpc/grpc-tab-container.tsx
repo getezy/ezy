@@ -5,16 +5,23 @@ import { GrpcMethodType } from '../../../../../core/protobuf/interfaces';
 import { ResizablePanel } from '../../../../components';
 import {
   GrpcTab,
+  isGrpcTabBidirectionalStreaming,
   isGrpcTabClientStreaming,
   isGrpcTabServerStreaming,
   isGrpcTabUnaryCall,
 } from '../../../../storage';
 import { Request } from './request';
-import { ClientStreamingResponse, ServerStreamingResponse, UnaryResponse } from './response';
 import {
+  BidirectionalStreamingResponse,
+  ClientStreamingResponse,
+  ServerStreamingResponse,
+  UnaryCallResponse,
+} from './response';
+import {
+  BidirectionalStreamingSendHeader,
   ClientStreamingSendHeader,
   ServerStreamingSendHeader,
-  UnarySendHeader,
+  UnaryCallSendHeader,
 } from './send-header';
 
 export interface GrpcTabContainerProps {
@@ -28,11 +35,11 @@ export const GrpcTabContainer: React.FC<GrpcTabContainerProps> = ({ tab }) => {
     content = (
       <>
         <Spacer />
-        <UnarySendHeader tab={tab} />
+        <UnaryCallSendHeader tab={tab} />
         <Spacer />
         <ResizablePanel
           firstNode={<Request tab={tab} />}
-          secondNode={<UnaryResponse tab={tab} />}
+          secondNode={<UnaryCallResponse tab={tab} />}
         />
       </>
     );
@@ -61,6 +68,20 @@ export const GrpcTabContainer: React.FC<GrpcTabContainerProps> = ({ tab }) => {
         <ResizablePanel
           firstNode={<Request tab={tab} />}
           secondNode={<ClientStreamingResponse tab={tab} />}
+        />
+      </>
+    );
+  }
+
+  if (isGrpcTabBidirectionalStreaming(tab)) {
+    content = (
+      <>
+        <Spacer />
+        <BidirectionalStreamingSendHeader tab={tab} />
+        <Spacer />
+        <ResizablePanel
+          firstNode={<Request tab={tab} />}
+          secondNode={<BidirectionalStreamingResponse tab={tab} />}
         />
       </>
     );

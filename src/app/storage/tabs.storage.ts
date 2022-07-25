@@ -8,6 +8,7 @@ import { persist } from 'zustand/middleware';
 
 import {
   CollectionType,
+  isGrpcTabBidirectionalStreaming,
   isGrpcTabClientStreaming,
   isGrpcTabServerStreaming,
   TabsStorage,
@@ -104,7 +105,11 @@ export const useTabsStore = create(
             const index = state.tabs.findIndex((tab) => tab.id === id);
             if (index !== -1) {
               const tab = state.tabs[index];
-              if (isGrpcTabServerStreaming(tab) || isGrpcTabClientStreaming(tab)) {
+              if (
+                isGrpcTabServerStreaming(tab) ||
+                isGrpcTabClientStreaming(tab) ||
+                isGrpcTabBidirectionalStreaming(tab)
+              ) {
                 const messages = forceClear ? [] : tab.data.response.messages || [];
 
                 messages.push({

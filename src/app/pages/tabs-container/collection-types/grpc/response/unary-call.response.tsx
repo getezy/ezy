@@ -12,11 +12,11 @@ const StyledContainer = styled('div', {
   overflow: 'hidden',
 });
 
-export interface UnaryResponseProps {
+export interface UnaryCallResponseProps {
   tab: GrpcTab<GrpcMethodType.UNARY>;
 }
 
-export const UnaryResponse: React.FC<UnaryResponseProps> = ({ tab }) => (
+export const UnaryCallResponse: React.FC<UnaryCallResponseProps> = ({ tab }) => (
   <StyledContainer>
     <Tabs activeKey={tab.data.response.id} activeBar={{ color: 'secondary', position: 'bottom' }}>
       <Tab title="Response" id={tab.data.response.id} key={tab.data.response.id}>
