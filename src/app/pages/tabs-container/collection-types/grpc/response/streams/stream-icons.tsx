@@ -12,12 +12,7 @@ import React from 'react';
 
 import { GrpcStreamMessageType } from '../../../../../../storage';
 
-const IconWrapper = styled('div', {
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center',
-  width: 20,
-});
+const IconWrapper = styled('div');
 
 export const StreamIcons = {
   [GrpcStreamMessageType.CLIENT_MESSAGE]: (
@@ -35,14 +30,19 @@ export const StreamIcons = {
       <FontAwesomeIcon size="xs" icon={faPlay} />
     </IconWrapper>
   ),
-  [GrpcStreamMessageType.ENDED]: (
+  [GrpcStreamMessageType.CLIENT_STREAMING_ENDED]: (
+    <IconWrapper css={{ color: '$success' }}>
+      <FontAwesomeIcon size="xs" icon={faCheck} />
+    </IconWrapper>
+  ),
+  [GrpcStreamMessageType.SERVER_STREAMING_ENDED]: (
     <IconWrapper css={{ color: '$success' }}>
       <FontAwesomeIcon size="xs" icon={faCheck} />
     </IconWrapper>
   ),
   [GrpcStreamMessageType.CANCELED]: (
     <IconWrapper css={{ color: '$error' }}>
-      <FontAwesomeIcon size="xs" icon={faXmark} />
+      <FontAwesomeIcon size="sm" icon={faXmark} />
     </IconWrapper>
   ),
   [GrpcStreamMessageType.ERROR]: (
@@ -56,7 +56,8 @@ export const StreamMessageTypeText = {
   [GrpcStreamMessageType.CLIENT_MESSAGE]: <Text size={14}>Client message</Text>,
   [GrpcStreamMessageType.SERVER_MESSAGE]: <Text size={14}>Server message</Text>,
   [GrpcStreamMessageType.STARTED]: <Text size={14}>Stream started</Text>,
-  [GrpcStreamMessageType.ENDED]: <Text size={14}>Stream ended</Text>,
+  [GrpcStreamMessageType.CLIENT_STREAMING_ENDED]: <Text size={14}>Client streaming ended</Text>,
+  [GrpcStreamMessageType.SERVER_STREAMING_ENDED]: <Text size={14}>Server streaming ended</Text>,
   [GrpcStreamMessageType.CANCELED]: <Text size={14}>Stream canceled</Text>,
   [GrpcStreamMessageType.ERROR]: <Text size={14}>Stream error</Text>,
 };

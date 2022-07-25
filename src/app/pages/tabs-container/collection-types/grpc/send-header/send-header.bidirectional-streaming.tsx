@@ -12,14 +12,16 @@ export const BidirectionalStreamingSendHeader: React.FC<
 > = ({ tab }) => {
   const { invoke, cancel, send, end } = useBidirectionalStreaming();
 
-  const [isLoading, setIsLoading] = React.useState(false);
+  const [isClientStreaming, setIsClientStreaming] = React.useState(false);
+  const [isServerStreaming, setIsServerStreaming] = React.useState(false);
   const [callId, setCallId] = React.useState<string | null>(null);
 
   const handleInvokeButtonClick = async () => {
-    setIsLoading(true);
+    setIsClientStreaming(true);
+    setIsServerStreaming(true);
 
     const id = await invoke(tab, () => {
-      setIsLoading(false);
+      setIsServerStreaming(false);
     });
 
     setCallId(id);
@@ -29,7 +31,7 @@ export const BidirectionalStreamingSendHeader: React.FC<
     if (callId) {
       await cancel(tab, callId);
       setCallId(null);
-      setIsLoading(false);
+      setIsClientStreaming(false);
     }
   };
 
@@ -42,13 +44,13 @@ export const BidirectionalStreamingSendHeader: React.FC<
   const handleEndButtonClick = async () => {
     if (callId) {
       await end(tab, callId);
-      setIsLoading(false);
+      setIsClientStreaming(false);
     }
   };
 
   return (
     <SendHeader tab={tab}>
-      {isLoading && (
+      {(isClientStreaming || isServerStreaming) && (
         <>
           <Spacer x={0.5} />
           <Button
@@ -56,6 +58,7 @@ export const BidirectionalStreamingSendHeader: React.FC<
             color="warning"
             bordered
             borderWeight="light"
+            disabled={!isClientStreaming}
             css={{ minWidth: 10 }}
             icon={<FontAwesomeIcon icon={faArrowRight} />}
             onClick={handleSendButtonClick}
@@ -66,6 +69,7 @@ export const BidirectionalStreamingSendHeader: React.FC<
             color="success"
             bordered
             borderWeight="light"
+            disabled={!isClientStreaming}
             css={{ minWidth: 10 }}
             icon={<FontAwesomeIcon icon={faStop} />}
             onClick={handleEndButtonClick}
@@ -88,11 +92,15 @@ export const BidirectionalStreamingSendHeader: React.FC<
         bordered
         borderWeight="light"
         color="gradient"
-        disabled={isLoading}
+        disabled={isClientStreaming || isServerStreaming}
         css={{ minWidth: 60 }}
         onClick={handleInvokeButtonClick}
       >
-        {isLoading ? <Loading type="gradient" color="currentColor" size="xs" /> : 'Invoke'}
+        {isClientStreaming || isServerStreaming ? (
+          <Loading type="gradient" color="currentColor" size="xs" />
+        ) : (
+          'Invoke'
+        )}
       </Button>
     </SendHeader>
   );

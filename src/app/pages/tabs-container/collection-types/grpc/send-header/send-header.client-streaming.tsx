@@ -12,14 +12,14 @@ export const ClientStreamingSendHeader: React.FC<
 > = ({ tab }) => {
   const { invoke, cancel, send, end } = useClientStreaming();
 
-  const [isLoading, setIsLoading] = React.useState(false);
+  const [isStreaming, setIsStreaming] = React.useState(false);
   const [callId, setCallId] = React.useState<string | null>(null);
 
   const handleInvokeButtonClick = async () => {
-    setIsLoading(true);
+    setIsStreaming(true);
 
     const id = await invoke(tab, () => {
-      setIsLoading(false);
+      setIsStreaming(false);
     });
 
     setCallId(id);
@@ -29,7 +29,7 @@ export const ClientStreamingSendHeader: React.FC<
     if (callId) {
       await cancel(tab, callId);
       setCallId(null);
-      setIsLoading(false);
+      setIsStreaming(false);
     }
   };
 
@@ -42,13 +42,13 @@ export const ClientStreamingSendHeader: React.FC<
   const handleEndButtonClick = async () => {
     if (callId) {
       await end(tab, callId);
-      setIsLoading(false);
+      setIsStreaming(false);
     }
   };
 
   return (
     <SendHeader tab={tab}>
-      {isLoading && (
+      {isStreaming && (
         <>
           <Spacer x={0.5} />
           <Button
@@ -88,11 +88,11 @@ export const ClientStreamingSendHeader: React.FC<
         bordered
         borderWeight="light"
         color="gradient"
-        disabled={isLoading}
+        disabled={isStreaming}
         css={{ minWidth: 60 }}
         onClick={handleInvokeButtonClick}
       >
-        {isLoading ? <Loading type="gradient" color="currentColor" size="xs" /> : 'Invoke'}
+        {isStreaming ? <Loading type="gradient" color="currentColor" size="xs" /> : 'Invoke'}
       </Button>
     </SendHeader>
   );

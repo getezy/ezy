@@ -43,44 +43,43 @@ export function useClientStreaming() {
         });
 
         onEnd();
-      },
-      () => {
-        addGrpcStreamMessage(tab.id, {
-          type: GrpcStreamMessageType.ENDED,
-        });
-
-        onEnd();
       }
     );
 
     return id;
   }
 
-  function send(tab: GrpcTab<GrpcMethodType.CLIENT_STREAMING>, callId: string): Promise<void> {
+  async function send(
+    tab: GrpcTab<GrpcMethodType.CLIENT_STREAMING>,
+    callId: string
+  ): Promise<void> {
     const request = parseRequest(tab);
+
+    await window.clients.grpc.clientStreaming.send(callId, request);
 
     addGrpcStreamMessage(tab.id, {
       type: GrpcStreamMessageType.CLIENT_MESSAGE,
       value: tab.data.requestTabs.request.value,
     });
-
-    return window.clients.grpc.clientStreaming.send(callId, request);
   }
 
-  function end(tab: GrpcTab<GrpcMethodType.CLIENT_STREAMING>, callId: string): Promise<void> {
+  async function end(tab: GrpcTab<GrpcMethodType.CLIENT_STREAMING>, callId: string): Promise<void> {
+    await window.clients.grpc.clientStreaming.end(callId);
+
     addGrpcStreamMessage(tab.id, {
-      type: GrpcStreamMessageType.ENDED,
+      type: GrpcStreamMessageType.CLIENT_STREAMING_ENDED,
     });
-
-    return window.clients.grpc.clientStreaming.end(callId);
   }
 
-  function cancel(tab: GrpcTab<GrpcMethodType.CLIENT_STREAMING>, callId: string): Promise<void> {
+  async function cancel(
+    tab: GrpcTab<GrpcMethodType.CLIENT_STREAMING>,
+    callId: string
+  ): Promise<void> {
+    await window.clients.grpc.clientStreaming.cancel(callId);
+
     addGrpcStreamMessage(tab.id, {
       type: GrpcStreamMessageType.CANCELED,
     });
-
-    return window.clients.grpc.clientStreaming.cancel(callId);
   }
 
   return { invoke, cancel, send, end };

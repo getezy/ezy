@@ -46,7 +46,7 @@ export function useBidirectionalStreaming() {
       },
       () => {
         addGrpcStreamMessage(tab.id, {
-          type: GrpcStreamMessageType.ENDED,
+          type: GrpcStreamMessageType.SERVER_STREAMING_ENDED,
         });
 
         onEnd();
@@ -56,40 +56,40 @@ export function useBidirectionalStreaming() {
     return id;
   }
 
-  function send(
+  async function send(
     tab: GrpcTab<GrpcMethodType.BIDIRECTIONAL_STREAMING>,
     callId: string
   ): Promise<void> {
     const request = parseRequest(tab);
 
+    await window.clients.grpc.bidirectionalStreaming.send(callId, request);
+
     addGrpcStreamMessage(tab.id, {
       type: GrpcStreamMessageType.CLIENT_MESSAGE,
       value: tab.data.requestTabs.request.value,
     });
-
-    return window.clients.grpc.bidirectionalStreaming.send(callId, request);
   }
 
-  function end(
+  async function end(
     tab: GrpcTab<GrpcMethodType.BIDIRECTIONAL_STREAMING>,
     callId: string
   ): Promise<void> {
+    await window.clients.grpc.bidirectionalStreaming.end(callId);
+
     addGrpcStreamMessage(tab.id, {
-      type: GrpcStreamMessageType.ENDED,
+      type: GrpcStreamMessageType.CLIENT_STREAMING_ENDED,
     });
-
-    return window.clients.grpc.bidirectionalStreaming.end(callId);
   }
 
-  function cancel(
+  async function cancel(
     tab: GrpcTab<GrpcMethodType.BIDIRECTIONAL_STREAMING>,
     callId: string
   ): Promise<void> {
+    await window.clients.grpc.bidirectionalStreaming.cancel(callId);
+
     addGrpcStreamMessage(tab.id, {
       type: GrpcStreamMessageType.CANCELED,
     });
-
-    return window.clients.grpc.bidirectionalStreaming.cancel(callId);
   }
 
   return { invoke, cancel, send, end };

@@ -5,7 +5,7 @@ import { ipcRenderer } from 'electron';
 
 import { GrpcClientRequestOptions, GrpcOptions } from '../../../../../core';
 import { GrpcClientChannel, GrpcClientClientStreamingChannel } from '../constants';
-import { OnDataCallback, OnEndCallback, OnErrorCallback, wrapHandler } from './handlers';
+import { OnDataCallback, OnErrorCallback, wrapHandler } from './handlers';
 
 export default {
   async invoke(
@@ -13,8 +13,7 @@ export default {
     requestOptions: GrpcClientRequestOptions,
     metadata: Record<string, MetadataValue>,
     onData: OnDataCallback,
-    onError: OnErrorCallback,
-    onEnd: OnEndCallback
+    onError: OnErrorCallback
   ): Promise<string> {
     const streamId = await ipcRenderer.invoke(
       GrpcClientChannel.INVOKE_CLIENT_STREAMING_REQUEST,
@@ -33,7 +32,6 @@ export default {
     });
 
     const onEndCallback = wrapHandler(streamId, () => {
-      onEnd();
       removeListeners();
     });
 

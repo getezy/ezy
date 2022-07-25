@@ -20,7 +20,8 @@ export enum GrpcStreamMessageType {
   CLIENT_MESSAGE = 'client-message',
   SERVER_MESSAGE = 'server-message',
   ERROR = 'error',
-  ENDED = 'ended',
+  CLIENT_STREAMING_ENDED = 'client-streaming-ended',
+  SERVER_STREAMING_ENDED = 'server-streaming-ended',
   CANCELED = 'canceled',
 }
 

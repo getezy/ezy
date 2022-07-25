@@ -11,12 +11,13 @@ import { StreamIcons, StreamMessageTypeText } from './stream-icons';
 const ContentWrapper = styled('div', {
   display: 'flex',
   flexWrap: 'nowrap',
-  alignItems: 'center',
+  flex: 1,
+
   paddingLeft: 5,
   marginRight: 10,
+
   overflow: 'hidden',
   userSelect: 'none',
-  flex: 1,
 });
 
 export const ReponseNode: React.FC<TreeNodeRendererProps<GrpcStreamMessage>> = ({
@@ -31,7 +32,7 @@ export const ReponseNode: React.FC<TreeNodeRendererProps<GrpcStreamMessage>> = (
   const content = (
     <ContentWrapper>
       {StreamIcons[data.type]}
-      <Spacer x={0.2} />
+      <Spacer x={0.5} />
       {StreamMessageTypeText[data.type]}
     </ContentWrapper>
   );

@@ -49,7 +49,7 @@ export function useServerStreaming() {
       },
       () => {
         addGrpcStreamMessage(tab.id, {
-          type: GrpcStreamMessageType.ENDED,
+          type: GrpcStreamMessageType.SERVER_STREAMING_ENDED,
         });
 
         onEnd();
@@ -59,12 +59,15 @@ export function useServerStreaming() {
     return id;
   }
 
-  function cancel(tab: GrpcTab<GrpcMethodType.SERVER_STREAMING>, callId: string): Promise<void> {
+  async function cancel(
+    tab: GrpcTab<GrpcMethodType.SERVER_STREAMING>,
+    callId: string
+  ): Promise<void> {
+    await window.clients.grpc.serverStreaming.cancel(callId);
+
     addGrpcStreamMessage(tab.id, {
       type: GrpcStreamMessageType.CANCELED,
     });
-
-    return window.clients.grpc.serverStreaming.cancel(callId);
   }
 
   return { invoke, cancel };
