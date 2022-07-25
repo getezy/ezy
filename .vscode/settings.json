@@ -1,0 +1,16 @@
+{
+  "eslint.workingDirectories": [
+    {
+      "directory": "src",
+      "changeProcessCWD": true
+    },
+    {
+      "directory": "stories",
+      "changeProcessCWD": true
+    },
+    {
+      "directory": "__tests__/simple-service",
+      "changeProcessCWD": true
+    },
+  ],
+}
