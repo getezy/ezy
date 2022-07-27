@@ -54,8 +54,6 @@ export class GrpcClientBidirectionalSubscriber {
         if (call) {
           call.end();
         }
-
-        this.bidirectionalStreamingCalls.delete(id);
       }
     );
 

@@ -21,6 +21,7 @@ export const BidirectionalStreamingSendHeader: React.FC<
     setIsServerStreaming(true);
 
     const id = await invoke(tab, () => {
+      setIsClientStreaming(false);
       setIsServerStreaming(false);
     });
 
@@ -32,6 +33,7 @@ export const BidirectionalStreamingSendHeader: React.FC<
       await cancel(tab, callId);
       setCallId(null);
       setIsClientStreaming(false);
+      setIsServerStreaming(false);
     }
   };
 

@@ -59,8 +59,6 @@ export default {
     await ipcRenderer.invoke(GrpcClientChannel.SEND_BIDIRECTIONAL_STREAMING_REQUEST, id, payload);
   },
   async end(id: string): Promise<void> {
-    // TODO: When client streaming ends then server does not? If yes, removing listeneres is incorrect
-    // ipcRenderer.emit(GrpcClientBidirectionalStreamingChannel.END_CLIENT, id);
     await ipcRenderer.invoke(GrpcClientChannel.END_BIDIRECTIONAL_STREAMING_REQUEST, id);
   },
   async cancel(id: string): Promise<void> {
