@@ -4,6 +4,14 @@ import { GrpcClientRequestOptions } from '../../../../../../core/clients/grpc-cl
 import { GrpcMethodType, GrpcOptions } from '../../../../../../core/protobuf/interfaces';
 import { Collection, CollectionType, GrpcTab } from '../../../../../storage';
 
+function getRequestAddress(tab: GrpcTab<GrpcMethodType>): string {
+  if (tab.data.url && tab.data.url.length > 0) {
+    return tab.data.url;
+  }
+
+  throw new Error(`Couldn't invoke request. Address is empty.`);
+}
+
 export function getOptions(
   collections: Collection<CollectionType>[],
   tab: GrpcTab<GrpcMethodType>
@@ -12,10 +20,10 @@ export function getOptions(
   const service = collection?.children?.find((item) => item.id === tab.info.serviceId);
   const method = service?.methods?.find((item) => item.id === tab.info.methodId);
 
-  if (collection && service && method && tab.data.url) {
+  if (collection && service && method) {
     return [
       collection.options,
-      { serviceName: service.name, methodName: method.name, address: tab.data.url },
+      { serviceName: service.name, methodName: method.name, address: getRequestAddress(tab) },
     ];
   }
 
@@ -28,7 +36,7 @@ export function parseRequest(tab: GrpcTab<GrpcMethodType>): Record<string, unkno
 
     return request;
   } catch (error) {
-    throw new Error(`Couldn't parse request.`);
+    throw new Error(`Couldn't parse request message.`);
   }
 }
 

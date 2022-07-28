@@ -17,14 +17,13 @@ export const BidirectionalStreamingSendHeader: React.FC<
   const [callId, setCallId] = React.useState<string | null>(null);
 
   const handleInvokeButtonClick = async () => {
-    setIsClientStreaming(true);
-    setIsServerStreaming(true);
-
     const id = await invoke(tab, () => {
       setIsClientStreaming(false);
       setIsServerStreaming(false);
     });
 
+    setIsClientStreaming(true);
+    setIsServerStreaming(true);
     setCallId(id);
   };
 

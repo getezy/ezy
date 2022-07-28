@@ -16,12 +16,11 @@ export const ServerStreamingSendHeader: React.FC<
   const [callId, setCallId] = React.useState<string | null>(null);
 
   const handleInvokeButtonClick = async () => {
-    setIsStreaming(true);
-
     const id = await invoke(tab, () => {
       setIsStreaming(false);
     });
 
+    setIsStreaming(true);
     setCallId(id);
   };
 

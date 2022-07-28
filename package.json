@@ -102,6 +102,7 @@
     "react-dom": "18.2.0",
     "react-hook-form": "7.33.1",
     "react-select": "5.4.0",
+    "react-toastify": "^9.0.7",
     "react-use": "17.4.0",
     "zustand": "4.0.0-rc.4"
   },
