@@ -20,8 +20,10 @@ export const ClientStreamingSendHeader: React.FC<
       setIsStreaming(false);
     });
 
-    setIsStreaming(true);
-    setCallId(id);
+    if (id) {
+      setIsStreaming(true);
+      setCallId(id);
+    }
   };
 
   const handleCancelButtonClick = async () => {

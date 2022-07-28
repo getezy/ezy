@@ -9,7 +9,7 @@ function getRequestAddress(tab: GrpcTab<GrpcMethodType>): string {
     return tab.data.url;
   }
 
-  throw new Error(`Couldn't invoke request. Address is empty.`);
+  throw new Error(`Address is empty.`);
 }
 
 export function getOptions(
@@ -46,6 +46,6 @@ export function parseMetadata(tab: GrpcTab<GrpcMethodType>): Record<string, Meta
 
     return metadata;
   } catch (error) {
-    throw new Error(`Couldn't parse metadata.`);
+    throw new Error(`Couldn't parse request metadata.`);
   }
 }

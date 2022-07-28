@@ -22,9 +22,11 @@ export const BidirectionalStreamingSendHeader: React.FC<
       setIsServerStreaming(false);
     });
 
-    setIsClientStreaming(true);
-    setIsServerStreaming(true);
-    setCallId(id);
+    if (id) {
+      setIsClientStreaming(true);
+      setIsServerStreaming(true);
+      setCallId(id);
+    }
   };
 
   const handleCancelButtonClick = async () => {
