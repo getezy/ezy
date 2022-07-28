@@ -8,3 +8,4 @@ export * from './code-editor';
 export * from './tabs';
 export * from './tree';
 export * from './file-input';
+export * from './notification';
