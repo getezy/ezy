@@ -5,15 +5,12 @@ import { Notification } from '../notification';
 
 export type NotificationMessage = {
   title?: string;
-  message: string;
+  desctiption: string;
 };
 
 export function useNotification() {
-  function notification(notificationMessage: NotificationMessage, options?: ToastOptions): Id {
-    return toast(
-      <Notification title={notificationMessage.title} message={notificationMessage.message} />,
-      options
-    );
+  function notification(message: NotificationMessage, options?: ToastOptions): Id {
+    return toast(<Notification title={message.title} desctiption={message.desctiption} />, options);
   }
 
   function closeNotification(id: Id): void {

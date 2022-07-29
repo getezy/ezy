@@ -28,7 +28,10 @@ export function useUnaryCall() {
         },
       });
     } catch (error: any) {
-      notification({ title: 'Invoke request error', message: error.message }, { type: 'error' });
+      notification(
+        { title: 'Invoke request error', desctiption: error.message },
+        { type: 'error' }
+      );
     }
   }
 

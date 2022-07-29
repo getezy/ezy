@@ -109,13 +109,13 @@ export const useCollectionsStore = create(
             }
           } catch (error) {
             useLogsStore.getState().createLog({ message: parseError(error) });
-            // TODO: fix this
+            // TODO: Stop using hooks here
             // eslint-disable-next-line react-hooks/rules-of-hooks
             const { notification } = useNotification();
             notification(
               {
-                title: `Syncronize "${collection.name}" collection error`,
-                message: parseError(error),
+                title: `Synchronize "${collection.name}" collection error`,
+                desctiption: parseError(error),
               },
               { type: 'error' }
             );

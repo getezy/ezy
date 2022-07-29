@@ -1,21 +1,21 @@
 import { styled, Text } from '@nextui-org/react';
 import React from 'react';
-import { ToastContainerProps } from 'react-toastify';
+import { ToastContentProps } from 'react-toastify';
 
 const NotificationWrapper = styled('div', {
-  display: 'flex',
-  flexDirection: 'column',
   userSelect: 'none',
+  maxWidth: '100%',
+  overflowWrap: 'anywhere',
 });
 
 export type NotificationProps = {
   title?: string;
-  message: string;
-} & ToastContainerProps;
+  desctiption: string;
+} & Partial<ToastContentProps>;
 
-export const Notification: React.FC<NotificationProps> = ({ title, message }) => (
+export const Notification: React.FC<NotificationProps> = ({ title, desctiption }) => (
   <NotificationWrapper>
     <Text>{title}</Text>
-    <Text small={!!title}>{message}</Text>
+    <Text small={!!title}>{desctiption}</Text>
   </NotificationWrapper>
 );
