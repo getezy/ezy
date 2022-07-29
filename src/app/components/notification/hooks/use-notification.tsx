@@ -1,6 +1,7 @@
-import { Text } from '@nextui-org/react';
 import React from 'react';
 import { Id, toast, ToastOptions } from 'react-toastify';
+
+import { Notification } from '../notification';
 
 export type NotificationMessage = {
   title?: string;
@@ -10,10 +11,7 @@ export type NotificationMessage = {
 export function useNotification() {
   function notification(notificationMessage: NotificationMessage, options?: ToastOptions): Id {
     return toast(
-      <div>
-        <Text>{notificationMessage.title}</Text>
-        <Text small={!!notificationMessage.title}>{notificationMessage.message}</Text>
-      </div>,
+      <Notification title={notificationMessage.title} message={notificationMessage.message} />,
       options
     );
   }

@@ -2,8 +2,8 @@ import { Spacer, styled, VariantProps } from '@nextui-org/react';
 import React from 'react';
 import { components, SingleValueProps } from 'react-select';
 
-import { Environment } from '../../../storage';
 import { ColorCircle } from '../../color-circle';
+import { ColoredSelectOption } from './interfaces';
 
 const StyledSpan = styled('span', {
   display: 'flex',
@@ -36,7 +36,7 @@ const StyledSpan = styled('span', {
   },
 });
 
-export type ColoredSingleValueProps = SingleValueProps<Environment> & {
+export type ColoredSingleValueProps = SingleValueProps<ColoredSelectOption> & {
   selectProps: VariantProps<typeof StyledSpan>;
 };
 

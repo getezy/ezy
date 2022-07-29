@@ -4,8 +4,8 @@ import { styled, VariantProps } from '@nextui-org/react';
 import React from 'react';
 import { components, OptionProps } from 'react-select';
 
-import { Environment } from '../../../storage';
 import { ColorCircle } from '../../color-circle';
+import { ColoredSelectOption } from './interfaces';
 
 const StyledSpan = styled('span', {
   display: 'flex',
@@ -55,9 +55,9 @@ const RemoveButton = styled('div', {
   },
 });
 
-export type ColoredOptionProps = OptionProps<Environment> & {
+export type ColoredOptionProps = OptionProps<ColoredSelectOption> & {
   selectProps: VariantProps<typeof StyledSpan> & {
-    onRemove: (item: Environment) => void;
+    onRemove: (item: ColoredSelectOption) => void;
   };
 };
 

@@ -5,6 +5,7 @@ import { nanoid } from 'nanoid';
 import create from 'zustand';
 import { persist } from 'zustand/middleware';
 
+import { useNotification } from '../components';
 import {
   Collection,
   CollectionChildren,
@@ -108,6 +109,16 @@ export const useCollectionsStore = create(
             }
           } catch (error) {
             useLogsStore.getState().createLog({ message: parseError(error) });
+            // TODO: fix this
+            // eslint-disable-next-line react-hooks/rules-of-hooks
+            const { notification } = useNotification();
+            notification(
+              {
+                title: `Syncronize "${collection.name}" collection error`,
+                message: parseError(error),
+              },
+              { type: 'error' }
+            );
           }
         }
       },
