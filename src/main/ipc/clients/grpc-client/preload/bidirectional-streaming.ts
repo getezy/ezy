@@ -4,6 +4,7 @@ import { MetadataValue, ServerErrorResponse } from '@grpc/grpc-js';
 import { ipcRenderer } from 'electron';
 
 import { GrpcClientRequestOptions, GrpcOptions } from '../../../../../core';
+import { parseErrorFromIPCMain } from '../../../common';
 import { GrpcClientBidirectionalStreamingChannel, GrpcClientChannel } from '../constants';
 import { OnDataCallback, OnEndCallback, OnErrorCallback, wrapHandler } from './handlers';
 
@@ -16,53 +17,78 @@ export default {
     onError: OnErrorCallback,
     onEnd: OnEndCallback
   ): Promise<string> {
-    const streamId = await ipcRenderer.invoke(
-      GrpcClientChannel.INVOKE_BIDIRECTIONAL_STREAMING_REQUEST,
-      options,
-      requestOptions,
-      metadata
-    );
+    try {
+      const streamId = await ipcRenderer.invoke(
+        GrpcClientChannel.INVOKE_BIDIRECTIONAL_STREAMING_REQUEST,
+        options,
+        requestOptions,
+        metadata
+      );
 
-    const onDataCallback = wrapHandler(streamId, (data: Record<string, unknown>) => {
-      onData(data);
-    });
+      const onDataCallback = wrapHandler(streamId, (data: Record<string, unknown>) => {
+        onData(data);
+      });
 
-    const onErrorCallback = wrapHandler(streamId, (error: ServerErrorResponse) => {
-      onError(error);
-      removeListeners();
-    });
+      const onErrorCallback = wrapHandler(streamId, (error: ServerErrorResponse) => {
+        onError(error);
+        removeListeners();
+      });
 
-    const onEndServerCallback = wrapHandler(streamId, () => {
-      onEnd();
-      removeListeners();
-    });
+      const onEndServerCallback = wrapHandler(streamId, () => {
+        onEnd();
+        removeListeners();
+      });
 
-    const onCancelCallback = wrapHandler(streamId, () => {
-      removeListeners();
-    });
+      const onCancelCallback = wrapHandler(streamId, () => {
+        removeListeners();
+      });
 
-    const removeListeners = () => {
-      ipcRenderer.removeListener(GrpcClientBidirectionalStreamingChannel.DATA, onDataCallback);
-      ipcRenderer.removeListener(GrpcClientBidirectionalStreamingChannel.ERROR, onErrorCallback);
-      ipcRenderer.removeListener(GrpcClientBidirectionalStreamingChannel.END, onEndServerCallback);
-      ipcRenderer.removeListener(GrpcClientBidirectionalStreamingChannel.CANCEL, onCancelCallback);
-    };
+      const removeListeners = () => {
+        ipcRenderer.removeListener(GrpcClientBidirectionalStreamingChannel.DATA, onDataCallback);
+        ipcRenderer.removeListener(GrpcClientBidirectionalStreamingChannel.ERROR, onErrorCallback);
+        ipcRenderer.removeListener(
+          GrpcClientBidirectionalStreamingChannel.END,
+          onEndServerCallback
+        );
+        ipcRenderer.removeListener(
+          GrpcClientBidirectionalStreamingChannel.CANCEL,
+          onCancelCallback
+        );
+      };
 
-    ipcRenderer.on(GrpcClientBidirectionalStreamingChannel.DATA, onDataCallback);
-    ipcRenderer.on(GrpcClientBidirectionalStreamingChannel.ERROR, onErrorCallback);
-    ipcRenderer.on(GrpcClientBidirectionalStreamingChannel.END, onEndServerCallback);
-    ipcRenderer.on(GrpcClientBidirectionalStreamingChannel.CANCEL, onCancelCallback);
+      ipcRenderer.on(GrpcClientBidirectionalStreamingChannel.DATA, onDataCallback);
+      ipcRenderer.on(GrpcClientBidirectionalStreamingChannel.ERROR, onErrorCallback);
+      ipcRenderer.on(GrpcClientBidirectionalStreamingChannel.END, onEndServerCallback);
+      ipcRenderer.on(GrpcClientBidirectionalStreamingChannel.CANCEL, onCancelCallback);
 
-    return streamId;
+      return streamId;
+    } catch (error) {
+      throw new Error(parseErrorFromIPCMain(error));
+    }
   },
+
   async send(id: string, payload: Record<string, unknown>): Promise<void> {
-    await ipcRenderer.invoke(GrpcClientChannel.SEND_BIDIRECTIONAL_STREAMING_REQUEST, id, payload);
+    try {
+      await ipcRenderer.invoke(GrpcClientChannel.SEND_BIDIRECTIONAL_STREAMING_REQUEST, id, payload);
+    } catch (error) {
+      throw new Error(parseErrorFromIPCMain(error));
+    }
   },
+
   async end(id: string): Promise<void> {
-    await ipcRenderer.invoke(GrpcClientChannel.END_BIDIRECTIONAL_STREAMING_REQUEST, id);
+    try {
+      await ipcRenderer.invoke(GrpcClientChannel.END_BIDIRECTIONAL_STREAMING_REQUEST, id);
+    } catch (error) {
+      throw new Error(parseErrorFromIPCMain(error));
+    }
   },
+
   async cancel(id: string): Promise<void> {
-    ipcRenderer.emit(GrpcClientBidirectionalStreamingChannel.CANCEL, id);
-    await ipcRenderer.invoke(GrpcClientChannel.CANCEL_BIDIRECTIONAL_STREAMING_REQUEST, id);
+    try {
+      ipcRenderer.emit(GrpcClientBidirectionalStreamingChannel.CANCEL, id);
+      await ipcRenderer.invoke(GrpcClientChannel.CANCEL_BIDIRECTIONAL_STREAMING_REQUEST, id);
+    } catch (error) {
+      throw new Error(parseErrorFromIPCMain(error));
+    }
   },
 };

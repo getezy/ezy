@@ -17,16 +17,6 @@ import {
 import { useLogsStore } from './logs.storage';
 import { useTabsStore } from './tabs.storage';
 
-function parseError(error: any): string {
-  if (error?.message && typeof error.message === 'string') {
-    const message = error.message.split('Error: ');
-
-    return message.length > 1 ? message[1] : error.message;
-  }
-
-  return error;
-}
-
 export const useCollectionsStore = create(
   persist<CollectionsStorage>(
     (set, get) => ({
@@ -49,8 +39,8 @@ export const useCollectionsStore = create(
                 });
               })
             );
-          } catch (error) {
-            useLogsStore.getState().createLog({ message: parseError(error) });
+          } catch (error: any) {
+            useLogsStore.getState().createLog({ message: error?.message });
           }
         }
       },
@@ -107,15 +97,15 @@ export const useCollectionsStore = create(
                 closeTab(tabs[i].id);
               }
             }
-          } catch (error) {
-            useLogsStore.getState().createLog({ message: parseError(error) });
+          } catch (error: any) {
+            useLogsStore.getState().createLog({ message: error?.message });
             // TODO: Stop using hooks here
             // eslint-disable-next-line react-hooks/rules-of-hooks
             const { notification } = useNotification();
             notification(
               {
                 title: `Synchronize "${collection.name}" collection error`,
-                desctiption: parseError(error),
+                desctiption: error?.message,
               },
               { type: 'error' }
             );
