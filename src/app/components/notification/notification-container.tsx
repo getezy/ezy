@@ -19,6 +19,7 @@ export const NotificationContainer: React.FC = () => {
       newestOnTop
       pauseOnFocusLoss
       pauseOnHover
+      closeButton={false}
       theme={theme.isDark ? 'dark' : 'light'}
     />
   );
