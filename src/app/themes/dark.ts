@@ -5,6 +5,7 @@ export const DarkTheme = createTheme({
   theme: {
     colors: {
       background: '#141414',
+      selection: 'rgba(166, 198, 224, 0.2)',
     },
   },
 });

@@ -19,12 +19,8 @@ export const StyledCodeMirror = styled(CodeMirror, {
     borderLeftColor: '$text',
   },
 
-  '&.cm-focused .cm-selectionBackground, .cm-selectionBackground, .cm-content ::selection': {
-    backgroundColor: 'inherit',
-  },
-
-  '.cm-searchMatch': {
-    backgroundColor: '$accents2',
+  '.cm-selectionBackground': {
+    backgroundColor: '$selection !important',
   },
 
   '.cm-selectionMatch': {
