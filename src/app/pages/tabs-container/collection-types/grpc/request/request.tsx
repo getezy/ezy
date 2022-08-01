@@ -1,5 +1,6 @@
 import { styled } from '@nextui-org/react';
 import React from 'react';
+import { useDebounce } from 'react-use';
 
 import { GrpcMethodType } from '../../../../../../core/protobuf/interfaces';
 import { CodeEditor, Tab, Tabs } from '../../../../../components';
@@ -20,6 +21,42 @@ export interface RequestProps {
 
 export const Request: React.FC<RequestProps> = ({ tab }) => {
   const { updateGrpcTabData } = useTabsStore((store) => store);
+
+  const [request, setRequest] = React.useState(tab.data.requestTabs.request.value);
+  const [metadata, setMetadata] = React.useState(tab.data.requestTabs.metadata.value);
+
+  useDebounce(
+    () => {
+      updateGrpcTabData(tab.id, {
+        requestTabs: {
+          ...tab.data.requestTabs,
+          request: {
+            ...tab.data.requestTabs.request,
+            value: request,
+          },
+        },
+      });
+    },
+    1000,
+    [request]
+  );
+
+  useDebounce(
+    () => {
+      updateGrpcTabData(tab.id, {
+        requestTabs: {
+          ...tab.data.requestTabs,
+          metadata: {
+            ...tab.data.requestTabs.metadata,
+            value: metadata,
+          },
+        },
+      });
+    },
+    1000,
+    [metadata]
+  );
+
   const activeTabId = tab.data.requestTabs.activeTabId || tab.data.requestTabs.request.id;
 
   const handleTabActivate = (key: string) => {
@@ -32,27 +69,11 @@ export const Request: React.FC<RequestProps> = ({ tab }) => {
   };
 
   const handleRequestChange = (requestValue: string) => {
-    updateGrpcTabData(tab.id, {
-      requestTabs: {
-        ...tab.data.requestTabs,
-        request: {
-          ...tab.data.requestTabs.request,
-          value: requestValue,
-        },
-      },
-    });
+    setRequest(requestValue);
   };
 
   const handleMetadataChange = (metadataValue: string) => {
-    updateGrpcTabData(tab.id, {
-      requestTabs: {
-        ...tab.data.requestTabs,
-        metadata: {
-          ...tab.data.requestTabs.metadata,
-          value: metadataValue,
-        },
-      },
-    });
+    setMetadata(metadataValue);
   };
 
   return (
@@ -71,7 +92,7 @@ export const Request: React.FC<RequestProps> = ({ tab }) => {
             height="100%"
             maxWidth="100%"
             width="100%"
-            value={tab.data.requestTabs.request.value}
+            value={request}
             onChange={handleRequestChange}
           />
         </Tab>
@@ -84,7 +105,7 @@ export const Request: React.FC<RequestProps> = ({ tab }) => {
             height="100%"
             maxWidth="100%"
             width="100%"
-            value={tab.data.requestTabs.metadata.value}
+            value={metadata}
             onChange={handleMetadataChange}
           />
         </Tab>
