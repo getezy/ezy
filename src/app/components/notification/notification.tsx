@@ -15,6 +15,11 @@ const NotificationWrapper = styled('div', {
   overflowWrap: 'anywhere',
 });
 
+const TitleWrapper = styled('div', {
+  display: 'flex',
+  flexWrap: 'nowrap',
+});
+
 const CommandsWrapper = styled('div', {
   display: 'flex',
   marginLeft: 'auto',
@@ -31,41 +36,42 @@ export const Notification: React.FC<NotificationProps> = ({ title, desctiption, 
 
   return (
     <NotificationWrapper>
-      <CommandsWrapper>
-        <Button
-          light
-          size="xs"
-          color="warning"
-          css={{
-            minWidth: 10,
-            color: '$accents9',
-            '&:hover': {
-              color: '$warning',
-              backgroundColor: '$accents0',
-            },
-          }}
-          icon={<FontAwesomeIcon icon={faClone} />}
-          onClick={handleCopyButtonClick}
-        />
-        <Spacer x={0.2} />
-        <Button
-          light
-          size="xs"
-          color="warning"
-          css={{
-            minWidth: 10,
-            color: '$accents9',
-            '&:hover': {
-              color: '$warning',
-              backgroundColor: '$accents0',
-            },
-          }}
-          icon={<FontAwesomeIcon icon={faXmark} />}
-          onClick={closeToast}
-        />
-      </CommandsWrapper>
-      <Text>{title}</Text>
-      <br />
+      <TitleWrapper>
+        <Text>{title}</Text>
+        <CommandsWrapper>
+          <Button
+            light
+            size="xs"
+            color="warning"
+            css={{
+              minWidth: 10,
+              color: '$accents9',
+              '&:hover': {
+                color: '$warning',
+                backgroundColor: '$accents0',
+              },
+            }}
+            icon={<FontAwesomeIcon icon={faClone} />}
+            onClick={handleCopyButtonClick}
+          />
+          <Spacer x={0.2} />
+          <Button
+            light
+            size="xs"
+            color="warning"
+            css={{
+              minWidth: 10,
+              color: '$accents9',
+              '&:hover': {
+                color: '$warning',
+                backgroundColor: '$accents0',
+              },
+            }}
+            icon={<FontAwesomeIcon icon={faXmark} />}
+            onClick={closeToast}
+          />
+        </CommandsWrapper>
+      </TitleWrapper>
       <Text small={!!title}>{desctiption}</Text>
     </NotificationWrapper>
   );

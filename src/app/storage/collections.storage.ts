@@ -104,7 +104,7 @@ export const useCollectionsStore = create(
             const { notification } = useNotification();
             notification(
               {
-                title: `Synchronize "${collection.name}" collection error`,
+                title: `${collection.name} sync error`,
                 desctiption: error?.message,
               },
               { type: 'error' }

@@ -22,5 +22,5 @@
       "*": ["node_modules/*"]
     }
   },
-  "include": ["src/**/*", "stories"],
+  "include": ["src/**/*", "stories", "forge.config.js"],
 }
