@@ -2,7 +2,7 @@ const { version } = require('./package.json');
 
 const config = {
   packagerConfig: {
-    name: 'Protogub',
+    name: 'protogun',
     executableName: 'protogun',
     asar: true,
   },
@@ -15,7 +15,7 @@ const config = {
         exe: 'protogun.exe',
         noMsi: true,
 
-        setupExe: `electron-fiddle-${version}-win32-${arch}-setup.exe`,
+        setupExe: `protogun-${version}-win32-${arch}-setup.exe`,
       }),
     },
     {
