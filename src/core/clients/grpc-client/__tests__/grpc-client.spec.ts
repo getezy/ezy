@@ -1,5 +1,5 @@
 import * as grpc from '@grpc/grpc-js';
-import { ClientReadableStreamImpl } from '@grpc/grpc-js/build/src/call';
+// import { ClientReadableStreamImpl } from '@grpc/grpc-js/build/src/call';
 import { join } from 'path';
 
 import { ProtobufLoader } from '../../../protobuf';
@@ -182,21 +182,21 @@ describe('GrpcClient', () => {
     });
   });
 
-  describe('GrpcClient::InvokeServerStreamingRequest', () => {
-    it('should invoke server streaming request', async () => {
-      const packageDefinition = await ProtobufLoader.loadFromFile({
-        path: join(__dirname, '../../../__tests__/fixtures/proto/simple.proto'),
-      });
+  // describe('GrpcClient::InvokeServerStreamingRequest', () => {
+  //   it('should invoke server streaming request', async () => {
+  //     const packageDefinition = await ProtobufLoader.loadFromFile({
+  //       path: join(__dirname, '../../../__tests__/fixtures/proto/simple.proto'),
+  //     });
 
-      const requestOptions: GrpcClientRequestOptions = {
-        serviceName: 'simple_package.v1.SimpleService',
-        methodName: 'SimpleServerStreamRequest',
-        address: '127.0.0.1:3000',
-      };
+  //     const requestOptions: GrpcClientRequestOptions = {
+  //       serviceName: 'simple_package.v1.SimpleService',
+  //       methodName: 'SimpleServerStreamRequest',
+  //       address: '127.0.0.1:3000',
+  //     };
 
-      const call = GrpcClient.invokeServerStreamingRequest(packageDefinition, requestOptions, {});
+  //     const call = GrpcClient.invokeServerStreamingRequest(packageDefinition, requestOptions, {});
 
-      expect(call instanceof ClientReadableStreamImpl).toBe(true);
-    });
-  });
+  //     expect(call instanceof ClientReadableStreamImpl).toBe(true);
+  //   });
+  // });
 });
