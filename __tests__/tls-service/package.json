@@ -1,0 +1,20 @@
+{
+  "name": "tls-service",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start:mutual": "TLS_MODE=mutual GRPC_TRACE=all GRPC_VERBOSITY=DEBUG ts-node ./src/index.ts",
+    "start:server": "TLS_MODE=server GRPC_TRACE=all GRPC_VERBOSITY=DEBUG ts-node ./src/index.ts",
+    "certs": "cd certs && ./gen-certs.sh",
+    "proto": "protoc --plugin=./node_modules/.bin/protoc-gen-ts_proto --ts_proto_opt=env=node,outputClientImpl=false,outputServices=grpc-js --ts_proto_out=./src/generated ./proto/tls_service.proto",
+    "build": "npm run proto && npm run certs"
+  },
+  "dependencies": {
+    "@grpc/grpc-js": "1.6.8"
+  },
+  "devDependencies": {
+    "ts-node": "10.9.1",
+    "ts-proto": "1.121.1",
+    "typescript": "4.7.4"
+  }
+}

@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+package tls_service.v1;
+
+message SimpleMessage {
+  string id = 1;
+}
+
+service TLSService {
+  rpc Unary(SimpleMessage) returns (SimpleMessage);
+}

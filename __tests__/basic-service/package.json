@@ -7,7 +7,7 @@
     "proto": "grpc_tools_node_protoc --js_out=import_style=commonjs,binary:./ --grpc_out=grpc_js:./ proto/basic.proto"
   },
   "dependencies": {
-    "@grpc/grpc-js": "^1.6.7",
-    "google-protobuf": "^3.20.1"
+    "@grpc/grpc-js": "1.6.8",
+    "google-protobuf": "3.21.0"
   }
 }

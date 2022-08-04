@@ -1,4 +1,5 @@
 import type {
+  ChannelCredentials,
   ClientDuplexStream,
   ClientReadableStream,
   ClientWritableStream,
@@ -8,16 +9,44 @@ import type {
 } from '@grpc/grpc-js';
 import * as grpc from '@grpc/grpc-js';
 import type { PackageDefinition } from '@grpc/proto-loader';
+import * as fs from 'fs';
 import * as _ from 'lodash';
 
-import { GrpcClientRequestOptions } from './interfaces';
+import { GrpcClientRequestOptions, GrpcTlsConfig, GrpcTlsType } from './interfaces';
 import { MetadataParser } from './metadata-parser';
 
 function instanceOfServiceClientConstructor(object: any): object is ServiceClientConstructor {
   return 'serviceName' in object;
 }
 
+function isMutualTlsConfig(
+  config: GrpcTlsConfig<GrpcTlsType>
+): config is GrpcTlsConfig<GrpcTlsType.MUTUAL> {
+  return config.type === GrpcTlsType.MUTUAL;
+}
+
 export class GrpcClient {
+  private static getChannelCredentials(
+    tls: GrpcTlsConfig<GrpcTlsType> | undefined
+  ): ChannelCredentials {
+    let credentials: ChannelCredentials;
+
+    if (!tls) {
+      credentials = grpc.credentials.createInsecure();
+    } else if (isMutualTlsConfig(tls)) {
+      const rootCert = fs.readFileSync(tls.rootCertificatePath);
+      const clientCert = fs.readFileSync(tls.clientCertificatePath);
+      const clientKey = fs.readFileSync(tls.clientKeyPath);
+
+      credentials = grpc.credentials.createSsl(rootCert, clientKey, clientCert);
+    } else {
+      const rootCert = fs.readFileSync(tls.rootCertificatePath);
+      credentials = grpc.credentials.createSsl(rootCert);
+    }
+
+    return credentials;
+  }
+
   private static loadClient(
     packageDefinition: PackageDefinition,
     requestOptions: GrpcClientRequestOptions
@@ -26,7 +55,10 @@ export class GrpcClient {
     const ServiceClient = _.get(ast, requestOptions.serviceName);
 
     if (ServiceClient && instanceOfServiceClientConstructor(ServiceClient)) {
-      const client = new ServiceClient(requestOptions.address, grpc.credentials.createInsecure());
+      const client = new ServiceClient(
+        requestOptions.address,
+        this.getChannelCredentials(requestOptions.tls)
+      );
 
       if (
         client[requestOptions.methodName] &&

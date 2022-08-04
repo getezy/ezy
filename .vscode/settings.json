@@ -8,5 +8,9 @@
       "directory": "__tests__/simple-service",
       "changeProcessCWD": true
     },
+    {
+      "directory": "__tests__/tls-service",
+      "changeProcessCWD": true
+    },
   ],
 }
