@@ -41,7 +41,7 @@ export const GrpcMethodNode: React.FC<TreeNodeRendererProps<GrpcMethod>> = ({ da
       {data.type === GrpcMethodType.UNARY && <UnaryBadge />}
       {data.type !== GrpcMethodType.UNARY && <StreamBadge type={data.type} />}
       <Spacer x={0.3} />
-      <Tooltip content={data.name} color="invert" placement="topStart" enterDelay={1000}>
+      <Tooltip content={data.name} placement="topStart" enterDelay={500}>
         <Text size={12}>{data.name}</Text>
       </Tooltip>
     </StyledNodeWrapper>

@@ -2,7 +2,7 @@ import { Button, Modal, ModalProps, Text } from '@nextui-org/react';
 import { nanoid } from 'nanoid';
 import React from 'react';
 
-import { Environment, useEnvironmentsStore } from '../../storage';
+import { Environment, useEnvironmentsStore } from '../../../../../storage';
 import { EnvironmentForm } from './environment.form';
 
 export type CreateEnvironmentModalProps = ModalProps & {

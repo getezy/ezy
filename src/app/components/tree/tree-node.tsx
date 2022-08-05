@@ -99,7 +99,7 @@ export const TreeNode: React.FC<PropsWithChildren<TreeNodeProps>> = ({
       >
         {content}
         <StyledCommandsPanelWrapper>
-          {isHovered && commandsContent}
+          <div style={{ visibility: isHovered ? 'visible' : 'hidden' }}>{commandsContent}</div>
           {isCollapsible && <CollapseButton isOpen={isOpen} onClick={handleCollapseToggle} />}
         </StyledCommandsPanelWrapper>
       </StyledTreeNode>

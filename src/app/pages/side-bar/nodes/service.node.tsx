@@ -16,7 +16,7 @@ export const GrpcServiceNode: React.FC<TreeNodeRendererProps<GrpcService>> = ({
     <StyledNodeWrapper>
       <ServiceBadge />
       <Spacer x={0.3} />
-      <Tooltip content={data.name} color="invert" placement="topStart" enterDelay={1000}>
+      <Tooltip content={data.name} placement="topStart" enterDelay={500}>
         <Text size={12}>{data.name}</Text>
       </Tooltip>
     </StyledNodeWrapper>

@@ -1,13 +1,13 @@
-import { faFloppyDisk } from '@fortawesome/free-solid-svg-icons';
+import { faFloppyDisk, faLock, faUnlock } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Button, Container, Input, Spacer } from '@nextui-org/react';
+import { Button, Container, Input, Spacer, Tooltip } from '@nextui-org/react';
 import React, { PropsWithChildren } from 'react';
 import { MultiValue, SingleValue } from 'react-select';
 
 import { GrpcMethodType } from '../../../../../../core/protobuf/interfaces';
 import { ColoredSelect } from '../../../../../components';
 import { Environment, GrpcTab, useEnvironmentsStore, useTabsStore } from '../../../../../storage';
-import { CreateEnvironmentModal } from '../../../../environments';
+import { CreateEnvironmentModal } from '../environments';
 
 export interface SendHeaderProps<T extends GrpcMethodType> {
   tab: GrpcTab<T>;
@@ -85,9 +85,44 @@ export const SendHeader: React.FC<PropsWithChildren<SendHeaderProps<GrpcMethodTy
           animated={false}
           clearable
           placeholder="0.0.0.0:3000"
-          css={{ flex: 5 }}
+          css={{ flex: 5, '& input': { paddingLeft: 0, marginLeft: '5px !important' } }}
           value={tab.data.url || ''}
           onChange={handleUrlChange}
+          contentLeftStyling={false}
+          contentLeft={
+            tab.data.tls ? (
+              <Tooltip content="Connection is secure" placement="bottom" enterDelay={500}>
+                <Button
+                  size="sm"
+                  color="success"
+                  light
+                  css={{
+                    background: 'transparent',
+                    padding: 0,
+                    margin: 0,
+                    minWidth: 30,
+                  }}
+                  icon={<FontAwesomeIcon icon={faLock} />}
+                />
+              </Tooltip>
+            ) : (
+              <Tooltip content="Connection is not secure" placement="bottom" enterDelay={500}>
+                <Button
+                  size="sm"
+                  light
+                  color="gradient"
+                  css={{
+                    background: 'transparent',
+                    padding: 0,
+                    margin: 0,
+                    minWidth: 30,
+                    color: '$accents6',
+                  }}
+                  icon={<FontAwesomeIcon icon={faUnlock} />}
+                />
+              </Tooltip>
+            )
+          }
           contentRight={
             <Button
               auto
@@ -107,21 +142,6 @@ export const SendHeader: React.FC<PropsWithChildren<SendHeaderProps<GrpcMethodTy
             />
           }
         />
-        {/* <Spacer x={0.2} />
-        <Button
-          size="sm"
-          light
-          color="success"
-          css={{ minWidth: 10 }}
-          icon={<FontAwesomeIcon icon={faLock} />}
-        />
-        <Button
-          size="sm"
-          light
-          color="default"
-          css={{ minWidth: 10 }}
-          icon={<FontAwesomeIcon icon={faLockOpen} />}
-        /> */}
         {children}
       </Container>
       <CreateEnvironmentModal
