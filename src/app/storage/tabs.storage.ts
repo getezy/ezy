@@ -6,8 +6,11 @@ import { nanoid } from 'nanoid';
 import create from 'zustand';
 import { persist } from 'zustand/middleware';
 
+import { GrpcTlsType } from '../../core/clients/grpc-client/interfaces';
+import { GrpcMethodType } from '../../core/protobuf/interfaces';
 import {
   CollectionType,
+  GrpcTab,
   isGrpcTabBidirectionalStreaming,
   isGrpcTabClientStreaming,
   isGrpcTabServerStreaming,
@@ -54,10 +57,13 @@ export const useTabsStore = create(
             const tabId = nanoid();
             const requestTabId = nanoid();
 
-            state.tabs.push({
+            const tab: GrpcTab<GrpcMethodType> = {
               ...payload,
               id: tabId,
               data: {
+                tls: {
+                  type: GrpcTlsType.INSECURE,
+                },
                 requestTabs: {
                   activeTabId: requestTabId,
                   request: { id: requestTabId },
@@ -65,7 +71,9 @@ export const useTabsStore = create(
                 },
                 response: { id: nanoid() },
               },
-            });
+            };
+
+            state.tabs.push(tab);
 
             state.activeTabId = tabId;
           })
