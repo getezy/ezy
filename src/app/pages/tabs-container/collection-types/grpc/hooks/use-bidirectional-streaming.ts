@@ -59,7 +59,7 @@ export function useBidirectionalStreaming() {
       return id;
     } catch (error: any) {
       notification(
-        { title: 'Invoke request error', desctiption: error.message },
+        { title: 'Invoke request error', description: error.message },
         { type: 'error' }
       );
     }
@@ -81,7 +81,7 @@ export function useBidirectionalStreaming() {
         value: tab.data.requestTabs.request.value,
       });
     } catch (error: any) {
-      notification({ title: `Send message error`, desctiption: error.message }, { type: 'error' });
+      notification({ title: `Send message error`, description: error.message }, { type: 'error' });
     }
   }
 

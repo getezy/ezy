@@ -8,6 +8,7 @@ import { GrpcMethodType } from '../../../../../../core/protobuf/interfaces';
 import { ColoredSelect } from '../../../../../components';
 import { Environment, GrpcTab, useEnvironmentsStore, useTabsStore } from '../../../../../storage';
 import { CreateEnvironmentModal } from '../environments';
+import { TlsSettingsModal } from '../tls';
 
 export interface SendHeaderProps<T extends GrpcMethodType> {
   tab: GrpcTab<T>;
@@ -24,6 +25,7 @@ export const SendHeader: React.FC<PropsWithChildren<SendHeaderProps<GrpcMethodTy
     environments.find((item) => item.id === tab.data.environmentId) || null;
 
   const [createEnvironmentModalVisible, setCreateEnvironmentModalVisible] = React.useState(false);
+  const [tlsSettingsModalVisible, setTlsSettingsModalVisible] = React.useState(false);
 
   const handleEnvironmentChange = (value: MultiValue<Environment> | SingleValue<Environment>) => {
     const environment = value as Environment;
@@ -51,8 +53,24 @@ export const SendHeader: React.FC<PropsWithChildren<SendHeaderProps<GrpcMethodTy
     setCreateEnvironmentModalVisible(false);
   };
 
+  const handleCreateEnvironmentModalVisible = () => {
+    setCreateEnvironmentModalVisible(true);
+  };
+
   const handleCreateEnvironmentModalClose = () => {
     setCreateEnvironmentModalVisible(false);
+  };
+
+  const handleTlsSettingsModalSubmit = () => {
+    setTlsSettingsModalVisible(false);
+  };
+
+  const handleTlsSettingsModalVisible = () => {
+    setTlsSettingsModalVisible(true);
+  };
+
+  const handleTlsSettingsModalClose = () => {
+    setTlsSettingsModalVisible(false);
   };
 
   return (
@@ -103,6 +121,7 @@ export const SendHeader: React.FC<PropsWithChildren<SendHeaderProps<GrpcMethodTy
                     minWidth: 30,
                   }}
                   icon={<FontAwesomeIcon icon={faLock} />}
+                  onClick={handleTlsSettingsModalVisible}
                 />
               </Tooltip>
             ) : (
@@ -119,6 +138,7 @@ export const SendHeader: React.FC<PropsWithChildren<SendHeaderProps<GrpcMethodTy
                     color: '$accents6',
                   }}
                   icon={<FontAwesomeIcon icon={faUnlock} />}
+                  onClick={handleTlsSettingsModalVisible}
                 />
               </Tooltip>
             )
@@ -138,7 +158,7 @@ export const SendHeader: React.FC<PropsWithChildren<SendHeaderProps<GrpcMethodTy
                   color: '$accents5',
                 },
               }}
-              onClick={() => setCreateEnvironmentModalVisible(true)}
+              onClick={handleCreateEnvironmentModalVisible}
             />
           }
         />
@@ -153,6 +173,14 @@ export const SendHeader: React.FC<PropsWithChildren<SendHeaderProps<GrpcMethodTy
         }}
         onCreate={handleCreateEnvironmentModalSubmit}
         onClose={handleCreateEnvironmentModalClose}
+      />
+      <TlsSettingsModal
+        fullScreen
+        closeButton
+        blur
+        open={tlsSettingsModalVisible}
+        onSubmit={handleTlsSettingsModalSubmit}
+        onClose={handleTlsSettingsModalClose}
       />
     </>
   );

@@ -12,7 +12,8 @@ openssl x509 -in ca-cert.pem -noout -text
 openssl req -newkey rsa:4096 -nodes -keyout server-key.pem -out server-req.pem -subj "/C=FR/ST=Ile de France/L=Paris/O=Server Side TLS/OU=Server/CN=*.tls/emailAddress=tls@gmail.com"
 
 # Remember that when we develop on localhost, It’s important to add the IP:0.0.0.0 as an Subject Alternative Name (SAN) extension to the certificate.
-echo "subjectAltName=DNS:*.tls,DNS:*.tls,IP:0.0.0.0" > server-ext.cnf
+# echo "subjectAltName=DNS:*.tls,DNS:*.tls,IP:0.0.0.0" > server-ext.cnf
+echo "subjectAltName=DNS:*.tls,DNS:localhost" > server-ext.cnf
 
 # 3. Use CA's private key to sign web server's CSR and get back the signed certificate
 openssl x509 -req -in server-req.pem -days 60 -CA ca-cert.pem -CAkey ca-key.pem -CAcreateserial -out server-cert.pem -extfile server-ext.cnf

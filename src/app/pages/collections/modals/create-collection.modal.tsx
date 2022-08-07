@@ -18,7 +18,7 @@ export const CreateCollectionModal: React.FC<ModalProps> = ({ onClose = () => {}
   };
 
   return (
-    <Modal {...props} onClose={onClose} css={{ backgroundColor: 'transparent', maxHeight: '90vh' }}>
+    <Modal {...props} onClose={onClose}>
       <Modal.Header css={{ userSelect: 'none' }}>
         <Spacer />
         <Text>New Collection</Text>
@@ -28,7 +28,7 @@ export const CreateCollectionModal: React.FC<ModalProps> = ({ onClose = () => {}
       <Modal.Body>
         <CollectionForm id="create-collection-form" onSubmit={handleSubmit} />
       </Modal.Body>
-      <Modal.Footer>
+      <Modal.Footer css={{ flexWrap: 'nowrap' }}>
         <Button auto bordered borderWeight="light" size="sm" color="error" onClick={onClose}>
           Cancel
         </Button>

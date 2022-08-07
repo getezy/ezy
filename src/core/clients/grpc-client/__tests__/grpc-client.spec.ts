@@ -4,7 +4,7 @@ import { join } from 'path';
 
 import { ProtobufLoader } from '../../../protobuf';
 import { GrpcClient } from '../grpc-client';
-import { GrpcClientRequestOptions } from '../interfaces';
+import { GrpcClientRequestOptions, GrpcTlsType } from '../interfaces';
 
 function createBasicService(error: any, response: any) {
   const BasicService = jest.fn(() => ({
@@ -44,6 +44,7 @@ describe('GrpcClient', () => {
         serviceName: 'BasicService',
         methodName: 'BasicRequest',
         address: '127.0.0.1:3000',
+        tls: { type: GrpcTlsType.INSECURE },
       };
 
       const payload = {
@@ -71,6 +72,7 @@ describe('GrpcClient', () => {
         serviceName: 'BasicService',
         methodName: 'BasicRequest',
         address: '127.0.0.1:3000',
+        tls: { type: GrpcTlsType.INSECURE },
       };
 
       const payload = {
@@ -102,6 +104,7 @@ describe('GrpcClient', () => {
         serviceName: 'BasicService',
         methodName: 'BasicRequest',
         address: '127.0.0.1:3000',
+        tls: { type: GrpcTlsType.INSECURE },
       };
 
       const payload = {
@@ -131,6 +134,7 @@ describe('GrpcClient', () => {
         serviceName: 'simple_package.v1.SimpleService',
         methodName: 'SimpleUnaryRequest',
         address: '127.0.0.1:3000',
+        tls: { type: GrpcTlsType.INSECURE },
       };
 
       const payload = {
@@ -158,6 +162,7 @@ describe('GrpcClient', () => {
         serviceName: 'SomeService',
         methodName: 'SomeRequest',
         address: '127.0.0.1:3000',
+        tls: { type: GrpcTlsType.INSECURE },
       };
 
       await expect(
@@ -174,6 +179,7 @@ describe('GrpcClient', () => {
         serviceName: 'simple_package.v1.SimpleService',
         methodName: 'SomeRequest',
         address: '127.0.0.1:3000',
+        tls: { type: GrpcTlsType.INSECURE },
       };
 
       await expect(

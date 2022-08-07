@@ -62,7 +62,7 @@ export function useServerStreaming() {
       return id;
     } catch (error: any) {
       notification(
-        { title: 'Invoke request error', desctiption: error.message },
+        { title: 'Invoke request error', description: error.message },
         { type: 'error' }
       );
     }

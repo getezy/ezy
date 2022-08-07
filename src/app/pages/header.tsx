@@ -41,8 +41,8 @@ export const Header: React.FC = () => {
       </Button>
       <Spacer />
       <CreateCollectionModal
+        fullScreen
         closeButton
-        blur
         open={createCollectionModalVisible}
         onClose={() => setCreateCollectionModalVisible(false)}
       />

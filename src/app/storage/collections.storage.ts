@@ -45,6 +45,10 @@ export const useCollectionsStore = create(
         }
       },
       updateCollection: async (id, collection) => {
+        // TODO: Stop using hooks here
+        // eslint-disable-next-line react-hooks/rules-of-hooks
+        const { notification } = useNotification();
+
         if (collection.type === CollectionType.GRPC) {
           try {
             const methodIds: string[] = [];
@@ -97,15 +101,20 @@ export const useCollectionsStore = create(
                 closeTab(tabs[i].id);
               }
             }
+
+            notification(
+              {
+                title: `${collection.name}`,
+                description: 'Collection successfully updated',
+              },
+              { type: 'success' }
+            );
           } catch (error: any) {
             useLogsStore.getState().createLog({ message: error?.message });
-            // TODO: Stop using hooks here
-            // eslint-disable-next-line react-hooks/rules-of-hooks
-            const { notification } = useNotification();
             notification(
               {
                 title: `${collection.name} sync error`,
-                desctiption: error?.message,
+                description: error?.message,
               },
               { type: 'error' }
             );

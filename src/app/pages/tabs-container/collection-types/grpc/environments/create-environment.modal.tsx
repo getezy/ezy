@@ -26,7 +26,7 @@ export const CreateEnvironmentModal: React.FC<CreateEnvironmentModalProps> = ({
   };
 
   return (
-    <Modal {...props} onClose={onClose} css={{ backgroundColor: 'transparent' }}>
+    <Modal {...props} onClose={onClose}>
       <Modal.Header css={{ userSelect: 'none' }}>
         <Text>New Environment</Text>
       </Modal.Header>

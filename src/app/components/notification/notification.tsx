@@ -26,13 +26,13 @@ const CommandsWrapper = styled('div', {
 });
 
 export type NotificationProps = {
-  title?: string;
-  desctiption: string;
+  title: string;
+  description?: string;
 } & Partial<ToastContentProps>;
 
-export const Notification: React.FC<NotificationProps> = ({ title, desctiption, closeToast }) => {
+export const Notification: React.FC<NotificationProps> = ({ title, description, closeToast }) => {
   const [, copyToClipboard] = useCopyToClipboard();
-  const handleCopyButtonClick = () => copyToClipboard(desctiption || '');
+  const handleCopyButtonClick = () => copyToClipboard(description || title || '');
 
   return (
     <NotificationWrapper>
@@ -72,7 +72,7 @@ export const Notification: React.FC<NotificationProps> = ({ title, desctiption, 
           />
         </CommandsWrapper>
       </TitleWrapper>
-      <Text small={!!title}>{desctiption}</Text>
+      {description && <Text small>{description}</Text>}
     </NotificationWrapper>
   );
 };

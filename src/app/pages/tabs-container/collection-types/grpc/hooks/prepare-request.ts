@@ -23,7 +23,12 @@ export function getOptions(
   if (collection && service && method) {
     return [
       collection.options,
-      { serviceName: service.name, methodName: method.name, address: getRequestAddress(tab) },
+      {
+        serviceName: service.name,
+        methodName: method.name,
+        address: getRequestAddress(tab),
+        tls: tab.data.tls,
+      },
     ];
   }
 
