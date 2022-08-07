@@ -1,4 +1,4 @@
-import { Container, Radio, Spacer } from '@nextui-org/react';
+import { Container, Input, Radio, Spacer, Text } from '@nextui-org/react';
 import React from 'react';
 import { DeepRequired, FieldErrorsImpl, useForm } from 'react-hook-form';
 
@@ -148,6 +148,26 @@ export const TlsForm: React.FC<TlsFormProps> = ({
               readOnly
               value={watch('clientKeyPath', getDefaultValue(defaultValues, 'clientKeyPath') || '')}
               onChange={(path) => setValue('clientKeyPath', path)}
+            />
+          </>
+        )}
+        {watch('type') !== GrpcTlsType.INSECURE && (
+          <>
+            <Spacer />
+            <Text>Channel options</Text>
+            <Input
+              size="sm"
+              bordered
+              borderWeight="light"
+              animated={false}
+              clearable
+              // @ts-ignore
+              label={
+                <InfoLabel
+                  label="Override SSL target name (Optional)"
+                  description="CN of the root certificate. It will be helpful when the actual server behind the proxy and CN don't match."
+                />
+              }
             />
           </>
         )}

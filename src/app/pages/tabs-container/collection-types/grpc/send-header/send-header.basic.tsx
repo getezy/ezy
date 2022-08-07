@@ -4,6 +4,7 @@ import { Button, Container, Input, Spacer, Tooltip } from '@nextui-org/react';
 import React, { PropsWithChildren } from 'react';
 import { MultiValue, SingleValue } from 'react-select';
 
+import { GrpcTlsType } from '../../../../../../core/clients/grpc-client/interfaces';
 import { GrpcMethodType } from '../../../../../../core/protobuf/interfaces';
 import { ColoredSelect } from '../../../../../components';
 import { Environment, GrpcTab, useEnvironmentsStore, useTabsStore } from '../../../../../storage';
@@ -103,12 +104,12 @@ export const SendHeader: React.FC<PropsWithChildren<SendHeaderProps<GrpcMethodTy
           animated={false}
           clearable
           placeholder="0.0.0.0:3000"
-          css={{ flex: 5, '& input': { paddingLeft: 0, marginLeft: '5px !important' } }}
+          css={{ flex: 6, '& input': { paddingLeft: 0, marginLeft: '5px !important' } }}
           value={tab.data.url || ''}
           onChange={handleUrlChange}
           contentLeftStyling={false}
           contentLeft={
-            tab.data.tls ? (
+            tab.data.tls.type !== GrpcTlsType.INSECURE ? (
               <Tooltip content="Connection is secure" placement="bottom" enterDelay={500}>
                 <Button
                   size="sm"
