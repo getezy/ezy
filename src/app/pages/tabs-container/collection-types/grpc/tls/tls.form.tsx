@@ -40,9 +40,21 @@ export const TlsForm: React.FC<TlsFormProps> = ({
     setValue,
     formState: { errors },
     register,
+    reset,
   } = useForm<GrpcTlsConfig<GrpcTlsType>>({
     defaultValues,
   });
+
+  const handleTlsTypeChange = (type: string) => {
+    reset({
+      rootCertificatePath: undefined,
+      clientCertificatePath: undefined,
+      clientKeyPath: undefined,
+      channelOptions: undefined,
+    });
+
+    setValue('type', type as GrpcTlsType);
+  };
 
   return (
     <form id={id} onSubmit={handleSubmit(onSubmit)}>
@@ -52,7 +64,7 @@ export const TlsForm: React.FC<TlsFormProps> = ({
           label="TLS type"
           defaultValue={GrpcTlsType.INSECURE}
           value={watch('type')}
-          onChange={(type) => setValue('type', type as GrpcTlsType)}
+          onChange={handleTlsTypeChange}
         >
           <Radio value={GrpcTlsType.INSECURE} size="sm">
             Insecure

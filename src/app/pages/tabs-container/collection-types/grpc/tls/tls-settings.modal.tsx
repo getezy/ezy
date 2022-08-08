@@ -19,7 +19,6 @@ export const TlsSettingsModal: React.FC<TlsSettingsModalProps> = ({
   ...props
 }) => {
   const handleSubmit = (payload: GrpcTlsConfig<GrpcTlsType>) => {
-    console.log('payload: ', payload);
     onCreate(payload);
   };
 
