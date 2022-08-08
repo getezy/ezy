@@ -1,5 +1,6 @@
 import type {
   ChannelCredentials,
+  ChannelOptions,
   ClientDuplexStream,
   ClientReadableStream,
   ClientWritableStream,
@@ -13,6 +14,7 @@ import * as fs from 'fs';
 import * as _ from 'lodash';
 
 import {
+  GrpcChannelOptions,
   GrpcClientRequestOptions,
   GrpcTlsConfig,
   GrpcTlsType,
@@ -45,6 +47,16 @@ export class GrpcClient {
     return credentials;
   }
 
+  private static getChannelOptions(options?: GrpcChannelOptions): ChannelOptions {
+    const channelOptions: ChannelOptions = {};
+
+    if (options?.sslTargetNameOverride) {
+      channelOptions['grpc.ssl_target_name_override'] = options.sslTargetNameOverride;
+    }
+
+    return channelOptions;
+  }
+
   private static loadClient(
     packageDefinition: PackageDefinition,
     requestOptions: GrpcClientRequestOptions
@@ -56,7 +68,7 @@ export class GrpcClient {
       const client = new ServiceClient(
         requestOptions.address,
         this.getChannelCredentials(requestOptions.tls),
-        requestOptions.tls.channelOptions
+        this.getChannelOptions(requestOptions.tls.channelOptions)
       );
 
       if (

@@ -9,20 +9,18 @@ import { TlsForm } from './tls.form';
 
 export type TlsSettingsModalProps = ModalProps & {
   defaultValues?: Partial<GrpcTlsConfig<GrpcTlsType>>;
-  onSubmit: (tls: GrpcTlsConfig<GrpcTlsType>) => void;
+  onCreate: (tls: GrpcTlsConfig<GrpcTlsType>) => void;
 };
 
 export const TlsSettingsModal: React.FC<TlsSettingsModalProps> = ({
-  onSubmit,
+  onCreate,
   onClose = () => {},
   defaultValues,
   ...props
 }) => {
   const handleSubmit = (payload: GrpcTlsConfig<GrpcTlsType>) => {
-    // const environment: Environment = { ...payload, id: nanoid() };
-
-    // createEnvironment(environment);
-    onSubmit(payload);
+    console.log('payload: ', payload);
+    onCreate(payload);
   };
 
   return (

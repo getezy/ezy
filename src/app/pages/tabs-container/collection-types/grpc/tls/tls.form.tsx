@@ -1,6 +1,6 @@
 import { Container, Input, Radio, Spacer, Text } from '@nextui-org/react';
 import React from 'react';
-import { DeepRequired, FieldErrorsImpl, useForm } from 'react-hook-form';
+import { Controller, DeepRequired, FieldErrorsImpl, useForm } from 'react-hook-form';
 
 import {
   GrpcTlsConfig,
@@ -28,24 +28,13 @@ function getError(
   return undefined;
 }
 
-function getDefaultValue(
-  defaultValues: Partial<GrpcTlsConfig<GrpcTlsType>>,
-  field: 'rootCertificatePath' | 'clientCertificatePath' | 'clientKeyPath'
-) {
-  if (field in defaultValues) {
-    // @ts-ignore
-    return defaultValues[field];
-  }
-
-  return undefined;
-}
-
 export const TlsForm: React.FC<TlsFormProps> = ({
   onSubmit = () => {},
   id,
-  defaultValues = { type: GrpcTlsType.INSECURE },
+  defaultValues = { type: GrpcTlsType.MUTUAL },
 }) => {
   const {
+    control,
     handleSubmit,
     watch,
     setValue,
@@ -54,11 +43,6 @@ export const TlsForm: React.FC<TlsFormProps> = ({
   } = useForm<GrpcTlsConfig<GrpcTlsType>>({
     defaultValues,
   });
-
-  React.useEffect(() => {
-    register('clientCertificatePath', { required: watch('type') === GrpcTlsType.MUTUAL });
-    register('clientKeyPath', { required: watch('type') === GrpcTlsType.MUTUAL });
-  }, [register, watch('type')]);
 
   return (
     <form id={id} onSubmit={handleSubmit(onSubmit)}>
@@ -83,71 +67,82 @@ export const TlsForm: React.FC<TlsFormProps> = ({
         {watch('type') !== GrpcTlsType.INSECURE && (
           <>
             <Spacer />
-            <FileInput
-              bordered
-              borderWeight="light"
-              buttonColor="default"
-              size="sm"
-              animated={false}
-              // @ts-ignore
-              label={
-                <InfoLabel
-                  label="Root certificate (Optional)"
-                  description="Certificate of the CA who signed the server's certificate or root server certificate."
+            <Controller
+              name="rootCertificatePath"
+              control={control}
+              render={({ field }) => (
+                <FileInput
+                  bordered
+                  borderWeight="light"
+                  buttonColor="default"
+                  size="sm"
+                  animated={false}
+                  // @ts-ignore
+                  label={
+                    <InfoLabel
+                      label="Root certificate (Optional)"
+                      description="Certificate of the CA who signed the server's certificate or root server certificate."
+                    />
+                  }
+                  {...field}
                 />
-              }
-              readOnly
-              value={watch(
-                'rootCertificatePath',
-                getDefaultValue(defaultValues, 'rootCertificatePath') || ''
               )}
-              onChange={(path) => setValue('rootCertificatePath', path)}
             />
           </>
         )}
         {watch('type') === GrpcTlsType.MUTUAL && (
           <>
             <Spacer />
-            <FileInput
-              bordered
-              borderWeight="light"
-              buttonColor="default"
-              size="sm"
-              animated={false}
-              // @ts-ignore
-              label={
-                <InfoLabel
-                  label="Client certificate"
-                  description="Public client key signed by CA."
-                  color={getError(errors, 'clientCertificatePath') ? 'error' : 'default'}
+            <Controller
+              name="clientCertificatePath"
+              control={control}
+              rules={{
+                required: watch('type') === GrpcTlsType.MUTUAL,
+              }}
+              render={({ field }) => (
+                <FileInput
+                  bordered
+                  borderWeight="light"
+                  buttonColor="default"
+                  size="sm"
+                  animated={false}
+                  // @ts-ignore
+                  label={
+                    <InfoLabel
+                      label="Client certificate"
+                      description="Public client key signed by CA."
+                      color={getError(errors, 'clientCertificatePath') ? 'error' : 'default'}
+                    />
+                  }
+                  {...field}
                 />
-              }
-              readOnly
-              value={watch(
-                'clientCertificatePath',
-                getDefaultValue(defaultValues, 'clientCertificatePath') || ''
               )}
-              onChange={(path) => setValue('clientCertificatePath', path)}
             />
-
             <Spacer />
-            <FileInput
-              bordered
-              borderWeight="light"
-              buttonColor="default"
-              size="sm"
-              animated={false}
-              // @ts-ignore
-              label={
-                <InfoLabel
-                  label="Client key"
-                  description="Private client key for client certificate."
-                  color={getError(errors, 'clientKeyPath') ? 'error' : 'default'}
+            <Controller
+              name="clientKeyPath"
+              control={control}
+              rules={{
+                required: watch('type') === GrpcTlsType.MUTUAL,
+              }}
+              render={({ field }) => (
+                <FileInput
+                  bordered
+                  borderWeight="light"
+                  buttonColor="default"
+                  size="sm"
+                  animated={false}
+                  // @ts-ignore
+                  label={
+                    <InfoLabel
+                      label="Client key"
+                      description="Private client key for client certificate."
+                      color={getError(errors, 'clientKeyPath') ? 'error' : 'default'}
+                    />
+                  }
+                  {...field}
                 />
-              }
-              readOnly
-              value={watch('clientKeyPath', getDefaultValue(defaultValues, 'clientKeyPath') || '')}
-              onChange={(path) => setValue('clientKeyPath', path)}
+              )}
             />
           </>
         )}
@@ -168,6 +163,7 @@ export const TlsForm: React.FC<TlsFormProps> = ({
                   description="CN of the root certificate. It will be helpful when the actual server behind the proxy and CN don't match."
                 />
               }
+              {...register('channelOptions.sslTargetNameOverride')}
             />
           </>
         )}

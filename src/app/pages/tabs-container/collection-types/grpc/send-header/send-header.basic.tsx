@@ -4,7 +4,7 @@ import { Button, Container, Input, Spacer, Tooltip } from '@nextui-org/react';
 import React, { PropsWithChildren } from 'react';
 import { MultiValue, SingleValue } from 'react-select';
 
-import { GrpcTlsType } from '../../../../../../core/clients/grpc-client/interfaces';
+import { GrpcTlsConfig, GrpcTlsType } from '../../../../../../core/clients/grpc-client/interfaces';
 import { GrpcMethodType } from '../../../../../../core/protobuf/interfaces';
 import { ColoredSelect } from '../../../../../components';
 import { Environment, GrpcTab, useEnvironmentsStore, useTabsStore } from '../../../../../storage';
@@ -62,7 +62,11 @@ export const SendHeader: React.FC<PropsWithChildren<SendHeaderProps<GrpcMethodTy
     setCreateEnvironmentModalVisible(false);
   };
 
-  const handleTlsSettingsModalSubmit = () => {
+  const handleTlsSettingsModalSubmit = (tls: GrpcTlsConfig<GrpcTlsType>) => {
+    updateGrpcTabData(tab.id, {
+      tls,
+    });
+
     setTlsSettingsModalVisible(false);
   };
 
@@ -179,8 +183,9 @@ export const SendHeader: React.FC<PropsWithChildren<SendHeaderProps<GrpcMethodTy
         fullScreen
         closeButton
         blur
+        defaultValues={tab.data.tls}
         open={tlsSettingsModalVisible}
-        onSubmit={handleTlsSettingsModalSubmit}
+        onCreate={handleTlsSettingsModalSubmit}
         onClose={handleTlsSettingsModalClose}
       />
     </>

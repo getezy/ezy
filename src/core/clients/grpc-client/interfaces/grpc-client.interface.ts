@@ -1,5 +1,3 @@
-import { ChannelOptions } from '@grpc/grpc-js';
-
 export enum GrpcTlsType {
   INSECURE = 'insecure',
   SERVER_SIDE = 'server-side',
@@ -12,12 +10,29 @@ export type GrpcTlsConfig<T extends GrpcTlsType = GrpcTlsType> = T extends GrpcT
   ? GrpcServerSideTlsConfig
   : GrpcInsecureTlsConfig;
 
+/**
+ * https://grpc.github.io/grpc/core/group__grpc__arg__keys.html
+ */
+export interface GrpcChannelOptions {
+  /**
+   * This should be used for testing only.
+   *
+   * The caller of the secure_channel_create functions may override
+   * the target name used for SSL host name checking using this channel
+   * argument which is of type GRPC_ARG_STRING. If this argument is
+   * not specified, the name used for SSL host name checking will be
+   * the target parameter (assuming that the secure channel is an SSL channel).
+   * If this parameter is specified and the underlying is not an SSL channel, it will just be ignored.
+   */
+  sslTargetNameOverride?: string;
+}
+
 export interface GrpcServerSideTlsConfig {
   type: GrpcTlsType.SERVER_SIDE;
 
   rootCertificatePath?: string;
 
-  channelOptions?: ChannelOptions;
+  channelOptions?: GrpcChannelOptions;
 }
 
 export interface GrpcMutualTlsConfig {
@@ -29,13 +44,13 @@ export interface GrpcMutualTlsConfig {
 
   clientKeyPath: string;
 
-  channelOptions?: ChannelOptions;
+  channelOptions?: GrpcChannelOptions;
 }
 
 export interface GrpcInsecureTlsConfig {
   type: GrpcTlsType.INSECURE;
 
-  channelOptions?: ChannelOptions;
+  channelOptions?: GrpcChannelOptions;
 }
 
 export interface GrpcClientRequestOptions {
