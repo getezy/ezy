@@ -123,6 +123,7 @@ export const CollectionNode: React.FC<TreeNodeRendererProps<Collection<Collectio
         </Tree>
       </TreeNode>
       <UpdateCollectionModal
+        fullScreen
         closeButton
         blur
         defaultValues={data}

@@ -90,6 +90,7 @@ export const SendHeader: React.FC<PropsWithChildren<SendHeaderProps<GrpcMethodTy
         }}
       >
         <ColoredSelect
+          aria-label="tab-environment-select"
           bordered
           borderWeight="light"
           size="sm"
@@ -102,6 +103,7 @@ export const SendHeader: React.FC<PropsWithChildren<SendHeaderProps<GrpcMethodTy
         />
         <Spacer x={0.2} />
         <Input
+          aria-label="tab-url-input"
           size="sm"
           bordered
           borderWeight="light"

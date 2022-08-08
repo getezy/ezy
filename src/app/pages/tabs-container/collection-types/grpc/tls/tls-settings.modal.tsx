@@ -23,7 +23,7 @@ export const TlsSettingsModal: React.FC<TlsSettingsModalProps> = ({
   };
 
   return (
-    <Modal {...props} onClose={onClose}>
+    <Modal {...props} aria-labelledby="tls-settings-modal" onClose={onClose}>
       <Modal.Header css={{ userSelect: 'none' }}>
         <Text>TLS Settings</Text>
       </Modal.Header>

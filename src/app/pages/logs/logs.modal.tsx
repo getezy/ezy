@@ -44,7 +44,7 @@ export const LogsModal: React.FC<ModalProps> = ({ onClose = () => {}, ...props }
   };
 
   return (
-    <Modal {...props} onClose={onClose}>
+    <Modal {...props} aria-labelledby="logs-modal" onClose={onClose}>
       <Modal.Header
         css={{
           background: 'transparent',

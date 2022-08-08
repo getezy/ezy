@@ -24,10 +24,10 @@ export const ExplorerSideBar = (): JSX.Element => {
   return (
     <StyledSideBar>
       <Input
+        aria-label="collection-search-input"
         bordered
         borderWeight="light"
         fullWidth
-        animated={false}
         placeholder="Search..."
         clearable
         size="sm"
