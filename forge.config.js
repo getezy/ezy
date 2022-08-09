@@ -2,8 +2,8 @@ const { version } = require('./package.json');
 
 const config = {
   packagerConfig: {
-    name: 'protogun',
-    executableName: 'protogun',
+    name: 'ezy',
+    executableName: 'ezy',
     asar: true,
   },
   makers: [
@@ -11,11 +11,11 @@ const config = {
       name: '@electron-forge/maker-squirrel',
       platforms: ['win32'],
       config: (arch) => ({
-        name: 'protogun',
-        exe: 'protogun.exe',
+        name: 'ezy',
+        exe: 'ezy.exe',
         noMsi: true,
 
-        setupExe: `protogun-${version}-win32-${arch}-setup.exe`,
+        setupExe: `ezy-${version}-win32-${arch}-setup.exe`,
       }),
     },
     {
@@ -58,8 +58,8 @@ const config = {
       name: '@electron-forge/publisher-github',
       config: {
         repository: {
-          owner: 'protogun',
-          name: 'protogun',
+          owner: 'getezy',
+          name: 'ezy',
         },
         draft: true,
         prerelease: false,

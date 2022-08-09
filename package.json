@@ -1,6 +1,6 @@
 {
-  "name": "protogun",
-  "productName": "protogun",
+  "name": "ezy",
+  "productName": "ezy",
   "version": "1.0.0-beta.2",
   "description": "Ultimate desktop gRPC client.",
   "main": ".webpack/main",
@@ -36,7 +36,7 @@
     "@fortawesome/fontawesome-svg-core": "6.1.2",
     "@fortawesome/free-solid-svg-icons": "6.1.2",
     "@fortawesome/react-fontawesome": "0.2.0",
-    "@grpc/grpc-js": "1.6.8",
+    "@grpc/grpc-js": "1.6.9",
     "@grpc/proto-loader": "0.7.0",
     "@lezer/highlight": "1.0.0",
     "@nextui-org/react": "1.0.0-beta.9",

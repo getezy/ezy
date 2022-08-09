@@ -26,7 +26,7 @@ export const Request: React.FC<RequestProps> = ({ tab }) => {
   const [metadata, setMetadata] = React.useState(tab.data.requestTabs.metadata.value);
 
   // TODO: with fast changes and clicking invoke button request payload stays old
-  // Related to https://github.com/protogun/protogun/issues/13
+  // Related to https://github.com/getezy/ezy/issues/13
   useDebounce(
     () => {
       updateGrpcTabData(tab.id, {
