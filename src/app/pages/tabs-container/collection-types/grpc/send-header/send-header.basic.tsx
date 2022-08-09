@@ -119,13 +119,17 @@ export const SendHeader: React.FC<PropsWithChildren<SendHeaderProps<GrpcMethodTy
               <Tooltip content="Connection is secure" placement="bottom" enterDelay={500}>
                 <Button
                   size="sm"
-                  color="success"
                   light
+                  animated={false}
                   css={{
                     background: 'transparent',
                     padding: 0,
                     margin: 0,
                     minWidth: 30,
+                    color: '$success',
+                    '&:hover': {
+                      color: '$successBorder',
+                    },
                   }}
                   icon={<FontAwesomeIcon icon={faLock} />}
                   onClick={handleTlsSettingsModalVisible}
@@ -136,13 +140,16 @@ export const SendHeader: React.FC<PropsWithChildren<SendHeaderProps<GrpcMethodTy
                 <Button
                   size="sm"
                   light
-                  color="gradient"
+                  animated={false}
                   css={{
                     background: 'transparent',
                     padding: 0,
                     margin: 0,
                     minWidth: 30,
                     color: '$accents6',
+                    '&:hover': {
+                      color: '$accents5',
+                    },
                   }}
                   icon={<FontAwesomeIcon icon={faUnlock} />}
                   onClick={handleTlsSettingsModalVisible}
