@@ -51,6 +51,7 @@ export type GrpcResponse<T extends GrpcMethodType> = T extends GrpcMethodType.UN
 export interface GrpcTabData<T extends GrpcMethodType> {
   environmentId?: string;
   url?: string;
+  // tlsId?: string;
   tls: GrpcTlsConfig;
 
   requestTabs: {
