@@ -10,19 +10,11 @@
 
 </div>
 
-## Introduction
-
-There are a lof of gRPC clients and right now this is another one. But we are focusing on build more complex dev environment and just started from gRPC protocol. In other words it's a PoC.
-
-In our mind every team need abbility to collaborate, synchronize there work, see changes. Usually teams have JIRA, Confluence, Slack or something similar but this products are not actualy dev-oriented.
-
-The real goal is to create an easy to use, comfortable and functional dev environment where Team (first of all developers and testers) can see realy what they need.
-
-So stay tuned, and get easy 😉
+`Ezy` is a desktop gRPC client.
 
 ## Features
 ✅ Localy persisted collections.  
-✅ Tabs.  
+✅ Multi-tabs.  
 ✅ Environments.  
 
 **gRPC**  
