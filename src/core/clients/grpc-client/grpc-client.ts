@@ -101,7 +101,7 @@ export class GrpcClient {
             return resolve({
               code: error.code,
               details: error.details,
-              metadata: error.metadata?.toJSON(),
+              metadata: error.metadata,
             });
           }
 
@@ -141,7 +141,7 @@ export class GrpcClient {
           return call.emit('error', {
             code: error.code,
             details: error.details,
-            metadata: error.metadata?.toJSON(),
+            metadata: error.metadata,
           });
         }
 

@@ -17,15 +17,29 @@ const StyledContainer = styled('div', {
   overflow: 'hidden',
 });
 
+const ListWrapper = styled('ul', {
+  display: 'flex',
+  flexDirection: 'column',
+  flex: 1,
+
+  margin: 0,
+
+  overflow: 'auto',
+
+  backgroundColor: '$backgroundContrast',
+});
+
 export const ClientStreamingResponse: React.FC<ClientStreamingResponseProps> = ({ tab }) => (
   <StyledContainer>
     <Tabs activeKey={tab.data.response.id} activeBar={{ color: 'secondary', position: 'bottom' }}>
       <Tab title="Response" id={tab.data.response.id} key={tab.data.response.id}>
-        <Tree<GrpcStreamMessage> data={tab.data.response.messages} defaultIsOpen={false}>
-          {tab.data.response.messages?.map((message) => (
-            <ReponseNode id={message.id} key={message.id} data={message} />
-          ))}
-        </Tree>
+        <ListWrapper>
+          <Tree<GrpcStreamMessage> data={tab.data.response.messages} defaultIsOpen={false}>
+            {tab.data.response.messages?.map((message) => (
+              <ReponseNode id={message.id} key={message.id} data={message} />
+            ))}
+          </Tree>
+        </ListWrapper>
       </Tab>
     </Tabs>
   </StyledContainer>
