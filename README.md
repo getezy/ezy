@@ -22,7 +22,7 @@
 ✅ Client/Server/Bidirectional streaming.  
 ✅ Metadata support.  
 ✅ TLS (Server-side/Mutual) support.  
-✅ Good errors outptut.
+✅ Good errors outptut.  
 
 ## Getting started
 Install the latest version for your OS from [release page](https://github.com/getezy/ezy/releases/latest).

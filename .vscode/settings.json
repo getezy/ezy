@@ -13,4 +13,7 @@
       "changeProcessCWD": true
     },
   ],
+  "yaml.schemas": {
+    "https://json.schemastore.org/github-issue-config.json": "file:///Users/notmedia/work/getezy/ezy/.github/ISSUE_TEMPLATE/config.yml"
+  },
 }
