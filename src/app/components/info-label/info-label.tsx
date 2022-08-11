@@ -5,7 +5,7 @@ import React from 'react';
 
 export interface InfoLabelProps {
   label: string;
-  description: string;
+  description?: string;
 
   color?: SimpleColors;
 }
@@ -25,10 +25,16 @@ const StyledIcon = styled(FontAwesomeIcon, {
 
 export const InfoLabel: React.FC<InfoLabelProps> = ({ label, description, color }) => (
   <InfoLabelWrapper>
-    <Text color={color}>{label}</Text>
-    <Spacer x={0.3} />
-    <Tooltip content={description} placement="right" css={{ zIndex: '$max' }}>
-      <StyledIcon icon={faCircleInfo} />
-    </Tooltip>
+    <Text color={color} size={14}>
+      {label}
+    </Text>
+    {description && (
+      <>
+        <Spacer x={0.3} />
+        <Tooltip content={description} placement="right" css={{ zIndex: '$max' }}>
+          <StyledIcon icon={faCircleInfo} />
+        </Tooltip>
+      </>
+    )}
   </InfoLabelWrapper>
 );

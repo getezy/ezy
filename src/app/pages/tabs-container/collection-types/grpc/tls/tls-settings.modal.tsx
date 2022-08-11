@@ -1,3 +1,5 @@
+import { faSquarePlus } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Button, Container, CSS, Grid, Modal, ModalProps, Spacer, Text } from '@nextui-org/react';
 import React from 'react';
 
@@ -10,18 +12,20 @@ import { TlsForm } from './tls.form';
 import { TlsPresetsList } from './tls-presets-list';
 
 const PresetsListStyles: CSS = {
-  minWidth: 200,
-  maxWidth: 200,
+  minWidth: 250,
+  maxWidth: 250,
   background: '$backgroundContrast',
   borderRight: 'solid $border 1px',
 };
 
 export type TlsSettingsModalProps = ModalProps & {
+  selectedTlsPresetId?: string;
   defaultValues?: Partial<GrpcTlsConfig<GrpcTlsType>>;
   onCreate: (tls: GrpcTlsConfig<GrpcTlsType>) => void;
 };
 
 export const TlsSettingsModal: React.FC<TlsSettingsModalProps> = ({
+  selectedTlsPresetId,
   onCreate,
   onClose = () => {},
   defaultValues,
@@ -34,33 +38,36 @@ export const TlsSettingsModal: React.FC<TlsSettingsModalProps> = ({
   };
 
   return (
-    <Modal {...props} aria-labelledby="tls-settings-modal" noPadding onClose={onClose}>
-      {/* <Modal.Header css={{ userSelect: 'none' }}>
-        <Text>TLS Settings</Text>
-      </Modal.Header> */}
+    <Modal
+      {...props}
+      aria-labelledby="tls-settings-modal"
+      noPadding
+      onClose={onClose}
+      css={{ padding: 0 }}
+    >
       <Modal.Body>
-        {/* <div
-          style={{
-            display: 'flex',
-            flex: 1,
-            background: 'red',
-            flexDirection: 'column',
-            overflow: 'hidden',
-          }}
-        >
-          <div style={{ display: 'flex', flex: 1, background: 'blue', overflow: 'auto' }}>
-            <Text>{'loremipsum\n'.repeat(200)}</Text>
-          </div>
-          <div style={{ display: 'flex', background: 'green', justifyContent: 'flex-end' }}>
-            <Button>Test</Button>
-          </div>
-        </div> */}
         <Grid.Container gap={0} wrap="nowrap" css={{ flex: 1, overflow: 'hidden' }}>
           <Grid css={PresetsListStyles}>
-            <TlsPresetsList presets={presets} />
+            <Container
+              display="flex"
+              justify="center"
+              css={{ paddingTop: 10, paddingBottom: 10, borderBottom: 'solid $border 1px' }}
+            >
+              <Button
+                auto
+                bordered
+                borderWeight="light"
+                color="gradient"
+                size="sm"
+                icon={<FontAwesomeIcon icon={faSquarePlus} />}
+              >
+                New TLS
+              </Button>
+            </Container>
+            <TlsPresetsList selectedTlsPresetId={selectedTlsPresetId} presets={presets} />
           </Grid>
           <Grid direction="column" css={{ display: 'flex', flex: 1 }}>
-            <Container fluid display="flex" justify="center">
+            <Container fluid display="flex" justify="center" css={{ paddingTop: 10 }}>
               <Text css={{ userSelect: 'none' }}>TLS Settings</Text>
             </Container>
             <Container

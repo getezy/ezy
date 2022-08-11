@@ -1,4 +1,4 @@
-import { CSS, styled } from '@nextui-org/react';
+import { CSS, styled, VariantProps } from '@nextui-org/react';
 import React, { PropsWithChildren } from 'react';
 
 import { CollapseButton } from './collapse.button';
@@ -6,19 +6,28 @@ import { CollapseButton } from './collapse.button';
 const StyledTreeNode = styled('li', {
   display: 'flex',
   flexWrap: 'nowrap',
-  paddingTop: 10,
-  paddingBottom: 10,
-  paddingRight: 5,
+  padding: 0,
   margin: 0,
   overflow: 'auto',
 
   '&:hover': {
     backgroundColor: '$accents1',
   },
+
+  variants: {
+    defaultPadding: {
+      true: {
+        paddingTop: 10,
+        paddingBottom: 10,
+        paddingRight: 5,
+      },
+    },
+  },
 });
 
 const StyledCommandsPanelWrapper = styled('div', {
   display: 'flex',
+  alignItems: 'center',
   flexWrap: 'nowrap',
   marginLeft: 'auto',
 });
@@ -38,7 +47,7 @@ export type TreeNodeProps = {
   onDoubleClick?: (id: string) => void;
 
   css?: CSS;
-};
+} & VariantProps<typeof StyledTreeNode>;
 
 export type TreeNodeRendererProps<T> = Partial<TreeNodeProps> & {
   data: T;
@@ -50,6 +59,7 @@ export const TreeNode: React.FC<PropsWithChildren<TreeNodeProps>> = ({
   commandsContent,
   children,
   isOpen = true,
+  defaultPadding = false,
   onCollapseToggle,
   onClick,
   onDoubleClick,
@@ -91,6 +101,7 @@ export const TreeNode: React.FC<PropsWithChildren<TreeNodeProps>> = ({
     <>
       <StyledTreeNode
         key={id}
+        defaultPadding={defaultPadding}
         css={css}
         onClick={handleClick}
         onDoubleClick={handleDoubleClick}

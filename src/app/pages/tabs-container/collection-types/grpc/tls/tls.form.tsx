@@ -63,6 +63,16 @@ export const TlsForm: React.FC<TlsFormProps> = ({
       style={{ display: 'flex', flex: 1, overflow: 'auto' }}
     >
       <Container fluid gap={1} display="flex" direction="column" wrap="nowrap">
+        <Input
+          size="sm"
+          bordered
+          borderWeight="light"
+          animated={false}
+          clearable
+          label="Name"
+          // {...register('channelOptions.sslTargetNameOverride')}
+        />
+        <Spacer />
         <Radio.Group
           orientation="horizontal"
           label="TLS type"

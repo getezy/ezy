@@ -63,6 +63,7 @@ export const ReponseNode: React.FC<TreeNodeRendererProps<GrpcStreamMessage>> = (
       commandsContent={data.value && commandsContent}
       isOpen={isOpen}
       onCollapseToggle={onCollapseToggle}
+      defaultPadding
     >
       {data.value && (
         <CodeEditor

@@ -115,6 +115,7 @@ export const CollectionNode: React.FC<TreeNodeRendererProps<Collection<Collectio
         commandsContent={commandsContent}
         isOpen={isOpen}
         onCollapseToggle={onCollapseToggle}
+        defaultPadding
       >
         <Tree<GrpcService> data={data.children}>
           {data.children?.map((service) => (

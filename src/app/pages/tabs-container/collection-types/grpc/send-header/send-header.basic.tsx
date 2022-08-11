@@ -193,6 +193,7 @@ export const SendHeader: React.FC<PropsWithChildren<SendHeaderProps<GrpcMethodTy
         closeButton
         blur
         defaultValues={tab.data.tls}
+        selectedTlsPresetId={tab.data.tlsId}
         open={tlsSettingsModalVisible}
         onCreate={handleTlsSettingsModalSubmit}
         onClose={handleTlsSettingsModalClose}
