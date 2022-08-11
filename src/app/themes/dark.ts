@@ -6,6 +6,7 @@ export const DarkTheme = createTheme({
     colors: {
       background: '#141414',
       selection: 'rgba(166, 198, 224, 0.2)',
+      gradient: 'linear-gradient(112deg, $yellow300 -25%, $yellow500 30%, $cyan400 90%)',
     },
   },
 });
