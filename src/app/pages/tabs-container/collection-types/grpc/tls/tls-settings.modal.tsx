@@ -108,7 +108,7 @@ export const TlsSettingsModal: React.FC<TlsSettingsModalProps> = ({
                   type="submit"
                   form="tls-form"
                 >
-                  Save
+                  Apply
                 </Button>
               </Container>
             </Container>

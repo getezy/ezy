@@ -1,4 +1,4 @@
-import { faEdit } from '@fortawesome/free-solid-svg-icons';
+import { faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Button, Container, Radio, Text } from '@nextui-org/react';
 import React from 'react';
@@ -26,20 +26,36 @@ const ReponseNode: React.FC<TreeNodeRendererProps<TlsPreset>> = ({
   );
 
   const commandsContent = (
-    <Button
-      light
-      size="xs"
-      color="warning"
-      css={{
-        minWidth: 10,
-        color: '$accents9',
-        '&:hover': {
-          color: '$warning',
-          backgroundColor: '$accents0',
-        },
-      }}
-      icon={<FontAwesomeIcon icon={faEdit} />}
-    />
+    <Container gap={0} display="flex" css={{ marginLeft: 'auto' }}>
+      <Button
+        light
+        size="xs"
+        color="warning"
+        css={{
+          minWidth: 10,
+          color: '$accents9',
+          '&:hover': {
+            color: '$warning',
+            backgroundColor: '$accents0',
+          },
+        }}
+        icon={<FontAwesomeIcon icon={faEdit} />}
+      />
+      <Button
+        light
+        size="xs"
+        color="error"
+        css={{
+          minWidth: 10,
+          color: '$accents9',
+          '&:hover': {
+            color: '$error',
+            backgroundColor: '$accents0',
+          },
+        }}
+        icon={<FontAwesomeIcon icon={faTrash} />}
+      />
+    </Container>
   );
 
   return (
@@ -65,7 +81,7 @@ export interface TlsPresetsListProps {
 }
 
 export const TlsPresetsList: React.FC<TlsPresetsListProps> = ({ selectedTlsPresetId, presets }) => (
-  <Container gap={0} fluid css={{ overflow: 'auto' }}>
+  <Container gap={0} fluid>
     <Radio.Group defaultValue={selectedTlsPresetId}>
       <Tree<TlsPreset> data={presets}>
         {presets.map((preset) => (

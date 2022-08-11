@@ -43,15 +43,14 @@ const RemoveButton = styled('div', {
   alignContent: 'center',
   justifyContent: 'center',
 
-  border: 'solid 1px $errorBorder',
   borderRadius: '$squared',
   width: 24,
   height: 24,
-  color: '$error',
+  color: '$accents9',
 
   '&:hover': {
-    border: 'solid 1px $errorBorderHover',
-    color: '$errorLightContrast',
+    color: '$error',
+    backgroundColor: '$accents0',
   },
 });
 
