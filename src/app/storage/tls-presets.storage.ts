@@ -1,30 +1,30 @@
-// import { produce } from 'immer';
-// import create from 'zustand';
-// import { persist } from 'zustand/middleware';
+import { produce } from 'immer';
+import create from 'zustand';
+import { persist } from 'zustand/middleware';
 
-// import { EnvironmentsStorage } from './interfaces';
+import { TlsPresetsStorage } from './interfaces';
 
-// export const useEnvironmentsStore = create(
-//   persist<EnvironmentsStorage>(
-//     (set) => ({
-//       environments: [],
-//       createEnvironment: (environment) =>
-//         set(
-//           produce<EnvironmentsStorage>((state) => {
-//             state.environments.push(environment);
-//           })
-//         ),
-//       removeEnvironment: (id) =>
-//         set(
-//           produce<EnvironmentsStorage>((state) => {
-//             const index = state.environments.findIndex((environment) => environment.id === id);
-//             if (index !== -1) state.environments.splice(index, 1);
-//           })
-//         ),
-//     }),
-//     {
-//       name: 'environments',
-//       getStorage: () => window.electronStore,
-//     }
-//   )
-// );
+export const useTlsPresetsStore = create(
+  persist<TlsPresetsStorage>(
+    (set) => ({
+      presets: [],
+      createTlsPreset: (preset) =>
+        set(
+          produce<TlsPresetsStorage>((state) => {
+            state.presets.push(preset);
+          })
+        ),
+      removeTlsPreset: (id) =>
+        set(
+          produce<TlsPresetsStorage>((state) => {
+            const index = state.presets.findIndex((preset) => preset.id === id);
+            if (index !== -1) state.presets.splice(index, 1);
+          })
+        ),
+    }),
+    {
+      name: 'tls-presets',
+      getStorage: () => window.electronStore,
+    }
+  )
+);

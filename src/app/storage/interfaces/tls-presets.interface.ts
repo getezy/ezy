@@ -1,16 +1,17 @@
-// import {
-//   GrpcTlsConfig,
-//   GrpcTlsType,
-// } from '../../../core/clients/grpc-client/interfaces/grpc-client.interface';
+import {
+  GrpcTlsConfig,
+  GrpcTlsType,
+} from '../../../core/clients/grpc-client/interfaces/grpc-client.interface';
 
-// export interface TlsPreset {
-//   id: string;
-//   name: string;
-// }
+export interface TlsPreset {
+  id: string;
+  name: string;
+  tls: GrpcTlsConfig<GrpcTlsType>;
+}
 
-// export interface TlsPresetsStorage {
-//   environments: Environment[];
+export interface TlsPresetsStorage {
+  presets: TlsPreset[];
 
-//   createEnvironment: (environment: Environment) => void;
-//   removeEnvironment: (id: string) => void;
-// }
+  createTlsPreset: (preset: TlsPreset) => void;
+  removeTlsPreset: (id: string) => void;
+}

@@ -57,8 +57,12 @@ export const TlsForm: React.FC<TlsFormProps> = ({
   };
 
   return (
-    <form id={id} onSubmit={handleSubmit(onSubmit)}>
-      <Container gap={0} css={{ display: 'flex', flexDirection: 'column' }}>
+    <form
+      id={id}
+      onSubmit={handleSubmit(onSubmit)}
+      style={{ display: 'flex', flex: 1, overflow: 'auto' }}
+    >
+      <Container fluid gap={1} display="flex" direction="column" wrap="nowrap">
         <Radio.Group
           orientation="horizontal"
           label="TLS type"
@@ -161,7 +165,7 @@ export const TlsForm: React.FC<TlsFormProps> = ({
         {watch('type') !== GrpcTlsType.INSECURE && (
           <>
             <Spacer />
-            <Text>Channel options</Text>
+            <Text css={{ margin: 0, color: '$accents8' }}>Channel options</Text>
             <Input
               size="sm"
               bordered
@@ -175,6 +179,7 @@ export const TlsForm: React.FC<TlsFormProps> = ({
                   description="CN of the root certificate. It will be helpful when the actual server behind the proxy and CN don't match."
                 />
               }
+              css={{ paddingBottom: 10 }}
               {...register('channelOptions.sslTargetNameOverride')}
             />
           </>

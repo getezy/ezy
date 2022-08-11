@@ -37,7 +37,7 @@ export const Header: React.FC = () => {
         icon={<FontAwesomeIcon icon={faSquarePlus} />}
         onClick={() => setCreateCollectionModalVisible(true)}
       >
-        Add collection
+        New collection
       </Button>
       <Spacer />
       <CreateCollectionModal
