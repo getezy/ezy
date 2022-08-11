@@ -10,7 +10,9 @@
 
 </div>
 
-`Ezy` is a desktop gRPC client.
+`Ezy` - desktop gRPC client.
+
+⚠️ **WARNING!** This project is in beta phase and can get breaking changes at any time until it goes to v1. 🏗
 
 ## Features
 ✅ Localy persisted collections.  
