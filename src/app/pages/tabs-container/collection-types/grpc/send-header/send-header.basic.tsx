@@ -4,10 +4,16 @@ import { Button, Container, Input, Spacer, Tooltip } from '@nextui-org/react';
 import React, { PropsWithChildren } from 'react';
 import { MultiValue, SingleValue } from 'react-select';
 
-import { GrpcTlsConfig, GrpcTlsType } from '../../../../../../core/clients/grpc-client/interfaces';
+import { GrpcTlsType } from '../../../../../../core/clients/grpc-client/interfaces';
 import { GrpcMethodType } from '../../../../../../core/protobuf/interfaces';
 import { ColoredSelect } from '../../../../../components';
-import { Environment, GrpcTab, useEnvironmentsStore, useTabsStore } from '../../../../../storage';
+import {
+  Environment,
+  GrpcTab,
+  useEnvironmentsStore,
+  useTabsStore,
+  useTlsPresetsStore,
+} from '../../../../../storage';
 import { CreateEnvironmentModal } from '../environments';
 import { TlsSettingsModal } from '../tls';
 
@@ -21,9 +27,12 @@ export const SendHeader: React.FC<PropsWithChildren<SendHeaderProps<GrpcMethodTy
 }) => {
   const { updateGrpcTabData, updateGrpcTabsEnvironment } = useTabsStore((store) => store);
   const { removeEnvironment, environments } = useEnvironmentsStore((store) => store);
+  const tlsPresets = useTlsPresetsStore((store) => store.presets);
 
   const selectedEnvironment =
     environments.find((item) => item.id === tab.data.environmentId) || null;
+
+  const selectedTlsPreset = tlsPresets.find((item) => item.id === tab.data.tlsId);
 
   const [createEnvironmentModalVisible, setCreateEnvironmentModalVisible] = React.useState(false);
   const [tlsSettingsModalVisible, setTlsSettingsModalVisible] = React.useState(false);
@@ -62,12 +71,10 @@ export const SendHeader: React.FC<PropsWithChildren<SendHeaderProps<GrpcMethodTy
     setCreateEnvironmentModalVisible(false);
   };
 
-  const handleTlsSettingsModalSubmit = (tls: GrpcTlsConfig<GrpcTlsType>) => {
+  const handleTlsSettingsModalSubmit = (id: string) => {
     updateGrpcTabData(tab.id, {
-      tls,
+      tlsId: id,
     });
-
-    setTlsSettingsModalVisible(false);
   };
 
   const handleTlsSettingsModalVisible = () => {
@@ -115,7 +122,7 @@ export const SendHeader: React.FC<PropsWithChildren<SendHeaderProps<GrpcMethodTy
           onChange={handleUrlChange}
           contentLeftStyling={false}
           contentLeft={
-            tab.data.tls.type !== GrpcTlsType.INSECURE ? (
+            selectedTlsPreset && selectedTlsPreset.tls.type !== GrpcTlsType.INSECURE ? (
               <Tooltip content="Connection is secure" placement="bottom" enterDelay={500}>
                 <Button
                   size="sm"
@@ -192,10 +199,9 @@ export const SendHeader: React.FC<PropsWithChildren<SendHeaderProps<GrpcMethodTy
         fullScreen
         closeButton
         blur
-        defaultValues={tab.data.tls}
-        selectedTlsPresetId={tab.data.tlsId}
+        defaultValues={selectedTlsPreset}
         open={tlsSettingsModalVisible}
-        onCreate={handleTlsSettingsModalSubmit}
+        onApply={handleTlsSettingsModalSubmit}
         onClose={handleTlsSettingsModalClose}
       />
     </>

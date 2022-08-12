@@ -1,20 +1,37 @@
 import { MetadataValue } from '@grpc/grpc-js';
 
-import { GrpcClientRequestOptions } from '../../../../../../core/clients/grpc-client/interfaces';
+import {
+  GrpcClientRequestOptions,
+  GrpcTlsConfig,
+  GrpcTlsType,
+} from '../../../../../../core/clients/grpc-client/interfaces';
 import { GrpcMethodType, GrpcOptions } from '../../../../../../core/protobuf/interfaces';
-import { Collection, CollectionType, GrpcTab } from '../../../../../storage';
+import { Collection, CollectionType, GrpcTab, TlsPreset } from '../../../../../storage';
 
 function getRequestAddress(tab: GrpcTab<GrpcMethodType>): string {
   if (tab.data.url && tab.data.url.length > 0) {
     return tab.data.url;
   }
 
-  throw new Error(`Address is empty.`);
+  throw new Error('Address is empty.');
+}
+
+export function getTlsOptions(presets: TlsPreset[], id?: string): GrpcTlsConfig<GrpcTlsType> {
+  const preset = presets.find((item) => item.id === id);
+
+  if (preset) {
+    return preset.tls;
+  }
+
+  return {
+    type: GrpcTlsType.INSECURE,
+  };
 }
 
 export function getOptions(
   collections: Collection<CollectionType>[],
-  tab: GrpcTab<GrpcMethodType>
+  tab: GrpcTab<GrpcMethodType>,
+  tls: GrpcTlsConfig<GrpcTlsType>
 ): [GrpcOptions, GrpcClientRequestOptions] {
   const collection = collections.find((item) => item.id === tab.info.collectionId);
   const service = collection?.children?.find((item) => item.id === tab.info.serviceId);
@@ -27,7 +44,7 @@ export function getOptions(
         serviceName: service.name,
         methodName: method.name,
         address: getRequestAddress(tab),
-        tls: tab.data.tls,
+        tls,
       },
     ];
   }

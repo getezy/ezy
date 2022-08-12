@@ -16,6 +16,7 @@ import {
   isGrpcTabServerStreaming,
   TabsStorage,
 } from './interfaces';
+import { useTlsPresetsStore } from './tls-presets.storage';
 
 export const useTabsStore = create(
   persist<TabsStorage>(
@@ -57,19 +58,21 @@ export const useTabsStore = create(
             const tabId = nanoid();
             const requestTabId = nanoid();
 
+            const tls = useTlsPresetsStore
+              .getState()
+              .presets.find((item) => item.system && item.tls.type === GrpcTlsType.INSECURE);
+
             const tab: GrpcTab<GrpcMethodType> = {
               ...payload,
               id: tabId,
               data: {
-                tls: {
-                  type: GrpcTlsType.INSECURE,
-                },
                 requestTabs: {
                   activeTabId: requestTabId,
                   request: { id: requestTabId },
                   metadata: { id: nanoid() },
                 },
                 response: { id: nanoid() },
+                tlsId: tls?.id,
               },
             };
 

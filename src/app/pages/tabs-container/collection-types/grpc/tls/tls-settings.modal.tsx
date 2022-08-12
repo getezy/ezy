@@ -1,13 +1,12 @@
 import { faSquarePlus } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Button, Container, CSS, Grid, Modal, ModalProps, Spacer, Text } from '@nextui-org/react';
+import { nanoid } from 'nanoid';
 import React from 'react';
+import { DeepPartial } from 'react-hook-form';
 
-import {
-  GrpcTlsConfig,
-  GrpcTlsType,
-} from '../../../../../../core/clients/grpc-client/interfaces/grpc-client.interface';
-import { useTlsPresetsStore } from '../../../../../storage';
+import { GrpcTlsType } from '../../../../../../core/clients/grpc-client/interfaces/grpc-client.interface';
+import { TlsPreset, useTlsPresetsStore } from '../../../../../storage';
 import { TlsForm } from './tls.form';
 import { TlsPresetsList } from './tls-presets-list';
 
@@ -19,33 +18,75 @@ const PresetsListStyles: CSS = {
 };
 
 export type TlsSettingsModalProps = ModalProps & {
-  selectedTlsPresetId?: string;
-  defaultValues?: Partial<GrpcTlsConfig<GrpcTlsType>>;
-  onCreate: (tls: GrpcTlsConfig<GrpcTlsType>) => void;
+  defaultValues?: DeepPartial<TlsPreset>;
+  onApply: (id: string) => void;
+  onClose: () => void;
 };
 
 export const TlsSettingsModal: React.FC<TlsSettingsModalProps> = ({
-  selectedTlsPresetId,
-  onCreate,
+  onApply,
   onClose = () => {},
   defaultValues,
   ...props
 }) => {
-  const presets = useTlsPresetsStore((store) => store.presets);
+  const { presets, createTlsPreset } = useTlsPresetsStore((store) => store);
 
   const [formDefaultValues, setFormDefaultValues] = React.useState(defaultValues);
-  // TODO: set readonly first
-  const [formReadonly, setFormReadonly] = React.useState(false);
+  const [formReadonly, setFormReadonly] = React.useState(!!defaultValues?.system);
 
-  const handleSubmit = (payload: GrpcTlsConfig<GrpcTlsType>) => {
-    onCreate(payload);
+  React.useEffect(() => {
+    setFormDefaultValues(defaultValues);
+    setFormReadonly(!!defaultValues?.system);
+  }, [defaultValues]);
+
+  const handleNewTlsButtonClick = () => {
+    setFormDefaultValues({
+      name: '',
+      tls: {
+        type: GrpcTlsType.SERVER_SIDE,
+      },
+    });
+
+    setFormReadonly(false);
+  };
+
+  const handleSubmit = (payload: Omit<TlsPreset, 'id'> & Partial<Pick<TlsPreset, 'id'>>) => {
+    if (payload.id) {
+      onApply(payload.id);
+    } else {
+      const id = nanoid();
+      createTlsPreset({
+        id,
+        ...payload,
+      });
+
+      onApply(id);
+    }
+
+    onClose();
+  };
+
+  const handleCloseButtonClick = () => {
+    setFormDefaultValues(defaultValues);
+    setFormReadonly(!!defaultValues?.system);
+    onClose();
   };
 
   const handleTlsPresetChange = (id: string) => {
     const preset = presets.find((item) => item.id === id);
     if (preset) {
-      setFormDefaultValues(preset.tls);
+      setFormDefaultValues(preset);
       setFormReadonly(preset.system);
+    }
+  };
+
+  const handleTlsPresetRemove = (id: string) => {
+    if (id === formDefaultValues?.id) {
+      const preset = presets.find((item) => item.system && item.tls.type === GrpcTlsType.INSECURE);
+      if (preset) {
+        handleTlsPresetChange(preset.id);
+        onApply(preset.id);
+      }
     }
   };
 
@@ -54,7 +95,7 @@ export const TlsSettingsModal: React.FC<TlsSettingsModalProps> = ({
       {...props}
       aria-labelledby="tls-settings-modal"
       noPadding
-      onClose={onClose}
+      onClose={handleCloseButtonClick}
       css={{ padding: 0 }}
     >
       <Modal.Body>
@@ -72,14 +113,16 @@ export const TlsSettingsModal: React.FC<TlsSettingsModalProps> = ({
                 color="gradient"
                 size="sm"
                 icon={<FontAwesomeIcon icon={faSquarePlus} />}
+                onClick={handleNewTlsButtonClick}
               >
                 New TLS preset
               </Button>
             </Container>
             <TlsPresetsList
-              selectedTlsPresetId={selectedTlsPresetId}
+              selectedTlsPresetId={formDefaultValues?.id}
               presets={presets}
               onTlsPresetChange={handleTlsPresetChange}
+              onTlsPresetRemove={handleTlsPresetRemove}
             />
           </Grid>
           <Grid direction="column" css={{ display: 'flex', flex: 1 }}>
@@ -115,7 +158,7 @@ export const TlsSettingsModal: React.FC<TlsSettingsModalProps> = ({
                   borderWeight="light"
                   size="sm"
                   color="error"
-                  onClick={onClose}
+                  onClick={handleCloseButtonClick}
                 >
                   Cancel
                 </Button>
@@ -129,7 +172,7 @@ export const TlsSettingsModal: React.FC<TlsSettingsModalProps> = ({
                   type="submit"
                   form="tls-form"
                 >
-                  Apply
+                  {formDefaultValues?.system ? 'Apply' : 'Save & Apply'}
                 </Button>
               </Container>
             </Container>

@@ -5,12 +5,14 @@ import {
   GrpcTab,
   useCollectionsStore,
   useTabsStore,
+  useTlsPresetsStore,
 } from '../../../../../storage';
-import { getOptions, parseMetadata, parseRequest } from './prepare-request';
+import { getOptions, getTlsOptions, parseMetadata, parseRequest } from './prepare-request';
 
 export function useBidirectionalStreaming() {
   const collections = useCollectionsStore((store) => store.collections);
   const { addGrpcStreamMessage } = useTabsStore((store) => store);
+  const tlsPresets = useTlsPresetsStore((store) => store.presets);
   const { notification } = useNotification();
 
   async function invoke(
@@ -18,7 +20,8 @@ export function useBidirectionalStreaming() {
     onEnd: () => void
   ): Promise<string | undefined> {
     try {
-      const [grpcOptions, requestOptions] = getOptions(collections, tab);
+      const tls = getTlsOptions(tlsPresets, tab.data.tlsId);
+      const [grpcOptions, requestOptions] = getOptions(collections, tab, tls);
       const metadata = parseMetadata(tab);
 
       addGrpcStreamMessage(

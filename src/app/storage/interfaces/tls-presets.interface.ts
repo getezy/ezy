@@ -13,6 +13,6 @@ export interface TlsPreset {
 export interface TlsPresetsStorage {
   presets: TlsPreset[];
 
-  createTlsPreset: (preset: Omit<TlsPreset, 'id' | 'system'>) => void;
+  createTlsPreset: (preset: Omit<TlsPreset, 'system'>) => void;
   removeTlsPreset: (id: string) => void;
 }

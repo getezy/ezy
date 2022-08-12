@@ -27,7 +27,6 @@ export const useTlsPresetsStore = create(
         set(
           produce<TlsPresetsStorage>((state) => {
             state.presets.push({
-              id: nanoid(),
               system: false,
               ...preset,
             });

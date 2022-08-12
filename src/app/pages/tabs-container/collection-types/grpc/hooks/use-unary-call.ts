@@ -1,16 +1,23 @@
 import { GrpcMethodType } from '../../../../../../core/protobuf/interfaces';
 import { useNotification } from '../../../../../components';
-import { GrpcTab, useCollectionsStore, useTabsStore } from '../../../../../storage';
-import { getOptions, parseMetadata, parseRequest } from './prepare-request';
+import {
+  GrpcTab,
+  useCollectionsStore,
+  useTabsStore,
+  useTlsPresetsStore,
+} from '../../../../../storage';
+import { getOptions, getTlsOptions, parseMetadata, parseRequest } from './prepare-request';
 
 export function useUnaryCall() {
   const collections = useCollectionsStore((store) => store.collections);
   const { updateGrpcTabData } = useTabsStore((store) => store);
+  const tlsPresets = useTlsPresetsStore((store) => store.presets);
   const { notification } = useNotification();
 
   async function invoke(tab: GrpcTab<GrpcMethodType.UNARY>): Promise<void> {
     try {
-      const [grpcOptions, requestOptions] = getOptions(collections, tab);
+      const tls = getTlsOptions(tlsPresets, tab.data.tlsId);
+      const [grpcOptions, requestOptions] = getOptions(collections, tab, tls);
       const request = parseRequest(tab);
       const metadata = parseMetadata(tab);
 

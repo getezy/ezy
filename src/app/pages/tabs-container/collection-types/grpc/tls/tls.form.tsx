@@ -1,40 +1,50 @@
-import { Card, Container, Input, Radio, Spacer, Text } from '@nextui-org/react';
+import { faCircleInfo } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Card, Container, Input, Radio, Spacer, styled, Text } from '@nextui-org/react';
 import React from 'react';
-import { Controller, DeepRequired, FieldErrorsImpl, useForm } from 'react-hook-form';
+import { Controller, DeepPartial, useForm } from 'react-hook-form';
 
-import {
-  GrpcTlsConfig,
-  GrpcTlsType,
-} from '../../../../../../core/clients/grpc-client/interfaces/grpc-client.interface';
+import { GrpcTlsType } from '../../../../../../core/clients/grpc-client/interfaces/grpc-client.interface';
 import { FileInput, InfoLabel } from '../../../../../components';
+import { TlsPreset } from '../../../../../storage';
 
 export interface TlsFormProps {
   id?: string;
 
   isReadonly?: boolean;
 
-  defaultValues?: Partial<GrpcTlsConfig<GrpcTlsType>>;
+  defaultValues?: DeepPartial<TlsPreset>;
 
-  onSubmit: (payload: GrpcTlsConfig<GrpcTlsType>) => void;
+  onSubmit: (payload: Omit<TlsPreset, 'id'> & Partial<Pick<TlsPreset, 'id'>>) => void;
 }
 
-function getError(
-  errors: FieldErrorsImpl<DeepRequired<GrpcTlsConfig<GrpcTlsType>>>,
-  field: 'clientCertificatePath' | 'clientKeyPath'
-) {
-  if (field in errors) {
-    // @ts-ignore
-    return errors[field];
-  }
+const StyledInfoIcon = styled(FontAwesomeIcon, {
+  color: '$warning',
+});
 
-  return undefined;
-}
+const SystemCard: React.FC = () => (
+  <Container fluid gap={0}>
+    <Spacer />
+    <Card variant="bordered" isHoverable>
+      <Card.Body>
+        <Container gap={0} display="flex" direction="row" wrap="nowrap" alignItems="center">
+          <StyledInfoIcon icon={faCircleInfo} />
+          <Spacer x={0.5} />
+          <Text small>
+            This is system TLS preset and it couldn`t be changed. For use custom preset create one.
+          </Text>
+        </Container>
+      </Card.Body>
+    </Card>
+    <Spacer />
+  </Container>
+);
 
 export const TlsForm: React.FC<TlsFormProps> = ({
   onSubmit = () => {},
   id,
   isReadonly = false,
-  defaultValues = { type: GrpcTlsType.MUTUAL },
+  defaultValues,
 }) => {
   const {
     control,
@@ -44,7 +54,7 @@ export const TlsForm: React.FC<TlsFormProps> = ({
     formState: { errors },
     register,
     reset,
-  } = useForm<GrpcTlsConfig<GrpcTlsType>>({
+  } = useForm<TlsPreset>({
     defaultValues,
   });
 
@@ -54,13 +64,15 @@ export const TlsForm: React.FC<TlsFormProps> = ({
 
   const handleTlsTypeChange = (type: string) => {
     reset({
-      rootCertificatePath: undefined,
-      clientCertificatePath: undefined,
-      clientKeyPath: undefined,
-      channelOptions: undefined,
+      tls: {
+        rootCertificatePath: undefined,
+        clientCertificatePath: undefined,
+        clientKeyPath: undefined,
+        channelOptions: undefined,
+      },
     });
 
-    setValue('type', type as GrpcTlsType);
+    setValue('tls.type', type as GrpcTlsType);
   };
 
   return (
@@ -70,21 +82,26 @@ export const TlsForm: React.FC<TlsFormProps> = ({
       style={{ display: 'flex', flex: 1, overflow: 'auto' }}
     >
       <Container fluid gap={1} display="flex" direction="column" wrap="nowrap">
-        <Spacer />
-        <Card variant="bordered" isHoverable>
-          <Card.Body>
-            <Text small>
-              This is system TLS preset and it couldn`t be changed. For use custom preset create
-              one.
-            </Text>
-          </Card.Body>
-        </Card>
+        {defaultValues?.system && <SystemCard />}
+        <Input
+          aria-label="preset-name-input"
+          size="sm"
+          bordered
+          borderWeight="light"
+          animated={false}
+          clearable
+          readOnly={isReadonly}
+          color={errors.name ? 'error' : 'default'}
+          label="Name"
+          {...register('name', { required: true })}
+        />
         <Spacer />
         <Radio.Group
+          aria-label="tls-type-radio"
           orientation="horizontal"
           label="TLS type"
           defaultValue={GrpcTlsType.INSECURE}
-          value={watch('type')}
+          value={watch('tls.type')}
           onChange={handleTlsTypeChange}
           isReadOnly={isReadonly}
         >
@@ -98,14 +115,15 @@ export const TlsForm: React.FC<TlsFormProps> = ({
             Mutual
           </Radio>
         </Radio.Group>
-        {watch('type') !== GrpcTlsType.INSECURE && (
+        {watch('tls.type') !== GrpcTlsType.INSECURE && (
           <>
             <Spacer />
             <Controller
-              name="rootCertificatePath"
+              name="tls.rootCertificatePath"
               control={control}
               render={({ field }) => (
                 <FileInput
+                  aria-label="root-certificate-path-input"
                   bordered
                   borderWeight="light"
                   buttonColor="default"
@@ -125,17 +143,18 @@ export const TlsForm: React.FC<TlsFormProps> = ({
             />
           </>
         )}
-        {watch('type') === GrpcTlsType.MUTUAL && (
+        {watch('tls.type') === GrpcTlsType.MUTUAL && (
           <>
             <Spacer />
             <Controller
-              name="clientCertificatePath"
+              name="tls.clientCertificatePath"
               control={control}
               rules={{
-                required: watch('type') === GrpcTlsType.MUTUAL,
+                required: watch('tls.type') === GrpcTlsType.MUTUAL,
               }}
               render={({ field }) => (
                 <FileInput
+                  aria-label="client-certificate-path-input"
                   bordered
                   borderWeight="light"
                   buttonColor="default"
@@ -143,11 +162,14 @@ export const TlsForm: React.FC<TlsFormProps> = ({
                   animated={false}
                   readOnly={isReadonly}
                   // @ts-ignore
+                  color={errors.tls?.clientCertificatePath ? 'error' : 'default'}
+                  // @ts-ignore
                   label={
                     <InfoLabel
                       label="Client certificate"
                       description="Public client key signed by CA."
-                      color={getError(errors, 'clientCertificatePath') ? 'error' : 'default'}
+                      // @ts-ignore
+                      color={errors.tls?.clientCertificatePath ? 'error' : 'default'}
                     />
                   }
                   {...field}
@@ -156,13 +178,14 @@ export const TlsForm: React.FC<TlsFormProps> = ({
             />
             <Spacer />
             <Controller
-              name="clientKeyPath"
+              name="tls.clientKeyPath"
               control={control}
               rules={{
-                required: watch('type') === GrpcTlsType.MUTUAL,
+                required: watch('tls.type') === GrpcTlsType.MUTUAL,
               }}
               render={({ field }) => (
                 <FileInput
+                  aria-label="client-certificate-key-path-input"
                   bordered
                   borderWeight="light"
                   buttonColor="default"
@@ -170,11 +193,14 @@ export const TlsForm: React.FC<TlsFormProps> = ({
                   animated={false}
                   readOnly={isReadonly}
                   // @ts-ignore
+                  color={errors.tls?.clientKeyPath ? 'error' : 'default'}
+                  // @ts-ignore
                   label={
                     <InfoLabel
                       label="Client key"
                       description="Private client key for client certificate."
-                      color={getError(errors, 'clientKeyPath') ? 'error' : 'default'}
+                      // @ts-ignore
+                      color={errors.tls?.clientKeyPath ? 'error' : 'default'}
                     />
                   }
                   {...field}
@@ -183,11 +209,12 @@ export const TlsForm: React.FC<TlsFormProps> = ({
             />
           </>
         )}
-        {watch('type') !== GrpcTlsType.INSECURE && (
+        {watch('tls.type') !== GrpcTlsType.INSECURE && (
           <>
             <Spacer />
             <Text css={{ margin: 0, color: '$accents8' }}>Channel options</Text>
             <Input
+              aria-label="ssl-target-name-override-input"
               size="sm"
               bordered
               borderWeight="light"
@@ -202,7 +229,7 @@ export const TlsForm: React.FC<TlsFormProps> = ({
                 />
               }
               css={{ paddingBottom: 10 }}
-              {...register('channelOptions.sslTargetNameOverride')}
+              {...register('tls.channelOptions.sslTargetNameOverride')}
             />
           </>
         )}

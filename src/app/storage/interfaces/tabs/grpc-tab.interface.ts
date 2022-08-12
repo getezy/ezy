@@ -1,4 +1,3 @@
-import { GrpcTlsConfig } from '../../../../core/clients/grpc-client/interfaces';
 import { GrpcMethodType } from '../../../../core/protobuf/interfaces';
 
 export interface GrpcRequest {
@@ -52,7 +51,6 @@ export interface GrpcTabData<T extends GrpcMethodType> {
   environmentId?: string;
   url?: string;
   tlsId?: string;
-  tls: GrpcTlsConfig;
 
   requestTabs: {
     activeTabId: string | undefined;

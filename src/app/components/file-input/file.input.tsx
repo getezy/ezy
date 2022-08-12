@@ -39,7 +39,7 @@ export const FileInput = React.forwardRef<HTMLInputElement, FileInputProps>(
         ref={ref}
         contentRightStyling={false}
         value={inputValue || ''}
-        readOnly={readOnly}
+        readOnly
         contentRight={
           !readOnly && (
             <CommandsWrapper>
