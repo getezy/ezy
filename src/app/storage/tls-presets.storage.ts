@@ -1,17 +1,36 @@
 import { produce } from 'immer';
+import { nanoid } from 'nanoid';
 import create from 'zustand';
 import { persist } from 'zustand/middleware';
 
+import { GrpcTlsType } from '../../core/clients/grpc-client/interfaces/grpc-client.interface';
 import { TlsPresetsStorage } from './interfaces';
 
 export const useTlsPresetsStore = create(
   persist<TlsPresetsStorage>(
     (set) => ({
-      presets: [],
+      presets: [
+        {
+          id: nanoid(),
+          name: 'Insecure',
+          system: true,
+          tls: { type: GrpcTlsType.INSECURE },
+        },
+        {
+          id: nanoid(),
+          name: 'Server-side',
+          system: true,
+          tls: { type: GrpcTlsType.SERVER_SIDE },
+        },
+      ],
       createTlsPreset: (preset) =>
         set(
           produce<TlsPresetsStorage>((state) => {
-            state.presets.push(preset);
+            state.presets.push({
+              id: nanoid(),
+              system: false,
+              ...preset,
+            });
           })
         ),
       removeTlsPreset: (id) =>

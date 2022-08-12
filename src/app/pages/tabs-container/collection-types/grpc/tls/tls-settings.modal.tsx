@@ -33,8 +33,17 @@ export const TlsSettingsModal: React.FC<TlsSettingsModalProps> = ({
 }) => {
   const presets = useTlsPresetsStore((store) => store.presets);
 
+  const [formDefaultValues, setFormDefaultValues] = React.useState(defaultValues);
+
   const handleSubmit = (payload: GrpcTlsConfig<GrpcTlsType>) => {
     onCreate(payload);
+  };
+
+  const handleTlsPresetChange = (id: string) => {
+    const preset = presets.find((item) => item.id === id);
+    if (preset) {
+      setFormDefaultValues(preset.tls);
+    }
   };
 
   return (
@@ -61,10 +70,14 @@ export const TlsSettingsModal: React.FC<TlsSettingsModalProps> = ({
                 size="sm"
                 icon={<FontAwesomeIcon icon={faSquarePlus} />}
               >
-                New TLS
+                New TLS preset
               </Button>
             </Container>
-            <TlsPresetsList selectedTlsPresetId={selectedTlsPresetId} presets={presets} />
+            <TlsPresetsList
+              selectedTlsPresetId={selectedTlsPresetId}
+              presets={presets}
+              onTlsPresetChange={handleTlsPresetChange}
+            />
           </Grid>
           <Grid direction="column" css={{ display: 'flex', flex: 1 }}>
             <Container fluid display="flex" justify="center" css={{ paddingTop: 10 }}>
@@ -76,7 +89,7 @@ export const TlsSettingsModal: React.FC<TlsSettingsModalProps> = ({
               direction="column"
               css={{ flex: 1, overflow: 'hidden' }}
             >
-              <TlsForm id="tls-form" defaultValues={defaultValues} onSubmit={handleSubmit} />
+              <TlsForm id="tls-form" defaultValues={formDefaultValues} onSubmit={handleSubmit} />
               <Container
                 gap={0}
                 fluid

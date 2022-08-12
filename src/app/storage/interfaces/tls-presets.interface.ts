@@ -6,12 +6,13 @@ import {
 export interface TlsPreset {
   id: string;
   name: string;
+  system: boolean;
   tls: GrpcTlsConfig<GrpcTlsType>;
 }
 
 export interface TlsPresetsStorage {
   presets: TlsPreset[];
 
-  createTlsPreset: (preset: TlsPreset) => void;
+  createTlsPreset: (preset: Omit<TlsPreset, 'id' | 'system'>) => void;
   removeTlsPreset: (id: string) => void;
 }

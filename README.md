@@ -7,6 +7,10 @@
 <div align="center">
 
   [![Release](https://img.shields.io/github/v/release/getezy/ezy?color=brightgreen)](https://github.com/getezy/ezy/releases/latest)
+  [![Discord](https://img.shields.io/badge/Discord-7289DA?style=flat&logo=discord&logoColor=white)](https://discord.gg/r26ETPgj6R)
+  <!-- <br /> -->
+  <!-- [![Bitcoin](https://img.shields.io/badge/Bitcoin-000000?style=flat&logo=bitcoin&logoColor=white)]()
+  [![Ethereum](https://img.shields.io/badge/Ethereum-3C3C3D?style=flat&logo=Ethereum&logoColor=white)]() -->
 
 </div>
 
