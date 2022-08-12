@@ -1,4 +1,4 @@
-import { Container, Input, Radio, Spacer, Text } from '@nextui-org/react';
+import { Card, Container, Input, Radio, Spacer, Text } from '@nextui-org/react';
 import React from 'react';
 import { Controller, DeepRequired, FieldErrorsImpl, useForm } from 'react-hook-form';
 
@@ -10,6 +10,8 @@ import { FileInput, InfoLabel } from '../../../../../components';
 
 export interface TlsFormProps {
   id?: string;
+
+  isReadonly?: boolean;
 
   defaultValues?: Partial<GrpcTlsConfig<GrpcTlsType>>;
 
@@ -31,6 +33,7 @@ function getError(
 export const TlsForm: React.FC<TlsFormProps> = ({
   onSubmit = () => {},
   id,
+  isReadonly = false,
   defaultValues = { type: GrpcTlsType.MUTUAL },
 }) => {
   const {
@@ -67,12 +70,23 @@ export const TlsForm: React.FC<TlsFormProps> = ({
       style={{ display: 'flex', flex: 1, overflow: 'auto' }}
     >
       <Container fluid gap={1} display="flex" direction="column" wrap="nowrap">
+        <Spacer />
+        <Card variant="bordered" isHoverable>
+          <Card.Body>
+            <Text small>
+              This is system TLS preset and it couldn`t be changed. For use custom preset create
+              one.
+            </Text>
+          </Card.Body>
+        </Card>
+        <Spacer />
         <Radio.Group
           orientation="horizontal"
           label="TLS type"
           defaultValue={GrpcTlsType.INSECURE}
           value={watch('type')}
           onChange={handleTlsTypeChange}
+          isReadOnly={isReadonly}
         >
           <Radio value={GrpcTlsType.INSECURE} size="sm">
             Insecure
@@ -97,6 +111,7 @@ export const TlsForm: React.FC<TlsFormProps> = ({
                   buttonColor="default"
                   size="sm"
                   animated={false}
+                  readOnly={isReadonly}
                   // @ts-ignore
                   label={
                     <InfoLabel
@@ -126,6 +141,7 @@ export const TlsForm: React.FC<TlsFormProps> = ({
                   buttonColor="default"
                   size="sm"
                   animated={false}
+                  readOnly={isReadonly}
                   // @ts-ignore
                   label={
                     <InfoLabel
@@ -152,6 +168,7 @@ export const TlsForm: React.FC<TlsFormProps> = ({
                   buttonColor="default"
                   size="sm"
                   animated={false}
+                  readOnly={isReadonly}
                   // @ts-ignore
                   label={
                     <InfoLabel
@@ -176,6 +193,7 @@ export const TlsForm: React.FC<TlsFormProps> = ({
               borderWeight="light"
               animated={false}
               clearable
+              readOnly={isReadonly}
               // @ts-ignore
               label={
                 <InfoLabel

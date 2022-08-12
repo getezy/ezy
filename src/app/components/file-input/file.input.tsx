@@ -41,25 +41,27 @@ export const FileInput = React.forwardRef<HTMLInputElement, FileInputProps>(
         value={inputValue || ''}
         readOnly={readOnly}
         contentRight={
-          <CommandsWrapper>
-            {inputValue && inputValue.length > 0 && (
+          !readOnly && (
+            <CommandsWrapper>
+              {inputValue && inputValue.length > 0 && (
+                <Button
+                  light
+                  size="xs"
+                  icon={<FontAwesomeIcon icon={faCircleXmark} />}
+                  css={{ minWidth: 10, color: '$accents6', '&:hover': { color: '$accents5' } }}
+                  onClick={handleClearButtonClick}
+                />
+              )}
               <Button
                 light
                 size="xs"
-                icon={<FontAwesomeIcon icon={faCircleXmark} />}
-                css={{ minWidth: 10, color: '$accents6', '&:hover': { color: '$accents5' } }}
-                onClick={handleClearButtonClick}
+                color={buttonColor}
+                icon={<FontAwesomeIcon icon={faEllipsis} />}
+                css={{ minWidth: 24, margin: '0 10px 0 0' }}
+                onClick={handleDialogOpenButtonClick}
               />
-            )}
-            <Button
-              light
-              size="xs"
-              color={buttonColor}
-              icon={<FontAwesomeIcon icon={faEllipsis} />}
-              css={{ minWidth: 24, margin: '0 10px 0 0' }}
-              onClick={handleDialogOpenButtonClick}
-            />
-          </CommandsWrapper>
+            </CommandsWrapper>
+          )
         }
         {...props}
       />

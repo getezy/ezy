@@ -34,6 +34,8 @@ export const TlsSettingsModal: React.FC<TlsSettingsModalProps> = ({
   const presets = useTlsPresetsStore((store) => store.presets);
 
   const [formDefaultValues, setFormDefaultValues] = React.useState(defaultValues);
+  // TODO: set readonly first
+  const [formReadonly, setFormReadonly] = React.useState(false);
 
   const handleSubmit = (payload: GrpcTlsConfig<GrpcTlsType>) => {
     onCreate(payload);
@@ -43,6 +45,7 @@ export const TlsSettingsModal: React.FC<TlsSettingsModalProps> = ({
     const preset = presets.find((item) => item.id === id);
     if (preset) {
       setFormDefaultValues(preset.tls);
+      setFormReadonly(preset.system);
     }
   };
 
@@ -89,7 +92,12 @@ export const TlsSettingsModal: React.FC<TlsSettingsModalProps> = ({
               direction="column"
               css={{ flex: 1, overflow: 'hidden' }}
             >
-              <TlsForm id="tls-form" defaultValues={formDefaultValues} onSubmit={handleSubmit} />
+              <TlsForm
+                id="tls-form"
+                defaultValues={formDefaultValues}
+                isReadonly={formReadonly}
+                onSubmit={handleSubmit}
+              />
               <Container
                 gap={0}
                 fluid
