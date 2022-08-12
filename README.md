@@ -33,7 +33,7 @@
 ## Getting started
 Install the latest version for your OS from [release page](https://github.com/getezy/ezy/releases/latest).
 
-Today you can update only by manually downloading new app version and reinstalling it. Your data would not be lost. We are working on automatic updates.
+Today you can update only by manually downloading new app version and reinstalling it. I'm working on automatic updates.
 
 ## Roadmap
 
