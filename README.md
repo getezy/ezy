@@ -11,8 +11,9 @@
   <!-- <br /> -->
   <!-- [![Bitcoin](https://img.shields.io/badge/Bitcoin-000000?style=flat&logo=bitcoin&logoColor=white)]()
   [![Ethereum](https://img.shields.io/badge/Ethereum-3C3C3D?style=flat&logo=Ethereum&logoColor=white)]() -->
-
+  <img src="docs/ezy.gif" align="center">
 </div>
+<br />
 
 `Ezy` - desktop gRPC client.
 

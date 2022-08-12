@@ -17,7 +17,7 @@ const CommandsWrapper = styled('div', {
 });
 
 export const FileInput = React.forwardRef<HTMLInputElement, FileInputProps>(
-  ({ accept, buttonColor, onChange, value, readOnly = true, ...props }, ref) => {
+  ({ accept, buttonColor, onChange, value, readOnly = false, ...props }, ref) => {
     const [inputValue, setInputValue] = React.useState(value);
 
     const handleDialogOpenButtonClick = async () => {
