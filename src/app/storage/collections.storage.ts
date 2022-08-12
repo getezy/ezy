@@ -44,7 +44,7 @@ export const useCollectionsStore = create(
           }
         }
       },
-      updateCollection: async (id, collection) => {
+      updateCollection: async (id, collection, showSuccessNotification = true) => {
         // TODO: Stop using hooks here
         // eslint-disable-next-line react-hooks/rules-of-hooks
         const { notification } = useNotification();
@@ -102,13 +102,15 @@ export const useCollectionsStore = create(
               }
             }
 
-            notification(
-              {
-                title: `${collection.name}`,
-                description: 'Collection successfully updated',
-              },
-              { type: 'success' }
-            );
+            if (showSuccessNotification) {
+              notification(
+                {
+                  title: `${collection.name}`,
+                  description: 'Collection successfully updated',
+                },
+                { type: 'success' }
+              );
+            }
           } catch (error: any) {
             useLogsStore.getState().createLog({ message: error?.message });
             notification(

@@ -34,7 +34,8 @@ export interface CollectionsStorage {
   createCollection: (collection: Omit<Collection<CollectionType>, 'id'>) => Promise<void>;
   updateCollection: (
     id: string,
-    collection: Omit<Collection<CollectionType>, 'id'>
+    collection: Omit<Collection<CollectionType>, 'id'>,
+    showSuccessNotification?: boolean
   ) => Promise<void>;
   removeCollection: (id: string) => void;
   filterCollections: (search: string) => Collection<CollectionType>[];

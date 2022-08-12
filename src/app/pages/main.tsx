@@ -12,7 +12,7 @@ export const Main = (): JSX.Element => {
 
   useEffectOnce(() => {
     collections.forEach((collection) => {
-      updateCollection(collection.id, collection);
+      updateCollection(collection.id, collection, false);
     });
   });
 
