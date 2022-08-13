@@ -1,8 +1,10 @@
-
+<br />
 <div align="center">
   <picture>
+    <img src="docs/logo.png" height="100px" align="center">
   </picture>
 </div>
+<br />
 
 <div align="center">
 
