@@ -1,11 +1,15 @@
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Button, Container, Radio, Spacer, Text } from '@nextui-org/react';
+import { Button, Container, Radio, Spacer, styled, Text } from '@nextui-org/react';
 import React from 'react';
 
 import { Tree, TreeNode, TreeNodeRendererProps } from '../../../../../components';
 import { TlsPreset, useTlsPresetsStore } from '../../../../../storage';
 import { SystemBadge } from './system.badge';
+
+const TreeWrapper = styled('div', {
+  overflow: 'auto',
+});
 
 const ReponseNode: React.FC<
   TreeNodeRendererProps<TlsPreset> & { onTlsPresetRemove: (id: string) => void }
@@ -86,12 +90,12 @@ export const TlsPresetsList: React.FC<TlsPresetsListProps> = ({
   onTlsPresetChange,
   onTlsPresetRemove,
 }) => (
-  <Container gap={0} fluid>
-    <Radio.Group
-      aria-label="tls-preset-radio"
-      onChange={onTlsPresetChange}
-      value={selectedTlsPresetId || 'none'}
-    >
+  <Radio.Group
+    aria-label="tls-preset-radio"
+    onChange={onTlsPresetChange}
+    value={selectedTlsPresetId || 'none'}
+  >
+    <TreeWrapper>
       <Tree<TlsPreset> data={presets}>
         {presets.map((preset) => (
           <ReponseNode
@@ -102,6 +106,6 @@ export const TlsPresetsList: React.FC<TlsPresetsListProps> = ({
           />
         ))}
       </Tree>
-    </Radio.Group>
-  </Container>
+    </TreeWrapper>
+  </Radio.Group>
 );

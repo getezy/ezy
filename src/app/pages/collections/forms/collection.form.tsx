@@ -16,7 +16,7 @@ export interface CollectionFormProps {
   onSubmit: (payload: Collection<CollectionType>) => void;
 }
 
-const PathComponeent = styled(Text, {
+const PathComponent = styled(Text, {
   overflowX: 'auto',
   overflowY: 'hidden',
   flex: 1,
@@ -83,7 +83,7 @@ const IncludeDirectoriesContainer = React.forwardRef<
           {directories.map((directory) => (
             <Table.Row key={nanoid()}>
               <Table.Cell css={{ display: 'flex', alignItems: 'center' }}>
-                <PathComponeent small>{directory}</PathComponeent>
+                <PathComponent small>{directory}</PathComponent>
                 <Spacer y={0} />
                 <Button
                   size="xs"
