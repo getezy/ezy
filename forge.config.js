@@ -3,12 +3,6 @@ const { version } = require('./package.json');
 
 const iconDir = path.resolve(__dirname, 'assets', 'icons');
 
-const commonLinuxConfig = {
-  icon: {
-    scalable: path.resolve(iconDir, 'icon.svg'),
-  },
-};
-
 const config = {
   packagerConfig: {
     name: 'ezy',
@@ -24,7 +18,7 @@ const config = {
         name: 'ezy',
         exe: 'ezy.exe',
         noMsi: true,
-        // iconUrl: 'https://raw.githubusercontent.com/getezy/ezy/ /assets/icons/ezy.ico',
+        iconUrl: 'https://raw.githubusercontent.com/getezy/ezy/master/assets/icons/icon.ico',
         setupIcon: path.resolve(iconDir, 'icon.ico'),
         setupExe: `ezy-${version}-win32-${arch}-setup.exe`,
       }),
@@ -36,12 +30,10 @@ const config = {
     {
       name: '@electron-forge/maker-deb',
       platforms: ['linux'],
-      config: commonLinuxConfig,
     },
     {
       name: '@electron-forge/maker-rpm',
       platforms: ['linux'],
-      config: commonLinuxConfig,
     },
   ],
   plugins: [
