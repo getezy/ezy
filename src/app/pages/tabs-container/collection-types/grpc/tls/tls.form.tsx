@@ -81,7 +81,14 @@ export const TlsForm: React.FC<TlsFormProps> = ({
       onSubmit={handleSubmit(onSubmit)}
       style={{ display: 'flex', flex: 1, overflow: 'auto' }}
     >
-      <Container fluid gap={1} display="flex" direction="column" wrap="nowrap">
+      <Container
+        fluid
+        gap={1}
+        display="flex"
+        direction="column"
+        wrap="nowrap"
+        css={{ overflow: 'auto', flex: 1 }}
+      >
         {defaultValues?.system && <SystemCard />}
         <Input
           aria-label="preset-name-input"

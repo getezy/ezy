@@ -90,12 +90,12 @@ export const TlsPresetsList: React.FC<TlsPresetsListProps> = ({
   onTlsPresetChange,
   onTlsPresetRemove,
 }) => (
-  <Radio.Group
-    aria-label="tls-preset-radio"
-    onChange={onTlsPresetChange}
-    value={selectedTlsPresetId || 'none'}
-  >
-    <TreeWrapper>
+  <TreeWrapper>
+    <Radio.Group
+      aria-label="tls-preset-radio"
+      onChange={onTlsPresetChange}
+      value={selectedTlsPresetId || 'none'}
+    >
       <Tree<TlsPreset> data={presets}>
         {presets.map((preset) => (
           <ReponseNode
@@ -106,6 +106,6 @@ export const TlsPresetsList: React.FC<TlsPresetsListProps> = ({
           />
         ))}
       </Tree>
-    </TreeWrapper>
-  </Radio.Group>
+    </Radio.Group>
+  </TreeWrapper>
 );

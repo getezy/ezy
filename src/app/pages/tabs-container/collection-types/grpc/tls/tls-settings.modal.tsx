@@ -1,21 +1,15 @@
 import { faSquarePlus } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Button, Container, CSS, Grid, Modal, ModalProps, Spacer, Text } from '@nextui-org/react';
+import { Button, Container, Modal, ModalProps, Spacer, Text } from '@nextui-org/react';
 import { nanoid } from 'nanoid';
 import React from 'react';
 import { DeepPartial } from 'react-hook-form';
 
 import { GrpcTlsType } from '../../../../../../core/clients/grpc-client/interfaces/grpc-client.interface';
 import { TlsPreset, useTlsPresetsStore } from '../../../../../storage';
+import { Explorer } from '../../../../explorer';
 import { TlsForm } from './tls.form';
 import { TlsPresetsList } from './tls-presets-list';
-
-const PresetsListStyles: CSS = {
-  minWidth: 250,
-  maxWidth: 250,
-  background: '$backgroundContrast',
-  borderRight: 'solid $border 1px',
-};
 
 export type TlsSettingsModalProps = ModalProps & {
   defaultValues?: DeepPartial<TlsPreset>;
@@ -90,6 +84,31 @@ export const TlsSettingsModal: React.FC<TlsSettingsModalProps> = ({
     }
   };
 
+  const header = (
+    <Container gap={0} fluid display="flex" justify="center" alignItems="center">
+      <Button
+        auto
+        bordered
+        borderWeight="light"
+        color="gradient"
+        size="sm"
+        icon={<FontAwesomeIcon icon={faSquarePlus} />}
+        onClick={handleNewTlsButtonClick}
+      >
+        New TLS preset
+      </Button>
+    </Container>
+  );
+
+  const sidebar = (
+    <TlsPresetsList
+      selectedTlsPresetId={formDefaultValues?.id}
+      presets={presets}
+      onTlsPresetChange={handleTlsPresetChange}
+      onTlsPresetRemove={handleTlsPresetRemove}
+    />
+  );
+
   return (
     <Modal
       {...props}
@@ -99,85 +118,58 @@ export const TlsSettingsModal: React.FC<TlsSettingsModalProps> = ({
       css={{ padding: 0 }}
     >
       <Modal.Body>
-        <Grid.Container gap={0} wrap="nowrap" css={{ flex: 1, overflow: 'hidden' }}>
-          <Grid css={PresetsListStyles}>
+        <Explorer header={header} sideBar={sidebar}>
+          <Container
+            gap={0}
+            fluid
+            display="flex"
+            wrap="nowrap"
+            direction="column"
+            css={{ flex: 1, overflow: 'hidden' }}
+          >
+            <Text css={{ userSelect: 'none', paddingTop: 10 }}>TLS Settings</Text>
+            <TlsForm
+              id="tls-form"
+              defaultValues={formDefaultValues}
+              isReadonly={formReadonly}
+              onSubmit={handleSubmit}
+            />
             <Container
+              gap={0}
+              fluid
               display="flex"
-              justify="center"
-              css={{ paddingTop: 10, paddingBottom: 10, borderBottom: 'solid $border 1px' }}
+              direction="row"
+              justify="flex-end"
+              css={{
+                alignSelf: 'flex-end',
+                padding: 10,
+              }}
             >
               <Button
                 auto
                 bordered
                 borderWeight="light"
-                color="gradient"
                 size="sm"
-                icon={<FontAwesomeIcon icon={faSquarePlus} />}
-                onClick={handleNewTlsButtonClick}
+                color="error"
+                onClick={handleCloseButtonClick}
               >
-                New TLS preset
+                Cancel
+              </Button>
+              <Spacer x={0.2} />
+              <Button
+                auto
+                bordered
+                borderWeight="light"
+                size="sm"
+                color="gradient"
+                type="submit"
+                form="tls-form"
+              >
+                {formDefaultValues?.system ? 'Apply' : 'Save & Apply'}
               </Button>
             </Container>
-            <TlsPresetsList
-              selectedTlsPresetId={formDefaultValues?.id}
-              presets={presets}
-              onTlsPresetChange={handleTlsPresetChange}
-              onTlsPresetRemove={handleTlsPresetRemove}
-            />
-          </Grid>
-          <Grid direction="column" css={{ display: 'flex', flex: 1 }}>
-            <Container fluid display="flex" justify="center" css={{ paddingTop: 10 }}>
-              <Text css={{ userSelect: 'none' }}>TLS Settings</Text>
-            </Container>
-            <Container
-              gap={0}
-              display="flex"
-              direction="column"
-              css={{ flex: 1, overflow: 'hidden' }}
-            >
-              <TlsForm
-                id="tls-form"
-                defaultValues={formDefaultValues}
-                isReadonly={formReadonly}
-                onSubmit={handleSubmit}
-              />
-              <Container
-                gap={0}
-                fluid
-                display="flex"
-                direction="row"
-                justify="flex-end"
-                css={{
-                  alignSelf: 'flex-end',
-                  padding: 10,
-                }}
-              >
-                <Button
-                  auto
-                  bordered
-                  borderWeight="light"
-                  size="sm"
-                  color="error"
-                  onClick={handleCloseButtonClick}
-                >
-                  Cancel
-                </Button>
-                <Spacer x={0.2} />
-                <Button
-                  auto
-                  bordered
-                  borderWeight="light"
-                  size="sm"
-                  color="gradient"
-                  type="submit"
-                  form="tls-form"
-                >
-                  {formDefaultValues?.system ? 'Apply' : 'Save & Apply'}
-                </Button>
-              </Container>
-            </Container>
-          </Grid>
-        </Grid.Container>
+          </Container>
+        </Explorer>
       </Modal.Body>
     </Modal>
   );
