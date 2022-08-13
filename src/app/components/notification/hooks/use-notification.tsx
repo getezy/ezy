@@ -8,18 +8,14 @@ export type NotificationMessage = {
   description?: string;
 };
 
-export function useNotification() {
-  function notification(message: NotificationMessage, options?: ToastOptions): Id {
-    return toast(<Notification title={message.title} description={message.description} />, options);
-  }
+export function notification(message: NotificationMessage, options?: ToastOptions): Id {
+  return toast(<Notification title={message.title} description={message.description} />, options);
+}
 
-  function closeNotification(id: Id): void {
-    toast.dismiss(id);
-  }
+export function closeNotification(id: Id): void {
+  toast.dismiss(id);
+}
 
-  function closeAllNotifications(): void {
-    toast.dismiss();
-  }
-
-  return { notification, closeNotification, closeAllNotifications };
+export function closeAllNotifications(): void {
+  toast.dismiss();
 }

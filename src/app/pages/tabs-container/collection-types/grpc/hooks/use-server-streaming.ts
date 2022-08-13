@@ -1,5 +1,5 @@
 import { GrpcMethodType } from '../../../../../../core/protobuf/interfaces';
-import { useNotification } from '../../../../../components';
+import { notification } from '../../../../../components';
 import {
   GrpcStreamMessageType,
   GrpcTab,
@@ -13,7 +13,6 @@ export function useServerStreaming() {
   const collections = useCollectionsStore((store) => store.collections);
   const { addGrpcStreamMessage } = useTabsStore((store) => store);
   const tlsPresets = useTlsPresetsStore((store) => store.presets);
-  const { notification } = useNotification();
 
   async function invoke(
     tab: GrpcTab<GrpcMethodType.SERVER_STREAMING>,

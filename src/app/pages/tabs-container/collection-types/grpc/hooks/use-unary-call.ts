@@ -1,5 +1,5 @@
 import { GrpcMethodType } from '../../../../../../core/protobuf/interfaces';
-import { useNotification } from '../../../../../components';
+import { notification } from '../../../../../components';
 import {
   GrpcTab,
   useCollectionsStore,
@@ -12,7 +12,6 @@ export function useUnaryCall() {
   const collections = useCollectionsStore((store) => store.collections);
   const { updateGrpcTabData } = useTabsStore((store) => store);
   const tlsPresets = useTlsPresetsStore((store) => store.presets);
-  const { notification } = useNotification();
 
   async function invoke(tab: GrpcTab<GrpcMethodType.UNARY>): Promise<void> {
     try {

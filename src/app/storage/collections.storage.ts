@@ -5,7 +5,7 @@ import { nanoid } from 'nanoid';
 import create from 'zustand';
 import { persist } from 'zustand/middleware';
 
-import { useNotification } from '../components';
+import { notification } from '../components';
 import {
   Collection,
   CollectionChildren,
@@ -14,7 +14,7 @@ import {
   GrpcMethod,
   GrpcService,
 } from './interfaces';
-import { useLogsStore } from './logs.storage';
+// import { useLogsStore } from './logs.storage';
 import { useTabsStore } from './tabs.storage';
 
 export const useCollectionsStore = create(
@@ -40,15 +40,18 @@ export const useCollectionsStore = create(
               })
             );
           } catch (error: any) {
-            useLogsStore.getState().createLog({ message: error?.message });
+            notification(
+              {
+                title: `Create collection error`,
+                description: error?.message,
+              },
+              { type: 'error' }
+            );
+            // useLogsStore.getState().createLog({ message: error?.message });
           }
         }
       },
       updateCollection: async (id, collection, showSuccessNotification = true) => {
-        // TODO: Stop using hooks here
-        // eslint-disable-next-line react-hooks/rules-of-hooks
-        const { notification } = useNotification();
-
         if (collection.type === CollectionType.GRPC) {
           try {
             const methodIds: string[] = [];
@@ -112,7 +115,7 @@ export const useCollectionsStore = create(
               );
             }
           } catch (error: any) {
-            useLogsStore.getState().createLog({ message: error?.message });
+            // useLogsStore.getState().createLog({ message: error?.message });
             notification(
               {
                 title: `${collection.name} sync error`,
@@ -128,6 +131,13 @@ export const useCollectionsStore = create(
           produce<CollectionsStorage>((state) => {
             const index = state.collections.findIndex((collection) => collection.id === id);
             state.collections.splice(index, 1);
+
+            const { tabs, closeTab } = useTabsStore.getState();
+            for (let i = 0; i < tabs.length; i++) {
+              if (tabs[i].info?.collectionId === id) {
+                closeTab(tabs[i].id);
+              }
+            }
           })
         ),
       filterCollections(search) {
