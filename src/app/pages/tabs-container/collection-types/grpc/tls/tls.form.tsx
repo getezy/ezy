@@ -30,7 +30,7 @@ const SystemCard: React.FC = () => (
         <Container gap={0} display="flex" direction="row" wrap="nowrap" alignItems="center">
           <StyledInfoIcon icon={faCircleInfo} />
           <Spacer x={0.5} />
-          <Text small>
+          <Text small css={{ margin: 0 }}>
             This is system TLS preset and it couldn`t be changed. For use custom preset create one.
           </Text>
         </Container>
