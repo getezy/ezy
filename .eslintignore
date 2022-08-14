@@ -1,4 +1,5 @@
 .eslintrc.js
+commitlint.config.js
 webpack.main.config.js
 webpack.plugins.js
 webpack.renderer.config.js

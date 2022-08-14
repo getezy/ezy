@@ -59,6 +59,8 @@
   },
   "devDependencies": {
     "@babel/core": "7.18.10",
+    "@commitlint/cli": "^17.0.3",
+    "@commitlint/config-conventional": "^17.0.3",
     "@electron-forge/cli": "6.0.0-beta.65",
     "@electron-forge/maker-deb": "6.0.0-beta.65",
     "@electron-forge/maker-rpm": "6.0.0-beta.65",
