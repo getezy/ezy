@@ -7,9 +7,17 @@ export const ElectronStore = {
     return ipcRenderer.invoke(ElectronStoreChannel.GET, key);
   },
   setItem<T = any>(key: string, value: T): Promise<void> {
-    return ipcRenderer.invoke(ElectronStoreChannel.SET, key, value);
+    setTimeout(() => {
+      ipcRenderer.invoke(ElectronStoreChannel.SET, key, value);
+    }, 0);
+
+    return Promise.resolve();
   },
   removeItem(key: string): Promise<void> {
-    return ipcRenderer.invoke(ElectronStoreChannel.REMOVE, key);
+    setTimeout(() => {
+      ipcRenderer.invoke(ElectronStoreChannel.REMOVE, key);
+    }, 0);
+
+    return Promise.resolve();
   },
 };
