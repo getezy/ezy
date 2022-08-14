@@ -4,7 +4,7 @@
   "main": "index.js",
   "scripts": {
     "start": "ts-node ./src/index.ts",
-    "proto": "protoc --plugin=./node_modules/.bin/protoc-gen-ts_proto --ts_proto_opt=env=node,outputClientImpl=false,outputServices=grpc-js --ts_proto_out=./src/generated ./proto/simple.proto"
+    "proto": "protoc --plugin=./node_modules/.bin/protoc-gen-ts_proto --ts_proto_opt=env=node,outputClientImpl=false,outputServices=grpc-js,esModuleInterop=true,forceLong=long --ts_proto_out=./src/generated ./proto/simple.proto"
   },
   "dependencies": {
     "@grpc/grpc-js": "1.6.8"

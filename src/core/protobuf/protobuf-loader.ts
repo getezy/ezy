@@ -20,6 +20,7 @@ export class ProtobufLoader {
   static async loadFromFile(options: GrpcOptions): Promise<PackageDefinition> {
     const ast = await protolaoder.load(options.path, {
       includeDirs: options.includeDirs || [],
+      longs: String,
     });
 
     return ast;

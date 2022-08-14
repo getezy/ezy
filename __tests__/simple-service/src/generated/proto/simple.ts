@@ -6,13 +6,22 @@ import {
   handleServerStreamingCall,
   handleBidiStreamingCall,
 } from "@grpc/grpc-js";
+import Long from "long";
 import { Empty } from "../google/protobuf/empty";
-import * as _m0 from "protobufjs/minimal";
+import _m0 from "protobufjs/minimal";
 
 export const protobufPackage = "simple_package.v1";
 
 export interface SimpleMessage {
   id: string;
+}
+
+export interface LongIntegersMessage {
+  int: Long;
+  uint: Long;
+  sint: Long;
+  fint: Long;
+  sfint: Long;
 }
 
 function createBaseSimpleMessage(): SimpleMessage {
@@ -69,6 +78,122 @@ export const SimpleMessage = {
   },
 };
 
+function createBaseLongIntegersMessage(): LongIntegersMessage {
+  return {
+    int: Long.ZERO,
+    uint: Long.UZERO,
+    sint: Long.ZERO,
+    fint: Long.UZERO,
+    sfint: Long.ZERO,
+  };
+}
+
+export const LongIntegersMessage = {
+  encode(
+    message: LongIntegersMessage,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
+    if (!message.int.isZero()) {
+      writer.uint32(8).int64(message.int);
+    }
+    if (!message.uint.isZero()) {
+      writer.uint32(16).uint64(message.uint);
+    }
+    if (!message.sint.isZero()) {
+      writer.uint32(24).sint64(message.sint);
+    }
+    if (!message.fint.isZero()) {
+      writer.uint32(33).fixed64(message.fint);
+    }
+    if (!message.sfint.isZero()) {
+      writer.uint32(41).sfixed64(message.sfint);
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): LongIntegersMessage {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseLongIntegersMessage();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.int = reader.int64() as Long;
+          break;
+        case 2:
+          message.uint = reader.uint64() as Long;
+          break;
+        case 3:
+          message.sint = reader.sint64() as Long;
+          break;
+        case 4:
+          message.fint = reader.fixed64() as Long;
+          break;
+        case 5:
+          message.sfint = reader.sfixed64() as Long;
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): LongIntegersMessage {
+    return {
+      int: isSet(object.int) ? Long.fromValue(object.int) : Long.ZERO,
+      uint: isSet(object.uint) ? Long.fromValue(object.uint) : Long.UZERO,
+      sint: isSet(object.sint) ? Long.fromValue(object.sint) : Long.ZERO,
+      fint: isSet(object.fint) ? Long.fromValue(object.fint) : Long.UZERO,
+      sfint: isSet(object.sfint) ? Long.fromValue(object.sfint) : Long.ZERO,
+    };
+  },
+
+  toJSON(message: LongIntegersMessage): unknown {
+    const obj: any = {};
+    message.int !== undefined &&
+      (obj.int = (message.int || Long.ZERO).toString());
+    message.uint !== undefined &&
+      (obj.uint = (message.uint || Long.UZERO).toString());
+    message.sint !== undefined &&
+      (obj.sint = (message.sint || Long.ZERO).toString());
+    message.fint !== undefined &&
+      (obj.fint = (message.fint || Long.UZERO).toString());
+    message.sfint !== undefined &&
+      (obj.sfint = (message.sfint || Long.ZERO).toString());
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<LongIntegersMessage>, I>>(
+    object: I
+  ): LongIntegersMessage {
+    const message = createBaseLongIntegersMessage();
+    message.int =
+      object.int !== undefined && object.int !== null
+        ? Long.fromValue(object.int)
+        : Long.ZERO;
+    message.uint =
+      object.uint !== undefined && object.uint !== null
+        ? Long.fromValue(object.uint)
+        : Long.UZERO;
+    message.sint =
+      object.sint !== undefined && object.sint !== null
+        ? Long.fromValue(object.sint)
+        : Long.ZERO;
+    message.fint =
+      object.fint !== undefined && object.fint !== null
+        ? Long.fromValue(object.fint)
+        : Long.UZERO;
+    message.sfint =
+      object.sfint !== undefined && object.sfint !== null
+        ? Long.fromValue(object.sfint)
+        : Long.ZERO;
+    return message;
+  },
+};
+
 export type SimpleServiceService = typeof SimpleServiceService;
 export const SimpleServiceService = {
   unary: {
@@ -92,6 +217,17 @@ export const SimpleServiceService = {
     responseSerialize: (value: SimpleMessage) =>
       Buffer.from(SimpleMessage.encode(value).finish()),
     responseDeserialize: (value: Buffer) => SimpleMessage.decode(value),
+  },
+  longIntegers: {
+    path: "/simple_package.v1.SimpleService/LongIntegers",
+    requestStream: false,
+    responseStream: false,
+    requestSerialize: (value: LongIntegersMessage) =>
+      Buffer.from(LongIntegersMessage.encode(value).finish()),
+    requestDeserialize: (value: Buffer) => LongIntegersMessage.decode(value),
+    responseSerialize: (value: LongIntegersMessage) =>
+      Buffer.from(LongIntegersMessage.encode(value).finish()),
+    responseDeserialize: (value: Buffer) => LongIntegersMessage.decode(value),
   },
   clientStreamingRequest: {
     path: "/simple_package.v1.SimpleService/ClientStreamingRequest",
@@ -142,6 +278,7 @@ export const SimpleServiceService = {
 export interface SimpleServiceServer extends UntypedServiceImplementation {
   unary: handleUnaryCall<SimpleMessage, SimpleMessage>;
   unaryWithError: handleUnaryCall<SimpleMessage, SimpleMessage>;
+  longIntegers: handleUnaryCall<LongIntegersMessage, LongIntegersMessage>;
   clientStreamingRequest: handleClientStreamingCall<
     SimpleMessage,
     SimpleMessage
@@ -168,6 +305,8 @@ type Builtin =
 
 export type DeepPartial<T> = T extends Builtin
   ? T
+  : T extends Long
+  ? string | number | Long
   : T extends Array<infer U>
   ? Array<DeepPartial<U>>
   : T extends ReadonlyArray<infer U>
@@ -183,6 +322,11 @@ export type Exact<P, I extends P> = P extends Builtin
         Exclude<keyof I, KeysOfUnion<P>>,
         never
       >;
+
+if (_m0.util.Long !== Long) {
+  _m0.util.Long = Long as any;
+  _m0.configure();
+}
 
 function isSet(value: any): boolean {
   return value !== null && value !== undefined;

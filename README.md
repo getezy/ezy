@@ -38,6 +38,19 @@ Install the latest version for your OS from [release page](https://github.com/ge
 
 Today you can update only by manually downloading new app version and reinstalling it. I'm working on automatic updates.
 
+## Working with 64-bit integers
+If you want to send 64-bit integers (`int64`, `uint64`, `sint64`, `fixed64`, `sfixed64`) just wrap values in quotes.
+
+```json
+{
+  "int64": "9223372036854775807",
+  "uint64": "18446744073709551615",
+  "sint64": "-9223372036854775807",
+  "fixed64": "18446744073709551615",
+  "sfixed64": "-9223372036854775807"
+}
+```
+
 ## Roadmap
 
 Actual roadmap available [here](https://github.com/orgs/getezy/projects/1/views/1).

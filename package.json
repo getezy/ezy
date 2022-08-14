@@ -1,8 +1,8 @@
 {
   "name": "ezy",
   "productName": "ezy",
-  "version": "1.0.0-beta.3",
-  "description": "Ultimate desktop gRPC client.",
+  "version": "1.0.0-beta.4",
+  "description": "Desktop gRPC client.",
   "main": ".webpack/main",
   "scripts": {
     "start": "electron-forge start",
@@ -51,7 +51,7 @@
     "react": "18.2.0",
     "react-color": "2.19.3",
     "react-dom": "18.2.0",
-    "react-hook-form": "7.34.0",
+    "react-hook-form": "7.34.1",
     "react-select": "5.4.0",
     "react-toastify": "9.0.8",
     "react-use": "17.4.0",
@@ -86,7 +86,7 @@
     "babel-loader": "8.2.5",
     "css-loader": "6.7.1",
     "electron": "20.0.2",
-    "eslint": "8.21.0",
+    "eslint": "8.22.0",
     "eslint-config-airbnb": "19.0.4",
     "eslint-config-airbnb-typescript": "17.0.0",
     "eslint-config-prettier": "8.5.0",

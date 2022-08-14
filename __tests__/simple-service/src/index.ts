@@ -18,6 +18,10 @@ const SimpleService: SimpleServiceServer = {
     );
   },
 
+  longIntegers(call, callback) {
+    callback(null, call.request);
+  },
+
   clientStreamingRequest(call, callback) {
     const result: string[] = [];
 

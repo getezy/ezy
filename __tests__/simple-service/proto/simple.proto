@@ -8,9 +8,19 @@ message SimpleMessage {
   string id = 1;
 }
 
+message LongIntegersMessage {
+  int64 int = 1;
+  uint64 uint = 2;
+  sint64 sint = 3;
+  fixed64 fint = 4;
+  sfixed64 sfint = 5;
+}
+
 service SimpleService {
   rpc Unary(SimpleMessage) returns (SimpleMessage);
   rpc UnaryWithError(SimpleMessage) returns (SimpleMessage);
+
+  rpc LongIntegers(LongIntegersMessage) returns (LongIntegersMessage);
 
   rpc ClientStreamingRequest(stream SimpleMessage) returns (SimpleMessage);
   rpc ClientStreamingRequestWithError(stream SimpleMessage)
