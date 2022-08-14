@@ -28,7 +28,7 @@
 ✅ Client/Server/Bidirectional streaming.  
 ✅ Metadata support.  
 ✅ TLS (Server-side/Mutual) support.  
-✅ Good errors outptut.  
+✅ Good errors output.  
 
 # Preview
 <img src="docs/preview.gif" align="center">
