@@ -4,7 +4,6 @@
   "version": "1.0.0-beta.4",
   "description": "Desktop gRPC client.",
   "main": ".webpack/main",
-  "private": true,
   "scripts": {
     "start": "electron-forge start",
     "package": "electron-forge package",
