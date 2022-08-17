@@ -56,7 +56,7 @@ If you want to send 64-bit integers (`int64`, `uint64`, `sint64`, `fixed64`, `sf
 ## Build from source
 
 ```bash
-  $ npm run ci
+  $ npm ci
   $ npm run make
 ```
 
