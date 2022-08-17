@@ -23,8 +23,9 @@
 **gRPC**  
 ✅ Unary calls.  
 ✅ Client/Server/Bidirectional streaming.  
+✅ Stream cancelation.  
 ✅ Metadata support.  
-✅ TLS (Server-side/Mutual) support.  
+✅ TLS (Server-side/Mutual).  
 ✅ Good errors output.  
 
 ## Preview
@@ -50,6 +51,13 @@ If you want to send 64-bit integers (`int64`, `uint64`, `sint64`, `fixed64`, `sf
   "fixed64": "18446744073709551615",
   "sfixed64": "-9223372036854775807"
 }
+```
+
+## Build from source
+
+```bash
+  $ npm run ci
+  $ npm run make
 ```
 
 ## Roadmap
