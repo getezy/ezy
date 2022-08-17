@@ -20,7 +20,13 @@ export const UnaryCallResponse: React.FC<UnaryCallResponseProps> = ({ tab }) => 
   <StyledContainer>
     <Tabs activeKey={tab.data.response.id} activeBar={{ color: 'secondary', position: 'bottom' }}>
       <Tab title="Response" id={tab.data.response.id} key={tab.data.response.id}>
-        <CodeEditor height="100%" maxWidth="100%" width="100%" value={tab.data.response.value} />
+        <CodeEditor
+          height="100%"
+          maxWidth="100%"
+          width="100%"
+          value={tab.data.response.value}
+          readOnly
+        />
       </Tab>
     </Tabs>
   </StyledContainer>
