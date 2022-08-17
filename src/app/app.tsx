@@ -6,17 +6,23 @@ import { Main } from './pages';
 import { ThemeType, useSettingsStore } from './storage';
 import { DarkTheme, globalStyles, LightTheme } from './themes';
 
+export const THEMES = {
+  [ThemeType.Dark]: DarkTheme,
+  [ThemeType.Light]: LightTheme,
+};
+
 function App(): JSX.Element {
-  const theme =
-    useSettingsStore((store) => store.theme) === ThemeType.Dark ? DarkTheme : LightTheme;
+  const theme = useSettingsStore((store) => store.theme);
 
   globalStyles();
 
   return (
-    <NextUIProvider theme={theme}>
-      <NotificationContainer />
-      <Main />
-    </NextUIProvider>
+    theme && (
+      <NextUIProvider theme={THEMES[theme]}>
+        <NotificationContainer />
+        <Main />
+      </NextUIProvider>
+    )
   );
 }
 
