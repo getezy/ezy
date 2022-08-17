@@ -1,34 +1,17 @@
-import { faSquarePlus } from '@fortawesome/free-solid-svg-icons';
+import { faCog, faSquarePlus } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Button, styled } from '@nextui-org/react';
+import { Button, Container } from '@nextui-org/react';
 import React from 'react';
 
-// import { useLogsStore } from '../storage';
 import { CreateCollectionModal } from './collections';
-// import { LogsButton, LogsModal } from './logs';
-
-const HeaderWrapper = styled('div', {
-  display: 'flex',
-  flexWrap: 'nowrap',
-  justifyContent: 'center',
-  alignItems: 'center',
-  overflow: 'hidden',
-});
+import { UpdateSettingsModal } from './settings';
 
 export const Header: React.FC = () => {
   const [createCollectionModalVisible, setCreateCollectionModalVisible] = React.useState(false);
-  // const [logsModalVisible, setLogsModalVisible] = React.useState(false);
-  // const { newLogsAvailable, markAsReadLogs } = useLogsStore((store) => store);
-
-  // const handleLogsButtonClick = () => {
-  //   setLogsModalVisible(true);
-  //   markAsReadLogs();
-  // };
+  const [updateSettingsModalVisible, setUpdateSettingsModalVisible] = React.useState(false);
 
   return (
-    <HeaderWrapper>
-      {/* <LogsButton badgeVisible={newLogsAvailable} onClick={handleLogsButtonClick} />
-      <Spacer /> */}
+    <Container fluid display="flex" wrap="nowrap" justify="center" alignItems="center">
       <Button
         auto
         bordered
@@ -37,22 +20,40 @@ export const Header: React.FC = () => {
         size="sm"
         icon={<FontAwesomeIcon icon={faSquarePlus} />}
         onClick={() => setCreateCollectionModalVisible(true)}
+        css={{
+          marginLeft: 'auto',
+        }}
       >
         New collection
       </Button>
+      <Button
+        auto
+        light
+        size="xs"
+        color="warning"
+        css={{
+          marginLeft: 'auto',
+          minWidth: 10,
+          color: '$accents9',
+          '&:hover': {
+            color: '$warning',
+            backgroundColor: '$accents0',
+          },
+        }}
+        icon={<FontAwesomeIcon icon={faCog} />}
+        onClick={() => setUpdateSettingsModalVisible(true)}
+      />
       <CreateCollectionModal
         fullScreen
         closeButton
         open={createCollectionModalVisible}
         onClose={() => setCreateCollectionModalVisible(false)}
       />
-      {/* <LogsModal
-        open={logsModalVisible}
+      <UpdateSettingsModal
         closeButton
-        fullScreen
-        scroll
-        onClose={() => setLogsModalVisible(false)}
-      /> */}
-    </HeaderWrapper>
+        open={updateSettingsModalVisible}
+        onClose={() => setUpdateSettingsModalVisible(false)}
+      />
+    </Container>
   );
 };

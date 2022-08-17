@@ -7,7 +7,8 @@ import { ThemeType, useSettingsStore } from './storage';
 import { DarkTheme, globalStyles, LightTheme } from './themes';
 
 function App(): JSX.Element {
-  const theme = useSettingsStore((store) => store.type) === ThemeType.Dark ? DarkTheme : LightTheme;
+  const theme =
+    useSettingsStore((store) => store.theme) === ThemeType.Dark ? DarkTheme : LightTheme;
 
   globalStyles();
 

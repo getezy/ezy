@@ -50,9 +50,11 @@ export const StyledSelect = styled(ReactSelect, {
     backgroundColor: '$accents0',
   },
   '.react-select__option:hover': {
+    color: '$text',
     backgroundColor: '$accents2',
   },
   '.react-select__option--is-selected': {
+    color: '$text',
     backgroundColor: '$accents1',
   },
 
