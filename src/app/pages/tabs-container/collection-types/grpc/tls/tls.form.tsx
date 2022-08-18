@@ -96,7 +96,7 @@ export const TlsForm: React.FC<TlsFormProps> = ({
           bordered
           borderWeight="light"
           animated={false}
-          clearable
+          clearable={!isReadonly}
           readOnly={isReadonly}
           color={errors.name ? 'error' : 'default'}
           label="Name"
@@ -112,9 +112,11 @@ export const TlsForm: React.FC<TlsFormProps> = ({
           onChange={handleTlsTypeChange}
           isReadOnly={isReadonly}
         >
-          <Radio value={GrpcTlsType.INSECURE} size="sm">
-            Insecure
-          </Radio>
+          {defaultValues?.system && (
+            <Radio value={GrpcTlsType.INSECURE} size="sm">
+              Insecure
+            </Radio>
+          )}
           <Radio value={GrpcTlsType.SERVER_SIDE} size="sm">
             Server-side
           </Radio>
@@ -198,6 +200,7 @@ export const TlsForm: React.FC<TlsFormProps> = ({
                   buttonColor="default"
                   size="sm"
                   animated={false}
+                  clearable={!isReadonly}
                   readOnly={isReadonly}
                   // @ts-ignore
                   color={errors.tls?.clientKeyPath ? 'error' : 'default'}
@@ -226,7 +229,7 @@ export const TlsForm: React.FC<TlsFormProps> = ({
               bordered
               borderWeight="light"
               animated={false}
-              clearable
+              clearable={!isReadonly}
               readOnly={isReadonly}
               // @ts-ignore
               label={
