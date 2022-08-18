@@ -29,6 +29,10 @@ const SimpleService: SimpleServiceServer = {
       result.push(data.id.toString());
     });
 
+    call.on('cancelled', () => {
+      console.log('cancelled', call.cancelled);
+    });
+
     call.on('end', () => {
       const message = SimpleMessage.fromJSON({ id: result.join(',') });
       callback(null, message);

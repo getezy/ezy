@@ -2,6 +2,7 @@ import { faXmark } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Button, Loading, Spacer } from '@nextui-org/react';
 import React from 'react';
+import { useUnmount } from 'react-use';
 
 import { GrpcMethodType } from '../../../../../../core/protobuf/interfaces';
 import { useServerStreaming } from '../hooks';
@@ -33,6 +34,10 @@ export const ServerStreamingSendHeader: React.FC<
       setIsStreaming(false);
     }
   };
+
+  useUnmount(() => {
+    handleCancelButtonClick();
+  });
 
   return (
     <SendHeader tab={tab}>
