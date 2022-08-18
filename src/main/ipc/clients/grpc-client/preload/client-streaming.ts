@@ -79,7 +79,7 @@ export default {
   async cancel(id: string): Promise<void> {
     try {
       ipcRenderer.emit(GrpcClientClientStreamingChannel.CANCEL, id);
-      await ipcRenderer.invoke(GrpcClientChannel.CANCEL_SERVER_STREAMING_REQUEST, id);
+      await ipcRenderer.invoke(GrpcClientChannel.CANCEL_CLIENT_STREAMING_REQUEST, id);
     } catch (error) {
       throw new Error(parseErrorFromIPCMain(error));
     }
