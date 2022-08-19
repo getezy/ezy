@@ -16,7 +16,7 @@ export const UpdateSettingsModal: React.FC<ModalProps> = ({ onClose = () => {}, 
   };
 
   return (
-    <Modal {...props} onClose={onClose} aria-labelledby="update-settings-modal">
+    <Modal {...props} onClose={onClose} aria-labelledby="update-settings-modal" blur>
       <Modal.Header css={{ userSelect: 'none' }}>
         <Text>Settings</Text>
       </Modal.Header>
