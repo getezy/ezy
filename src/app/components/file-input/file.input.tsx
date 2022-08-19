@@ -57,7 +57,7 @@ export const FileInput = React.forwardRef<HTMLInputElement, FileInputProps>(
                 size="xs"
                 color={buttonColor}
                 icon={<FontAwesomeIcon icon={faEllipsis} />}
-                css={{ minWidth: 24, margin: '0 10px 0 0' }}
+                css={{ minWidth: 24, margin: '0 10px 0 0', '&:hover': { color: '$accents5' } }}
                 onClick={handleDialogOpenButtonClick}
               />
             </CommandsWrapper>

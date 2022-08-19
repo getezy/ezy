@@ -15,7 +15,7 @@ export const StyledTabBarItem = styled('div', {
   padding: '5px 0px 5px 5px',
 
   '&:hover': {
-    backgroundColor: '$backgroundContrast',
+    backgroundColor: '$accents1',
   },
 
   [`&:hover p`]: {
