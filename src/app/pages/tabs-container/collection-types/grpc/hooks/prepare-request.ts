@@ -54,7 +54,7 @@ export function getOptions(
 
 export function parseRequest(tab: GrpcTab<GrpcMethodType>): Record<string, unknown> {
   try {
-    const request = JSON.parse(tab.data.requestTabs.request.value || '{}');
+    const request = JSON.parse(tab.data.requestTabs.request.value?.trim() || '{}');
 
     return request;
   } catch (error) {
@@ -64,7 +64,7 @@ export function parseRequest(tab: GrpcTab<GrpcMethodType>): Record<string, unkno
 
 export function parseMetadata(tab: GrpcTab<GrpcMethodType>): Record<string, MetadataValue> {
   try {
-    const metadata = JSON.parse(tab.data.requestTabs.metadata.value || '{}');
+    const metadata = JSON.parse(tab.data.requestTabs.metadata.value?.trim() || '{}');
 
     return metadata;
   } catch (error) {
