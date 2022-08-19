@@ -11,7 +11,7 @@ const StyledContainer = styled('div', {
 
   overflow: 'hidden',
 
-  backgroundColor: '$backgroundContrast',
+  backgroundColor: '$background',
 });
 
 export interface RequestProps {

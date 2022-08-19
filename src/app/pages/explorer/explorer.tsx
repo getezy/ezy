@@ -9,7 +9,7 @@ const ExplorerGridStyles: CSS = {
 
   minWidth: 250,
   maxWidth: 250,
-  background: '$backgroundContrast',
+  background: '$background',
   borderRight: 'solid $border 1px',
 };
 

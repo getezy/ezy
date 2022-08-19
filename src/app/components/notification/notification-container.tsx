@@ -7,6 +7,9 @@ import 'react-toastify/dist/ReactToastify.css';
 const StyledToastContainer = styled(ToastContainer, {
   position: 'fixed',
   zIndex: '$max',
+  '.Toastify__toast-theme--dark': {
+    backgroundColor: '$backgroundContrast !important',
+  },
 });
 
 export const NotificationContainer: React.FC = () => {

@@ -2,7 +2,7 @@ import { Container, CSS, Spacer } from '@nextui-org/react';
 import React from 'react';
 
 const ExporerHeaderContainerStyles: CSS = {
-  background: '$backgroundContrast',
+  background: '$background',
   borderBottom: 'solid $border 1px',
 };
 

@@ -10,7 +10,7 @@ const LogItem = styled('div', {
   paddingLeft: 10,
   paddingRight: 10,
   '&:hover': {
-    backgroundColor: '$accents1',
+    backgroundColor: '$backgroundContrast',
   },
 });
 
@@ -44,7 +44,12 @@ export const LogsModal: React.FC<ModalProps> = ({ onClose = () => {}, ...props }
   };
 
   return (
-    <Modal {...props} aria-labelledby="logs-modal" onClose={onClose}>
+    <Modal
+      aria-labelledby="logs-modal"
+      css={{ background: '$background' }}
+      onClose={onClose}
+      {...props}
+    >
       <Modal.Header
         css={{
           background: 'transparent',

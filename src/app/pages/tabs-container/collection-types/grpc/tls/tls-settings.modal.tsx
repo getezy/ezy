@@ -111,11 +111,11 @@ export const TlsSettingsModal: React.FC<TlsSettingsModalProps> = ({
 
   return (
     <Modal
-      {...props}
       aria-labelledby="tls-settings-modal"
-      noPadding
       onClose={handleCloseButtonClick}
-      css={{ padding: 0 }}
+      noPadding
+      css={{ padding: 0, background: '$background' }}
+      {...props}
     >
       <Modal.Body>
         <Explorer header={header} sideBar={sidebar}>

@@ -4,7 +4,7 @@ import ReactSelect from 'react-select';
 export const StyledSelect = styled(ReactSelect, {
   '.react-select': {},
   '.react-select__control': {
-    backgroundColor: '$accents0',
+    backgroundColor: '$background',
     height: 'calc($$selectHeightRatio * $9)',
     minHeight: 'calc($$selectHeightRatio * $9)',
     flexWrap: 'nowrap',
@@ -38,16 +38,15 @@ export const StyledSelect = styled(ReactSelect, {
     overflow: 'visible',
   },
   '.react-select__menu': {
-    backgroundColor: '$accents0',
+    backgroundColor: '$background',
     fontSize: '$$selectFontSize',
     zIndex: '$max',
-    // width: '20vw',
   },
   '.react-select__menu-list': {
     padding: 0,
   },
   '.react-select__option': {
-    backgroundColor: '$accents0',
+    backgroundColor: '$background',
   },
   '.react-select__option:hover': {
     color: '$text',

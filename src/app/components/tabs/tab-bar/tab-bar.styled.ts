@@ -6,5 +6,5 @@ export const StyledTabBar = styled('div', {
   flexWrap: 'nowrap',
   overflow: 'auto',
 
-  background: '$backgroundContrast',
+  background: '$background',
 });

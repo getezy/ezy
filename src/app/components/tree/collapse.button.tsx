@@ -20,7 +20,7 @@ export const CollapseButton: React.FC<CollapseButtonProps> = ({ isOpen, onClick 
       marginLeft: 'auto',
       '&:hover': {
         color: '$warning',
-        backgroundColor: '$accents0',
+        backgroundColor: '$backgroundContrast',
       },
     }}
     icon={<FontAwesomeIcon icon={isOpen ? faAngleDown : faAngleLeft} />}

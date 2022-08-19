@@ -18,7 +18,12 @@ export const CreateCollectionModal: React.FC<ModalProps> = ({ onClose = () => {}
   };
 
   return (
-    <Modal {...props} aria-labelledby="create-collection-modal" onClose={onClose}>
+    <Modal
+      aria-labelledby="create-collection-modal"
+      css={{ background: '$background' }}
+      onClose={onClose}
+      {...props}
+    >
       <Modal.Header css={{ userSelect: 'none' }}>
         <Spacer />
         <Text>New Collection</Text>

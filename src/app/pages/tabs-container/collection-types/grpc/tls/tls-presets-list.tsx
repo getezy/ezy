@@ -52,7 +52,7 @@ const ReponseNode: React.FC<
         color: '$accents9',
         '&:hover': {
           color: '$error',
-          backgroundColor: '$accents0',
+          backgroundColor: '$backgroundContrast',
         },
       }}
       icon={<FontAwesomeIcon icon={faTrash} />}

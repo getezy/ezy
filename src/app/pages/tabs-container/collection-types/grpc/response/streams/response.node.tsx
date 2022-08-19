@@ -47,7 +47,7 @@ export const ReponseNode: React.FC<TreeNodeRendererProps<GrpcStreamMessage>> = (
         color: '$accents9',
         '&:hover': {
           color: '$warning',
-          backgroundColor: '$accents0',
+          backgroundColor: '$backgroundContrast',
         },
       }}
       icon={<FontAwesomeIcon icon={faClone} />}

@@ -50,7 +50,7 @@ const RemoveButton = styled('div', {
 
   '&:hover': {
     color: '$error',
-    backgroundColor: '$accents0',
+    backgroundColor: '$backgroundContrast',
   },
 });
 

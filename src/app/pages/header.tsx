@@ -37,7 +37,7 @@ export const Header: React.FC = () => {
           color: '$accents9',
           '&:hover': {
             color: '$warning',
-            backgroundColor: '$accents0',
+            backgroundColor: '$backgroundContrast',
           },
         }}
         icon={<FontAwesomeIcon icon={faCog} />}
@@ -51,6 +51,7 @@ export const Header: React.FC = () => {
       />
       <UpdateSettingsModal
         closeButton
+        blur
         open={updateSettingsModalVisible}
         onClose={() => setUpdateSettingsModalVisible(false)}
       />

@@ -23,7 +23,12 @@ export const UpdateCollectionModal: React.FC<UpdateCollectionModalProps> = ({
   };
 
   return (
-    <Modal {...props} onClose={onClose} aria-labelledby="update-collection-modal">
+    <Modal
+      aria-labelledby="update-collection-modal"
+      css={{ background: '$background' }}
+      onClose={onClose}
+      {...props}
+    >
       <Modal.Header css={{ userSelect: 'none' }}>
         <Spacer />
         <Text>Update Collection</Text>

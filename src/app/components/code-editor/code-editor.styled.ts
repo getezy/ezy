@@ -4,7 +4,7 @@ import CodeMirror from '@uiw/react-codemirror';
 export const StyledCodeMirror = styled(CodeMirror, {
   '&': {
     color: '$text',
-    backgroundColor: '$backgroundContrast',
+    backgroundColor: '$background',
     width: '100%',
   },
 
@@ -32,7 +32,7 @@ export const StyledCodeMirror = styled(CodeMirror, {
   },
 
   '.cm-gutters': {
-    backgroundColor: '$backgroundContrast',
+    backgroundColor: '$background',
     color: '$accents8',
     border: 'none',
     userSelect: 'none',
