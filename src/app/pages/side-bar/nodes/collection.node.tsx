@@ -65,7 +65,7 @@ export const CollectionNode: React.FC<TreeNodeRendererProps<Collection<Collectio
           color: '$accents9',
           '&:hover': {
             color: '$warning',
-            backgroundColor: '$backgroundContrast',
+            backgroundColor: '$accents0',
           },
         }}
         icon={<FontAwesomeIcon icon={faEllipsis} />}

@@ -71,7 +71,7 @@ function renderTabBarItemContent(
           css={{
             '&:hover': {
               color: '$warning',
-              backgroundColor: '$backgroundContrast',
+              backgroundColor: '$accents0',
             },
             marginLeft: 5,
             marginRight: 5,

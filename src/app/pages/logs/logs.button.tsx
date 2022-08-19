@@ -32,7 +32,7 @@ export const LogsButton: React.FC<LogsButtonProps> = ({ badgeVisible, ...props }
         color: '$accents9',
         '&:hover': {
           color: '$warning',
-          backgroundColor: '$backgroundContrast',
+          backgroundColor: '$accents0',
         },
       }}
       iconLeftCss={{ zIndex: 1 }}

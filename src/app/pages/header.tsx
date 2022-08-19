@@ -37,7 +37,7 @@ export const Header: React.FC = () => {
           color: '$accents9',
           '&:hover': {
             color: '$warning',
-            backgroundColor: '$backgroundContrast',
+            backgroundColor: '$accents0',
           },
         }}
         icon={<FontAwesomeIcon icon={faCog} />}

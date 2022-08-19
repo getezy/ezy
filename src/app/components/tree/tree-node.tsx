@@ -11,7 +11,7 @@ const StyledTreeNode = styled('li', {
   overflow: 'auto',
 
   '&:hover': {
-    backgroundColor: '$backgroundContrast',
+    backgroundColor: '$accents1',
   },
 
   variants: {

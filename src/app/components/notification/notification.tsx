@@ -48,7 +48,7 @@ export const Notification: React.FC<NotificationProps> = ({ title, description, 
               color: '$accents9',
               '&:hover': {
                 color: '$warning',
-                backgroundColor: '$backgroundContrast',
+                backgroundColor: '$accents0',
               },
             }}
             icon={<FontAwesomeIcon icon={faClone} />}
@@ -64,7 +64,7 @@ export const Notification: React.FC<NotificationProps> = ({ title, description, 
               color: '$accents9',
               '&:hover': {
                 color: '$warning',
-                backgroundColor: '$backgroundContrast',
+                backgroundColor: '$accents0',
               },
             }}
             icon={<FontAwesomeIcon icon={faXmark} />}
