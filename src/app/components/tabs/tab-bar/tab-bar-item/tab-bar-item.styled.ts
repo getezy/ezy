@@ -5,7 +5,7 @@ export const StyledTabBarItem = styled('div', {
   flexWrap: 'nowrap',
   whiteSpace: 'nowrap',
   alignItems: 'baseline',
-  fontFamily: '$sans',
+  fontFamily: '$mono',
 
   width: 'fit-content',
 
