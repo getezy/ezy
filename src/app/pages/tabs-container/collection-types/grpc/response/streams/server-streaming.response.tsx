@@ -1,33 +1,14 @@
-import { styled } from '@nextui-org/react';
 import React from 'react';
 
 import { GrpcMethodType } from '../../../../../../../core/protobuf/interfaces';
 import { Tab, Tabs, Tree } from '../../../../../../components';
 import { GrpcStreamMessage, GrpcTab } from '../../../../../../storage';
 import { ReponseNode } from './response.node';
+import { ListWrapper, StyledContainer } from './response.styled';
 
 export interface ServerStreamingResponseProps {
   tab: GrpcTab<GrpcMethodType.SERVER_STREAMING>;
 }
-
-const StyledContainer = styled('div', {
-  display: 'flex',
-  flex: 1,
-
-  overflow: 'hidden',
-});
-
-const ListWrapper = styled('ul', {
-  display: 'flex',
-  flexDirection: 'column',
-  flex: 1,
-
-  margin: 0,
-
-  overflow: 'auto',
-
-  backgroundColor: '$backgroundContrast',
-});
 
 export const ServerStreamingResponse: React.FC<ServerStreamingResponseProps> = ({ tab }) => (
   <StyledContainer>
