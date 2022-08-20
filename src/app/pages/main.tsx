@@ -4,6 +4,7 @@ import { useEffectOnce } from 'react-use';
 import { useCollectionsStore } from '../storage';
 import { Explorer } from './explorer';
 import { Header } from './header';
+import { Shortcuts } from './shortcuts';
 import { ExplorerSideBar } from './side-bar';
 import { TabsContainer } from './tabs-container';
 
@@ -17,8 +18,10 @@ export const Main = (): JSX.Element => {
   });
 
   return (
-    <Explorer header={<Header />} sideBar={<ExplorerSideBar />}>
-      <TabsContainer />
-    </Explorer>
+    <Shortcuts>
+      <Explorer header={<Header />} sideBar={<ExplorerSideBar />}>
+        <TabsContainer />
+      </Explorer>
+    </Shortcuts>
   );
 };

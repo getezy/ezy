@@ -5,6 +5,7 @@ const StyledActiveBar = styled('div', {
   position: 'absolute',
   height: 1,
   pointerEvents: 'none',
+  zIndex: 2,
 
   variants: {
     color: {

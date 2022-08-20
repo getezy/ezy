@@ -18,6 +18,7 @@
 ## Features
 ✅ Localy persisted collections.  
 ✅ Multi-tabs.  
+✅ Shrotcuts.  
 ✅ Environments.  
 
 **gRPC**  
@@ -39,6 +40,10 @@
 Install the latest version for your OS from [release page](https://github.com/getezy/ezy/releases/latest).
 
 Today you can update only by manually downloading new app version and reinstalling it. I'm working on automatic updates.
+
+## Shortcuts
+
+Use `⌘+K` (macOS) or `ctrl+K`(windows/linux), just try it.
 
 ## Working with 64-bit integers
 If you want to send 64-bit integers (`int64`, `uint64`, `sint64`, `fixed64`, `sfixed64`) just wrap values in quotes.

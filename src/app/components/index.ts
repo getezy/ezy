@@ -10,3 +10,4 @@ export * from './tree';
 export * from './file-input';
 export * from './notification';
 export * from './info-label';
+export * from './kbar';

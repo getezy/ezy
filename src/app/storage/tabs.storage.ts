@@ -18,24 +18,34 @@ import {
 } from './interfaces';
 import { useTlsPresetsStore } from './tls-presets.storage';
 
+const closeTab = (id: string | undefined) =>
+  produce<TabsStorage>((state) => {
+    if (id) {
+      const closedTabIndex = state.tabs.findIndex((tab) => tab.id === id);
+
+      if (state.activeTabId === id) {
+        state.activeTabId =
+          state.tabs[closedTabIndex + 1]?.id || state.tabs[closedTabIndex - 1]?.id;
+      }
+
+      state.tabs.splice(closedTabIndex, 1);
+    }
+  });
+
 export const useTabsStore = create(
   persist<TabsStorage>(
-    (set) => ({
+    (set, get) => ({
       tabs: [],
       activeTabId: undefined,
-      closeTab: (id) =>
+      closeAllTabs: () =>
         set(
           produce<TabsStorage>((state) => {
-            const closedTabIndex = state.tabs.findIndex((tab) => tab.id === id);
-
-            if (state.activeTabId === id) {
-              state.activeTabId =
-                state.tabs[closedTabIndex + 1]?.id || state.tabs[closedTabIndex - 1]?.id;
-            }
-
-            state.tabs.splice(closedTabIndex, 1);
+            state.tabs = [];
+            state.activeTabId = undefined;
           })
         ),
+      closeActiveTab: () => set(closeTab(get().activeTabId)),
+      closeTab: (id) => set(closeTab(id)),
       activateTab: (id) =>
         set(
           produce<TabsStorage>((state) => {
