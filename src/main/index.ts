@@ -4,6 +4,7 @@ import {
   registerDialogSubscribers,
   registerElectronStoreSubscribers,
   registerGrpcClientSubscribers,
+  registerOSSubscribers,
   registerProtobufSubscribers,
 } from './ipc';
 
@@ -20,6 +21,7 @@ if (require('electron-squirrel-startup')) {
   app.quit();
 }
 
+registerOSSubscribers();
 registerElectronStoreSubscribers();
 registerProtobufSubscribers();
 
