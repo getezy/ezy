@@ -43,7 +43,6 @@ export const useTlsPresetsStore = create(
               state.presets[index] = {
                 ...state.presets[index],
                 ...preset,
-                system: false,
               };
             }
           })
