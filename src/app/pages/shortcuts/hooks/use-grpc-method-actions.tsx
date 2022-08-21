@@ -1,7 +1,7 @@
 import { faSquarePlus } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Container } from '@nextui-org/react';
-import { Action, useRegisterActions } from 'kbar';
+import { Action, Priority, useRegisterActions } from 'kbar';
 import React from 'react';
 
 import { GrpcMethodType } from '../../../../core/protobuf/interfaces';
@@ -61,6 +61,7 @@ export function useGrpcMethodActions() {
         id: 'grpc',
         section: 'Grpc',
         name: 'New gRPC Tab',
+        priority: Priority.HIGH,
         icon: <FontAwesomeIcon icon={faSquarePlus} />,
         shortcut: ['$mod+T'],
       },
