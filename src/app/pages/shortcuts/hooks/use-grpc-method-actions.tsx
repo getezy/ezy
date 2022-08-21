@@ -37,7 +37,7 @@ export function useGrpcMethodActions() {
               )}
             </Container>
           ),
-          perform: () =>
+          perform: () => {
             createGrpcTab({
               type: CollectionType.GRPC,
               title: method.name,
@@ -47,21 +47,25 @@ export function useGrpcMethodActions() {
                 methodId: method.id,
                 methodType: method.type,
               },
-            }),
+            });
+          },
         });
       });
     });
     return acc;
   }, [] as Action[]);
 
-  useRegisterActions([
-    {
-      id: 'grpc',
-      section: 'Grpc',
-      name: 'New gRPC Tab',
-      icon: <FontAwesomeIcon icon={faSquarePlus} />,
-      shortcut: ['$mod+T'],
-    },
-    ...methods,
-  ]);
+  useRegisterActions(
+    [
+      {
+        id: 'grpc',
+        section: 'Grpc',
+        name: 'New gRPC Tab',
+        icon: <FontAwesomeIcon icon={faSquarePlus} />,
+        shortcut: ['$mod+T'],
+      },
+      ...methods,
+    ],
+    [methods]
+  );
 }
