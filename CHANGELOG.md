@@ -1,5 +1,15 @@
 
 
+## [1.0.0-beta.8](https://github.com/getezy/ezy/compare/v1.0.0-beta.7...v1.0.0-beta.8) (2022-08-21)
+
+
+### Bug Fixes
+
+* file input reset ([77004fd](https://github.com/getezy/ezy/commit/77004fd2c2a47653b605666378fb8333783d35d0))
+* tls preset update ([f30ab2a](https://github.com/getezy/ezy/commit/f30ab2a15a03e11b5a7ad6769dcf3d5d0c993c84))
+* update kbar search on collections change ([7343f6e](https://github.com/getezy/ezy/commit/7343f6e1faac8055d3a8a633146348ba9ecefac2))
+* update tls preset ([ee42829](https://github.com/getezy/ezy/commit/ee4282994532e8703b4a319930dfe92e912f2ce9))
+
 ## [1.0.0-beta.7](https://github.com/getezy/ezy/compare/v1.0.0-beta.6...v1.0.0-beta.7) (2022-08-21)
 
 
