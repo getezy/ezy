@@ -73,4 +73,5 @@ export const StyledKbd = styled('kbd', {
   background: 'rgba(0 0 0 / .1)',
   borderRadius: '4px',
   fontSize: 14,
+  margin: 0,
 });
