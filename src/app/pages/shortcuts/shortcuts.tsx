@@ -1,9 +1,4 @@
-import {
-  faArrowRight,
-  faArrowsRotate,
-  faSquarePlus,
-  faXmark,
-} from '@fortawesome/free-solid-svg-icons';
+import { faArrowsRotate, faSquarePlus, faXmark } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { createAction, KBarProvider } from 'kbar';
 import React, { PropsWithChildren } from 'react';
@@ -31,12 +26,6 @@ export const Shortcuts: React.FC<PropsWithChildren> = ({ children }) => {
   const { collections, updateCollection } = useCollectionsStore((store) => store);
 
   const actions = [
-    createAction({
-      name: 'Invoke/Send',
-      icon: <FontAwesomeIcon icon={faArrowRight} />,
-      shortcut: ['$mod+Enter'],
-      perform: () => window.open('https://google.com', '_blank'),
-    }),
     createAction({
       section: 'Collections',
       name: 'New Collection',
