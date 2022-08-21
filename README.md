@@ -34,9 +34,7 @@
 
 ## Preview
 <div align="center">
-<img src="docs/preview-dark.gif" align="center">
-<br />
-<img src="docs/preview-light.gif" align="center">
+  <img src="docs/preview.gif" align="center">
 </div>
 
 ## Getting started
