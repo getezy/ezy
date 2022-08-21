@@ -5,7 +5,7 @@ import React from 'react';
 
 export type FileInputProps = Partial<Omit<InputProps, 'type' | 'value' | 'onChange'>> & {
   buttonColor?: NormalColors;
-  value?: string | undefined;
+  value?: string | null | undefined;
 
   onChange: (path: string | undefined) => void;
 };
@@ -19,6 +19,10 @@ const CommandsWrapper = styled('div', {
 export const FileInput = React.forwardRef<HTMLInputElement, FileInputProps>(
   ({ accept, buttonColor, onChange, value, readOnly = false, ...props }, ref) => {
     const [inputValue, setInputValue] = React.useState(value);
+
+    React.useEffect(() => {
+      setInputValue(value);
+    }, [value]);
 
     const handleDialogOpenButtonClick = async () => {
       const paths = await window.electronDialog.open({ properties: ['openFile'] });
