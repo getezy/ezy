@@ -1,7 +1,6 @@
 import React from 'react';
 import { useEffectOnce } from 'react-use';
 
-import { NotificationContainer } from '../components';
 import { useCollectionsStore } from '../storage';
 import { useAppContextProvider } from './context';
 import { Explorer } from './explorer';
@@ -23,7 +22,6 @@ export const Main = (): JSX.Element => {
   return (
     <AppProvider value={value}>
       <Shortcuts>
-        <NotificationContainer />
         <Explorer header={<Header />} sideBar={<ExplorerSideBar />}>
           <TabsContainer />
         </Explorer>
