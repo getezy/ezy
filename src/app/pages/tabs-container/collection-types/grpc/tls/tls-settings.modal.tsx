@@ -23,7 +23,7 @@ export const TlsSettingsModal: React.FC<TlsSettingsModalProps> = ({
   defaultValues,
   ...props
 }) => {
-  const { presets, createTlsPreset } = useTlsPresetsStore((store) => store);
+  const { presets, createTlsPreset, updateTlsPreset } = useTlsPresetsStore((store) => store);
 
   const [formDefaultValues, setFormDefaultValues] = React.useState(defaultValues);
   const [formReadonly, setFormReadonly] = React.useState(!!defaultValues?.system);
@@ -44,17 +44,22 @@ export const TlsSettingsModal: React.FC<TlsSettingsModalProps> = ({
     setFormReadonly(false);
   };
 
-  const handleSubmit = (payload: Omit<TlsPreset, 'id'> & Partial<Pick<TlsPreset, 'id'>>) => {
-    if (payload.id) {
-      onApply(payload.id);
+  const handleSubmit = ({
+    id,
+    ...payload
+  }: Omit<TlsPreset, 'id'> & Partial<Pick<TlsPreset, 'id'>>) => {
+    if (id) {
+      updateTlsPreset(id, payload);
+
+      onApply(id);
     } else {
-      const id = nanoid();
+      const newTlsPresetId = nanoid();
       createTlsPreset({
-        id,
+        id: newTlsPresetId,
         ...payload,
       });
 
-      onApply(id);
+      onApply(newTlsPresetId);
     }
 
     onClose();

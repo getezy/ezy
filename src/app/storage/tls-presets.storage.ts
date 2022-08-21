@@ -1,3 +1,5 @@
+/* eslint-disable no-param-reassign */
+
 import { produce } from 'immer';
 import { nanoid } from 'nanoid';
 import create from 'zustand';
@@ -30,6 +32,20 @@ export const useTlsPresetsStore = create(
               system: false,
               ...preset,
             });
+          })
+        ),
+      updateTlsPreset: (id, preset) =>
+        set(
+          produce<TlsPresetsStorage>((state) => {
+            const index = state.presets.findIndex((item) => item.id === id);
+
+            if (index !== -1) {
+              state.presets[index] = {
+                ...state.presets[index],
+                ...preset,
+                system: false,
+              };
+            }
           })
         ),
       removeTlsPreset: (id) =>
