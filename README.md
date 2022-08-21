@@ -13,6 +13,12 @@
 
 `ezy` - desktop gRPC client.
 
+<br />
+<div align="center">
+  <img src="docs/preview.gif" align="center">
+</div>
+<br />
+
 🚧 This project is in beta phase and can get breaking changes at any time until it goes to v1.
 
 ## Features
@@ -31,11 +37,6 @@
 
 **gRPC-web**  
 🏃‍♂️ Coming soon... 🏃‍♂️  
-
-## Preview
-<div align="center">
-  <img src="docs/preview.gif" align="center">
-</div>
 
 ## Getting started
 Install the latest version for your OS from [release page](https://github.com/getezy/ezy/releases/latest).
