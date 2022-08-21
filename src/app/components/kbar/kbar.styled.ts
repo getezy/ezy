@@ -65,7 +65,7 @@ export const StyledActionWrapper = styled('div', {
 export const StyledShortcutWrapper = styled('div', {
   display: 'grid',
   gridAutoFlow: 'column',
-  gap: '4px',
+  gap: '1px',
 });
 
 export const StyledKbd = styled('kbd', {

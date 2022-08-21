@@ -1,7 +1,7 @@
 import {
-  // faArrowRight,
+  faArrowRight,
   faArrowsRotate,
-  // faSquarePlus,
+  faSquarePlus,
   faXmark,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -10,33 +10,40 @@ import React, { PropsWithChildren } from 'react';
 
 import { KBar } from '../../components';
 import { useCollectionsStore, useTabsStore } from '../../storage';
+import { AppContext } from '../context';
 import { useGrpcMethodActions, useThemeActions } from './hooks';
 
-const ActionsProvider: React.FC<PropsWithChildren> = ({ children }) => {
+interface ActionsProviderProps {
+  os: string;
+}
+
+const ActionsProvider: React.FC<PropsWithChildren<ActionsProviderProps>> = ({ children, os }) => {
   useGrpcMethodActions();
   useThemeActions();
 
-  return <KBar>{children}</KBar>;
+  return <KBar os={os}>{children}</KBar>;
 };
 
 export const Shortcuts: React.FC<PropsWithChildren> = ({ children }) => {
+  const context = React.useContext(AppContext);
+
   const { closeAllTabs, closeActiveTab } = useTabsStore((store) => store);
   const { collections, updateCollection } = useCollectionsStore((store) => store);
 
   const actions = [
-    // createAction({
-    //   name: 'Invoke/Send',
-    //   icon: <FontAwesomeIcon icon={faArrowRight} />,
-    //   shortcut: ['$mod+Enter'],
-    //   perform: () => window.open('https://google.com', '_blank'),
-    // }),
-    // createAction({
-    //   section: 'Collections',
-    //   name: 'New Collection',
-    //   icon: <FontAwesomeIcon icon={faSquarePlus} />,
-    //   shortcut: ['$mod+Shift+C'],
-    //   perform: () => window.open('https://google.com', '_blank'),
-    // }),
+    createAction({
+      name: 'Invoke/Send',
+      icon: <FontAwesomeIcon icon={faArrowRight} />,
+      shortcut: ['$mod+Enter'],
+      perform: () => window.open('https://google.com', '_blank'),
+    }),
+    createAction({
+      section: 'Collections',
+      name: 'New Collection',
+      icon: <FontAwesomeIcon icon={faSquarePlus} />,
+      shortcut: ['$mod+Shift+C'],
+      perform: () => context?.modal.setCreateCollectionModalVisible(true),
+    }),
     createAction({
       section: 'Collections',
       name: 'Synchronize All',
@@ -66,7 +73,7 @@ export const Shortcuts: React.FC<PropsWithChildren> = ({ children }) => {
 
   return (
     <KBarProvider actions={actions}>
-      <ActionsProvider>{children}</ActionsProvider>
+      <ActionsProvider os={context?.platform.os || 'darwin'}>{children}</ActionsProvider>
     </KBarProvider>
   );
 };

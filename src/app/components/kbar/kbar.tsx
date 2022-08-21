@@ -13,16 +13,32 @@ import {
   StyledShortcutWrapper,
 } from './kbar.styled';
 
+function makeOsRelatedShortcut(os: string, shortcut: string): string[] {
+  const keys = shortcut.split('+');
+
+  const osRelatedShortcut = keys.map((key) => {
+    if (key === '$mod') {
+      return os === 'darwin' ? '⌘' : 'Ctrl';
+    }
+
+    return key;
+  });
+
+  return osRelatedShortcut;
+}
+
 const ResultItem = React.forwardRef(
   (
     {
       action,
       active,
       currentRootActionId,
+      os,
     }: {
       action: ActionImpl;
       active: boolean;
       currentRootActionId: ActionId | null | undefined;
+      os: string;
     },
     ref: React.Ref<HTMLDivElement>
   ) => {
@@ -67,9 +83,9 @@ const ResultItem = React.forwardRef(
         </StyledActionWrapper>
         {action.shortcut?.length ? (
           <StyledShortcutWrapper>
-            {action.shortcut.map((sc) => (
-              <StyledKbd key={sc}>{sc}</StyledKbd>
-            ))}
+            {action.shortcut.map((shortcut) =>
+              makeOsRelatedShortcut(os, shortcut).map((sc) => <StyledKbd key={sc}>{sc}</StyledKbd>)
+            )}
           </StyledShortcutWrapper>
         ) : null}
       </StyledResultItem>
@@ -77,7 +93,11 @@ const ResultItem = React.forwardRef(
   }
 );
 
-const RenderResults: React.FC = () => {
+interface RenderResultsProps {
+  os: string;
+}
+
+const RenderResults: React.FC<RenderResultsProps> = ({ os }) => {
   const { results, rootActionId } = useMatches();
 
   return (
@@ -88,20 +108,24 @@ const RenderResults: React.FC = () => {
         typeof item === 'string' ? (
           <StyledGroupName>{item}</StyledGroupName>
         ) : (
-          <ResultItem action={item} active={active} currentRootActionId={rootActionId} />
+          <ResultItem action={item} active={active} currentRootActionId={rootActionId} os={os} />
         )
       }
     />
   );
 };
 
-export const KBar: React.FC<PropsWithChildren> = ({ children }) => (
+export interface KBarProps {
+  os: string;
+}
+
+export const KBar: React.FC<PropsWithChildren<KBarProps>> = ({ children, os }) => (
   <>
     <KBarPortal>
       <StyledKBarPositioner>
         <StyledKBarAnimator>
           <StyledKBarSearch />
-          <RenderResults />
+          <RenderResults os={os} />
         </StyledKBarAnimator>
       </StyledKBarPositioner>
     </KBarPortal>

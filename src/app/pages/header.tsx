@@ -4,10 +4,12 @@ import { Button, Container } from '@nextui-org/react';
 import React from 'react';
 
 import { CreateCollectionModal } from './collections';
+import { AppContext } from './context';
 import { UpdateSettingsModal } from './settings';
 
 export const Header: React.FC = () => {
-  const [createCollectionModalVisible, setCreateCollectionModalVisible] = React.useState(false);
+  const context = React.useContext(AppContext);
+
   const [updateSettingsModalVisible, setUpdateSettingsModalVisible] = React.useState(false);
 
   return (
@@ -19,7 +21,7 @@ export const Header: React.FC = () => {
         color="gradient"
         size="sm"
         icon={<FontAwesomeIcon icon={faSquarePlus} />}
-        onClick={() => setCreateCollectionModalVisible(true)}
+        onClick={() => context?.modal.setCreateCollectionModalVisible(true)}
         css={{
           marginLeft: 'auto',
         }}
@@ -46,8 +48,8 @@ export const Header: React.FC = () => {
       <CreateCollectionModal
         fullScreen
         closeButton
-        open={createCollectionModalVisible}
-        onClose={() => setCreateCollectionModalVisible(false)}
+        open={context?.modal.createCollectionModalVisible}
+        onClose={() => context?.modal.setCreateCollectionModalVisible(false)}
       />
       <UpdateSettingsModal
         closeButton
