@@ -6,7 +6,7 @@ export const StyledKBarPositioner = styled(KBarPositioner, {
 });
 
 export const StyledKBarAnimator = styled(KBarAnimator, {
-  maxWidth: '500px',
+  maxWidth: '600px',
   width: '100%',
   background: '$backgroundContrast',
   color: '$text',
