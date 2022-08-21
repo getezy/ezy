@@ -13,7 +13,7 @@
 
 `ezy` - desktop gRPC client.
 
-⚠️ **WARNING!** This project is in beta phase and can get breaking changes at any time until it goes to v1. 🏗
+🚧 This project is in beta phase and can get breaking changes at any time until it goes to v1.
 
 ## Features
 ✅ Localy persisted collections.  
@@ -26,8 +26,11 @@
 ✅ Client/Server/Bidirectional streaming.  
 ✅ Stream cancelation.  
 ✅ Metadata support.  
-✅ TLS (Server-side/Mutual).  
+✅ TLS (Server-side/Mutual) with CA/Self-Signed certificates.  
 ✅ Good errors output.  
+
+**gRPC-web**  
+🏃‍♂️ Comming soon... 🏃‍♂️  
 
 ## Preview
 <div align="center">
