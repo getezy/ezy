@@ -30,7 +30,7 @@
 ✅ Good errors output.  
 
 **gRPC-web**  
-🏃‍♂️ Comming soon... 🏃‍♂️  
+🏃‍♂️ Coming soon... 🏃‍♂️  
 
 ## Preview
 <div align="center">
