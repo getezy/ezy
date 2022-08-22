@@ -18,6 +18,7 @@ export function useGrpcMethodActions() {
         acc.push({
           id: method.name,
           name: method.name,
+          keywords: `${collection.name} ${service.name} ${method.name}`,
           subtitle: `${collection.name} → ${service.name}`,
           section: '',
           parent: 'grpc',
