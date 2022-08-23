@@ -13,7 +13,6 @@
 
 `ezy` - desktop gRPC client.
 
-<br />
 <div align="center">
   <img src="docs/preview.gif" align="center">
 </div>
@@ -24,7 +23,7 @@
 ## Features
 ✅ Localy persisted collections.  
 ✅ Multi-tabs.  
-✅ Shrotcuts.  
+✅ Shortcuts.  
 ✅ Environments.  
 
 **gRPC**  
