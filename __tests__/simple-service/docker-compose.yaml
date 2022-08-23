@@ -1,0 +1,7 @@
+services:
+  envoy:
+    image: envoyproxy/envoy:v1.22.0
+    ports:
+      - 8080:8080
+    volumes:
+      - ./envoy.yaml:/etc/envoy/envoy.yaml:ro
