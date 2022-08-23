@@ -4,6 +4,7 @@ import {
   registerDialogSubscribers,
   registerElectronStoreSubscribers,
   registerGrpcClientSubscribers,
+  registerGrpcWebClientSubscribers,
   registerOSSubscribers,
   registerProtobufSubscribers,
 } from './ipc';
@@ -47,6 +48,7 @@ const createWindow = (): void => {
 
   registerDialogSubscribers(mainWindow);
   registerGrpcClientSubscribers(mainWindow);
+  registerGrpcWebClientSubscribers(mainWindow);
 };
 
 // This method will be called when Electron has finished

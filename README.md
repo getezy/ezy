@@ -44,7 +44,7 @@ Today you can update only by manually downloading new app version and reinstalli
 
 ## Shortcuts
 
-Use `⌘+K` (macOS) or `Ctrl+K`(Windows/Linux), just try it.
+Use `⌘+K` (macOS) or `Ctrl+K`(Windows/Linux). Just try it.
 
 ## Working with 64-bit integers
 If you want to send 64-bit integers (`int64`, `uint64`, `sint64`, `fixed64`, `sfixed64`) just wrap values in quotes.

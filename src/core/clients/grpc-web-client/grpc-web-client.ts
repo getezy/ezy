@@ -1,8 +1,14 @@
 import type { MethodDefinition, PackageDefinition } from '@grpc/proto-loader';
-import { GrpcWebClientBase, Metadata, MethodDescriptor, MethodType } from 'grpc-web';
+import {
+  ClientReadableStream,
+  GrpcWebClientBase,
+  Metadata,
+  MethodDescriptor,
+  MethodType,
+} from 'grpc-web';
 import * as _ from 'lodash';
 
-import { GrpcClientRequestOptions } from '../grpc-client/interfaces';
+import { GrpcWebClientRequestOptions } from './interfaces';
 
 // https://github.com/grpc/grpc-web/issues/453#issuecomment-522022719
 global.XMLHttpRequest = require('xhr2');
@@ -16,9 +22,9 @@ export class GrpcWebClient {
     return new GrpcWebClientBase({ format: 'text' });
   }
 
-  private static loadMethodDescriptor(
+  private static loadMethodDescriptor<RequestType, ResponseType>(
     packageDefinition: PackageDefinition,
-    requestOptions: GrpcClientRequestOptions
+    requestOptions: GrpcWebClientRequestOptions
   ) {
     const service = _.get(packageDefinition, requestOptions.serviceName);
 
@@ -26,10 +32,7 @@ export class GrpcWebClient {
       const method = _.get(service, requestOptions.methodName);
 
       if (method && instanceOfMethodDefinition(method)) {
-        const methodDescriptor = new MethodDescriptor<
-          Record<string, unknown>,
-          Record<string, unknown>
-        >(
+        const methodDescriptor = new MethodDescriptor<RequestType, ResponseType>(
           method.path,
           method.requestStream ? MethodType.SERVER_STREAMING : MethodType.UNARY,
           // @ts-ignore
@@ -50,26 +53,57 @@ export class GrpcWebClient {
   }
 
   private static getMethodUrl(
-    requestOptions: GrpcClientRequestOptions,
+    requestOptions: GrpcWebClientRequestOptions,
     methodDescriptor: MethodDescriptor<unknown, unknown>
   ) {
     return `http://${requestOptions.address}${methodDescriptor.getName()}`;
   }
 
-  static async invokeUnaryRequest(
+  static async invokeUnaryRequest<
+    RequestType = Record<string, unknown>,
+    ResponseType = Record<string, unknown>
+  >(
     packageDefinition: PackageDefinition,
-    requestOptions: GrpcClientRequestOptions,
-    payload: Record<string, unknown>,
+    requestOptions: GrpcWebClientRequestOptions,
+    payload: RequestType,
     metadata?: Metadata
-  ): Promise<Record<string, unknown>> {
+  ): Promise<ResponseType> {
     const client = this.loadClient();
-    const methodDescriptor = this.loadMethodDescriptor(packageDefinition, requestOptions);
+    const methodDescriptor = this.loadMethodDescriptor<RequestType, ResponseType>(
+      packageDefinition,
+      requestOptions
+    );
 
-    return client.thenableCall<Record<string, unknown>, Record<string, unknown>>(
+    return client.thenableCall<RequestType, ResponseType>(
       this.getMethodUrl(requestOptions, methodDescriptor),
       payload,
       metadata || {},
       methodDescriptor
     );
+  }
+
+  static invokeServerStreamingRequest<
+    RequestType = Record<string, unknown>,
+    ResponseType = Record<string, unknown>
+  >(
+    packageDefinition: PackageDefinition,
+    requestOptions: GrpcWebClientRequestOptions,
+    payload: RequestType,
+    metadata?: Metadata
+  ): ClientReadableStream<ResponseType> {
+    const client = this.loadClient();
+    const methodDescriptor = this.loadMethodDescriptor<RequestType, ResponseType>(
+      packageDefinition,
+      requestOptions
+    );
+
+    const call = client.serverStreaming<RequestType, ResponseType>(
+      this.getMethodUrl(requestOptions, methodDescriptor),
+      payload,
+      metadata || {},
+      methodDescriptor
+    );
+
+    return call;
   }
 }
