@@ -34,7 +34,7 @@ export class GrpcWebClient {
       if (method && instanceOfMethodDefinition(method)) {
         const methodDescriptor = new MethodDescriptor<RequestType, ResponseType>(
           method.path,
-          method.requestStream ? MethodType.SERVER_STREAMING : MethodType.UNARY,
+          method.responseStream ? MethodType.SERVER_STREAMING : MethodType.UNARY,
           // @ts-ignore
           method.requestType,
           // @ts-ignore
