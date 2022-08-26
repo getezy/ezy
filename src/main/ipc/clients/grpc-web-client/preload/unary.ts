@@ -1,5 +1,5 @@
+import { grpc } from '@improbable-eng/grpc-web';
 import { ipcRenderer } from 'electron';
-import { Metadata } from 'grpc-web';
 
 import { GrpcOptions, GrpcWebClientRequestOptions } from '../../../../../core';
 import { parseErrorFromIPCMain } from '../../../common';
@@ -10,7 +10,7 @@ export default {
     options: GrpcOptions,
     requestOptions: GrpcWebClientRequestOptions,
     payload: Record<string, unknown>,
-    metadata?: Metadata
+    metadata?: grpc.Metadata
   ): Promise<T> {
     try {
       const response = await ipcRenderer.invoke(

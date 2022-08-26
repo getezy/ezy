@@ -1,5 +1,5 @@
+import { grpc } from '@improbable-eng/grpc-web';
 import { BrowserWindow, IpcMain } from 'electron';
-import { Metadata } from 'grpc-web';
 
 import {
   GrpcOptions,
@@ -20,7 +20,7 @@ export class GrpcWebClientUnarySubscriber {
         options: GrpcOptions,
         requestOptions: GrpcWebClientRequestOptions,
         payload: Record<string, unknown>,
-        metadata?: Metadata
+        metadata?: grpc.Metadata
       ) => {
         const ast = await ProtobufLoader.loadFromFile(options);
 

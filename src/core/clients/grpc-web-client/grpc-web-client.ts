@@ -1,49 +1,51 @@
+/* eslint-disable max-classes-per-file */
 import type { MethodDefinition, PackageDefinition } from '@grpc/proto-loader';
-import {
-  ClientReadableStream,
-  GrpcWebClientBase,
-  Metadata,
-  MethodDescriptor,
-  MethodType,
-} from 'grpc-web';
+import { grpc } from '@improbable-eng/grpc-web';
 import * as _ from 'lodash';
 
+import { GrpcWebCallStream } from './grpc-web-call.stream';
 import { GrpcWebClientRequestOptions } from './interfaces';
 
-// https://github.com/grpc/grpc-web/issues/453#issuecomment-522022719
-global.XMLHttpRequest = require('xhr2');
-
-function instanceOfMethodDefinition(object: any): object is MethodDefinition<any, any> {
+function instanceOfProtobufMethodDefinition<RequestType, ResponseType>(
+  object: any
+): object is MethodDefinition<RequestType, ResponseType> {
   return 'requestSerialize' in object && 'responseDeserialize' in object;
 }
 
 export class GrpcWebClient {
-  private static loadClient() {
-    return new GrpcWebClientBase({ format: 'text' });
-  }
-
-  private static loadMethodDescriptor<RequestType, ResponseType>(
+  private static loadMethodDefinition<
+    RequestType extends grpc.ProtobufMessage,
+    ResponseType extends grpc.ProtobufMessage
+  >(
     packageDefinition: PackageDefinition,
     requestOptions: GrpcWebClientRequestOptions
-  ) {
+  ): grpc.MethodDefinition<RequestType, ResponseType> {
     const service = _.get(packageDefinition, requestOptions.serviceName);
 
     if (service) {
       const method = _.get(service, requestOptions.methodName);
 
-      if (method && instanceOfMethodDefinition(method)) {
-        const methodDescriptor = new MethodDescriptor<RequestType, ResponseType>(
-          method.path,
-          method.responseStream ? MethodType.SERVER_STREAMING : MethodType.UNARY,
-          // @ts-ignore
-          method.requestType,
-          // @ts-ignore
-          method.responseType,
-          method.requestSerialize,
-          method.responseDeserialize
-        );
+      if (method && instanceOfProtobufMethodDefinition<RequestType, ResponseType>(method)) {
+        const serviceDefinition: grpc.ServiceDefinition = {
+          serviceName: requestOptions.serviceName,
+        };
 
-        return methodDescriptor;
+        const methodDefinition: grpc.MethodDefinition<RequestType, ResponseType> = {
+          methodName: requestOptions.methodName,
+          service: serviceDefinition,
+          requestStream: method.requestStream,
+          responseStream: method.responseStream,
+          requestType: {
+            // @ts-ignore
+            serializeBinary: method.requestSerialize,
+          },
+          // @ts-ignore
+          responseType: {
+            deserializeBinary: method.responseDeserialize,
+          },
+        };
+
+        return methodDefinition;
       }
 
       throw new Error('No method definition');
@@ -52,57 +54,65 @@ export class GrpcWebClient {
     throw new Error('No service definition');
   }
 
-  private static getMethodUrl(
-    requestOptions: GrpcWebClientRequestOptions,
-    methodDescriptor: MethodDescriptor<unknown, unknown>
-  ) {
-    return `http://${requestOptions.address}${methodDescriptor.getName()}`;
+  private static getUrl(requestOptions: GrpcWebClientRequestOptions) {
+    if (
+      requestOptions.address.startsWith('http://') ||
+      requestOptions.address.startsWith('https://')
+    ) {
+      return requestOptions.address;
+    }
+
+    return `http://${requestOptions.address}`;
   }
 
-  static async invokeUnaryRequest<
-    RequestType = Record<string, unknown>,
-    ResponseType = Record<string, unknown>
-  >(
+  static async invokeUnaryRequest(
     packageDefinition: PackageDefinition,
     requestOptions: GrpcWebClientRequestOptions,
-    payload: RequestType,
-    metadata?: Metadata
-  ): Promise<ResponseType> {
-    const client = this.loadClient();
-    const methodDescriptor = this.loadMethodDescriptor<RequestType, ResponseType>(
+    payload: Record<string, unknown>,
+    metadata?: grpc.Metadata
+  ): Promise<Record<string, unknown>> {
+    const methodDefinition = this.loadMethodDefinition<grpc.ProtobufMessage, grpc.ProtobufMessage>(
       packageDefinition,
       requestOptions
     );
 
-    return client.thenableCall<RequestType, ResponseType>(
-      this.getMethodUrl(requestOptions, methodDescriptor),
-      payload,
-      metadata || {},
-      methodDescriptor
-    );
+    return new Promise((resolve) => {
+      const call = new GrpcWebCallStream(methodDefinition, {
+        host: this.getUrl(requestOptions),
+        // @ts-ignore
+        request: {
+          // @ts-ignore
+          serializeBinary: () => methodDefinition.requestType.serializeBinary(payload),
+        },
+        metadata,
+      });
+
+      call.on('message', (message) => resolve(message));
+
+      call.on('error', (error) => resolve(error.toObject()));
+    });
   }
 
-  static invokeServerStreamingRequest<
-    RequestType = Record<string, unknown>,
-    ResponseType = Record<string, unknown>
-  >(
+  static invokeServerStreamingRequest(
     packageDefinition: PackageDefinition,
     requestOptions: GrpcWebClientRequestOptions,
-    payload: RequestType,
-    metadata?: Metadata
-  ): ClientReadableStream<ResponseType> {
-    const client = this.loadClient();
-    const methodDescriptor = this.loadMethodDescriptor<RequestType, ResponseType>(
+    payload: Record<string, unknown>,
+    metadata?: grpc.Metadata
+  ): GrpcWebCallStream {
+    const methodDefinition = this.loadMethodDefinition<grpc.ProtobufMessage, grpc.ProtobufMessage>(
       packageDefinition,
       requestOptions
     );
 
-    const call = client.serverStreaming<RequestType, ResponseType>(
-      this.getMethodUrl(requestOptions, methodDescriptor),
-      payload,
-      metadata || {},
-      methodDescriptor
-    );
+    const call = new GrpcWebCallStream(methodDefinition, {
+      host: this.getUrl(requestOptions),
+      // @ts-ignore
+      request: {
+        // @ts-ignore
+        serializeBinary: () => methodDefinition.requestType.serializeBinary(payload),
+      },
+      metadata,
+    });
 
     return call;
   }

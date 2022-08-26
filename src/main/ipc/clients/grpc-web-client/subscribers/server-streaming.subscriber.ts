@@ -1,9 +1,10 @@
+import { grpc } from '@improbable-eng/grpc-web';
 import { BrowserWindow, IpcMain } from 'electron';
-import { ClientReadableStream, Metadata } from 'grpc-web';
 import { nanoid } from 'nanoid';
 
 import {
   GrpcOptions,
+  GrpcWebCallStream,
   GrpcWebClient,
   GrpcWebClientRequestOptions,
   ProtobufLoader,
@@ -11,7 +12,7 @@ import {
 import { GrpcWebClientChannel, GrpcWebClientServerStreamingChannel } from '../constants';
 
 export class GrpcWebClientServerStreamingSubscriber {
-  private serverStreamingCalls = new Map<string, ClientReadableStream<Record<string, unknown>>>();
+  private serverStreamingCalls = new Map<string, GrpcWebCallStream>();
 
   constructor(private readonly mainWindow: BrowserWindow, private readonly ipcMain: IpcMain) {}
 
@@ -23,7 +24,7 @@ export class GrpcWebClientServerStreamingSubscriber {
         options: GrpcOptions,
         requestOptions: GrpcWebClientRequestOptions,
         payload: Record<string, unknown>,
-        metadata?: Metadata
+        metadata?: grpc.Metadata
       ) => {
         const ast = await ProtobufLoader.loadFromFile(options);
 
@@ -52,11 +53,11 @@ export class GrpcWebClientServerStreamingSubscriber {
     );
   }
 
-  private registerServerStreamingCall(call: ClientReadableStream<Record<string, unknown>>): string {
+  private registerServerStreamingCall(call: GrpcWebCallStream): string {
     const id = nanoid();
 
-    call.on('data', (data) => {
-      this.mainWindow.webContents.send(GrpcWebClientServerStreamingChannel.DATA, id, data);
+    call.on('message', (message) => {
+      this.mainWindow.webContents.send(GrpcWebClientServerStreamingChannel.DATA, id, message);
     });
 
     call.on('error', (error) => {

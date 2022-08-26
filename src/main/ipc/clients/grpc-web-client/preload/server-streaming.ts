@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-use-before-define */
 
+import { grpc } from '@improbable-eng/grpc-web';
 import { ipcRenderer } from 'electron';
-import { Metadata, RpcError } from 'grpc-web';
 
-import { GrpcOptions, GrpcWebClientRequestOptions } from '../../../../../core';
+import { GrpcOptions, GrpcWebClientRequestOptions, GrpcWebError } from '../../../../../core';
 import { parseErrorFromIPCMain } from '../../../common';
 import { GrpcWebClientChannel, GrpcWebClientServerStreamingChannel } from '../constants';
 import { OnDataCallback, OnEndCallback, OnErrorCallback, wrapHandler } from './handlers';
@@ -13,7 +13,7 @@ export default {
     options: GrpcOptions,
     requestOptions: GrpcWebClientRequestOptions,
     payload: Record<string, unknown>,
-    metadata: Metadata,
+    metadata: grpc.Metadata,
     onData: OnDataCallback,
     onError: OnErrorCallback,
     onEnd: OnEndCallback
@@ -31,7 +31,7 @@ export default {
         onData(data);
       });
 
-      const onErrorCallback = wrapHandler(streamId, (error: RpcError) => {
+      const onErrorCallback = wrapHandler(streamId, (error: GrpcWebError) => {
         onError(error);
         removeListeners();
       });
