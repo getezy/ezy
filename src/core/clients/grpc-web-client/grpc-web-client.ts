@@ -4,7 +4,8 @@ import { grpc } from '@improbable-eng/grpc-web';
 import * as _ from 'lodash';
 
 import { GrpcWebCallStream } from './grpc-web-call.stream';
-import { GrpcWebClientRequestOptions } from './interfaces';
+import { GrpcWebClientRequestOptions, GrpcWebMetadataValue } from './interfaces';
+import { MetadataParser } from './metadata-parser';
 
 function instanceOfProtobufMethodDefinition<RequestType, ResponseType>(
   object: any
@@ -69,7 +70,7 @@ export class GrpcWebClient {
     packageDefinition: PackageDefinition,
     requestOptions: GrpcWebClientRequestOptions,
     payload: Record<string, unknown>,
-    metadata?: grpc.Metadata
+    metadata?: Record<string, GrpcWebMetadataValue>
   ): Promise<Record<string, unknown>> {
     const methodDefinition = this.loadMethodDefinition<grpc.ProtobufMessage, grpc.ProtobufMessage>(
       packageDefinition,
@@ -84,7 +85,7 @@ export class GrpcWebClient {
           // @ts-ignore
           serializeBinary: () => methodDefinition.requestType.serializeBinary(payload),
         },
-        metadata,
+        metadata: metadata ? MetadataParser.parse(metadata) : new grpc.Metadata(),
       });
 
       call.on('message', (message) => resolve(message));
@@ -97,7 +98,7 @@ export class GrpcWebClient {
     packageDefinition: PackageDefinition,
     requestOptions: GrpcWebClientRequestOptions,
     payload: Record<string, unknown>,
-    metadata?: grpc.Metadata
+    metadata?: Record<string, GrpcWebMetadataValue>
   ): GrpcWebCallStream {
     const methodDefinition = this.loadMethodDefinition<grpc.ProtobufMessage, grpc.ProtobufMessage>(
       packageDefinition,
@@ -111,7 +112,7 @@ export class GrpcWebClient {
         // @ts-ignore
         serializeBinary: () => methodDefinition.requestType.serializeBinary(payload),
       },
-      metadata,
+      metadata: metadata ? MetadataParser.parse(metadata) : new grpc.Metadata(),
     });
 
     return call;

@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-use-before-define */
 
-import { grpc } from '@improbable-eng/grpc-web';
 import { ipcRenderer } from 'electron';
 
 import { GrpcOptions, GrpcWebClientRequestOptions, GrpcWebError } from '../../../../../core';
@@ -13,7 +12,7 @@ export default {
     options: GrpcOptions,
     requestOptions: GrpcWebClientRequestOptions,
     payload: Record<string, unknown>,
-    metadata: grpc.Metadata,
+    metadata: Record<string, unknown>,
     onData: OnDataCallback,
     onError: OnErrorCallback,
     onEnd: OnEndCallback

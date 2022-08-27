@@ -1,6 +1,7 @@
 import { GrpcMethodType } from '../../../../../../core/protobuf/interfaces';
 import { notification } from '../../../../../components';
 import {
+  GrpcProtocol,
   GrpcTab,
   useCollectionsStore,
   useTabsStore,
@@ -20,17 +21,28 @@ export function useUnaryCall() {
       const request = parseRequest(tab);
       const metadata = parseMetadata(tab);
 
-      const result = await window.clients.grpc.unary.invoke(
-        grpcOptions,
-        requestOptions,
-        request,
-        metadata
-      );
+      let response: Record<string, unknown>;
+
+      if (tab.data.protocol === GrpcProtocol.GRPC) {
+        response = await window.clients.grpc.unary.invoke(
+          grpcOptions,
+          requestOptions,
+          request,
+          metadata
+        );
+      } else {
+        response = await window.clients.grpcWeb.unary.invoke(
+          grpcOptions,
+          requestOptions,
+          request,
+          metadata
+        );
+      }
 
       updateGrpcTabData<GrpcMethodType.UNARY>(tab.id, {
         response: {
           ...tab.data.response,
-          value: JSON.stringify(result, null, 2),
+          value: JSON.stringify(response, null, 2),
         },
       });
     } catch (error: any) {

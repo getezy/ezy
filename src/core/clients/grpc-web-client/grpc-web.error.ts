@@ -12,7 +12,7 @@ export class GrpcWebError extends Error {
   toObject() {
     return {
       code: this.code,
-      detials: this.details,
+      details: this.details,
       metadata: this.metadata,
     };
   }

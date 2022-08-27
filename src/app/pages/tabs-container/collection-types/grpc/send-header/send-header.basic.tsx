@@ -1,6 +1,6 @@
-import { faFloppyDisk, faLock, faUnlock } from '@fortawesome/free-solid-svg-icons';
+import { faFloppyDisk, faGlobe, faLock, faUnlock } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Button, Container, Input, Spacer, Tooltip } from '@nextui-org/react';
+import { Button, Container, Input, Spacer, Switch, SwitchEvent, Tooltip } from '@nextui-org/react';
 import React, { PropsWithChildren } from 'react';
 import { MultiValue, SingleValue } from 'react-select';
 
@@ -9,6 +9,7 @@ import { GrpcMethodType } from '../../../../../../core/protobuf/interfaces';
 import { ColoredSelect } from '../../../../../components';
 import {
   Environment,
+  GrpcProtocol,
   GrpcTab,
   useEnvironmentsStore,
   useTabsStore,
@@ -43,6 +44,12 @@ export const SendHeader: React.FC<PropsWithChildren<SendHeaderProps<GrpcMethodTy
     updateGrpcTabData(tab.id, {
       environmentId: environment?.id,
       url: environment?.url,
+    });
+  };
+
+  const handleGrpcProtocolChange = (event: SwitchEvent) => {
+    updateGrpcTabData(tab.id, {
+      protocol: event.target.checked ? GrpcProtocol.GRPC_WEB : GrpcProtocol.GRPC,
     });
   };
 
@@ -183,6 +190,25 @@ export const SendHeader: React.FC<PropsWithChildren<SendHeaderProps<GrpcMethodTy
             />
           }
         />
+        <Spacer x={0.5} />
+        <Tooltip
+          content={tab.data.protocol === GrpcProtocol.GRPC_WEB ? 'Using gRPC-Web' : 'Using gRPC'}
+          placement="left"
+          enterDelay={500}
+        >
+          <Switch
+            size="md"
+            bordered
+            shadow
+            disabled={
+              tab.info.methodType !== GrpcMethodType.UNARY &&
+              tab.info.methodType !== GrpcMethodType.SERVER_STREAMING
+            }
+            icon={<FontAwesomeIcon icon={faGlobe} />}
+            checked={tab.data.protocol === GrpcProtocol.GRPC_WEB}
+            onChange={handleGrpcProtocolChange}
+          />
+        </Tooltip>
         {children}
       </Container>
       <CreateEnvironmentModal

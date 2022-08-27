@@ -1,4 +1,3 @@
-import { MetadataValue } from '@grpc/grpc-js';
 import { ipcRenderer } from 'electron';
 
 import { GrpcClientRequestOptions, GrpcOptions } from '../../../../../core';
@@ -10,7 +9,7 @@ export default {
     options: GrpcOptions,
     requestOptions: GrpcClientRequestOptions,
     payload: Record<string, unknown>,
-    metadata?: Record<string, MetadataValue>
+    metadata?: Record<string, unknown>
   ): Promise<T> {
     try {
       const response = await ipcRenderer.invoke(

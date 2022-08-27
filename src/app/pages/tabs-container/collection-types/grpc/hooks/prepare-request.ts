@@ -1,5 +1,3 @@
-import { MetadataValue } from '@grpc/grpc-js';
-
 import {
   GrpcClientRequestOptions,
   GrpcTlsConfig,
@@ -62,7 +60,7 @@ export function parseRequest(tab: GrpcTab<GrpcMethodType>): Record<string, unkno
   }
 }
 
-export function parseMetadata(tab: GrpcTab<GrpcMethodType>): Record<string, MetadataValue> {
+export function parseMetadata(tab: GrpcTab<GrpcMethodType>): Record<string, unknown> {
   try {
     const metadata = JSON.parse(tab.data.requestTabs.metadata.value?.trim() || '{}');
 

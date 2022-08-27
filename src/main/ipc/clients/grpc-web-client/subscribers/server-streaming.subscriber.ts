@@ -1,4 +1,3 @@
-import { grpc } from '@improbable-eng/grpc-web';
 import { BrowserWindow, IpcMain } from 'electron';
 import { nanoid } from 'nanoid';
 
@@ -7,6 +6,7 @@ import {
   GrpcWebCallStream,
   GrpcWebClient,
   GrpcWebClientRequestOptions,
+  GrpcWebMetadataValue,
   ProtobufLoader,
 } from '../../../../../core';
 import { GrpcWebClientChannel, GrpcWebClientServerStreamingChannel } from '../constants';
@@ -24,7 +24,7 @@ export class GrpcWebClientServerStreamingSubscriber {
         options: GrpcOptions,
         requestOptions: GrpcWebClientRequestOptions,
         payload: Record<string, unknown>,
-        metadata?: grpc.Metadata
+        metadata?: Record<string, GrpcWebMetadataValue>
       ) => {
         const ast = await ProtobufLoader.loadFromFile(options);
 

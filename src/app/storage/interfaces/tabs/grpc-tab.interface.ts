@@ -1,5 +1,10 @@
 import { GrpcMethodType } from '../../../../core/protobuf/interfaces';
 
+export enum GrpcProtocol {
+  GRPC = 'grpc',
+  GRPC_WEB = 'grpc-web',
+}
+
 export interface GrpcRequest {
   id: string;
   value?: string;
@@ -48,6 +53,7 @@ export type GrpcResponse<T extends GrpcMethodType> = T extends GrpcMethodType.UN
   : GrpcStreamResponse;
 
 export interface GrpcTabData<T extends GrpcMethodType> {
+  protocol: GrpcProtocol;
   environmentId?: string;
   url?: string;
   tlsId?: string;

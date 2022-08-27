@@ -10,6 +10,7 @@ import { GrpcTlsType } from '../../core/clients/grpc-client/interfaces';
 import { GrpcMethodType } from '../../core/protobuf/interfaces';
 import {
   CollectionType,
+  GrpcProtocol,
   GrpcTab,
   isGrpcTabBidirectionalStreaming,
   isGrpcTabClientStreaming,
@@ -76,6 +77,7 @@ export const useTabsStore = create(
               ...payload,
               id: tabId,
               data: {
+                protocol: GrpcProtocol.GRPC,
                 requestTabs: {
                   activeTabId: requestTabId,
                   request: { id: requestTabId },

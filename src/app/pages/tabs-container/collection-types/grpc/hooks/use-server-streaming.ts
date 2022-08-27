@@ -1,6 +1,7 @@
 import { GrpcMethodType } from '../../../../../../core/protobuf/interfaces';
 import { notification } from '../../../../../components';
 import {
+  GrpcProtocol,
   GrpcStreamMessageType,
   GrpcTab,
   useCollectionsStore,
@@ -33,7 +34,10 @@ export function useServerStreaming() {
         true
       );
 
-      const id = await window.clients.grpc.serverStreaming.invoke(
+      const client =
+        tab.data.protocol === GrpcProtocol.GRPC ? window.clients.grpc : window.clients.grpcWeb;
+
+      const id = await client.serverStreaming.invoke(
         grpcOptions,
         requestOptions,
         request,
@@ -80,7 +84,10 @@ export function useServerStreaming() {
       type: GrpcStreamMessageType.CANCELED,
     });
 
-    await window.clients.grpc.serverStreaming.cancel(callId);
+    const client =
+      tab.data.protocol === GrpcProtocol.GRPC ? window.clients.grpc : window.clients.grpcWeb;
+
+    await client.serverStreaming.cancel(callId);
   }
 
   return { invoke, cancel };

@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-use-before-define */
 
-import { MetadataValue, ServerErrorResponse } from '@grpc/grpc-js';
+import { ServerErrorResponse } from '@grpc/grpc-js';
 import { ipcRenderer } from 'electron';
 
 import { GrpcClientRequestOptions, GrpcOptions } from '../../../../../core';
@@ -12,7 +12,7 @@ export default {
   async invoke(
     options: GrpcOptions,
     requestOptions: GrpcClientRequestOptions,
-    metadata: Record<string, MetadataValue>,
+    metadata: Record<string, unknown>,
     onData: OnDataCallback,
     onError: OnErrorCallback,
     onEnd: OnEndCallback
