@@ -25,17 +25,21 @@
 ✅ Multi-tabs.  
 ✅ Shortcuts.  
 ✅ Environments.  
+✅ Good errors output.  
 
 **gRPC**  
 ✅ Unary calls.  
-✅ Client/Server/Bidirectional streaming.  
+✅ Client/Server/Bi-directional streaming.  
 ✅ Stream cancelation.  
 ✅ Metadata support.  
 ✅ TLS (Server-side/Mutual) with CA/Self-Signed certificates.  
-✅ Good errors output.  
 
 **gRPC-web**  
-🏃‍♂️ Coming soon... 🏃‍♂️  
+✅ Unary calls.  
+✅ Server streaming.  
+✅ Stream cancelation.  
+✅ Metadata (BrowserHeaders) support.  
+<!-- ✅ TLS (Server-side) with CA certificates.   -->
 
 ## Getting started
 Install the latest version for your OS from [release page](https://github.com/getezy/ezy/releases/latest).
