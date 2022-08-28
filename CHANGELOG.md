@@ -1,5 +1,14 @@
 
 
+## [1.0.0-beta.9](https://github.com/getezy/ezy/compare/v1.0.0-beta.8...v1.0.0-beta.9) (2022-08-28)
+
+
+### Features
+
+* add gRPC-web server streaming support and IPC ([ac8f0b2](https://github.com/getezy/ezy/commit/ac8f0b26d25fcc824792d79ede4bfc987c4c24ac))
+* add gRPC-web unary support ([0e03b31](https://github.com/getezy/ezy/commit/0e03b31e35f72b8376346e4602591bfa01157955))
+* add keywords for collections search ([c57ba4f](https://github.com/getezy/ezy/commit/c57ba4f8e02d5662d4a0f1d1bd7f720185196e56))
+
 ## [1.0.0-beta.8](https://github.com/getezy/ezy/compare/v1.0.0-beta.7...v1.0.0-beta.8) (2022-08-21)
 
 
