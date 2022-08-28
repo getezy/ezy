@@ -34,7 +34,7 @@
 ✅ Metadata support.  
 ✅ TLS (Server-side/Mutual) with CA/Self-Signed certificates.  
 
-**gRPC-web**  
+**gRPC-Web**  
 ✅ Unary calls.  
 ✅ Server streaming.  
 ✅ Stream cancelation.  
