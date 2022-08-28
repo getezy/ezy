@@ -2,9 +2,9 @@ import * as grpc from '@grpc/grpc-js';
 // import { ClientReadableStreamImpl } from '@grpc/grpc-js/build/src/call';
 import { join } from 'path';
 
-import { ProtobufLoader } from '../../../protobuf';
+import { ProtobufLoader } from '../../../../protobuf';
+import { GrpcClientRequestOptions, GrpcTlsType } from '../../interfaces';
 import { GrpcClient } from '../grpc-client';
-import { GrpcClientRequestOptions, GrpcTlsType } from '../interfaces';
 
 function createBasicService(error: any, response: any) {
   const BasicService = jest.fn(() => ({
@@ -37,7 +37,7 @@ describe('GrpcClient', () => {
   describe('GrpcClient::InvokeUnaryRequest', () => {
     it('should invoke unary request', async () => {
       const packageDefinition = await ProtobufLoader.loadFromFile({
-        path: join(__dirname, '../../../__tests__/fixtures/proto/basic.proto'),
+        path: join(__dirname, '../../../../__tests__/fixtures/proto/basic.proto'),
       });
 
       const requestOptions: GrpcClientRequestOptions = {
@@ -65,7 +65,7 @@ describe('GrpcClient', () => {
 
     it('should invoke unary request width metadata', async () => {
       const packageDefinition = await ProtobufLoader.loadFromFile({
-        path: join(__dirname, '../../../__tests__/fixtures/proto/basic.proto'),
+        path: join(__dirname, '../../../../__tests__/fixtures/proto/basic.proto'),
       });
 
       const requestOptions: GrpcClientRequestOptions = {
@@ -97,7 +97,7 @@ describe('GrpcClient', () => {
 
     it('should invoke unary request with error', async () => {
       const packageDefinition = await ProtobufLoader.loadFromFile({
-        path: join(__dirname, '../../../__tests__/fixtures/proto/basic.proto'),
+        path: join(__dirname, '../../../../__tests__/fixtures/proto/basic.proto'),
       });
 
       const requestOptions: GrpcClientRequestOptions = {
@@ -127,7 +127,7 @@ describe('GrpcClient', () => {
 
     it('should invoke unary request with package definition', async () => {
       const packageDefinition = await ProtobufLoader.loadFromFile({
-        path: join(__dirname, '../../../__tests__/fixtures/proto/simple.proto'),
+        path: join(__dirname, '../../../../__tests__/fixtures/proto/simple.proto'),
       });
 
       const requestOptions: GrpcClientRequestOptions = {
@@ -155,7 +155,7 @@ describe('GrpcClient', () => {
 
     it('should throw error when no service definition exist', async () => {
       const packageDefinition = await ProtobufLoader.loadFromFile({
-        path: join(__dirname, '../../../__tests__/fixtures/proto/simple.proto'),
+        path: join(__dirname, '../../../../__tests__/fixtures/proto/simple.proto'),
       });
 
       const requestOptions: GrpcClientRequestOptions = {
@@ -172,7 +172,7 @@ describe('GrpcClient', () => {
 
     it('should throw error when no method definition exist', async () => {
       const packageDefinition = await ProtobufLoader.loadFromFile({
-        path: join(__dirname, '../../../__tests__/fixtures/proto/simple.proto'),
+        path: join(__dirname, '../../../../__tests__/fixtures/proto/simple.proto'),
       });
 
       const requestOptions: GrpcClientRequestOptions = {

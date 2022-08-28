@@ -1,9 +1,9 @@
 import { BrowserWindow, IpcMain } from 'electron';
 
 import {
+  GrpcClientRequestOptions,
   GrpcOptions,
   GrpcWebClient,
-  GrpcWebClientRequestOptions,
   GrpcWebMetadataValue,
   ProtobufLoader,
 } from '../../../../../core';
@@ -18,7 +18,7 @@ export class GrpcWebClientUnarySubscriber {
       async (
         _event,
         options: GrpcOptions,
-        requestOptions: GrpcWebClientRequestOptions,
+        requestOptions: GrpcClientRequestOptions,
         payload: Record<string, unknown>,
         metadata?: Record<string, GrpcWebMetadataValue>
       ) => {

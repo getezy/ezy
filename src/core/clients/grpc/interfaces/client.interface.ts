@@ -55,9 +55,11 @@ export interface GrpcInsecureTlsConfig {
 
 export interface GrpcClientRequestOptions {
   serviceName: string;
+
   methodName: string;
 
   address: string;
+
   tls: GrpcTlsConfig<GrpcTlsType>;
 }
 

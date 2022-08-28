@@ -1,10 +1,18 @@
-/* eslint-disable max-classes-per-file */
 import type { MethodDefinition, PackageDefinition } from '@grpc/proto-loader';
 import { grpc } from '@improbable-eng/grpc-web';
+import * as fs from 'fs';
+import * as https from 'https';
 import * as _ from 'lodash';
 
+import {
+  GrpcClientRequestOptions,
+  GrpcTlsConfig,
+  GrpcTlsType,
+  isInsecureTlsConfig,
+  isMutualTlsConfig,
+} from '../interfaces';
 import { GrpcWebCallStream } from './grpc-web-call.stream';
-import { GrpcWebClientRequestOptions, GrpcWebMetadataValue } from './interfaces';
+import { GrpcWebMetadataValue } from './interfaces';
 import { MetadataParser } from './metadata-parser';
 
 function instanceOfProtobufMethodDefinition<RequestType, ResponseType>(
@@ -19,7 +27,7 @@ export class GrpcWebClient {
     ResponseType extends grpc.ProtobufMessage
   >(
     packageDefinition: PackageDefinition,
-    requestOptions: GrpcWebClientRequestOptions
+    requestOptions: GrpcClientRequestOptions
   ): grpc.MethodDefinition<RequestType, ResponseType> {
     const service = _.get(packageDefinition, requestOptions.serviceName);
 
@@ -55,7 +63,37 @@ export class GrpcWebClient {
     throw new Error('No service definition');
   }
 
-  private static getUrl(requestOptions: GrpcWebClientRequestOptions) {
+  private static getRequestOptions(tls: GrpcTlsConfig<GrpcTlsType>): https.RequestOptions {
+    let options: https.RequestOptions;
+
+    if (isInsecureTlsConfig(tls)) {
+      options = {};
+    } else if (isMutualTlsConfig(tls)) {
+      const rootCert = tls.rootCertificatePath
+        ? fs.readFileSync(tls.rootCertificatePath)
+        : undefined;
+      const clientCert = fs.readFileSync(tls.clientCertificatePath);
+      const clientKey = fs.readFileSync(tls.clientKeyPath);
+
+      options = {
+        ca: rootCert,
+        cert: clientCert,
+        key: clientKey,
+      };
+    } else {
+      const rootCert = tls.rootCertificatePath
+        ? fs.readFileSync(tls.rootCertificatePath)
+        : undefined;
+
+      options = {
+        ca: rootCert,
+      };
+    }
+
+    return options;
+  }
+
+  private static getUrl(requestOptions: GrpcClientRequestOptions) {
     if (
       requestOptions.address.startsWith('http://') ||
       requestOptions.address.startsWith('https://')
@@ -63,12 +101,16 @@ export class GrpcWebClient {
       return requestOptions.address;
     }
 
-    return `http://${requestOptions.address}`;
+    if (isInsecureTlsConfig(requestOptions.tls)) {
+      return `http://${requestOptions.address}`;
+    }
+
+    return `https://${requestOptions.address}`;
   }
 
   static async invokeUnaryRequest(
     packageDefinition: PackageDefinition,
-    requestOptions: GrpcWebClientRequestOptions,
+    requestOptions: GrpcClientRequestOptions,
     payload: Record<string, unknown>,
     metadata?: Record<string, GrpcWebMetadataValue>
   ): Promise<Record<string, unknown>> {
@@ -78,15 +120,19 @@ export class GrpcWebClient {
     );
 
     return new Promise((resolve) => {
-      const call = new GrpcWebCallStream(methodDefinition, {
-        host: this.getUrl(requestOptions),
-        // @ts-ignore
-        request: {
+      const call = new GrpcWebCallStream(
+        methodDefinition,
+        {
+          host: this.getUrl(requestOptions),
           // @ts-ignore
-          serializeBinary: () => methodDefinition.requestType.serializeBinary(payload),
+          request: {
+            // @ts-ignore
+            serializeBinary: () => methodDefinition.requestType.serializeBinary(payload),
+          },
+          metadata: metadata ? MetadataParser.parse(metadata) : new grpc.Metadata(),
         },
-        metadata: metadata ? MetadataParser.parse(metadata) : new grpc.Metadata(),
-      });
+        this.getRequestOptions(requestOptions.tls)
+      );
 
       call.on('message', (message) => resolve(message));
 
@@ -96,7 +142,7 @@ export class GrpcWebClient {
 
   static invokeServerStreamingRequest(
     packageDefinition: PackageDefinition,
-    requestOptions: GrpcWebClientRequestOptions,
+    requestOptions: GrpcClientRequestOptions,
     payload: Record<string, unknown>,
     metadata?: Record<string, GrpcWebMetadataValue>
   ): GrpcWebCallStream {
@@ -105,15 +151,19 @@ export class GrpcWebClient {
       requestOptions
     );
 
-    const call = new GrpcWebCallStream(methodDefinition, {
-      host: this.getUrl(requestOptions),
-      // @ts-ignore
-      request: {
+    const call = new GrpcWebCallStream(
+      methodDefinition,
+      {
+        host: this.getUrl(requestOptions),
         // @ts-ignore
-        serializeBinary: () => methodDefinition.requestType.serializeBinary(payload),
+        request: {
+          // @ts-ignore
+          serializeBinary: () => methodDefinition.requestType.serializeBinary(payload),
+        },
+        metadata: metadata ? MetadataParser.parse(metadata) : new grpc.Metadata(),
       },
-      metadata: metadata ? MetadataParser.parse(metadata) : new grpc.Metadata(),
-    });
+      this.getRequestOptions(requestOptions.tls)
+    );
 
     return call;
   }

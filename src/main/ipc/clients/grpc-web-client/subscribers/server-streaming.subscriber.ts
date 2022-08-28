@@ -2,10 +2,10 @@ import { BrowserWindow, IpcMain } from 'electron';
 import { nanoid } from 'nanoid';
 
 import {
+  GrpcClientRequestOptions,
   GrpcOptions,
   GrpcWebCallStream,
   GrpcWebClient,
-  GrpcWebClientRequestOptions,
   GrpcWebMetadataValue,
   ProtobufLoader,
 } from '../../../../../core';
@@ -22,7 +22,7 @@ export class GrpcWebClientServerStreamingSubscriber {
       async (
         _event,
         options: GrpcOptions,
-        requestOptions: GrpcWebClientRequestOptions,
+        requestOptions: GrpcClientRequestOptions,
         payload: Record<string, unknown>,
         metadata?: Record<string, GrpcWebMetadataValue>
       ) => {

@@ -6,7 +6,7 @@ import { nanoid } from 'nanoid';
 import create from 'zustand';
 import { persist } from 'zustand/middleware';
 
-import { GrpcTlsType } from '../../core/clients/grpc-client/interfaces';
+import { GrpcTlsType } from '../../core/clients/grpc/interfaces';
 import { GrpcMethodType } from '../../core/protobuf/interfaces';
 import {
   CollectionType,

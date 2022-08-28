@@ -38,8 +38,8 @@
 ✅ Unary calls.  
 ✅ Server streaming.  
 ✅ Stream cancelation.  
-✅ Metadata (BrowserHeaders) support.  
-<!-- ✅ TLS (Server-side) with CA certificates.   -->
+✅ Metadata (Browser Headers) support.  
+✅ TLS (Server-side/Mutual) with CA/Self-Signed certificates.  
 
 ## Getting started
 Install the latest version for your OS from [release page](https://github.com/getezy/ezy/releases/latest).

@@ -1,0 +1,18 @@
+services:
+  envoy-server:
+    image: envoyproxy/envoy:v1.22.0
+    ports:
+      - 8080:8080
+    volumes:
+      - ./envoy-server.yaml:/etc/envoy/envoy.yaml:ro
+      - ./certs/server-cert.pem:/etc/server-cert.pem
+      - ./certs/server-key.pem:/etc/server-key.pem
+  envoy-mutual:
+    image: envoyproxy/envoy:v1.22.0
+    ports:
+      - 8080:8080
+    volumes:
+      - ./envoy-mutual.yaml:/etc/envoy/envoy.yaml:ro
+      - ./certs/ca-cert.pem:/etc/ca-cert.pem
+      - ./certs/server-cert.pem:/etc/server-cert.pem
+      - ./certs/server-key.pem:/etc/server-key.pem

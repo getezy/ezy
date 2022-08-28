@@ -4,8 +4,8 @@ import { Card, Container, Input, Radio, Spacer, styled, Text } from '@nextui-org
 import React from 'react';
 import { Controller, DeepPartial, useForm } from 'react-hook-form';
 
-import { GrpcTlsType } from '../../../../../../core/clients/grpc-client/interfaces/grpc-client.interface';
-import { FileInput, InfoLabel } from '../../../../../components';
+import { GrpcTlsType } from '../../../../../../core/clients/grpc/interfaces';
+import { Badge, FileInput, InfoLabel } from '../../../../../components';
 import { TlsPreset } from '../../../../../storage';
 
 export interface TlsFormProps {
@@ -222,7 +222,11 @@ export const TlsForm: React.FC<TlsFormProps> = ({
         {watch('tls.type') !== GrpcTlsType.INSECURE && (
           <>
             <Spacer />
-            <Text css={{ margin: 0, color: '$accents8' }}>Channel options</Text>
+            <Container gap={0} display="flex" alignItems="center">
+              <Text css={{ margin: 0, color: '$accents8' }}>Channel options</Text>
+              <Spacer x={0.2} />
+              <Badge text="gRPC" color="primary" size="xs" bordered />
+            </Container>
             <Input
               aria-label="ssl-target-name-override-input"
               size="sm"

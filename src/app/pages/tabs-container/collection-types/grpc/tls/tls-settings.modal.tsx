@@ -5,7 +5,7 @@ import { nanoid } from 'nanoid';
 import React from 'react';
 import { DeepPartial } from 'react-hook-form';
 
-import { GrpcTlsType } from '../../../../../../core/clients/grpc-client/interfaces/grpc-client.interface';
+import { GrpcTlsType } from '../../../../../../core/clients/grpc/interfaces';
 import { TlsPreset, useTlsPresetsStore } from '../../../../../storage';
 import { Explorer } from '../../../../explorer';
 import { TlsForm } from './tls.form';
@@ -132,7 +132,9 @@ export const TlsSettingsModal: React.FC<TlsSettingsModalProps> = ({
             direction="column"
             css={{ flex: 1, overflow: 'hidden' }}
           >
-            <Text css={{ userSelect: 'none', paddingTop: 10 }}>TLS Settings</Text>
+            <Text css={{ alignSelf: 'center', userSelect: 'none', paddingTop: 10 }}>
+              TLS Settings
+            </Text>
             <TlsForm
               id="tls-form"
               defaultValues={formDefaultValues}

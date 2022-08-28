@@ -20,7 +20,7 @@ import {
   GrpcTlsType,
   isInsecureTlsConfig,
   isMutualTlsConfig,
-} from './interfaces';
+} from '../interfaces';
 import { MetadataParser } from './metadata-parser';
 
 function instanceOfServiceClientConstructor(object: any): object is ServiceClientConstructor {

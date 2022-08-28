@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Button, Container, Radio, Spacer, styled, Text } from '@nextui-org/react';
 import React from 'react';
 
-import { GrpcTlsType } from '../../../../../../core/clients/grpc-client/interfaces';
+import { GrpcTlsType } from '../../../../../../core/clients/grpc/interfaces';
 import { Tree, TreeNode, TreeNodeRendererProps } from '../../../../../components';
 import { TlsPreset, useTlsPresetsStore } from '../../../../../storage';
 import { SystemBadge } from './system.badge';

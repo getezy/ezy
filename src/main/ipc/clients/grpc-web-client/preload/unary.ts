@@ -1,13 +1,13 @@
 import { ipcRenderer } from 'electron';
 
-import { GrpcOptions, GrpcWebClientRequestOptions } from '../../../../../core';
+import { GrpcClientRequestOptions, GrpcOptions } from '../../../../../core';
 import { parseErrorFromIPCMain } from '../../../common';
 import { GrpcWebClientChannel } from '../constants';
 
 export default {
   async invoke<T = Record<string, unknown>>(
     options: GrpcOptions,
-    requestOptions: GrpcWebClientRequestOptions,
+    requestOptions: GrpcClientRequestOptions,
     payload: Record<string, unknown>,
     metadata?: Record<string, unknown>
   ): Promise<T> {

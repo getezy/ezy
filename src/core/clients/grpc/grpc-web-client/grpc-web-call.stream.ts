@@ -1,8 +1,9 @@
 import { grpc } from '@improbable-eng/grpc-web';
-import { NodeHttpTransport } from '@improbable-eng/grpc-web-node-http-transport';
 import { EventEmitter } from 'events';
+import * as https from 'https';
 
 import { GrpcWebError } from './grpc-web.error';
+import { NodeHttpTransport } from './http.transport';
 
 export declare interface GrpcWebCallStream {
   on(event: 'message', listener: (message: Record<string, unknown>) => void): this;
@@ -14,7 +15,6 @@ export declare interface GrpcWebCallStream {
   ): this;
 }
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export class GrpcWebCallStream extends EventEmitter {
   private call: grpc.Request;
 
@@ -26,13 +26,16 @@ export class GrpcWebCallStream extends EventEmitter {
     private readonly options: Omit<
       grpc.InvokeRpcOptions<grpc.ProtobufMessage, grpc.ProtobufMessage>,
       'onMessage' | 'onEnd' | 'transport'
-    >
+    >,
+    private readonly httpsOptions?: https.RequestOptions
   ) {
     super();
 
     this.call = grpc.invoke(this.methodDefinition, {
       ...this.options,
-      transport: NodeHttpTransport(),
+      transport: NodeHttpTransport({
+        ...httpsOptions,
+      }),
       onMessage: (responseMessage) => {
         this.emit('message', responseMessage);
       },

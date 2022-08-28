@@ -2,7 +2,7 @@ import {
   GrpcClientRequestOptions,
   GrpcTlsConfig,
   GrpcTlsType,
-} from '../../../../../../core/clients/grpc-client/interfaces';
+} from '../../../../../../core/clients/grpc/interfaces';
 import { GrpcMethodType, GrpcOptions } from '../../../../../../core/protobuf/interfaces';
 import { Collection, CollectionType, GrpcTab, TlsPreset } from '../../../../../storage';
 

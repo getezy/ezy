@@ -4,7 +4,7 @@ import { Button, Container, Input, Spacer, Switch, SwitchEvent, Tooltip } from '
 import React, { PropsWithChildren } from 'react';
 import { MultiValue, SingleValue } from 'react-select';
 
-import { GrpcTlsType } from '../../../../../../core/clients/grpc-client/interfaces';
+import { GrpcTlsType } from '../../../../../../core/clients/grpc/interfaces';
 import { GrpcMethodType } from '../../../../../../core/protobuf/interfaces';
 import { ColoredSelect } from '../../../../../components';
 import {
@@ -195,11 +195,11 @@ export const SendHeader: React.FC<PropsWithChildren<SendHeaderProps<GrpcMethodTy
           content={tab.data.protocol === GrpcProtocol.GRPC_WEB ? 'Using gRPC-Web' : 'Using gRPC'}
           placement="left"
           enterDelay={500}
+          css={{ width: 'max-content' }}
         >
           <Switch
             size="md"
             bordered
-            shadow
             disabled={
               tab.info.methodType !== GrpcMethodType.UNARY &&
               tab.info.methodType !== GrpcMethodType.SERVER_STREAMING

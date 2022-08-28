@@ -2,7 +2,7 @@
 
 import { ipcRenderer } from 'electron';
 
-import { GrpcOptions, GrpcWebClientRequestOptions, GrpcWebError } from '../../../../../core';
+import { GrpcClientRequestOptions, GrpcOptions, GrpcWebError } from '../../../../../core';
 import { parseErrorFromIPCMain } from '../../../common';
 import { GrpcWebClientChannel, GrpcWebClientServerStreamingChannel } from '../constants';
 import { OnDataCallback, OnEndCallback, OnErrorCallback, wrapHandler } from './handlers';
@@ -10,7 +10,7 @@ import { OnDataCallback, OnEndCallback, OnErrorCallback, wrapHandler } from './h
 export default {
   async invoke(
     options: GrpcOptions,
-    requestOptions: GrpcWebClientRequestOptions,
+    requestOptions: GrpcClientRequestOptions,
     payload: Record<string, unknown>,
     metadata: Record<string, unknown>,
     onData: OnDataCallback,

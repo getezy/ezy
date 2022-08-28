@@ -13,7 +13,7 @@ export class GrpcWebError extends Error {
     return {
       code: this.code,
       details: this.details,
-      metadata: this.metadata,
+      metadata: this.metadata?.headersMap,
     };
   }
 }
