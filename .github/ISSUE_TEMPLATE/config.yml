@@ -3,3 +3,6 @@ contact_links:
   - name: 🤔 Long question or ideas?
     url: https://github.com/getezy/ezy/discussions
     about: Ask long-form questions and discuss ideas.
+  - name: 📖 Have you read Wiki?
+    url: https://github.com/getezy/ezy/wiki
+    about: Open wiki page
