@@ -69,7 +69,8 @@ static_resources:
             - endpoint:
                 address:
                   socket_address:
-                    # address: 0.0.0.0
+                    # address: host.docker.internal - for macOS
+                    # address: 0.0.0.0 - for others
                     address: host.docker.internal
                     port_value: 4000
       # http2_protocol_options: {} # Force HTTP/2

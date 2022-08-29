@@ -5,8 +5,10 @@
   "scripts": {
     "start:mutual": "TLS_MODE=mutual GRPC_TRACE=all GRPC_VERBOSITY=DEBUG ts-node ./src/index.ts",
     "start:server": "TLS_MODE=server GRPC_TRACE=all GRPC_VERBOSITY=DEBUG ts-node ./src/index.ts",
+    "client:server": "TLS_MODE=server ts-node ./src/client.ts",
+    "client:mutual": "TLS_MODE=mutual ts-node ./src/client.ts",
     "certs": "cd certs && ./gen-certs.sh",
-    "proto": "protoc --plugin=./node_modules/.bin/protoc-gen-ts_proto --ts_proto_opt=env=node,outputClientImpl=false,outputServices=grpc-js --ts_proto_out=./src/generated ./proto/tls_service.proto",
+    "proto": "protoc --plugin=./node_modules/.bin/protoc-gen-ts_proto --ts_proto_opt=env=node,outputServices=grpc-js --ts_proto_out=./src/generated ./proto/tls_service.proto",
     "build": "npm run proto && npm run certs"
   },
   "dependencies": {

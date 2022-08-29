@@ -13,7 +13,7 @@ openssl req -newkey rsa:4096 -nodes -keyout server-key.pem -out server-req.pem -
 
 # Remember that when we develop on localhost, It’s important to add the IP:0.0.0.0 as an Subject Alternative Name (SAN) extension to the certificate.
 echo "subjectAltName=DNS:*.tls,DNS:localhost,IP:0.0.0.0" > server-ext.cnf
-# Or you can usee localhost DNS and grpc.ssl_target_name_override variable
+# Or you can use localhost DNS and grpc.ssl_target_name_override variable
 # echo "subjectAltName=DNS:localhost" > server-ext.cnf
 
 # 3. Use CA's private key to sign web server's CSR and get back the signed certificate

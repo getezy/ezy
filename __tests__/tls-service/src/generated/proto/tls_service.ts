@@ -1,5 +1,16 @@
 /* eslint-disable */
-import { UntypedServiceImplementation, handleUnaryCall } from "@grpc/grpc-js";
+import {
+  makeGenericClientConstructor,
+  ChannelCredentials,
+  ChannelOptions,
+  UntypedServiceImplementation,
+  handleUnaryCall,
+  Client,
+  ClientUnaryCall,
+  Metadata,
+  CallOptions,
+  ServiceError,
+} from "@grpc/grpc-js";
 import * as _m0 from "protobufjs/minimal";
 
 export const protobufPackage = "tls_service.v1";
@@ -80,6 +91,36 @@ export const TLSServiceService = {
 export interface TLSServiceServer extends UntypedServiceImplementation {
   unary: handleUnaryCall<SimpleMessage, SimpleMessage>;
 }
+
+export interface TLSServiceClient extends Client {
+  unary(
+    request: SimpleMessage,
+    callback: (error: ServiceError | null, response: SimpleMessage) => void
+  ): ClientUnaryCall;
+  unary(
+    request: SimpleMessage,
+    metadata: Metadata,
+    callback: (error: ServiceError | null, response: SimpleMessage) => void
+  ): ClientUnaryCall;
+  unary(
+    request: SimpleMessage,
+    metadata: Metadata,
+    options: Partial<CallOptions>,
+    callback: (error: ServiceError | null, response: SimpleMessage) => void
+  ): ClientUnaryCall;
+}
+
+export const TLSServiceClient = makeGenericClientConstructor(
+  TLSServiceService,
+  "tls_service.v1.TLSService"
+) as unknown as {
+  new (
+    address: string,
+    credentials: ChannelCredentials,
+    options?: Partial<ChannelOptions>
+  ): TLSServiceClient;
+  service: typeof TLSServiceService;
+};
 
 type Builtin =
   | Date
