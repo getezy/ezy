@@ -21,7 +21,7 @@ export function useEnvironmentActions() {
       <Container
         gap={0}
         display="flex"
-        justify="flex-start"
+        justify="center"
         alignItems="center"
         wrap="nowrap"
         css={{ width: 40 }}
