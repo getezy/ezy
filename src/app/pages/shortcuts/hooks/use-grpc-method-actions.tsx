@@ -20,7 +20,6 @@ export function useGrpcMethodActions() {
           name: method.name,
           keywords: `${collection.name} ${service.name} ${method.name}`,
           subtitle: `${collection.name} → ${service.name}`,
-          section: '',
           parent: 'grpc',
           icon: (
             <Container

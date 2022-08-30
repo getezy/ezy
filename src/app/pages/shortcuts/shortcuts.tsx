@@ -6,7 +6,7 @@ import React, { PropsWithChildren } from 'react';
 import { KBar } from '../../components';
 import { useCollectionsStore, useTabsStore } from '../../storage';
 import { AppContext } from '../context';
-import { useGrpcMethodActions, useThemeActions } from './hooks';
+import { useEnvironmentActions, useGrpcMethodActions, useThemeActions } from './hooks';
 
 interface ActionsProviderProps {
   os: string;
@@ -14,6 +14,7 @@ interface ActionsProviderProps {
 
 const ActionsProvider: React.FC<PropsWithChildren<ActionsProviderProps>> = ({ children, os }) => {
   useGrpcMethodActions();
+  useEnvironmentActions();
   useThemeActions();
 
   return <KBar os={os}>{children}</KBar>;
