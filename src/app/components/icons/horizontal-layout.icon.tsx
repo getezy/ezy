@@ -25,7 +25,7 @@ export const HorizontalLayoutIcon: React.FC<React.SVGProps<SVGElement>> = ({ onC
       />
       <path
         d="M5 0.25H19C21.6234 0.25 23.75 2.37665 23.75 5V12.3816H0.25V5C0.25 2.37664 2.37665 0.25 5 0.25Z"
-        fill={isHovered ? theme?.colors?.yellow100.value : theme?.colors?.accents4.value}
+        fill={isHovered ? theme?.colors?.warningLightHover.value : theme?.colors?.accents4.value}
         stroke={isHovered ? theme?.colors?.warning.value : theme?.colors?.foreground.value}
         strokeWidth="0.5"
       />

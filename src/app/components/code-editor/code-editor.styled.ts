@@ -15,6 +15,10 @@ export const StyledCodeMirror = styled(CodeMirror, {
     fontSize: '$fontSizes$sm',
   },
 
+  '.cm-editor.cm-focused': {
+    outline: 'none',
+  },
+
   '.cm-cursor, .cm-dropCursor': {
     borderLeftColor: '$text',
   },

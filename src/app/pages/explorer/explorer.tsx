@@ -20,7 +20,6 @@ export interface ExplorerProps {
 }
 
 export const Explorer: React.FC<ExplorerProps> = ({ children, header, sideBar }) => (
-  // <Grid.Container wrap="nowrap" css={{ height: '100%' }}>
   <Grid.Container gap={0} wrap="nowrap" css={{ flex: 1, overflow: 'hidden' }}>
     <Grid css={ExplorerGridStyles}>
       <ExplorerHeader>{header}</ExplorerHeader>

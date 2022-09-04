@@ -21,12 +21,10 @@
 🚧 This project is in beta phase and can get breaking changes at any time until it goes to v1.
 
 ## Features
-✅ Localy persisted collections.  
+✅ Persisted collections.  
 ✅ Multi-tabs.  
 ✅ Shortcuts.  
 ✅ Environments.  
-✅ Horizontal/Vertical alignment.  
-✅ Good errors output.  
 
 **gRPC**  
 ✅ Unary calls.  
