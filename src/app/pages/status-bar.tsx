@@ -23,7 +23,12 @@ export const StatusBar: React.FC = () => {
       css={{ borderTop: 'solid 1px $neutralBorder', height: 20 }}
     >
       <Container gap={0} responsive={false} display="flex" justify="flex-start" alignItems="center">
-        <Badge size="xs" variant="flat" css={{ height: 18, fontSize: 8, userSelect: 'none' }}>
+        <Badge
+          size="xs"
+          variant="flat"
+          isSquared
+          css={{ height: 18, fontSize: 9, userSelect: 'none' }}
+        >
           {packageJson.version}
         </Badge>
       </Container>
