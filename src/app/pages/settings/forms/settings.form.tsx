@@ -26,7 +26,7 @@ export const SettingsForm: React.FC<SettingsFormProps> = ({
           name="theme"
           control={control}
           render={({ field }) => (
-            <Dropdown disableAnimation>
+            <Dropdown>
               <Dropdown.Button
                 bordered
                 borderWeight="light"
