@@ -20,14 +20,14 @@ export function useThemeActions() {
       name: 'Dark',
       keywords: 'dark theme',
       parent: 'theme',
-      perform: () => updateTheme(ThemeType.Dark),
+      perform: () => updateTheme(ThemeType.DARK),
     },
     {
       id: 'lightTheme',
       name: 'Light',
       keywords: 'light theme',
       parent: 'theme',
-      perform: () => updateTheme(ThemeType.Light),
+      perform: () => updateTheme(ThemeType.LIGHT),
     },
   ]);
 }

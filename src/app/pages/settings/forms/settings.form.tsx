@@ -46,8 +46,8 @@ export const SettingsForm: React.FC<SettingsFormProps> = ({
                   field.onChange(Array.from(keys).join(''));
                 }}
               >
-                <Dropdown.Item key={ThemeType.Light}>Light</Dropdown.Item>
-                <Dropdown.Item key={ThemeType.Dark}>Dark</Dropdown.Item>
+                <Dropdown.Item key={ThemeType.LIGHT}>Light</Dropdown.Item>
+                <Dropdown.Item key={ThemeType.DARK}>Dark</Dropdown.Item>
               </Dropdown.Menu>
             </Dropdown>
           )}

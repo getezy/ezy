@@ -3,15 +3,22 @@ export enum Language {
 }
 
 export enum ThemeType {
-  Dark = 'dark',
-  Light = 'light',
+  DARK = 'dark',
+  LIGHT = 'light',
+}
+
+export enum Alignment {
+  VERTICAL = 'vertical',
+  HORIZONTAL = 'horizontal',
 }
 
 export interface Settings {
   theme: ThemeType;
   language: Language;
+  alignment: Alignment;
 }
 
 export interface SettingsStorage extends Settings {
   updateTheme: (theme: ThemeType) => void;
+  updateAlignment: (alignment: Alignment) => void;
 }

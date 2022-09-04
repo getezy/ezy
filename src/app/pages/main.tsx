@@ -1,3 +1,4 @@
+import { Container } from '@nextui-org/react';
 import React from 'react';
 import { useEffectOnce } from 'react-use';
 
@@ -7,6 +8,7 @@ import { Explorer } from './explorer';
 import { Header } from './header';
 import { Shortcuts } from './shortcuts';
 import { ExplorerSideBar } from './side-bar';
+import { StatusBar } from './status-bar';
 import { TabsContainer } from './tabs-container';
 
 export const Main = (): JSX.Element => {
@@ -22,9 +24,18 @@ export const Main = (): JSX.Element => {
   return (
     <AppProvider value={value}>
       <Shortcuts>
-        <Explorer header={<Header />} sideBar={<ExplorerSideBar />}>
-          <TabsContainer />
-        </Explorer>
+        <Container
+          gap={0}
+          responsive={false}
+          display="flex"
+          direction="column"
+          css={{ height: '100%', overflow: 'hidden' }}
+        >
+          <Explorer header={<Header />} sideBar={<ExplorerSideBar />}>
+            <TabsContainer />
+          </Explorer>
+          <StatusBar />
+        </Container>
       </Shortcuts>
     </AppProvider>
   );

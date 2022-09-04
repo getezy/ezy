@@ -25,6 +25,7 @@
 ✅ Multi-tabs.  
 ✅ Shortcuts.  
 ✅ Environments.  
+✅ Horizontal/Vertical alignment.  
 ✅ Good errors output.  
 
 **gRPC**  

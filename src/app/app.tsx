@@ -7,8 +7,8 @@ import { ThemeType, useSettingsStore } from './storage';
 import { DarkTheme, globalStyles, LightTheme } from './themes';
 
 export const THEMES = {
-  [ThemeType.Dark]: DarkTheme,
-  [ThemeType.Light]: LightTheme,
+  [ThemeType.DARK]: DarkTheme,
+  [ThemeType.LIGHT]: LightTheme,
 };
 
 function App(): JSX.Element {

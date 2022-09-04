@@ -9,6 +9,7 @@ import {
   isGrpcTabClientStreaming,
   isGrpcTabServerStreaming,
   isGrpcTabUnaryCall,
+  useSettingsStore,
 } from '../../../../storage';
 import { Request } from './request';
 import {
@@ -29,6 +30,8 @@ export interface GrpcTabContainerProps {
 }
 
 export const GrpcTabContainer: React.FC<GrpcTabContainerProps> = ({ tab }) => {
+  const alignment = useSettingsStore((store) => store.alignment);
+
   let content;
 
   if (isGrpcTabUnaryCall(tab)) {
@@ -38,6 +41,7 @@ export const GrpcTabContainer: React.FC<GrpcTabContainerProps> = ({ tab }) => {
         <UnaryCallSendHeader tab={tab} />
         <Spacer />
         <ResizablePanel
+          alignment={alignment}
           firstNode={<Request tab={tab} />}
           secondNode={<UnaryCallResponse tab={tab} />}
         />
@@ -52,6 +56,7 @@ export const GrpcTabContainer: React.FC<GrpcTabContainerProps> = ({ tab }) => {
         <ServerStreamingSendHeader tab={tab} />
         <Spacer />
         <ResizablePanel
+          alignment={alignment}
           firstNode={<Request tab={tab} />}
           secondNode={<ServerStreamingResponse tab={tab} />}
         />
@@ -66,6 +71,7 @@ export const GrpcTabContainer: React.FC<GrpcTabContainerProps> = ({ tab }) => {
         <ClientStreamingSendHeader tab={tab} />
         <Spacer />
         <ResizablePanel
+          alignment={alignment}
           firstNode={<Request tab={tab} />}
           secondNode={<ClientStreamingResponse tab={tab} />}
         />
@@ -80,6 +86,7 @@ export const GrpcTabContainer: React.FC<GrpcTabContainerProps> = ({ tab }) => {
         <BidirectionalStreamingSendHeader tab={tab} />
         <Spacer />
         <ResizablePanel
+          alignment={alignment}
           firstNode={<Request tab={tab} />}
           secondNode={<BidirectionalStreamingResponse tab={tab} />}
         />

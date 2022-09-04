@@ -27,6 +27,9 @@ const StyledResizable = styled(Resizable, {
   height: '100%',
 
   overflow: 'hidden',
+
+  transition: 'all 0.1s ease',
+
   variants: {
     alignment: {
       horizontal: {
@@ -73,15 +76,26 @@ export const ResizablePanel: React.FC<React.PropsWithChildren<ResizablePanelProp
   firstNode,
   secondNode,
 }) => {
+  const ref = React.useRef<Resizable>(null);
+
   const enableOptions: ResizableEnableOptions =
     alignment === 'vertical' ? { right: true } : { bottom: true };
 
   const defaultSize =
     alignment === 'vertical' ? { width: '50%', height: '100%' } : { width: '100%', height: '50%' };
 
+  React.useEffect(() => {
+    ref.current?.updateSize(defaultSize);
+  }, [alignment]);
+
   return (
     <ResizablePanelWrapper alignment={alignment}>
-      <StyledResizable alignment={alignment} enable={enableOptions} defaultSize={defaultSize}>
+      <StyledResizable
+        ref={ref}
+        alignment={alignment}
+        enable={enableOptions}
+        defaultSize={defaultSize}
+      >
         {firstNode}
       </StyledResizable>
       <StyledSecondNode alignment={alignment}>{secondNode}</StyledSecondNode>
