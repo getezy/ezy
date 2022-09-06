@@ -15,6 +15,8 @@ const config = {
     executableName: 'ezy',
     asar: true,
     icon: path.resolve(__dirname, 'assets', 'icons', 'icon'),
+    appBundleId: 'com.getezy.ezy',
+    appCategoryType: 'public.app-category.developer-tools',
   },
   makers: [
     {
@@ -30,7 +32,7 @@ const config = {
       }),
     },
     {
-      name: '@electron-forge/maker-zip',
+      name: '@electron-forge/maker-dmg',
       platforms: ['darwin'],
     },
     {
@@ -80,5 +82,37 @@ const config = {
     },
   ],
 };
+
+function macOsSignAndNotarize() {
+  if (process.platform !== 'darwin') {
+    return;
+  }
+
+  if (!process.env.APPLE_ID || !process.env.APPLE_ID_PASSWORD) {
+    // eslint-disable-next-line no-console
+    console.warn(
+      'Should be signed and notarized, but environment variables APPLE_ID or APPLE_ID_PASSWORD are missing!'
+    );
+    return;
+  }
+
+  config.packagerConfig.osxSign = {
+    identity: 'Developer ID Application: Alexey Vasyukov (956U3Y3QV9)',
+    hardenedRuntime: true,
+    'gatekeeper-assess': false,
+    entitlements: 'static/entitlements.plist',
+    'entitlements-inherit': 'static/entitlements.plist',
+    'signature-flags': 'library',
+  };
+
+  config.packagerConfig.osxNotarize = {
+    appBundleId: 'com.getezy.ezy',
+    appleId: process.env.APPLE_ID,
+    appleIdPassword: process.env.APPLE_ID_PASSWORD,
+    ascProvider: '956U3Y3QV9',
+  };
+}
+
+macOsSignAndNotarize();
 
 module.exports = config;
