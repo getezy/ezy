@@ -1,5 +1,20 @@
 
 
+## [1.0.0-beta.10](https://github.com/getezy/ezy/compare/v1.0.0-beta.9...v1.0.0-beta.10) (2022-09-06)
+
+
+### Features
+
+* **#20:** sign macOS distributions ([56bc991](https://github.com/getezy/ezy/commit/56bc991e2907b20bae5b5c1561f5d5fb08458dc2)), closes [#20](https://github.com/getezy/ezy/issues/20)
+* **#21:** add horizontal/vertical alignment ([177720f](https://github.com/getezy/ezy/commit/177720f8c2ac874e2acf15dd700a5d9ad056a2d5)), closes [#21](https://github.com/getezy/ezy/issues/21)
+* **#8:** add response timings ([97862aa](https://github.com/getezy/ezy/commit/97862aa2dff53c425502f4f5b27beaa10975ef26)), closes [#8](https://github.com/getezy/ezy/issues/8)
+* add environments to shortcuts ([cc6e552](https://github.com/getezy/ezy/commit/cc6e5521b5447f1a75d0fb0fe3ddff3dd8c68d1e))
+
+
+### Bug Fixes
+
+* show dropdown popup ([9ae2a10](https://github.com/getezy/ezy/commit/9ae2a104f20f079468d651d57ae926248fd4344a))
+
 ## [1.0.0-beta.9](https://github.com/getezy/ezy/compare/v1.0.0-beta.8...v1.0.0-beta.9) (2022-08-28)
 
 
