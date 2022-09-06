@@ -30,8 +30,8 @@ Desktop gRPC/gRPC-Web client.
 |-----------------------------------------------------------	|:----:	|:-------------------------------------------------------------:	  |
 | Unary Calls                                               	|   ✅  	|                               ✅                               	|
 | Server Streaming                                          	|   ✅  	|                               ✅                               	|
-| Client Streaming                                          	|   ✅  	| ❌ [read](https://github.com/grpc/grpc-web#streaming-support) 	  |
-| Bi-directional Streaming                                  	|   ✅  	| ❌ [read](https://github.com/grpc/grpc-web#streaming-support) 	  |
+| Client Streaming                                          	|   ✅  	| ❌ [read](https://github.com/grpc/grpc-web/blob/master/doc/streaming-roadmap.md#client-streaming-and-half-duplex-streaming) 	  |
+| Bi-directional Streaming                                  	|   ✅  	| ❌ [read](https://github.com/grpc/grpc-web/blob/master/doc/streaming-roadmap.md#full-duplex-streaming-over-http) 	  |
 | Stream cancelation                                        	|   ✅  	|                               ✅                               	|
 | Metadata                                                  	|   ✅  	|                       ✅ Browser Headers                       	|
 | TLS (Server-side/Mutual) with CA/Self-Signed certificates 	|   ✅  	|                               ✅                               	|
