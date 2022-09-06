@@ -12,7 +12,10 @@ import React from 'react';
 
 import { GrpcStreamMessageType } from '../../../../../../storage';
 
-const IconWrapper = styled('div');
+const IconWrapper = styled('div', {
+  minWidth: 12,
+  maxWidth: 12,
+});
 
 export const StreamIcons = {
   [GrpcStreamMessageType.CLIENT_MESSAGE]: (

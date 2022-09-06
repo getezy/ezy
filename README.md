@@ -11,7 +11,7 @@
 
 </div>
 
-`ezy` - desktop gRPC client.
+Desktop gRPC/gRPC-Web client.
 
 <div align="center">
   <img src="docs/preview.gif" align="center">
@@ -21,24 +21,20 @@
 🚧 This project is in beta phase and can get breaking changes at any time until it goes to v1.
 
 ## Features
-✅ Persisted collections.  
-✅ Multi-tabs.  
-✅ Shortcuts.  
-✅ Environments.  
+✅ Tabs  
+✅ Shortcuts  
+✅ Environments  
+✅ Persisted collections  
 
-**gRPC**  
-✅ Unary calls.  
-✅ Client/Server/Bi-directional streaming.  
-✅ Stream cancelation.  
-✅ Metadata support.  
-✅ TLS (Server-side/Mutual) with CA/Self-Signed certificates.  
-
-**gRPC-Web**  
-✅ Unary calls.  
-✅ Server streaming.  
-✅ Stream cancelation.  
-✅ Metadata (Browser Headers) support.  
-✅ TLS (Server-side/Mutual) with CA/Self-Signed certificates.  
+|                                                           	| gRPC 	|                            gRPC-Web                   |
+|-----------------------------------------------------------	|:----:	|:-------------------------------------------------------------:	  |
+| Unary Calls                                               	|   ✅  	|                               ✅                               	|
+| Server Streaming                                          	|   ✅  	|                               ✅                               	|
+| Client Streaming                                          	|   ✅  	| ❌ [read](https://github.com/grpc/grpc-web#streaming-support) 	  |
+| Bi-directional Streaming                                  	|   ✅  	| ❌ [read](https://github.com/grpc/grpc-web#streaming-support) 	  |
+| Stream cancelation                                        	|   ✅  	|                               ✅                               	|
+| Metadata                                                  	|   ✅  	|                       ✅ Browser Headers                       	|
+| TLS (Server-side/Mutual) with CA/Self-Signed certificates 	|   ✅  	|                               ✅                               	|
 
 ## Getting started
 Install the latest version for your OS from [release page](https://github.com/getezy/ezy/releases/latest).

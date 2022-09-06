@@ -12,10 +12,12 @@ import * as grpc from '@grpc/grpc-js';
 import type { PackageDefinition } from '@grpc/proto-loader';
 import * as fs from 'fs';
 import * as _ from 'lodash';
+import { performance } from 'perf_hooks';
 
 import {
   GrpcChannelOptions,
   GrpcClientRequestOptions,
+  GrpcResponse,
   GrpcTlsConfig,
   GrpcTlsType,
   isInsecureTlsConfig,
@@ -89,23 +91,28 @@ export class GrpcClient {
     requestOptions: GrpcClientRequestOptions,
     payload: Record<string, unknown>,
     metadata?: Record<string, MetadataValue>
-  ): Promise<Record<string, unknown>> {
+  ): Promise<GrpcResponse> {
     const client = this.loadClient(packageDefinition, requestOptions);
 
     return new Promise((resolve) => {
+      const startTime = performance.now();
       client[requestOptions.methodName](
         payload,
         metadata ? MetadataParser.parse(metadata) : new grpc.Metadata(),
         (error: ServerErrorResponse, response: Record<string, unknown>) => {
+          const timestamp = Math.trunc(performance.now() - startTime);
           if (error) {
             return resolve({
-              code: error.code,
-              details: error.details,
-              metadata: error.metadata?.toJSON(),
+              timestamp,
+              value: {
+                code: error.code,
+                details: error.details,
+                metadata: error.metadata?.toJSON(),
+              },
             });
           }
 
-          return resolve(response);
+          return resolve({ timestamp, value: response });
         }
       );
     });

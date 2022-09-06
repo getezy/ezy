@@ -29,6 +29,7 @@ export function useServerStreaming() {
         tab.id,
         {
           type: GrpcStreamMessageType.STARTED,
+          timestamp: new Date().getTime(),
           value: tab.data.requestTabs.request.value,
         },
         true
@@ -45,12 +46,14 @@ export function useServerStreaming() {
         (data) => {
           addGrpcStreamMessage(tab.id, {
             type: GrpcStreamMessageType.SERVER_MESSAGE,
+            timestamp: new Date().getTime(),
             value: JSON.stringify(data, null, 2),
           });
         },
         (error) => {
           addGrpcStreamMessage(tab.id, {
             type: GrpcStreamMessageType.ERROR,
+            timestamp: new Date().getTime(),
             value: error.message,
           });
 
@@ -59,6 +62,7 @@ export function useServerStreaming() {
         () => {
           addGrpcStreamMessage(tab.id, {
             type: GrpcStreamMessageType.SERVER_STREAMING_ENDED,
+            timestamp: new Date().getTime(),
           });
 
           onEnd();
@@ -82,6 +86,7 @@ export function useServerStreaming() {
   ): Promise<void> {
     addGrpcStreamMessage(tab.id, {
       type: GrpcStreamMessageType.CANCELED,
+      timestamp: new Date().getTime(),
     });
 
     const client =

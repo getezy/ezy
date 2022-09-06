@@ -17,6 +17,7 @@ export interface GrpcRequestMetadata {
 
 export interface GrpcUnaryResponse {
   id: string;
+  timestamp: number;
   value?: string;
 }
 
@@ -33,6 +34,7 @@ export enum GrpcStreamMessageType {
 export interface GrpcStreamMessage {
   id: string;
   type: GrpcStreamMessageType;
+  timestamp: number;
   value?: string;
 }
 

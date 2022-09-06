@@ -27,6 +27,7 @@ export function useBidirectionalStreaming() {
         tab.id,
         {
           type: GrpcStreamMessageType.STARTED,
+          timestamp: new Date().getTime(),
         },
         true
       );
@@ -38,12 +39,14 @@ export function useBidirectionalStreaming() {
         (data) => {
           addGrpcStreamMessage(tab.id, {
             type: GrpcStreamMessageType.SERVER_MESSAGE,
+            timestamp: new Date().getTime(),
             value: JSON.stringify(data, null, 2),
           });
         },
         (error) => {
           addGrpcStreamMessage(tab.id, {
             type: GrpcStreamMessageType.ERROR,
+            timestamp: new Date().getTime(),
             value: error.message,
           });
 
@@ -52,6 +55,7 @@ export function useBidirectionalStreaming() {
         () => {
           addGrpcStreamMessage(tab.id, {
             type: GrpcStreamMessageType.SERVER_STREAMING_ENDED,
+            timestamp: new Date().getTime(),
           });
 
           onEnd();
@@ -80,6 +84,7 @@ export function useBidirectionalStreaming() {
 
       addGrpcStreamMessage(tab.id, {
         type: GrpcStreamMessageType.CLIENT_MESSAGE,
+        timestamp: new Date().getTime(),
         value: tab.data.requestTabs.request.value,
       });
     } catch (error: any) {
@@ -95,6 +100,7 @@ export function useBidirectionalStreaming() {
 
     addGrpcStreamMessage(tab.id, {
       type: GrpcStreamMessageType.CLIENT_STREAMING_ENDED,
+      timestamp: new Date().getTime(),
     });
   }
 
@@ -104,6 +110,7 @@ export function useBidirectionalStreaming() {
   ): Promise<void> {
     addGrpcStreamMessage(tab.id, {
       type: GrpcStreamMessageType.CANCELED,
+      timestamp: new Date().getTime(),
     });
 
     await window.clients.grpc.bidirectionalStreaming.cancel(callId);

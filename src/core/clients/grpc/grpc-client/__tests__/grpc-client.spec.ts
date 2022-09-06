@@ -60,7 +60,10 @@ describe('GrpcClient', () => {
 
       await expect(
         GrpcClient.invokeUnaryRequest(packageDefinition, requestOptions, payload)
-      ).resolves.toEqual(payload);
+      ).resolves.toEqual({
+        timestamp: 0,
+        value: payload,
+      });
     });
 
     it('should invoke unary request width metadata', async () => {
@@ -92,7 +95,10 @@ describe('GrpcClient', () => {
 
       await expect(
         GrpcClient.invokeUnaryRequest(packageDefinition, requestOptions, payload, metadata)
-      ).resolves.toEqual(payload);
+      ).resolves.toEqual({
+        timestamp: 0,
+        value: payload,
+      });
     });
 
     it('should invoke unary request with error', async () => {
@@ -122,7 +128,10 @@ describe('GrpcClient', () => {
 
       await expect(
         GrpcClient.invokeUnaryRequest(packageDefinition, requestOptions, payload)
-      ).resolves.toEqual(error);
+      ).resolves.toEqual({
+        timestamp: 0,
+        value: error,
+      });
     });
 
     it('should invoke unary request with package definition', async () => {
@@ -150,7 +159,10 @@ describe('GrpcClient', () => {
 
       await expect(
         GrpcClient.invokeUnaryRequest(packageDefinition, requestOptions, payload)
-      ).resolves.toEqual(payload);
+      ).resolves.toEqual({
+        timestamp: 0,
+        value: payload,
+      });
     });
 
     it('should throw error when no service definition exist', async () => {

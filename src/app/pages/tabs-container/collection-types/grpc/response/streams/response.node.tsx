@@ -1,24 +1,12 @@
 import { faClone } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Button, Spacer, styled } from '@nextui-org/react';
+import { Badge, Button, Container, Row, Spacer } from '@nextui-org/react';
 import React from 'react';
 import { useCopyToClipboard } from 'react-use';
 
 import { CodeEditor, TreeNode, TreeNodeRendererProps } from '../../../../../../components';
 import { GrpcStreamMessage } from '../../../../../../storage';
 import { StreamIcons, StreamMessageTypeText } from './stream-icons';
-
-const ContentWrapper = styled('div', {
-  display: 'flex',
-  flexWrap: 'nowrap',
-  flex: 1,
-
-  paddingLeft: 5,
-  marginRight: 10,
-
-  overflow: 'hidden',
-  userSelect: 'none',
-});
 
 export const ReponseNode: React.FC<TreeNodeRendererProps<GrpcStreamMessage>> = ({
   data,
@@ -30,11 +18,17 @@ export const ReponseNode: React.FC<TreeNodeRendererProps<GrpcStreamMessage>> = (
   const handleCopyButtonClick = () => copyToClipboard(data.value || '');
 
   const content = (
-    <ContentWrapper>
-      {StreamIcons[data.type]}
-      <Spacer x={0.5} />
-      {StreamMessageTypeText[data.type]}
-    </ContentWrapper>
+    <Container gap={0} fluid css={{ overflow: 'hidden' }}>
+      <Row gap={1} align="center" wrap="nowrap" css={{ whiteSpace: 'nowrap', userSelect: 'none' }}>
+        {StreamIcons[data.type]}
+        <Spacer x={0.5} />
+        <Badge size="xs" variant="flat" isSquared css={{ border: 0 }}>
+          {new Date(data.timestamp).toLocaleTimeString()}
+        </Badge>
+        <Spacer x={0.5} />
+        {StreamMessageTypeText[data.type]}
+      </Row>
+    </Container>
   );
 
   const commandsContent = (

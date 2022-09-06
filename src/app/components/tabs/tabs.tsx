@@ -20,6 +20,7 @@ export const Tabs: React.FC<TabsProps> = ({
   activeBar,
   activeKey,
   draggable,
+  rightNode,
   onTabActivate,
   onTabClose,
   onTabDragEnd,
@@ -38,6 +39,7 @@ export const Tabs: React.FC<TabsProps> = ({
         activeKey={activeKey}
         activeBar={activeBar}
         draggable={draggable}
+        rightNode={rightNode}
         onTabActivate={onTabActivate}
         onTabClose={onTabClose}
         onTabDragEnd={onTabDragEnd}

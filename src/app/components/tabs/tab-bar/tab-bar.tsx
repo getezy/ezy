@@ -18,7 +18,7 @@ import React, { PropsWithChildren } from 'react';
 import { useOnScreen, useRefs } from '../hooks';
 import { TabProps } from '../tab';
 import { ActiveBar, ActiveBarProps } from './active-bar';
-import { StyledTabBar } from './tab-bar.styled';
+import { StyledTabBar, TabBarRightNodeWrapper, TabBarWrapper } from './tab-bar.styled';
 import { TabBarItem, TabBarItemDraggable } from './tab-bar-item';
 
 export type TabBarProps = {
@@ -36,6 +36,11 @@ export type TabBarProps = {
    * Weather tab bar is draggable or not.
    */
   draggable?: boolean;
+
+  /**
+   * Fixed right node
+   */
+  rightNode?: React.ReactNode;
 
   /**
    * Fires on tab click.
@@ -132,6 +137,7 @@ export const TabBar: React.FC<PropsWithChildren<TabBarProps>> = ({
   activeBar,
   activeKey,
   draggable = false,
+  rightNode,
   onTabActivate,
   onTabClose,
   onTabDragEnd = () => {},
@@ -189,56 +195,63 @@ export const TabBar: React.FC<PropsWithChildren<TabBarProps>> = ({
     };
 
     return (
-      <StyledTabBar ref={tabBarRef}>
-        <DndContext
-          autoScroll
-          sensors={sensors}
-          collisionDetection={closestCenter}
-          onDragStart={handleDragStart}
-          onDragEnd={handleDragEnd}
-        >
-          <SortableContext
-            items={tabBarItems.map((tab) => ({ id: tab.props.id }))}
-            strategy={horizontalListSortingStrategy}
+      <TabBarWrapper>
+        <StyledTabBar ref={tabBarRef}>
+          <DndContext
+            autoScroll
+            sensors={sensors}
+            collisionDetection={closestCenter}
+            onDragStart={handleDragStart}
+            onDragEnd={handleDragEnd}
           >
-            {tabBarItems.map((child) =>
-              renderTabBarItemDraggable(
-                child,
-                { activeKey, onTabActivate, onTabClose, draggable },
-                getRef(child.props.id)
-              )
-            )}
-            <ActiveBar {...activeBar} css={activeBarStyles} />
-          </SortableContext>
-          <DragOverlay
-            adjustScale={false}
-            zIndex={1}
-            modifiers={[restrictToParentElement, restrictToHorizontalAxis]}
-          >
-            {activeDraggingItem
-              ? renderTabBarItem(
-                  tabBarItems.find((item) => item.props.id === activeDraggingItem)!,
-                  {
-                    activeKey,
-                  }
+            <SortableContext
+              items={tabBarItems.map((tab) => ({ id: tab.props.id }))}
+              strategy={horizontalListSortingStrategy}
+            >
+              {tabBarItems.map((child) =>
+                renderTabBarItemDraggable(
+                  child,
+                  { activeKey, onTabActivate, onTabClose, draggable },
+                  getRef(child.props.id)
                 )
-              : null}
-          </DragOverlay>
-        </DndContext>
-      </StyledTabBar>
+              )}
+              <ActiveBar {...activeBar} css={activeBarStyles} />
+            </SortableContext>
+            <DragOverlay
+              adjustScale={false}
+              zIndex={1}
+              modifiers={[restrictToParentElement, restrictToHorizontalAxis]}
+            >
+              {activeDraggingItem
+                ? renderTabBarItem(
+                    tabBarItems.find((item) => item.props.id === activeDraggingItem)!,
+                    {
+                      activeKey,
+                    }
+                  )
+                : null}
+            </DragOverlay>
+          </DndContext>
+        </StyledTabBar>
+        {rightNode && <TabBarRightNodeWrapper>{rightNode}</TabBarRightNodeWrapper>}
+      </TabBarWrapper>
     );
   }
 
   return (
-    <StyledTabBar ref={tabBarRef}>
-      {tabBarItems.map((child) =>
-        renderTabBarItem(
-          child,
-          { activeKey, onTabActivate, onTabClose, draggable },
-          getRef(child.props.id)
-        )
-      )}
-      <ActiveBar {...activeBar} css={activeBarStyles} />
-    </StyledTabBar>
+    <TabBarWrapper>
+      <StyledTabBar ref={tabBarRef}>
+        {tabBarItems.map((child) =>
+          renderTabBarItem(
+            child,
+            { activeKey, onTabActivate, onTabClose, draggable },
+            getRef(child.props.id)
+          )
+        )}
+        <ActiveBar {...activeBar} css={activeBarStyles} />
+      </StyledTabBar>
+      {rightNode && <TabBarRightNodeWrapper>{rightNode}</TabBarRightNodeWrapper>}
+      {/* {rightNode} */}
+    </TabBarWrapper>
   );
 };

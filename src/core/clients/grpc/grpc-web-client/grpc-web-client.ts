@@ -3,9 +3,11 @@ import { grpc } from '@improbable-eng/grpc-web';
 import * as fs from 'fs';
 import * as https from 'https';
 import * as _ from 'lodash';
+import { performance } from 'perf_hooks';
 
 import {
   GrpcClientRequestOptions,
+  GrpcResponse,
   GrpcTlsConfig,
   GrpcTlsType,
   isInsecureTlsConfig,
@@ -113,13 +115,14 @@ export class GrpcWebClient {
     requestOptions: GrpcClientRequestOptions,
     payload: Record<string, unknown>,
     metadata?: Record<string, GrpcWebMetadataValue>
-  ): Promise<Record<string, unknown>> {
+  ): Promise<GrpcResponse> {
     const methodDefinition = this.loadMethodDefinition<grpc.ProtobufMessage, grpc.ProtobufMessage>(
       packageDefinition,
       requestOptions
     );
 
     return new Promise((resolve) => {
+      const startTime = performance.now();
       const call = new GrpcWebCallStream(
         methodDefinition,
         {
@@ -134,9 +137,20 @@ export class GrpcWebClient {
         this.getRequestOptions(requestOptions.tls)
       );
 
-      call.on('message', (message) => resolve(message));
+      call.on('message', (message) => {
+        const timestamp = Math.trunc(performance.now() - startTime);
 
-      call.on('error', (error) => resolve(error.toObject()));
+        resolve({ timestamp, value: message });
+      });
+
+      call.on('error', (error) => {
+        const timestamp = Math.trunc(performance.now() - startTime);
+
+        resolve({
+          timestamp,
+          value: error.toObject(),
+        });
+      });
     });
   }
 
