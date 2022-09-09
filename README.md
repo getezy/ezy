@@ -71,7 +71,7 @@ Actual roadmap available [here](https://github.com/orgs/getezy/projects/1/views/
 
 ## Sponsorship
 
-If you are interested in sponsorship of this project - shoot me an [email](mailto:vasyukov.alexey.v@gmail.com). I have great ideas on how we can improve gRPC (and not only!) development and will be glad to talk about it.
+If you are interested in sponsorship of this project - shoot me an [email](mailto:vasyukov.alexey.v@gmail.com). I have great ideas on how we can improve gRPC (and not only!) development experience. I'll be glad to talk about it.
 
 ## License
 Mozilla Public License Version 2.0
