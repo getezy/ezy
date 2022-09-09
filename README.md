@@ -69,5 +69,9 @@ If you want to send 64-bit integers (`int64`, `uint64`, `sint64`, `fixed64`, `sf
 
 Actual roadmap available [here](https://github.com/orgs/getezy/projects/1/views/1).
 
+## Sponsorship
+
+If you are interested in sponsorship of this project - shoot me an [email](mailto:vasyukov.alexey.v@gmail.com). I have great ideas on how we can improve gRPC (and not only!) development and will be glad to talk about it.
+
 ## License
 Mozilla Public License Version 2.0
