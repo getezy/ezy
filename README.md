@@ -1,10 +1,11 @@
 <br />
 <div align="center">
   <picture>
-    <img src="assets/icons/icon.svg" height="200px" align="center">
+  <img src="docs/logo.png" align="center">
   </picture>
 </div>
 <div align="center">
+<br />
 
   [![Release](https://img.shields.io/github/package-json/v/getezy/ezy)](https://github.com/getezy/ezy/releases/latest)
   [![Discord](https://img.shields.io/badge/Discord-7289DA?style=flat&logo=discord&logoColor=white)](https://discord.gg/r26ETPgj6R)
