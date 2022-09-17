@@ -1,6 +1,6 @@
 import { styled } from '@nextui-org/react';
 
-export const StyledSideBar = styled('div', {
+export const StyledCollectionsTree = styled('div', {
   display: 'flex',
   flexWrap: 'nowrap',
   flexDirection: 'column',

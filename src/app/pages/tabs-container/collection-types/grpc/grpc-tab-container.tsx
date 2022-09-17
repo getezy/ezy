@@ -97,7 +97,7 @@ export const GrpcTabContainer: React.FC<GrpcTabContainerProps> = ({ tab }) => {
   return (
     <Container
       gap={0}
-      fluid
+      responsive={false}
       display="flex"
       css={{ flex: 1, flexDirection: 'column', flexWrap: 'nowrap' }}
     >

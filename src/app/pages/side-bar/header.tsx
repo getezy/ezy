@@ -3,9 +3,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Button, Container } from '@nextui-org/react';
 import React from 'react';
 
-import { CreateCollectionModal } from './collections';
-import { AppContext } from './context';
-import { UpdateSettingsModal } from './settings';
+import { CreateCollectionModal } from '../collections';
+import { AppContext } from '../context';
+import { UpdateSettingsModal } from '../settings';
 
 export const Header: React.FC = () => {
   const context = React.useContext(AppContext);

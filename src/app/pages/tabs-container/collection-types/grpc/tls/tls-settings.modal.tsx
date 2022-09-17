@@ -1,15 +1,32 @@
 import { faSquarePlus } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Button, Container, Modal, ModalProps, Spacer, Text } from '@nextui-org/react';
+import { Button, Container, Modal, ModalProps, Spacer, styled, Text } from '@nextui-org/react';
 import { nanoid } from 'nanoid';
 import React from 'react';
 import { DeepPartial } from 'react-hook-form';
 
 import { GrpcTlsType } from '../../../../../../core/clients/grpc/interfaces';
+import { DefaultLayout } from '../../../../../layouts';
 import { TlsPreset, useTlsPresetsStore } from '../../../../../storage';
-import { Explorer } from '../../../../explorer';
 import { TlsForm } from './tls.form';
 import { TlsPresetsList } from './tls-presets-list';
+
+const SideBarWrapper = styled('div', {
+  display: 'flex',
+  flexDirection: 'column',
+
+  minWidth: 250,
+  maxWidth: 250,
+  background: '$background',
+  borderRight: 'solid $border 1px',
+});
+
+const HeaderWrapper = styled('div', {
+  background: '$background',
+  borderBottom: 'solid $border 1px',
+  paddingTop: 10,
+  paddingBottom: 10,
+});
 
 export type TlsSettingsModalProps = ModalProps & {
   defaultValues?: DeepPartial<TlsPreset>;
@@ -90,28 +107,33 @@ export const TlsSettingsModal: React.FC<TlsSettingsModalProps> = ({
   };
 
   const header = (
-    <Container gap={0} fluid display="flex" justify="center" alignItems="center">
-      <Button
-        auto
-        bordered
-        borderWeight="light"
-        color="gradient"
-        size="sm"
-        icon={<FontAwesomeIcon icon={faSquarePlus} />}
-        onClick={handleNewTlsButtonClick}
-      >
-        New TLS preset
-      </Button>
-    </Container>
+    <HeaderWrapper>
+      <Container gap={0} fluid display="flex" justify="center" alignItems="center">
+        <Button
+          auto
+          bordered
+          borderWeight="light"
+          color="gradient"
+          size="sm"
+          icon={<FontAwesomeIcon icon={faSquarePlus} />}
+          onClick={handleNewTlsButtonClick}
+        >
+          New TLS preset
+        </Button>
+      </Container>
+    </HeaderWrapper>
   );
 
   const sidebar = (
-    <TlsPresetsList
-      selectedTlsPresetId={formDefaultValues?.id}
-      presets={presets}
-      onTlsPresetChange={handleTlsPresetChange}
-      onTlsPresetRemove={handleTlsPresetRemove}
-    />
+    <SideBarWrapper>
+      {header}
+      <TlsPresetsList
+        selectedTlsPresetId={formDefaultValues?.id}
+        presets={presets}
+        onTlsPresetChange={handleTlsPresetChange}
+        onTlsPresetRemove={handleTlsPresetRemove}
+      />
+    </SideBarWrapper>
   );
 
   return (
@@ -123,7 +145,7 @@ export const TlsSettingsModal: React.FC<TlsSettingsModalProps> = ({
       {...props}
     >
       <Modal.Body>
-        <Explorer header={header} sideBar={sidebar}>
+        <DefaultLayout left={sidebar}>
           <Container
             gap={0}
             fluid
@@ -176,7 +198,7 @@ export const TlsSettingsModal: React.FC<TlsSettingsModalProps> = ({
               </Button>
             </Container>
           </Container>
-        </Explorer>
+        </DefaultLayout>
       </Modal.Body>
     </Modal>
   );
