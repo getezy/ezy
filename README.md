@@ -7,12 +7,13 @@
 <div align="center">
 <br />
 
+  [![Codacy Badge](https://app.codacy.com/project/badge/Grade/cbb93d09f233416cac9faa326a883a44)](https://www.codacy.com/gh/getezy/ezy/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=getezy/ezy&amp;utm_campaign=Badge_Grade)
   [![Release](https://img.shields.io/github/package-json/v/getezy/ezy)](https://github.com/getezy/ezy/releases/latest)
   [![Discord](https://img.shields.io/badge/Discord-7289DA?style=flat&logo=discord&logoColor=white)](https://discord.gg/r26ETPgj6R)
 
 </div>
 
-Desktop gRPC/gRPC-Web client.
+Fully-featured desktop gRPC/gRPC-Web client.
 
 <div align="center">
   <img src="docs/preview.gif" align="center">
