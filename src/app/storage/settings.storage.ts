@@ -12,6 +12,7 @@ export const useSettingsStore = create(
       theme: ThemeType.DARK,
       language: Language.EN,
       alignment: Alignment.VERTICAL,
+      isMenuCollapsed: false,
 
       updateTheme: (theme) =>
         set(
@@ -24,6 +25,13 @@ export const useSettingsStore = create(
         set(
           produce<SettingsStorage>((state) => {
             state.alignment = alignment;
+          })
+        ),
+
+      setIsMenuCollapsed: (isCollapsed) =>
+        set(
+          produce<SettingsStorage>((state) => {
+            state.isMenuCollapsed = isCollapsed;
           })
         ),
     }),

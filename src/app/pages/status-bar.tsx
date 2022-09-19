@@ -20,7 +20,7 @@ export const StatusBar: React.FC = () => {
       wrap="nowrap"
       direction="row"
       alignItems="center"
-      css={{ borderTop: 'solid 1px $neutralBorder', height: 20 }}
+      css={{ borderTop: 'solid 0.1px $neutralBorder', height: 20 }}
     >
       <Container gap={0} responsive={false} display="flex" justify="flex-start" alignItems="center">
         <Text b size={9} css={{ userSelect: 'none', color: '$accents7' }}>

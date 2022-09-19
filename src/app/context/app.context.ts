@@ -26,7 +26,7 @@ export function useAppContextProvider() {
     });
   });
 
-  const value: IAppContext = {
+  const appContext: IAppContext = {
     platform: {
       os,
       setOs,
@@ -38,7 +38,7 @@ export function useAppContextProvider() {
   };
 
   return {
-    value,
+    appContext,
     AppProvider,
   };
 }

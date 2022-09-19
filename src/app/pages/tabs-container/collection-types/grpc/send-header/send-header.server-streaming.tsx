@@ -62,7 +62,12 @@ export const ServerStreamingSendHeader: React.FC<
         borderWeight="light"
         color="gradient"
         disabled={isStreaming}
-        css={{ minWidth: 60 }}
+        css={{
+          minWidth: 60,
+          '.nextui-drip .nextui-drip-filler': {
+            fill: '$ezy',
+          },
+        }}
         onClick={handleInvokeButtonClick}
       >
         {isStreaming ? <Loading type="gradient" color="currentColor" size="xs" /> : 'Invoke'}

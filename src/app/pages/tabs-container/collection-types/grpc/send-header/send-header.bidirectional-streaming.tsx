@@ -101,7 +101,12 @@ export const BidirectionalStreamingSendHeader: React.FC<
         borderWeight="light"
         color="gradient"
         disabled={isClientStreaming || isServerStreaming}
-        css={{ minWidth: 60 }}
+        css={{
+          minWidth: 60,
+          '.nextui-drip .nextui-drip-filler': {
+            fill: '$ezy',
+          },
+        }}
         onClick={handleInvokeButtonClick}
       >
         {isClientStreaming || isServerStreaming ? (

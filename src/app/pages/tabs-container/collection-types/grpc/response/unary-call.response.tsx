@@ -18,7 +18,12 @@ export interface UnaryCallResponseProps {
 
 export const UnaryCallResponse: React.FC<UnaryCallResponseProps> = ({ tab }) => {
   const reponseTimings = (
-    <Badge size="md" variant="flat" isSquared css={{ marginLeft: 5, marginRight: 5 }}>
+    <Badge
+      size="md"
+      variant="flat"
+      isSquared
+      css={{ userSelect: 'none', marginLeft: 5, marginRight: 5 }}
+    >
       {tab.data.response.timestamp || 0} ms
     </Badge>
   );

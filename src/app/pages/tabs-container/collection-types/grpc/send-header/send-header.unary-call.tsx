@@ -27,7 +27,12 @@ export const UnaryCallSendHeader: React.FC<SendHeaderProps<GrpcMethodType.UNARY>
         borderWeight="light"
         color="gradient"
         disabled={isLoading}
-        css={{ minWidth: 60 }}
+        css={{
+          minWidth: 60,
+          '.nextui-drip .nextui-drip-filler': {
+            fill: '$ezy',
+          },
+        }}
         onClick={handleInvokeButtonClick}
       >
         {isLoading ? <Loading type="gradient" color="currentColor" size="xs" /> : 'Invoke'}

@@ -4,8 +4,8 @@ import { createAction, KBarProvider } from 'kbar';
 import React, { PropsWithChildren } from 'react';
 
 import { KBar } from '../../components';
+import { AppContext } from '../../context';
 import { useCollectionsStore, useTabsStore } from '../../storage';
-import { AppContext } from '../context';
 import { useEnvironmentActions, useGrpcMethodActions, useThemeActions } from './hooks';
 
 interface ActionsProviderProps {

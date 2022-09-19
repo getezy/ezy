@@ -32,7 +32,12 @@ export const SettingsForm: React.FC<SettingsFormProps> = ({
                 borderWeight="light"
                 animated={false}
                 color="gradient"
-                css={{ tt: 'capitalize' }}
+                css={{
+                  tt: 'capitalize',
+                  '.nextui-drip .nextui-drip-filler': {
+                    fill: '$ezy',
+                  },
+                }}
               >
                 {field.value} Theme
               </Dropdown.Button>
