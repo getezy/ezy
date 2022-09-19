@@ -1,5 +1,13 @@
 
 
+## [1.0.0-beta.11](https://github.com/getezy/ezy/compare/v1.0.0-beta.10...v1.0.0-beta.11) (2022-09-19)
+
+
+### Features
+
+* **#24:** add sidebar ([0d11e28](https://github.com/getezy/ezy/commit/0d11e284e1e247b56d6ba79a30a7c4be4511faa4)), closes [#24](https://github.com/getezy/ezy/issues/24)
+* update icon ([1cefd5e](https://github.com/getezy/ezy/commit/1cefd5e53600e9c225ef6f45e1e8e38c6a3d3655))
+
 ## [1.0.0-beta.10](https://github.com/getezy/ezy/compare/v1.0.0-beta.9...v1.0.0-beta.10) (2022-09-06)
 
 
