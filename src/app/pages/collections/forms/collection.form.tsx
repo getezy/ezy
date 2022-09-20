@@ -1,3 +1,4 @@
+import { FileInput } from '@components';
 import { faSquarePlus, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Button, Container, Input, Spacer, styled, Table, Text } from '@nextui-org/react';
@@ -5,7 +6,6 @@ import { nanoid } from 'nanoid';
 import React from 'react';
 import { Controller, useForm } from 'react-hook-form';
 
-import { FileInput } from '../../../components';
 import { Collection, CollectionType } from '../../../storage';
 
 export interface CollectionFormProps {

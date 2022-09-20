@@ -1,6 +1,7 @@
+import { notification } from '@components';
+
 import { GrpcResponse } from '../../../../../../core/clients/grpc/interfaces';
 import { GrpcMethodType } from '../../../../../../core/protobuf/interfaces';
-import { notification } from '../../../../../components';
 import {
   GrpcProtocol,
   GrpcTab,

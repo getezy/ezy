@@ -1,7 +1,7 @@
+import { Badge } from '@components';
 import { Button, Modal, ModalProps, Spacer, Text } from '@nextui-org/react';
 import React from 'react';
 
-import { Badge } from '../../../components';
 import { Collection, CollectionType, useCollectionsStore } from '../../../storage';
 import { CollectionForm } from '../forms';
 

@@ -1,10 +1,10 @@
+import { CodeEditor, TreeNode, TreeNodeRendererProps } from '@components';
 import { faClone } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Badge, Button, Container, Row, Spacer } from '@nextui-org/react';
 import React from 'react';
 import { useCopyToClipboard } from 'react-use';
 
-import { CodeEditor, TreeNode, TreeNodeRendererProps } from '../../../../../../components';
 import { GrpcStreamMessage } from '../../../../../../storage';
 import { StreamIcons, StreamMessageTypeText } from './stream-icons';
 

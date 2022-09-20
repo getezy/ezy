@@ -1,8 +1,8 @@
+import { CodeEditor, Tab, Tabs } from '@components';
 import { styled } from '@nextui-org/react';
 import React from 'react';
 
 import { GrpcMethodType } from '../../../../../../core/protobuf/interfaces';
-import { CodeEditor, Tab, Tabs } from '../../../../../components';
 import { GrpcTab, useTabsStore } from '../../../../../storage';
 
 const StyledContainer = styled('div', {

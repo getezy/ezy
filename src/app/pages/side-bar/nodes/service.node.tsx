@@ -1,7 +1,7 @@
+import { Tree, TreeNode, TreeNodeRendererProps } from '@components';
 import { Spacer, Text, Tooltip } from '@nextui-org/react';
 import React from 'react';
 
-import { Tree, TreeNode, TreeNodeRendererProps } from '../../../components';
 import { GrpcMethod, GrpcService } from '../../../storage';
 import { ServiceBadge } from '../../collections/badge-types';
 import { GrpcMethodNode } from './method.node';

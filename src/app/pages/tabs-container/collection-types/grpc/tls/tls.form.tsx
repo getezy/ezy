@@ -1,3 +1,4 @@
+import { Badge, FileInput, InfoLabel } from '@components';
 import { faCircleInfo } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Card, Container, Input, Radio, Spacer, styled, Text } from '@nextui-org/react';
@@ -5,7 +6,6 @@ import React from 'react';
 import { Controller, DeepPartial, useForm } from 'react-hook-form';
 
 import { GrpcTlsType } from '../../../../../../core/clients/grpc/interfaces';
-import { Badge, FileInput, InfoLabel } from '../../../../../components';
 import { TlsPreset } from '../../../../../storage';
 
 export interface TlsFormProps {

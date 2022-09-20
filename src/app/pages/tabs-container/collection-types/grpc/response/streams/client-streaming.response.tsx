@@ -1,7 +1,7 @@
+import { Tab, Tabs, Tree } from '@components';
 import React from 'react';
 
 import { GrpcMethodType } from '../../../../../../../core/protobuf/interfaces';
-import { Tab, Tabs, Tree } from '../../../../../../components';
 import { GrpcStreamMessage, GrpcTab } from '../../../../../../storage';
 import { ReponseNode } from './response.node';
 import { ListWrapper, StyledContainer } from './response.styled';

@@ -14,13 +14,15 @@
     "noImplicitAny": true,
     "sourceMap": true,
     "baseUrl": ".",
+    "paths": {
+      "@components": [
+        "./src/app/components/index.ts"
+      ],
+    },
     "outDir": "dist",
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "jsx": "react",
-    "paths": {
-      "*": ["node_modules/*"]
-    }
   },
   "include": ["src/**/*", "stories", "forge.config.js"],
 }

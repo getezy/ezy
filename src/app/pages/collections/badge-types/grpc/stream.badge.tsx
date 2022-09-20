@@ -1,3 +1,4 @@
+import { Badge } from '@components';
 import {
   faArrowLeft,
   faArrowRight,
@@ -7,7 +8,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
 
 import { GrpcMethodType } from '../../../../../core/protobuf/interfaces';
-import { Badge } from '../../../../components';
 
 export type StreamBadeProps = {
   type:

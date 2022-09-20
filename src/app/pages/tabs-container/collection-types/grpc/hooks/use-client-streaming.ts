@@ -1,5 +1,6 @@
+import { notification } from '@components';
+
 import { GrpcMethodType } from '../../../../../../core/protobuf/interfaces';
-import { notification } from '../../../../../components';
 import {
   GrpcStreamMessageType,
   GrpcTab,
