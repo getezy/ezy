@@ -24,6 +24,9 @@
       "@context": [
         "./src/app/context/index.ts"
       ],
+      "@layouts": [
+        "./src/app/layouts/index.ts"
+      ],
     },
     "outDir": "dist",
     "moduleResolution": "node",

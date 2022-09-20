@@ -1,5 +1,6 @@
 import { faSquarePlus } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { DefaultLayout } from '@layouts';
 import { Button, Container, Modal, ModalProps, Spacer, styled, Text } from '@nextui-org/react';
 import { TlsPreset, useTlsPresetsStore } from '@storage';
 import { nanoid } from 'nanoid';
@@ -7,7 +8,6 @@ import React from 'react';
 import { DeepPartial } from 'react-hook-form';
 
 import { GrpcTlsType } from '../../../../../../core/clients/grpc/interfaces';
-import { DefaultLayout } from '../../../../../layouts';
 import { TlsForm } from './tls.form';
 import { TlsPresetsList } from './tls-presets-list';
 

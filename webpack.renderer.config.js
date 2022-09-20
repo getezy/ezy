@@ -19,6 +19,7 @@ module.exports = {
       '@components': path.resolve(__dirname, 'src/app/components/index.ts'),
       '@storage': path.resolve(__dirname, 'src/app/storage/index.ts'),
       '@context': path.resolve(__dirname, './src/app/context/index.ts'),
+      '@layouts': path.resolve(__dirname, './src/app/layouts/index.ts'),
     },
   },
 };
