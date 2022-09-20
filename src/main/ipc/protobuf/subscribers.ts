@@ -1,6 +1,7 @@
 import { ipcMain } from 'electron';
 
-import { GrpcOptions, ProtobufLoader } from '../../../core';
+import { GrpcOptions, ProtobufLoader } from '@core';
+
 import { ProtobufChannel } from './constants';
 
 export const registerProtobufSubscribers = () => {

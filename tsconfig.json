@@ -27,6 +27,9 @@
       "@layouts": [
         "./src/app/layouts/index.ts"
       ],
+      "@core": [
+        "./src/core/index.ts"
+      ],
       "@core/types": [
         "./src/core/typings.ts"
       ],

@@ -8,7 +8,8 @@ import {
   GrpcWebClient,
   GrpcWebMetadataValue,
   ProtobufLoader,
-} from '../../../../../core';
+} from '@core';
+
 import { GrpcWebClientChannel, GrpcWebClientServerStreamingChannel } from '../constants';
 
 export class GrpcWebClientServerStreamingSubscriber {

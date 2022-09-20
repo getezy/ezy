@@ -1,6 +1,6 @@
 import { IpcRendererEvent } from 'electron';
 
-import { GrpcWebError } from '../../../../../core';
+import { GrpcWebError } from '@core';
 
 export type OnDataCallback = (data: Record<string, unknown>) => void;
 

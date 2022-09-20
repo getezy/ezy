@@ -3,7 +3,8 @@
 import { ServerErrorResponse } from '@grpc/grpc-js';
 import { ipcRenderer } from 'electron';
 
-import { GrpcClientRequestOptions, GrpcOptions } from '../../../../../core';
+import { GrpcClientRequestOptions, GrpcOptions } from '@core';
+
 import { parseErrorFromIPCMain } from '../../../common';
 import { GrpcClientChannel, GrpcClientClientStreamingChannel } from '../constants';
 import { OnDataCallback, OnErrorCallback, wrapHandler } from './handlers';

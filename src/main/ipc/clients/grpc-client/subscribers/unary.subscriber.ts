@@ -1,12 +1,8 @@
 import { MetadataValue } from '@grpc/grpc-js';
 import { BrowserWindow, IpcMain } from 'electron';
 
-import {
-  GrpcClient,
-  GrpcClientRequestOptions,
-  GrpcOptions,
-  ProtobufLoader,
-} from '../../../../../core';
+import { GrpcClient, GrpcClientRequestOptions, GrpcOptions, ProtobufLoader } from '@core';
+
 import { GrpcClientChannel } from '../constants';
 
 export class GrpcClientUnarySubscriber {

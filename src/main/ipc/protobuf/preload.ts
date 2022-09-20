@@ -1,6 +1,7 @@
 import { ipcRenderer } from 'electron';
 
-import { GrpcOptions, GrpcServiceInfo } from '../../../core';
+import { GrpcOptions, GrpcServiceInfo } from '@core';
+
 import { parseErrorFromIPCMain } from '../common';
 import { ProtobufChannel } from './constants';
 

@@ -2,12 +2,8 @@ import { ClientReadableStream, MetadataValue } from '@grpc/grpc-js';
 import { BrowserWindow, IpcMain } from 'electron';
 import { nanoid } from 'nanoid';
 
-import {
-  GrpcClient,
-  GrpcClientRequestOptions,
-  GrpcOptions,
-  ProtobufLoader,
-} from '../../../../../core';
+import { GrpcClient, GrpcClientRequestOptions, GrpcOptions, ProtobufLoader } from '@core';
+
 import { GrpcClientChannel, GrpcClientServerStreamingChannel } from '../constants';
 
 export class GrpcClientServerStreamingSubscriber {

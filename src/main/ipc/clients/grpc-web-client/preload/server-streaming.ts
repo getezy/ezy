@@ -2,7 +2,8 @@
 
 import { ipcRenderer } from 'electron';
 
-import { GrpcClientRequestOptions, GrpcOptions, GrpcWebError } from '../../../../../core';
+import { GrpcClientRequestOptions, GrpcOptions, GrpcWebError } from '@core';
+
 import { parseErrorFromIPCMain } from '../../../common';
 import { GrpcWebClientChannel, GrpcWebClientServerStreamingChannel } from '../constants';
 import { OnDataCallback, OnEndCallback, OnErrorCallback, wrapHandler } from './handlers';

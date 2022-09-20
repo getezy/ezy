@@ -6,7 +6,8 @@ import {
   GrpcWebClient,
   GrpcWebMetadataValue,
   ProtobufLoader,
-} from '../../../../../core';
+} from '@core';
+
 import { GrpcWebClientChannel } from '../constants';
 
 export class GrpcWebClientUnarySubscriber {
