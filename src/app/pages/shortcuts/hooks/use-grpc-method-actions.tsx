@@ -4,9 +4,9 @@ import { Container } from '@nextui-org/react';
 import { Action, Priority, useRegisterActions } from 'kbar';
 import React from 'react';
 
+import { GrpcMethodType } from '@core/types';
 import { CollectionType, useCollectionsStore, useTabsStore } from '@storage';
 
-import { GrpcMethodType } from '../../../../core/protobuf/interfaces';
 import { StreamBadge, UnaryBadge } from '../../collections/badge-types';
 
 export function useGrpcMethodActions() {

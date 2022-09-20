@@ -48,7 +48,7 @@ module.exports = {
 
     'simple-import-sort/imports': [
       'error',
-      { 'groups': [['^\\u0000'], ['^[^.]'], ['^@(context|layouts|components|storage)'], ['^\\.'], ['^.+\\.s?css$']] }
+      { 'groups': [['^\\u0000'], ['^[^.]'], ['^@(context|layouts|components|storage|core/types)'], ['^\\.'], ['^.+\\.s?css$']] }
     ],
 
     'no-plusplus': 'off'

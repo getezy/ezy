@@ -4,9 +4,9 @@ import { Button, Container, Radio, Spacer, styled, Text } from '@nextui-org/reac
 import React from 'react';
 
 import { Tree, TreeNode, TreeNodeRendererProps } from '@components';
+import { GrpcTlsType } from '@core/types';
 import { TlsPreset, useTlsPresetsStore } from '@storage';
 
-import { GrpcTlsType } from '../../../../../../core/clients/grpc/interfaces';
 import { SystemBadge } from './system.badge';
 
 const TreeWrapper = styled('div', {

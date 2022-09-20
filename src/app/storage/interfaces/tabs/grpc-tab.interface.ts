@@ -1,4 +1,4 @@
-import { GrpcMethodType } from '../../../../core/protobuf/interfaces';
+import { GrpcMethodType } from '@core/types';
 
 export enum GrpcProtocol {
   GRPC = 'grpc',

@@ -1,7 +1,8 @@
 import { Button, Loading, Spacer } from '@nextui-org/react';
 import React from 'react';
 
-import { GrpcMethodType } from '../../../../../../core/protobuf/interfaces';
+import { GrpcMethodType } from '@core/types';
+
 import { useUnaryCall } from '../hooks';
 import { SendHeader, SendHeaderProps } from './send-header.basic';
 

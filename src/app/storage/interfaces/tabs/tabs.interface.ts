@@ -1,4 +1,5 @@
-import { GrpcMethodType } from '../../../../core/protobuf/interfaces';
+import { GrpcMethodType } from '@core/types';
+
 import { CollectionType } from '../collections.interface';
 import { GrpcStreamMessage, GrpcTabData, GrpcTabInfo } from './grpc-tab.interface';
 

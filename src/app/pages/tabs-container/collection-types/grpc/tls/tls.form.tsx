@@ -5,9 +5,8 @@ import React from 'react';
 import { Controller, DeepPartial, useForm } from 'react-hook-form';
 
 import { Badge, FileInput, InfoLabel } from '@components';
+import { GrpcTlsType } from '@core/types';
 import { TlsPreset } from '@storage';
-
-import { GrpcTlsType } from '../../../../../../core/clients/grpc/interfaces';
 
 export interface TlsFormProps {
   id?: string;

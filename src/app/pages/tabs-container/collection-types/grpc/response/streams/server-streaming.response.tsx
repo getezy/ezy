@@ -1,9 +1,9 @@
 import React from 'react';
 
 import { Tab, Tabs, Tree } from '@components';
+import { GrpcMethodType } from '@core/types';
 import { GrpcStreamMessage, GrpcTab } from '@storage';
 
-import { GrpcMethodType } from '../../../../../../../core/protobuf/interfaces';
 import { ReponseNode } from './response.node';
 import { ListWrapper, StyledContainer } from './response.styled';
 

@@ -7,8 +7,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
 
 import { Badge } from '@components';
-
-import { GrpcMethodType } from '../../../../../core/protobuf/interfaces';
+import { GrpcMethodType } from '@core/types';
 
 export type StreamBadeProps = {
   type:

@@ -2,9 +2,9 @@ import { Spacer, Text, Tooltip } from '@nextui-org/react';
 import React from 'react';
 
 import { TreeNode, TreeNodeRendererProps } from '@components';
+import { GrpcMethodType } from '@core/types';
 import { CollectionType, GrpcMethod, useCollectionsStore, useTabsStore } from '@storage';
 
-import { GrpcMethodType } from '../../../../core/protobuf/interfaces';
 import { StreamBadge, UnaryBadge } from '../../collections/badge-types';
 import { StyledNodeWrapper } from './node.styled';
 

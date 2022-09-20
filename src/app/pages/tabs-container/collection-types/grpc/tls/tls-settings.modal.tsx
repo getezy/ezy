@@ -5,10 +5,10 @@ import { nanoid } from 'nanoid';
 import React from 'react';
 import { DeepPartial } from 'react-hook-form';
 
+import { GrpcTlsType } from '@core/types';
 import { DefaultLayout } from '@layouts';
 import { TlsPreset, useTlsPresetsStore } from '@storage';
 
-import { GrpcTlsType } from '../../../../../../core/clients/grpc/interfaces';
 import { TlsForm } from './tls.form';
 import { TlsPresetsList } from './tls-presets-list';
 

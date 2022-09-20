@@ -1,4 +1,4 @@
-import { GrpcMethodInfo, GrpcOptions, GrpcServiceInfo } from '../../../core/protobuf/interfaces';
+import { GrpcMethodInfo, GrpcOptions, GrpcServiceInfo } from '@core/types';
 
 export enum CollectionType {
   GRPC = 'grpc',

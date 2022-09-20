@@ -5,7 +5,8 @@ import { nanoid } from 'nanoid';
 import create from 'zustand';
 import { persist } from 'zustand/middleware';
 
-import { GrpcTlsType } from '../../core/clients/grpc/interfaces';
+import { GrpcTlsType } from '@core/types';
+
 import { TlsPresetsStorage } from './interfaces';
 
 export const useTlsPresetsStore = create(

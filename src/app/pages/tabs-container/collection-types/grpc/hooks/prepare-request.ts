@@ -1,11 +1,11 @@
-import { Collection, CollectionType, GrpcTab, TlsPreset } from '@storage';
-
 import {
   GrpcClientRequestOptions,
+  GrpcMethodType,
+  GrpcOptions,
   GrpcTlsConfig,
   GrpcTlsType,
-} from '../../../../../../core/clients/grpc/interfaces';
-import { GrpcMethodType, GrpcOptions } from '../../../../../../core/protobuf/interfaces';
+} from '@core/types';
+import { Collection, CollectionType, GrpcTab, TlsPreset } from '@storage';
 
 function getRequestAddress(tab: GrpcTab<GrpcMethodType>): string {
   if (tab.data.url && tab.data.url.length > 0) {

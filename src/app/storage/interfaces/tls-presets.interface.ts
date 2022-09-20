@@ -1,4 +1,4 @@
-import { GrpcTlsConfig, GrpcTlsType } from '../../../core/clients/grpc/interfaces';
+import { GrpcTlsConfig, GrpcTlsType } from '@core/types';
 
 export interface TlsPreset<T extends GrpcTlsType = GrpcTlsType> {
   id: string;

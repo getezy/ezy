@@ -1,4 +1,5 @@
 import { notification } from '@components';
+import { GrpcMethodType } from '@core/types';
 import {
   GrpcStreamMessageType,
   GrpcTab,
@@ -7,7 +8,6 @@ import {
   useTlsPresetsStore,
 } from '@storage';
 
-import { GrpcMethodType } from '../../../../../../core/protobuf/interfaces';
 import { getOptions, getTlsOptions, parseMetadata, parseRequest } from './prepare-request';
 
 export function useBidirectionalStreaming() {

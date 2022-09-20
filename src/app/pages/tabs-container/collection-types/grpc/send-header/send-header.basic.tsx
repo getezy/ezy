@@ -5,6 +5,7 @@ import React, { PropsWithChildren } from 'react';
 import { MultiValue, SingleValue } from 'react-select';
 
 import { ColoredSelect } from '@components';
+import { GrpcMethodType, GrpcTlsType } from '@core/types';
 import {
   Environment,
   GrpcProtocol,
@@ -14,8 +15,6 @@ import {
   useTlsPresetsStore,
 } from '@storage';
 
-import { GrpcTlsType } from '../../../../../../core/clients/grpc/interfaces';
-import { GrpcMethodType } from '../../../../../../core/protobuf/interfaces';
 import { CreateEnvironmentModal } from '../environments';
 import { TlsSettingsModal } from '../tls';
 

@@ -1,4 +1,5 @@
 import { notification } from '@components';
+import { GrpcMethodType, GrpcResponse } from '@core/types';
 import {
   GrpcProtocol,
   GrpcTab,
@@ -7,8 +8,6 @@ import {
   useTlsPresetsStore,
 } from '@storage';
 
-import { GrpcResponse } from '../../../../../../core/clients/grpc/interfaces';
-import { GrpcMethodType } from '../../../../../../core/protobuf/interfaces';
 import { getOptions, getTlsOptions, parseMetadata, parseRequest } from './prepare-request';
 
 export function useUnaryCall() {
