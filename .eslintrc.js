@@ -47,7 +47,7 @@ module.exports = {
     'react-hooks/exhaustive-deps': 'off',
 
     'simple-import-sort/imports': [
-      2,
+      'error',
       { 'groups': [['^\\u0000'], ['^[^.]'], ['^@(context|layouts|components|storage)'], ['^\\.'], ['^.+\\.s?css$']] }
     ],
 
