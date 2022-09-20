@@ -1,8 +1,8 @@
+import { useAppContextProvider } from '@context';
 import { useCollectionsStore } from '@storage';
 import React from 'react';
 import { useEffectOnce } from 'react-use';
 
-import { useAppContextProvider } from '../context';
 import { DefaultLayout } from '../layouts';
 import { Shortcuts } from './shortcuts';
 import { SideBar } from './side-bar';

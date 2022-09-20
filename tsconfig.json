@@ -21,6 +21,9 @@
       "@storage": [
         "./src/app/storage/index.ts"
       ],
+      "@context": [
+        "./src/app/context/index.ts"
+      ],
     },
     "outDir": "dist",
     "moduleResolution": "node",

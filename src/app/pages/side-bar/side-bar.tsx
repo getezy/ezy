@@ -1,11 +1,11 @@
 import { EzyButton, EzyIcon, Menu } from '@components';
+import { AppContext } from '@context';
 import { faCog, faPlus } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Container, Tooltip } from '@nextui-org/react';
 import { useSettingsStore } from '@storage';
 import React from 'react';
 
-import { AppContext } from '../../context';
 import { CreateCollectionModal } from '../collections';
 import { UpdateSettingsModal } from '../settings';
 import { CollectionsTree } from './collections-tree';
