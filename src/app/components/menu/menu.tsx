@@ -26,13 +26,13 @@ const SubMenu = styled('div', {
   variants: {
     isCollapsed: {
       true: {
-        width: 250,
-      },
-      false: {
         '& div': {
           display: 'none',
         },
         width: 0,
+      },
+      false: {
+        width: 250,
       },
     },
   },

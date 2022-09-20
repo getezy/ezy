@@ -16,7 +16,6 @@ export const SideBar: React.FC = () => {
 
   const [updateSettingsModalVisible, setUpdateSettingsModalVisible] = React.useState(false);
 
-  // TODO: USE button everywhere
   const top = (
     <Container gap={0} display="flex" justify="center" alignItems="center" css={{ padding: 10 }}>
       <Tooltip content="Create collection" placement="right" enterDelay={500}>
