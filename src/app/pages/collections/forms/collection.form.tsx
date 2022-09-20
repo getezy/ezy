@@ -2,11 +2,10 @@ import { FileInput } from '@components';
 import { faSquarePlus, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Button, Container, Input, Spacer, styled, Table, Text } from '@nextui-org/react';
+import { Collection, CollectionType } from '@storage';
 import { nanoid } from 'nanoid';
 import React from 'react';
 import { Controller, useForm } from 'react-hook-form';
-
-import { Collection, CollectionType } from '../../../storage';
 
 export interface CollectionFormProps {
   id?: string;

@@ -1,9 +1,9 @@
 import { CodeEditor, Tab, Tabs } from '@components';
 import { styled } from '@nextui-org/react';
+import { GrpcTab, useTabsStore } from '@storage';
 import React from 'react';
 
 import { GrpcMethodType } from '../../../../../../core/protobuf/interfaces';
-import { GrpcTab, useTabsStore } from '../../../../../storage';
 
 const StyledContainer = styled('div', {
   display: 'flex',

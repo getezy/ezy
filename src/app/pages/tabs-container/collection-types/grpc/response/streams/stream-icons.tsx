@@ -8,9 +8,8 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { styled, Text } from '@nextui-org/react';
+import { GrpcStreamMessageType } from '@storage';
 import React from 'react';
-
-import { GrpcStreamMessageType } from '../../../../../../storage';
 
 const IconWrapper = styled('div', {
   minWidth: 12,

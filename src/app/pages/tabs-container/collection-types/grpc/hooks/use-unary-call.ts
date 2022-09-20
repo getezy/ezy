@@ -1,14 +1,14 @@
 import { notification } from '@components';
-
-import { GrpcResponse } from '../../../../../../core/clients/grpc/interfaces';
-import { GrpcMethodType } from '../../../../../../core/protobuf/interfaces';
 import {
   GrpcProtocol,
   GrpcTab,
   useCollectionsStore,
   useTabsStore,
   useTlsPresetsStore,
-} from '../../../../../storage';
+} from '@storage';
+
+import { GrpcResponse } from '../../../../../../core/clients/grpc/interfaces';
+import { GrpcMethodType } from '../../../../../../core/protobuf/interfaces';
 import { getOptions, getTlsOptions, parseMetadata, parseRequest } from './prepare-request';
 
 export function useUnaryCall() {

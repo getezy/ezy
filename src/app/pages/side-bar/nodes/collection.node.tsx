@@ -7,9 +7,9 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Dropdown, Spacer, Text, Tooltip } from '@nextui-org/react';
+import { Collection, CollectionType, GrpcService, useCollectionsStore } from '@storage';
 import React from 'react';
 
-import { Collection, CollectionType, GrpcService, useCollectionsStore } from '../../../storage';
 import { ProtoBadge } from '../../collections/badge-types';
 import { UpdateCollectionModal } from '../../collections/modals';
 import { StyledNodeWrapper } from './node.styled';

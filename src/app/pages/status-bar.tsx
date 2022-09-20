@@ -1,9 +1,9 @@
 import { HorizontalLayoutIcon, VerticalLayoutIcon } from '@components';
 import { Container, Text } from '@nextui-org/react';
+import { Alignment, useSettingsStore } from '@storage';
 import React from 'react';
 
 import packageJson from '../../../package.json';
-import { Alignment, useSettingsStore } from '../storage';
 
 export const StatusBar: React.FC = () => {
   const { alignment, updateAlignment } = useSettingsStore((store) => store);

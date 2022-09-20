@@ -1,11 +1,11 @@
 import { KBar } from '@components';
 import { faArrowsRotate, faSquarePlus, faXmark } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useCollectionsStore, useTabsStore } from '@storage';
 import { createAction, KBarProvider } from 'kbar';
 import React, { PropsWithChildren } from 'react';
 
 import { AppContext } from '../../context';
-import { useCollectionsStore, useTabsStore } from '../../storage';
 import { useEnvironmentActions, useGrpcMethodActions, useThemeActions } from './hooks';
 
 interface ActionsProviderProps {

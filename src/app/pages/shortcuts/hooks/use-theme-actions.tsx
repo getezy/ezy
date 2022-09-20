@@ -1,9 +1,8 @@
 import { faPalette } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { ThemeType, useSettingsStore } from '@storage';
 import { useRegisterActions } from 'kbar';
 import React from 'react';
-
-import { ThemeType, useSettingsStore } from '../../../storage';
 
 export function useThemeActions() {
   const { updateTheme } = useSettingsStore((store) => store);

@@ -1,8 +1,8 @@
 import { Tab, Tabs } from '@components';
 import { Container, Text } from '@nextui-org/react';
+import { CollectionType, useTabsStore } from '@storage';
 import React from 'react';
 
-import { CollectionType, useTabsStore } from '../../storage';
 import { GrpcTabContainer } from './collection-types';
 
 export const TabsContainer = (): JSX.Element => {

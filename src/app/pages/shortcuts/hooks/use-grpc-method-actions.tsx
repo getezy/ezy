@@ -1,11 +1,11 @@
 import { faSquarePlus } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Container } from '@nextui-org/react';
+import { CollectionType, useCollectionsStore, useTabsStore } from '@storage';
 import { Action, Priority, useRegisterActions } from 'kbar';
 import React from 'react';
 
 import { GrpcMethodType } from '../../../../core/protobuf/interfaces';
-import { CollectionType, useCollectionsStore, useTabsStore } from '../../../storage';
 import { StreamBadge, UnaryBadge } from '../../collections/badge-types';
 
 export function useGrpcMethodActions() {

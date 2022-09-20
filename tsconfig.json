@@ -18,6 +18,9 @@
       "@components": [
         "./src/app/components/index.ts"
       ],
+      "@storage": [
+        "./src/app/storage/index.ts"
+      ],
     },
     "outDir": "dist",
     "moduleResolution": "node",

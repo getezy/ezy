@@ -1,6 +1,4 @@
 import { notification } from '@components';
-
-import { GrpcMethodType } from '../../../../../../core/protobuf/interfaces';
 import {
   GrpcProtocol,
   GrpcStreamMessageType,
@@ -8,7 +6,9 @@ import {
   useCollectionsStore,
   useTabsStore,
   useTlsPresetsStore,
-} from '../../../../../storage';
+} from '@storage';
+
+import { GrpcMethodType } from '../../../../../../core/protobuf/interfaces';
 import { getOptions, getTlsOptions, parseMetadata, parseRequest } from './prepare-request';
 
 export function useServerStreaming() {

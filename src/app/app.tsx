@@ -1,9 +1,9 @@
 import { NotificationContainer } from '@components';
 import { NextUIProvider } from '@nextui-org/react';
+import { ThemeType, useSettingsStore } from '@storage';
 import React from 'react';
 
 import { Main } from './pages';
-import { ThemeType, useSettingsStore } from './storage';
 import { DarkTheme, globalStyles, LightTheme } from './themes';
 
 export const THEMES = {
