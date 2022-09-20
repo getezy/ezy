@@ -1,9 +1,10 @@
-import { ColorPickerInput } from '@components';
 import { Container, Input, Spacer } from '@nextui-org/react';
-import { Environment } from '@storage';
 import chroma from 'chroma-js';
 import React from 'react';
 import { useForm } from 'react-hook-form';
+
+import { ColorPickerInput } from '@components';
+import { Environment } from '@storage';
 
 export interface EnvironmentFormProps {
   id?: string;

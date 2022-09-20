@@ -1,7 +1,8 @@
-import { HorizontalLayoutIcon, VerticalLayoutIcon } from '@components';
 import { Container, Text } from '@nextui-org/react';
-import { Alignment, useSettingsStore } from '@storage';
 import React from 'react';
+
+import { HorizontalLayoutIcon, VerticalLayoutIcon } from '@components';
+import { Alignment, useSettingsStore } from '@storage';
 
 import packageJson from '../../../package.json';
 

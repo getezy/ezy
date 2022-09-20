@@ -1,7 +1,8 @@
-import { Tab, Tabs } from '@components';
 import { Container, Text } from '@nextui-org/react';
-import { CollectionType, useTabsStore } from '@storage';
 import React from 'react';
+
+import { Tab, Tabs } from '@components';
+import { CollectionType, useTabsStore } from '@storage';
 
 import { GrpcTabContainer } from './collection-types';
 

@@ -1,7 +1,8 @@
-import { CodeEditor, Tab, Tabs } from '@components';
 import { styled } from '@nextui-org/react';
-import { GrpcTab, useTabsStore } from '@storage';
 import React from 'react';
+
+import { CodeEditor, Tab, Tabs } from '@components';
+import { GrpcTab, useTabsStore } from '@storage';
 
 import { GrpcMethodType } from '../../../../../../core/protobuf/interfaces';
 

@@ -1,9 +1,10 @@
-import { Tree, TreeNode, TreeNodeRendererProps } from '@components';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Button, Container, Radio, Spacer, styled, Text } from '@nextui-org/react';
-import { TlsPreset, useTlsPresetsStore } from '@storage';
 import React from 'react';
+
+import { Tree, TreeNode, TreeNodeRendererProps } from '@components';
+import { TlsPreset, useTlsPresetsStore } from '@storage';
 
 import { GrpcTlsType } from '../../../../../../core/clients/grpc/interfaces';
 import { SystemBadge } from './system.badge';

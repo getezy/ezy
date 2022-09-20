@@ -1,5 +1,7 @@
-import { ResizablePanel } from '@components';
 import { Container, Spacer } from '@nextui-org/react';
+import React from 'react';
+
+import { ResizablePanel } from '@components';
 import {
   GrpcTab,
   isGrpcTabBidirectionalStreaming,
@@ -8,7 +10,6 @@ import {
   isGrpcTabUnaryCall,
   useSettingsStore,
 } from '@storage';
-import React from 'react';
 
 import { GrpcMethodType } from '../../../../../core/protobuf/interfaces';
 import { Request } from './request';

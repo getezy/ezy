@@ -1,9 +1,10 @@
 import { faBroomBall } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Button, Modal, ModalProps, styled, Text } from '@nextui-org/react';
-import { useLogsStore } from '@storage';
 import { nanoid } from 'nanoid';
 import React from 'react';
+
+import { useLogsStore } from '@storage';
 
 const LogItem = styled('div', {
   paddingLeft: 10,

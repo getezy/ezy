@@ -1,7 +1,8 @@
-import { TreeNode, TreeNodeRendererProps } from '@components';
 import { Spacer, Text, Tooltip } from '@nextui-org/react';
-import { CollectionType, GrpcMethod, useCollectionsStore, useTabsStore } from '@storage';
 import React from 'react';
+
+import { TreeNode, TreeNodeRendererProps } from '@components';
+import { CollectionType, GrpcMethod, useCollectionsStore, useTabsStore } from '@storage';
 
 import { GrpcMethodType } from '../../../../core/protobuf/interfaces';
 import { StreamBadge, UnaryBadge } from '../../collections/badge-types';

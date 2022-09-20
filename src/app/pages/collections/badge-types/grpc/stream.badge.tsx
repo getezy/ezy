@@ -1,4 +1,3 @@
-import { Badge } from '@components';
 import {
   faArrowLeft,
   faArrowRight,
@@ -6,6 +5,8 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
+
+import { Badge } from '@components';
 
 import { GrpcMethodType } from '../../../../../core/protobuf/interfaces';
 

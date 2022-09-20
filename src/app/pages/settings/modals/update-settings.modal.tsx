@@ -1,6 +1,7 @@
 import { Button, Modal, ModalProps, Text } from '@nextui-org/react';
-import { Settings, useSettingsStore } from '@storage';
 import React from 'react';
+
+import { Settings, useSettingsStore } from '@storage';
 
 import { SettingsForm } from '../forms';
 

@@ -1,10 +1,11 @@
 /* eslint-disable no-param-reassign */
 
-import { notification } from '@components';
 import { produce } from 'immer';
 import { nanoid } from 'nanoid';
 import create from 'zustand';
 import { persist } from 'zustand/middleware';
+
+import { notification } from '@components';
 
 import {
   Collection,
