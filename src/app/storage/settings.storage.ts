@@ -12,7 +12,7 @@ export const useSettingsStore = create(
       theme: ThemeType.DARK,
       language: Language.EN,
       alignment: Alignment.VERTICAL,
-      isMenuCollapsed: false,
+      isMenuCollapsed: true,
 
       updateTheme: (theme) =>
         set(
