@@ -47,9 +47,9 @@ const config = {
     },
   ],
   plugins: [
-    [
-      '@electron-forge/plugin-webpack',
-      {
+    {
+      name: '@electron-forge/plugin-webpack',
+      config: {
         devContentSecurityPolicy: `default-src 'self' 'unsafe-inline' data:; script-src 'self' 'unsafe-eval' 'unsafe-inline' data:`,
         mainConfig: './webpack.main.config.js',
         renderer: {
@@ -66,7 +66,7 @@ const config = {
           ],
         },
       },
-    ],
+    },
   ],
   publishers: [
     {
@@ -98,11 +98,11 @@ function macOsSignAndNotarize() {
 
   config.packagerConfig.osxSign = {
     identity: 'Developer ID Application: Alexey Vasyukov (956U3Y3QV9)',
-    hardenedRuntime: true,
-    'gatekeeper-assess': false,
-    entitlements: 'static/entitlements.plist',
-    'entitlements-inherit': 'static/entitlements.plist',
-    'signature-flags': 'library',
+    optionsForFile: () => ({
+      hardenedRuntime: true,
+      entitlements: 'static/entitlements.plist',
+      signatureFlags: 'library',
+    }),
   };
 
   config.packagerConfig.osxNotarize = {

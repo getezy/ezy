@@ -1,4 +1,4 @@
-import type { MethodDefinition, PackageDefinition } from '@grpc/proto-loader';
+import type { MethodDefinition, PackageDefinition, ServiceDefinition } from '@grpc/proto-loader';
 import { grpc } from '@improbable-eng/grpc-web';
 import * as fs from 'fs';
 import * as https from 'https';
@@ -31,7 +31,7 @@ export class GrpcWebClient {
     packageDefinition: PackageDefinition,
     requestOptions: GrpcClientRequestOptions
   ): grpc.MethodDefinition<RequestType, ResponseType> {
-    const service = _.get(packageDefinition, requestOptions.serviceName);
+    const service = _.get(packageDefinition, requestOptions.serviceName) as ServiceDefinition;
 
     if (service) {
       const method = _.get(service, requestOptions.methodName);
