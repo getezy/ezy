@@ -63,7 +63,7 @@ export const SideBar: React.FC = () => {
     <Menu
       items={[
         {
-          key: 'Collections',
+          id: 'Collections',
           icon: <EzyIcon />,
           submenu: collections,
         },

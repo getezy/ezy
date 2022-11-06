@@ -46,7 +46,7 @@ const IconWrapper = styled('div', {
 });
 
 export type MenuItemData = {
-  key: string;
+  id: string;
 
   icon: React.ReactElement;
 
@@ -58,8 +58,8 @@ export type MenuItemProps = MenuItemData & {
   onClick?: () => void;
 } & VariantProps<typeof StyledMenuItem>;
 
-export const MenuItem: React.FC<MenuItemProps> = ({ key, icon, active = false, onClick }) => (
-  <StyledMenuItem key={key} active={active} onClick={onClick}>
+export const MenuItem: React.FC<MenuItemProps> = ({ id, icon, active = false, onClick }) => (
+  <StyledMenuItem key={id} active={active} onClick={onClick}>
     <IconWrapper active={active}>{icon}</IconWrapper>
   </StyledMenuItem>
 );

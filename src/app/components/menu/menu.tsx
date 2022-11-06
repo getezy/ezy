@@ -1,4 +1,5 @@
 import { styled } from '@nextui-org/react';
+import { nanoid } from 'nanoid';
 import React from 'react';
 
 import { MenuItem, MenuItemData } from './menu-item';
@@ -65,8 +66,7 @@ export const Menu: React.FC<MenuProps> = ({
   isCollapsed = false,
   onCollapseChange,
 }) => {
-  // const [isCollapsed, setIsCollapsed] = React.useState(true);
-  const [activeItem, setActiveItem] = React.useState<string>(items[0].key);
+  const [activeItem, setActiveItem] = React.useState<string>(items[0].id);
 
   const handleMenuItemClick = (index: string) => {
     if (index === activeItem && onCollapseChange) {
@@ -76,7 +76,7 @@ export const Menu: React.FC<MenuProps> = ({
     }
   };
 
-  const submenu = items.find((item) => item.key === activeItem)?.submenu;
+  const submenu = items.find((item) => item.id === activeItem)?.submenu;
 
   return (
     <>
@@ -85,9 +85,10 @@ export const Menu: React.FC<MenuProps> = ({
         {items.map((item) => (
           <MenuItem
             {...item}
-            active={item.key === activeItem}
+            key={nanoid()}
+            active={item.id === activeItem}
             onClick={() => {
-              handleMenuItemClick(item.key);
+              handleMenuItemClick(item.id);
             }}
           />
         ))}
