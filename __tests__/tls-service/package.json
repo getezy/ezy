@@ -12,11 +12,11 @@
     "build": "npm run proto && npm run certs"
   },
   "dependencies": {
-    "@grpc/grpc-js": "1.6.8"
+    "@grpc/grpc-js": "1.7.3"
   },
   "devDependencies": {
     "ts-node": "10.9.1",
-    "ts-proto": "1.121.1",
-    "typescript": "4.7.4"
+    "ts-proto": "1.131.0",
+    "typescript": "4.8.4"
   }
 }

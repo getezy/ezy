@@ -1,15 +1,15 @@
 /* eslint-disable */
 import {
-  makeGenericClientConstructor,
+  CallOptions,
   ChannelCredentials,
   ChannelOptions,
-  UntypedServiceImplementation,
-  handleUnaryCall,
   Client,
   ClientUnaryCall,
+  handleUnaryCall,
+  makeGenericClientConstructor,
   Metadata,
-  CallOptions,
   ServiceError,
+  UntypedServiceImplementation,
 } from "@grpc/grpc-js";
 import * as _m0 from "protobufjs/minimal";
 
@@ -24,10 +24,7 @@ function createBaseSimpleMessage(): SimpleMessage {
 }
 
 export const SimpleMessage = {
-  encode(
-    message: SimpleMessage,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(message: SimpleMessage, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.id !== "") {
       writer.uint32(10).string(message.id);
     }
@@ -53,9 +50,7 @@ export const SimpleMessage = {
   },
 
   fromJSON(object: any): SimpleMessage {
-    return {
-      id: isSet(object.id) ? String(object.id) : "",
-    };
+    return { id: isSet(object.id) ? String(object.id) : "" };
   },
 
   toJSON(message: SimpleMessage): unknown {
@@ -64,9 +59,7 @@ export const SimpleMessage = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<SimpleMessage>, I>>(
-    object: I
-  ): SimpleMessage {
+  fromPartial<I extends Exact<DeepPartial<SimpleMessage>, I>>(object: I): SimpleMessage {
     const message = createBaseSimpleMessage();
     message.id = object.id ?? "";
     return message;
@@ -79,11 +72,9 @@ export const TLSServiceService = {
     path: "/tls_service.v1.TLSService/Unary",
     requestStream: false,
     responseStream: false,
-    requestSerialize: (value: SimpleMessage) =>
-      Buffer.from(SimpleMessage.encode(value).finish()),
+    requestSerialize: (value: SimpleMessage) => Buffer.from(SimpleMessage.encode(value).finish()),
     requestDeserialize: (value: Buffer) => SimpleMessage.decode(value),
-    responseSerialize: (value: SimpleMessage) =>
-      Buffer.from(SimpleMessage.encode(value).finish()),
+    responseSerialize: (value: SimpleMessage) => Buffer.from(SimpleMessage.encode(value).finish()),
     responseDeserialize: (value: Buffer) => SimpleMessage.decode(value),
   },
 } as const;
@@ -95,59 +86,39 @@ export interface TLSServiceServer extends UntypedServiceImplementation {
 export interface TLSServiceClient extends Client {
   unary(
     request: SimpleMessage,
-    callback: (error: ServiceError | null, response: SimpleMessage) => void
+    callback: (error: ServiceError | null, response: SimpleMessage) => void,
   ): ClientUnaryCall;
   unary(
     request: SimpleMessage,
     metadata: Metadata,
-    callback: (error: ServiceError | null, response: SimpleMessage) => void
+    callback: (error: ServiceError | null, response: SimpleMessage) => void,
   ): ClientUnaryCall;
   unary(
     request: SimpleMessage,
     metadata: Metadata,
     options: Partial<CallOptions>,
-    callback: (error: ServiceError | null, response: SimpleMessage) => void
+    callback: (error: ServiceError | null, response: SimpleMessage) => void,
   ): ClientUnaryCall;
 }
 
 export const TLSServiceClient = makeGenericClientConstructor(
   TLSServiceService,
-  "tls_service.v1.TLSService"
+  "tls_service.v1.TLSService",
 ) as unknown as {
-  new (
-    address: string,
-    credentials: ChannelCredentials,
-    options?: Partial<ChannelOptions>
-  ): TLSServiceClient;
+  new (address: string, credentials: ChannelCredentials, options?: Partial<ChannelOptions>): TLSServiceClient;
   service: typeof TLSServiceService;
 };
 
-type Builtin =
-  | Date
-  | Function
-  | Uint8Array
-  | string
-  | number
-  | boolean
-  | undefined;
+type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 
-export type DeepPartial<T> = T extends Builtin
-  ? T
-  : T extends Array<infer U>
-  ? Array<DeepPartial<U>>
-  : T extends ReadonlyArray<infer U>
-  ? ReadonlyArray<DeepPartial<U>>
-  : T extends {}
-  ? { [K in keyof T]?: DeepPartial<T[K]> }
+export type DeepPartial<T> = T extends Builtin ? T
+  : T extends Array<infer U> ? Array<DeepPartial<U>> : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>>
+  : T extends {} ? { [K in keyof T]?: DeepPartial<T[K]> }
   : Partial<T>;
 
 type KeysOfUnion<T> = T extends T ? keyof T : never;
-export type Exact<P, I extends P> = P extends Builtin
-  ? P
-  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<
-        Exclude<keyof I, KeysOfUnion<P>>,
-        never
-      >;
+export type Exact<P, I extends P> = P extends Builtin ? P
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
 
 function isSet(value: any): boolean {
   return value !== null && value !== undefined;

@@ -72,7 +72,7 @@ static_resources:
                     # address: host.docker.internal - for macOS
                     # address: 0.0.0.0 - for others
                     address: host.docker.internal
-                    port_value: 4000
+                    port_value: 4001
       # http2_protocol_options: {} # Force HTTP/2
       # Your grpc server communicates over TLS. You must configure the transport
       # socket. If you care about the overhead, you should configure the grpc

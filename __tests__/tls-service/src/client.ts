@@ -23,7 +23,7 @@ function getChannelCredentials(): ChannelCredentials {
 function main() {
   const credentials = getChannelCredentials();
 
-  const client = new TLSServiceClient('0.0.0.0:4000', credentials);
+  const client = new TLSServiceClient('0.0.0.0:4001', credentials);
 
   client.unary({ id: 'test' }, (error, response) => {
     // eslint-disable-next-line no-console

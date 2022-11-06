@@ -56,10 +56,10 @@ function main() {
 
   server.addService(TLSServiceService, TLSService);
 
-  server.bindAsync('0.0.0.0:4000', serverCredentials, () => {
+  server.bindAsync('0.0.0.0:4001', serverCredentials, () => {
     server.start();
 
-    console.log('gRPC server started on 0.0.0.0:4000');
+    console.log('gRPC server started on 0.0.0.0:4001');
   });
 }
 
