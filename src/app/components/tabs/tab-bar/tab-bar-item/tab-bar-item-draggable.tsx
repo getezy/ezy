@@ -12,7 +12,7 @@ export const TabBarItemDraggable = React.forwardRef<
   });
 
   const style: React.CSSProperties = {
-    zIndex: isDragging ? 1 : undefined,
+    visibility: isDragging ? 'hidden' : 'visible',
     transform: transform ? `translate3d(${transform.x}px, 0px, 0)` : undefined,
     transition,
   };

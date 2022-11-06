@@ -251,7 +251,6 @@ export const TabBar: React.FC<PropsWithChildren<TabBarProps>> = ({
         <ActiveBar {...activeBar} css={activeBarStyles} />
       </StyledTabBar>
       {rightNode && <TabBarRightNodeWrapper>{rightNode}</TabBarRightNodeWrapper>}
-      {/* {rightNode} */}
     </TabBarWrapper>
   );
 };
