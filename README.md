@@ -13,7 +13,7 @@
 
 </div>
 
-Fully-featured desktop gRPC/gRPC-Web client.
+Fully-featured desktop [gRPC/gRPC-Web](https://grpc.io/) client.
 
 <div align="center">
   <img src="docs/preview.gif" align="center">
