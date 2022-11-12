@@ -1,6 +1,6 @@
 import { faArrowsRotate, faSquarePlus, faXmark } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { createAction, KBarProvider } from 'kbar';
+import { createAction, KBarProvider } from '@getezy/kbar';
 import React, { PropsWithChildren } from 'react';
 
 import { KBar } from '@components';

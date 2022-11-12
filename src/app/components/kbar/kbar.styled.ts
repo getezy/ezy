@@ -1,5 +1,5 @@
+import { KBarAnimator, KBarPositioner, KBarSearch } from '@getezy/kbar';
 import { styled } from '@nextui-org/react';
-import { KBarAnimator, KBarPositioner, KBarSearch } from 'kbar';
 
 export const StyledKBarPositioner = styled(KBarPositioner, {
   zIndex: '$max',

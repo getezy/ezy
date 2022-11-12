@@ -1,6 +1,6 @@
 import { faPalette } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useRegisterActions } from 'kbar';
+import { useRegisterActions } from '@getezy/kbar';
 import React from 'react';
 
 import { ThemeType, useSettingsStore } from '@storage';

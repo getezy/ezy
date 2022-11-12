@@ -1,7 +1,7 @@
 import { faBolt } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Action, Priority, useRegisterActions } from '@getezy/kbar';
 import { Container } from '@nextui-org/react';
-import { Action, Priority, useRegisterActions } from 'kbar';
 import React from 'react';
 
 import { ColorCircle } from '@components';

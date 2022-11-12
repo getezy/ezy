@@ -1,5 +1,5 @@
+import { ActionId, ActionImpl, KBarPortal, KBarResults, useMatches } from '@getezy/kbar';
 import { Container } from '@nextui-org/react';
-import { ActionId, ActionImpl, KBarPortal, KBarResults, useMatches } from 'kbar';
 import React, { PropsWithChildren } from 'react';
 
 import {
