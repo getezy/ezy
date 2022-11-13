@@ -10,7 +10,6 @@ export const StyledCodeMirror = styled(CodeMirror, {
 
   '.cm-content': {
     padding: 0,
-    caretColor: '$selection',
     fontFamily: '$mono',
     fontSize: '$fontSizes$sm',
   },
@@ -23,16 +22,20 @@ export const StyledCodeMirror = styled(CodeMirror, {
     borderLeftColor: '$text',
   },
 
-  '.cm-selectionBackground': {
-    backgroundColor: '$selection !important',
-  },
-
-  '.cm-selectionMatch': {
-    backgroundColor: '$accents4',
+  '.cm-focused .cm-selectionBackground, .cm-selectionBackground': {
+    backgroundColor: '$selection',
   },
 
   '.cm-activeLine': {
     backgroundColor: '$accents1',
+  },
+
+  '.cm-selectionMatch': {
+    backgroundColor: '$green200',
+  },
+
+  '.cm-line': {
+    padding: '0 0 0 4px',
   },
 
   '.cm-gutters': {
