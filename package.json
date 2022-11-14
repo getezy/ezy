@@ -37,7 +37,7 @@
     "@fortawesome/fontawesome-svg-core": "6.2.0",
     "@fortawesome/free-solid-svg-icons": "6.2.0",
     "@fortawesome/react-fontawesome": "0.2.0",
-    "@getezy/kbar": "^0.1.0-beta.38",
+    "@getezy/kbar": "0.1.0-beta.38",
     "@grpc/grpc-js": "1.7.3",
     "@grpc/proto-loader": "0.7.3",
     "@improbable-eng/grpc-web": "0.15.0",
