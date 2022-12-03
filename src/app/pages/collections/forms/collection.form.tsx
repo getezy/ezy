@@ -111,9 +111,14 @@ export const CollectionForm: React.FC<CollectionFormProps> = ({
   const {
     control,
     register,
+    reset,
     handleSubmit,
     formState: { errors },
   } = useForm<Collection<CollectionType>>({ defaultValues });
+
+  React.useEffect(() => {
+    reset();
+  }, [defaultValues]);
 
   return (
     <form id={id} onSubmit={handleSubmit(onSubmit)}>

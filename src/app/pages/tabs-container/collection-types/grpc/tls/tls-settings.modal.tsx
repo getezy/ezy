@@ -179,7 +179,7 @@ export const TlsSettingsModal: React.FC<TlsSettingsModalProps> = ({
                 auto
                 bordered
                 borderWeight="light"
-                size="sm"
+                size="xs"
                 color="error"
                 onClick={handleCloseButtonClick}
               >
@@ -187,13 +187,15 @@ export const TlsSettingsModal: React.FC<TlsSettingsModalProps> = ({
               </Button>
               <Spacer x={0.2} />
               <Button
-                auto
                 bordered
                 borderWeight="light"
-                size="sm"
+                size="xs"
                 color="gradient"
                 type="submit"
                 form="tls-form"
+                css={{
+                  width: 100,
+                }}
               >
                 {formDefaultValues?.system ? 'Apply' : 'Save & Apply'}
               </Button>

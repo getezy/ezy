@@ -44,14 +44,13 @@ export const UpdateCollectionModal: React.FC<UpdateCollectionModalProps> = ({
         />
       </Modal.Body>
       <Modal.Footer>
-        <Button auto bordered borderWeight="light" size="sm" color="error" onClick={onClose}>
+        <Button auto bordered borderWeight="light" size="xs" color="error" onClick={onClose}>
           Cancel
         </Button>
         <Button
-          auto
           bordered
           borderWeight="light"
-          size="sm"
+          size="xs"
           color="gradient"
           type="submit"
           form="update-collection-form"
