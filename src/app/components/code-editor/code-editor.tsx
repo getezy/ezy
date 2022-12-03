@@ -1,4 +1,4 @@
-import { indentWithTab } from '@codemirror/commands';
+import { defaultKeymap, indentWithTab } from '@codemirror/commands';
 import { json } from '@codemirror/lang-json';
 // import { json, jsonParseLinter } from '@codemirror/lang-json';
 // import { linter, lintGutter } from '@codemirror/lint';
@@ -52,6 +52,7 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
       onChange={onChange}
       basicSetup={{
         searchKeymap: false,
+        defaultKeymap: false,
         ...basicSetup,
       }}
       theme={createTheme(
@@ -64,7 +65,15 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
         },
         isDark
       )}
-      extensions={[keymap.of([indentWithTab]), json()]}
+      extensions={[
+        keymap.of([
+          indentWithTab,
+          // https://github.com/uiwjs/react-codemirror/issues/356
+          ...defaultKeymap.filter((shortcut) => shortcut.key !== 'Mod-Enter'),
+        ]),
+        json(),
+      ]}
+      // extensions={[keymap.of([indentWithTab]), json()]}
       // extensions={[keymap.of([indentWithTab]), json(), linter(jsonParseLinter()), lintGutter()]}
     />
   );
