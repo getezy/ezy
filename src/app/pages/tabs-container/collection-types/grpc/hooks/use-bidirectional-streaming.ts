@@ -9,17 +9,35 @@ import {
 } from '@storage';
 
 import { getOptions, getTlsOptions, parseMetadata, parseRequest } from './prepare-request';
+import { useGrpcTabContextStore } from './use-grpc-tab-context';
 
 export function useBidirectionalStreaming() {
   const collections = useCollectionsStore((store) => store.collections);
   const { addGrpcStreamMessage } = useTabsStore((store) => store);
   const tlsPresets = useTlsPresetsStore((store) => store.presets);
+  const { setContext, getContext, updateContext, deleteContext } = useGrpcTabContextStore();
 
-  async function invoke(
-    tab: GrpcTab<GrpcMethodType.BIDIRECTIONAL_STREAMING>,
-    onEnd: () => void
-  ): Promise<string | undefined> {
+  function isRequestLoading(tab: GrpcTab<GrpcMethodType.BIDIRECTIONAL_STREAMING>) {
+    if (
+      !!getContext<GrpcMethodType.BIDIRECTIONAL_STREAMING>(tab.id)?.isClientStreaming ||
+      !!getContext<GrpcMethodType.BIDIRECTIONAL_STREAMING>(tab.id)?.isServerStreaming
+    ) {
+      throw new Error('Request already invoked');
+    }
+  }
+
+  function getCallId(tab: GrpcTab<GrpcMethodType.BIDIRECTIONAL_STREAMING>): string | undefined {
+    return getContext<GrpcMethodType>(tab.id)?.callId;
+  }
+
+  async function invoke(tab: GrpcTab<GrpcMethodType.BIDIRECTIONAL_STREAMING>): Promise<void> {
     try {
+      isRequestLoading(tab);
+
+      setContext<GrpcMethodType.BIDIRECTIONAL_STREAMING>(tab.id, {
+        isClientStreaming: true,
+        isServerStreaming: true,
+      });
       const tls = getTlsOptions(tlsPresets, tab.data.tlsId);
       const [grpcOptions, requestOptions] = getOptions(collections, tab, tls);
       const metadata = parseMetadata(tab);
@@ -51,7 +69,7 @@ export function useBidirectionalStreaming() {
             value: error.message,
           });
 
-          onEnd();
+          deleteContext(tab.id);
         },
         () => {
           addGrpcStreamMessage(tab.id, {
@@ -59,62 +77,75 @@ export function useBidirectionalStreaming() {
             timestamp: new Date().getTime(),
           });
 
-          onEnd();
+          updateContext<GrpcMethodType.BIDIRECTIONAL_STREAMING>(tab.id, {
+            isClientStreaming: !!getContext<GrpcMethodType.BIDIRECTIONAL_STREAMING>(tab.id)
+              ?.isClientStreaming,
+            isServerStreaming: false,
+          });
         }
       );
 
-      return id;
+      updateContext<GrpcMethodType.BIDIRECTIONAL_STREAMING>(tab.id, { callId: id });
     } catch (error: any) {
       notification(
         { title: 'Invoke request error', description: error.message },
         { type: 'error' }
       );
     }
-
-    return undefined;
   }
 
-  async function send(
-    tab: GrpcTab<GrpcMethodType.BIDIRECTIONAL_STREAMING>,
-    callId: string
-  ): Promise<void> {
+  async function send(tab: GrpcTab<GrpcMethodType.BIDIRECTIONAL_STREAMING>): Promise<void> {
     try {
-      const request = parseRequest(tab);
+      const callId = getCallId(tab);
 
-      await window.clients.grpc.bidirectionalStreaming.send(callId, request);
+      if (callId) {
+        const request = parseRequest(tab);
 
-      addGrpcStreamMessage(tab.id, {
-        type: GrpcStreamMessageType.CLIENT_MESSAGE,
-        timestamp: new Date().getTime(),
-        value: tab.data.requestTabs.request.value,
-      });
+        await window.clients.grpc.bidirectionalStreaming.send(callId, request);
+
+        addGrpcStreamMessage(tab.id, {
+          type: GrpcStreamMessageType.CLIENT_MESSAGE,
+          timestamp: new Date().getTime(),
+          value: tab.data.requestTabs.request.value,
+        });
+      }
     } catch (error: any) {
       notification({ title: `Send message error`, description: error.message }, { type: 'error' });
     }
   }
 
-  async function end(
-    tab: GrpcTab<GrpcMethodType.BIDIRECTIONAL_STREAMING>,
-    callId: string
-  ): Promise<void> {
-    await window.clients.grpc.bidirectionalStreaming.end(callId);
+  async function end(tab: GrpcTab<GrpcMethodType.BIDIRECTIONAL_STREAMING>): Promise<void> {
+    const callId = getCallId(tab);
 
-    addGrpcStreamMessage(tab.id, {
-      type: GrpcStreamMessageType.CLIENT_STREAMING_ENDED,
-      timestamp: new Date().getTime(),
-    });
+    if (callId) {
+      await window.clients.grpc.bidirectionalStreaming.end(callId);
+
+      addGrpcStreamMessage(tab.id, {
+        type: GrpcStreamMessageType.CLIENT_STREAMING_ENDED,
+        timestamp: new Date().getTime(),
+      });
+
+      updateContext<GrpcMethodType.BIDIRECTIONAL_STREAMING>(tab.id, {
+        isClientStreaming: false,
+        isServerStreaming:
+          getContext<GrpcMethodType.BIDIRECTIONAL_STREAMING>(tab.id)?.isServerStreaming || false,
+      });
+    }
   }
 
-  async function cancel(
-    tab: GrpcTab<GrpcMethodType.BIDIRECTIONAL_STREAMING>,
-    callId: string
-  ): Promise<void> {
-    addGrpcStreamMessage(tab.id, {
-      type: GrpcStreamMessageType.CANCELED,
-      timestamp: new Date().getTime(),
-    });
+  async function cancel(tab: GrpcTab<GrpcMethodType.BIDIRECTIONAL_STREAMING>): Promise<void> {
+    const callId = getCallId(tab);
 
-    await window.clients.grpc.bidirectionalStreaming.cancel(callId);
+    if (callId) {
+      addGrpcStreamMessage(tab.id, {
+        type: GrpcStreamMessageType.CANCELED,
+        timestamp: new Date().getTime(),
+      });
+
+      await window.clients.grpc.bidirectionalStreaming.cancel(callId);
+
+      deleteContext(tab.id);
+    }
   }
 
   return { invoke, cancel, send, end };

@@ -6,47 +6,31 @@ import { useUnmount } from 'react-use';
 
 import { GrpcMethodType } from '@core/types';
 
-import { useClientStreaming } from '../hooks';
+import { useClientStreaming, useGrpcTabContextStore } from '../hooks';
 import { SendHeader, SendHeaderProps } from './send-header.basic';
 
 export const ClientStreamingSendHeader: React.FC<
   SendHeaderProps<GrpcMethodType.CLIENT_STREAMING>
 > = ({ tab }) => {
   const { invoke, cancel, send, end } = useClientStreaming();
+  const { getContext } = useGrpcTabContextStore();
 
-  const [isStreaming, setIsStreaming] = React.useState(false);
-  const [callId, setCallId] = React.useState<string | null>(null);
+  const context = getContext<GrpcMethodType.CLIENT_STREAMING>(tab.id);
 
   const handleInvokeButtonClick = async () => {
-    const id = await invoke(tab, () => {
-      setIsStreaming(false);
-    });
-
-    if (id) {
-      setIsStreaming(true);
-      setCallId(id);
-    }
+    await invoke(tab);
   };
 
   const handleCancelButtonClick = async () => {
-    if (callId) {
-      await cancel(tab, callId);
-      setCallId(null);
-      setIsStreaming(false);
-    }
+    await cancel(tab);
   };
 
   const handleSendButtonClick = async () => {
-    if (callId) {
-      await send(tab, callId);
-    }
+    await send(tab);
   };
 
   const handleEndButtonClick = async () => {
-    if (callId) {
-      await end(tab, callId);
-      setIsStreaming(false);
-    }
+    await end(tab);
   };
 
   useUnmount(() => {
@@ -55,7 +39,7 @@ export const ClientStreamingSendHeader: React.FC<
 
   return (
     <SendHeader tab={tab}>
-      {isStreaming && (
+      {!!context?.isClientStreaming && (
         <>
           <Spacer x={0.5} />
           <Button
@@ -95,7 +79,7 @@ export const ClientStreamingSendHeader: React.FC<
         bordered
         borderWeight="light"
         color="gradient"
-        disabled={isStreaming}
+        disabled={!!context?.isClientStreaming}
         css={{
           minWidth: 60,
           '.nextui-drip .nextui-drip-filler': {
@@ -104,7 +88,11 @@ export const ClientStreamingSendHeader: React.FC<
         }}
         onClick={handleInvokeButtonClick}
       >
-        {isStreaming ? <Loading type="gradient" color="currentColor" size="xs" /> : 'Invoke'}
+        {context?.isClientStreaming ? (
+          <Loading type="gradient" color="currentColor" size="xs" />
+        ) : (
+          'Invoke'
+        )}
       </Button>
     </SendHeader>
   );

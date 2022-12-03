@@ -10,17 +10,33 @@ import {
 } from '@storage';
 
 import { getOptions, getTlsOptions, parseMetadata, parseRequest } from './prepare-request';
+import { useGrpcTabContextStore } from './use-grpc-tab-context';
 
 export function useServerStreaming() {
   const collections = useCollectionsStore((store) => store.collections);
   const { addGrpcStreamMessage } = useTabsStore((store) => store);
   const tlsPresets = useTlsPresetsStore((store) => store.presets);
+  const { setContext, getContext, updateContext, deleteContext } = useGrpcTabContextStore();
 
-  async function invoke(
-    tab: GrpcTab<GrpcMethodType.SERVER_STREAMING>,
-    onEnd: () => void
-  ): Promise<string | undefined> {
+  function getClient(tab: GrpcTab<GrpcMethodType.SERVER_STREAMING>) {
+    return tab.data.protocol === GrpcProtocol.GRPC ? window.clients.grpc : window.clients.grpcWeb;
+  }
+
+  function isRequestLoading(tab: GrpcTab<GrpcMethodType.SERVER_STREAMING>) {
+    if (getContext<GrpcMethodType.SERVER_STREAMING>(tab.id)?.isServerStreaming) {
+      throw new Error('Request already invoked');
+    }
+  }
+
+  function getCallId(tab: GrpcTab<GrpcMethodType.SERVER_STREAMING>): string | undefined {
+    return getContext<GrpcMethodType>(tab.id)?.callId;
+  }
+
+  async function invoke(tab: GrpcTab<GrpcMethodType.SERVER_STREAMING>): Promise<void> {
     try {
+      isRequestLoading(tab);
+
+      setContext<GrpcMethodType.SERVER_STREAMING>(tab.id, { isServerStreaming: true });
       const tls = getTlsOptions(tlsPresets, tab.data.tlsId);
       const [grpcOptions, requestOptions] = getOptions(collections, tab, tls);
       const request = parseRequest(tab);
@@ -36,8 +52,7 @@ export function useServerStreaming() {
         true
       );
 
-      const client =
-        tab.data.protocol === GrpcProtocol.GRPC ? window.clients.grpc : window.clients.grpcWeb;
+      const client = getClient(tab);
 
       const id = await client.serverStreaming.invoke(
         grpcOptions,
@@ -58,7 +73,7 @@ export function useServerStreaming() {
             value: error.message,
           });
 
-          onEnd();
+          deleteContext(tab.id);
         },
         () => {
           addGrpcStreamMessage(tab.id, {
@@ -66,34 +81,34 @@ export function useServerStreaming() {
             timestamp: new Date().getTime(),
           });
 
-          onEnd();
+          deleteContext(tab.id);
         }
       );
 
-      return id;
+      updateContext<GrpcMethodType.SERVER_STREAMING>(tab.id, { callId: id });
     } catch (error: any) {
       notification(
         { title: 'Invoke request error', description: error.message },
         { type: 'error' }
       );
     }
-
-    return undefined;
   }
 
-  async function cancel(
-    tab: GrpcTab<GrpcMethodType.SERVER_STREAMING>,
-    callId: string
-  ): Promise<void> {
-    addGrpcStreamMessage(tab.id, {
-      type: GrpcStreamMessageType.CANCELED,
-      timestamp: new Date().getTime(),
-    });
+  async function cancel(tab: GrpcTab<GrpcMethodType.SERVER_STREAMING>): Promise<void> {
+    const callId = getCallId(tab);
 
-    const client =
-      tab.data.protocol === GrpcProtocol.GRPC ? window.clients.grpc : window.clients.grpcWeb;
+    if (callId) {
+      addGrpcStreamMessage(tab.id, {
+        type: GrpcStreamMessageType.CANCELED,
+        timestamp: new Date().getTime(),
+      });
 
-    await client.serverStreaming.cancel(callId);
+      const client = getClient(tab);
+
+      await client.serverStreaming.cancel(callId);
+
+      deleteContext(tab.id);
+    }
   }
 
   return { invoke, cancel };

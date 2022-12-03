@@ -3,21 +3,16 @@ import React from 'react';
 
 import { GrpcMethodType } from '@core/types';
 
-import { useUnaryCall } from '../hooks';
+import { useGrpcTabContextStore, useUnaryCall } from '../hooks';
 import { SendHeader, SendHeaderProps } from './send-header.basic';
 
 export const UnaryCallSendHeader: React.FC<SendHeaderProps<GrpcMethodType.UNARY>> = ({ tab }) => {
   const { invoke } = useUnaryCall();
+  const { getContext } = useGrpcTabContextStore();
 
-  const [isLoading, setIsLoading] = React.useState(false);
+  const context = getContext<GrpcMethodType.UNARY>(tab.id);
 
-  const handleInvokeButtonClick = async () => {
-    setIsLoading(true);
-
-    await invoke(tab);
-
-    setIsLoading(false);
-  };
+  const handleInvokeButtonClick = () => invoke(tab);
 
   return (
     <SendHeader tab={tab}>
@@ -27,7 +22,7 @@ export const UnaryCallSendHeader: React.FC<SendHeaderProps<GrpcMethodType.UNARY>
         bordered
         borderWeight="light"
         color="gradient"
-        disabled={isLoading}
+        disabled={!!context?.isLoading}
         css={{
           minWidth: 60,
           '.nextui-drip .nextui-drip-filler': {
@@ -36,7 +31,7 @@ export const UnaryCallSendHeader: React.FC<SendHeaderProps<GrpcMethodType.UNARY>
         }}
         onClick={handleInvokeButtonClick}
       >
-        {isLoading ? <Loading type="gradient" color="currentColor" size="xs" /> : 'Invoke'}
+        {context?.isLoading ? <Loading type="gradient" color="currentColor" size="xs" /> : 'Invoke'}
       </Button>
     </SendHeader>
   );

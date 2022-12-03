@@ -18,6 +18,10 @@ export type GrpcTab<T extends GrpcMethodType> = Tab<
   GrpcTabData<T>
 >;
 
+export function isGrpcTab(tab: Tab<CollectionType>): tab is Tab<CollectionType.GRPC> {
+  return tab.type === CollectionType.GRPC;
+}
+
 export function isGrpcTabUnaryCall(
   tab: GrpcTab<GrpcMethodType>
 ): tab is GrpcTab<GrpcMethodType.UNARY> {

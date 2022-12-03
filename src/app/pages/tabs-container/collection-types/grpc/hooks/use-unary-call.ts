@@ -1,5 +1,5 @@
 import { notification } from '@components';
-import { GrpcMethodType, GrpcResponse } from '@core/types';
+import { GrpcMethodType } from '@core/types';
 import {
   GrpcProtocol,
   GrpcTab,
@@ -9,36 +9,37 @@ import {
 } from '@storage';
 
 import { getOptions, getTlsOptions, parseMetadata, parseRequest } from './prepare-request';
+import { useGrpcTabContextStore } from './use-grpc-tab-context';
 
 export function useUnaryCall() {
   const collections = useCollectionsStore((store) => store.collections);
   const { updateGrpcTabData } = useTabsStore((store) => store);
   const tlsPresets = useTlsPresetsStore((store) => store.presets);
+  const { setContext, getContext, deleteContext } = useGrpcTabContextStore();
+
+  function getClient(tab: GrpcTab<GrpcMethodType.UNARY>) {
+    return tab.data.protocol === GrpcProtocol.GRPC ? window.clients.grpc : window.clients.grpcWeb;
+  }
+
+  function isRequestLoading(tab: GrpcTab<GrpcMethodType.UNARY>) {
+    if (getContext<GrpcMethodType.UNARY>(tab.id)?.isLoading) {
+      throw new Error('Request already invoked');
+    }
+  }
 
   async function invoke(tab: GrpcTab<GrpcMethodType.UNARY>): Promise<void> {
     try {
+      isRequestLoading(tab);
+
+      setContext<GrpcMethodType.UNARY>(tab.id, { isLoading: true });
       const tls = getTlsOptions(tlsPresets, tab.data.tlsId);
       const [grpcOptions, requestOptions] = getOptions(collections, tab, tls);
       const request = parseRequest(tab);
       const metadata = parseMetadata(tab);
 
-      let response: GrpcResponse;
+      const client = getClient(tab);
 
-      if (tab.data.protocol === GrpcProtocol.GRPC) {
-        response = await window.clients.grpc.unary.invoke(
-          grpcOptions,
-          requestOptions,
-          request,
-          metadata
-        );
-      } else {
-        response = await window.clients.grpcWeb.unary.invoke(
-          grpcOptions,
-          requestOptions,
-          request,
-          metadata
-        );
-      }
+      const response = await client.unary.invoke(grpcOptions, requestOptions, request, metadata);
 
       updateGrpcTabData<GrpcMethodType.UNARY>(tab.id, {
         response: {
@@ -52,6 +53,8 @@ export function useUnaryCall() {
         { title: 'Invoke request error', description: error.message },
         { type: 'error' }
       );
+    } finally {
+      deleteContext(tab.id);
     }
   }
 

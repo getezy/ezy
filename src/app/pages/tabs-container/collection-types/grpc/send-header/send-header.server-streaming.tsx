@@ -6,34 +6,23 @@ import { useUnmount } from 'react-use';
 
 import { GrpcMethodType } from '@core/types';
 
-import { useServerStreaming } from '../hooks';
+import { useGrpcTabContextStore, useServerStreaming } from '../hooks';
 import { SendHeader, SendHeaderProps } from './send-header.basic';
 
 export const ServerStreamingSendHeader: React.FC<
   SendHeaderProps<GrpcMethodType.SERVER_STREAMING>
 > = ({ tab }) => {
   const { invoke, cancel } = useServerStreaming();
+  const { getContext } = useGrpcTabContextStore();
 
-  const [isStreaming, setIsStreaming] = React.useState(false);
-  const [callId, setCallId] = React.useState<string | null>(null);
+  const context = getContext<GrpcMethodType.SERVER_STREAMING>(tab.id);
 
   const handleInvokeButtonClick = async () => {
-    const id = await invoke(tab, () => {
-      setIsStreaming(false);
-    });
-
-    if (id) {
-      setIsStreaming(true);
-      setCallId(id);
-    }
+    await invoke(tab);
   };
 
   const handleCancelButtonClick = async () => {
-    if (callId) {
-      await cancel(tab, callId);
-      setCallId(null);
-      setIsStreaming(false);
-    }
+    await cancel(tab);
   };
 
   useUnmount(() => {
@@ -42,7 +31,7 @@ export const ServerStreamingSendHeader: React.FC<
 
   return (
     <SendHeader tab={tab}>
-      {isStreaming && (
+      {!!context?.isServerStreaming && (
         <>
           <Spacer x={0.5} />
           <Button
@@ -62,7 +51,7 @@ export const ServerStreamingSendHeader: React.FC<
         bordered
         borderWeight="light"
         color="gradient"
-        disabled={isStreaming}
+        disabled={!!context?.isServerStreaming}
         css={{
           minWidth: 60,
           '.nextui-drip .nextui-drip-filler': {
@@ -71,7 +60,11 @@ export const ServerStreamingSendHeader: React.FC<
         }}
         onClick={handleInvokeButtonClick}
       >
-        {isStreaming ? <Loading type="gradient" color="currentColor" size="xs" /> : 'Invoke'}
+        {context?.isServerStreaming ? (
+          <Loading type="gradient" color="currentColor" size="xs" />
+        ) : (
+          'Invoke'
+        )}
       </Button>
     </SendHeader>
   );

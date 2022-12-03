@@ -6,51 +6,31 @@ import { useUnmount } from 'react-use';
 
 import { GrpcMethodType } from '@core/types';
 
-import { useBidirectionalStreaming } from '../hooks';
+import { useBidirectionalStreaming, useGrpcTabContextStore } from '../hooks';
 import { SendHeader, SendHeaderProps } from './send-header.basic';
 
 export const BidirectionalStreamingSendHeader: React.FC<
   SendHeaderProps<GrpcMethodType.BIDIRECTIONAL_STREAMING>
 > = ({ tab }) => {
   const { invoke, cancel, send, end } = useBidirectionalStreaming();
+  const { getContext } = useGrpcTabContextStore();
 
-  const [isClientStreaming, setIsClientStreaming] = React.useState(false);
-  const [isServerStreaming, setIsServerStreaming] = React.useState(false);
-  const [callId, setCallId] = React.useState<string | null>(null);
+  const context = getContext<GrpcMethodType.BIDIRECTIONAL_STREAMING>(tab.id);
 
   const handleInvokeButtonClick = async () => {
-    const id = await invoke(tab, () => {
-      setIsClientStreaming(false);
-      setIsServerStreaming(false);
-    });
-
-    if (id) {
-      setIsClientStreaming(true);
-      setIsServerStreaming(true);
-      setCallId(id);
-    }
+    await invoke(tab);
   };
 
   const handleCancelButtonClick = async () => {
-    if (callId) {
-      await cancel(tab, callId);
-      setCallId(null);
-      setIsClientStreaming(false);
-      setIsServerStreaming(false);
-    }
+    await cancel(tab);
   };
 
   const handleSendButtonClick = async () => {
-    if (callId) {
-      await send(tab, callId);
-    }
+    await send(tab);
   };
 
   const handleEndButtonClick = async () => {
-    if (callId) {
-      await end(tab, callId);
-      setIsClientStreaming(false);
-    }
+    await end(tab);
   };
 
   useUnmount(() => {
@@ -59,7 +39,7 @@ export const BidirectionalStreamingSendHeader: React.FC<
 
   return (
     <SendHeader tab={tab}>
-      {(isClientStreaming || isServerStreaming) && (
+      {(context?.isClientStreaming || context?.isServerStreaming) && (
         <>
           <Spacer x={0.5} />
           <Button
@@ -67,7 +47,7 @@ export const BidirectionalStreamingSendHeader: React.FC<
             color="warning"
             bordered
             borderWeight="light"
-            disabled={!isClientStreaming}
+            disabled={!context.isClientStreaming}
             css={{ minWidth: 10 }}
             icon={<FontAwesomeIcon icon={faArrowRight} />}
             onClick={handleSendButtonClick}
@@ -78,7 +58,7 @@ export const BidirectionalStreamingSendHeader: React.FC<
             color="success"
             bordered
             borderWeight="light"
-            disabled={!isClientStreaming}
+            disabled={!context.isClientStreaming}
             css={{ minWidth: 10 }}
             icon={<FontAwesomeIcon icon={faStop} />}
             onClick={handleEndButtonClick}
@@ -101,7 +81,7 @@ export const BidirectionalStreamingSendHeader: React.FC<
         bordered
         borderWeight="light"
         color="gradient"
-        disabled={isClientStreaming || isServerStreaming}
+        disabled={!!context?.isClientStreaming || !!context?.isServerStreaming}
         css={{
           minWidth: 60,
           '.nextui-drip .nextui-drip-filler': {
@@ -110,7 +90,7 @@ export const BidirectionalStreamingSendHeader: React.FC<
         }}
         onClick={handleInvokeButtonClick}
       >
-        {isClientStreaming || isServerStreaming ? (
+        {context?.isClientStreaming || context?.isServerStreaming ? (
           <Loading type="gradient" color="currentColor" size="xs" />
         ) : (
           'Invoke'

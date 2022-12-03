@@ -1,3 +1,7 @@
+import { enableMapSet } from 'immer';
+
+enableMapSet();
+
 export * from './interfaces';
 export * from './settings.storage';
 export * from './collections.storage';

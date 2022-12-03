@@ -33,7 +33,7 @@ export interface GrpcTabContainerProps {
 export const GrpcTabContainer: React.FC<GrpcTabContainerProps> = ({ tab }) => {
   const alignment = useSettingsStore((store) => store.alignment);
 
-  let content;
+  let content: React.ReactNode;
 
   if (isGrpcTabUnaryCall(tab)) {
     content = (
