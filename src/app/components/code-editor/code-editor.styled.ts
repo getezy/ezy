@@ -27,7 +27,7 @@ export const StyledCodeMirror = styled(CodeMirror, {
   },
 
   '.cm-activeLine': {
-    backgroundColor: '$accents1',
+    backgroundColor: '$activeLine',
   },
 
   '.cm-selectionMatch': {
