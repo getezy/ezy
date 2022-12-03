@@ -122,7 +122,17 @@ export const CollectionForm: React.FC<CollectionFormProps> = ({
 
   return (
     <form id={id} onSubmit={handleSubmit(onSubmit)}>
-      <Container gap={0} css={{ display: 'flex', flexDirection: 'column' }}>
+      <Container
+        gap={0}
+        display="flex"
+        direction="column"
+        wrap="nowrap"
+        css={{
+          overflow: 'hidden',
+          paddingLeft: 1,
+          paddingRight: 1,
+        }}
+      >
         <Input
           autoFocus
           bordered

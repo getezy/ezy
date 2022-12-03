@@ -15,7 +15,6 @@ import {
   GrpcMethod,
   GrpcService,
 } from './interfaces';
-// import { useLogsStore } from './logs.storage';
 import { useTabsStore } from './tabs.storage';
 
 export const useCollectionsStore = create(
@@ -24,32 +23,21 @@ export const useCollectionsStore = create(
       collections: [],
       createCollection: async (collection) => {
         if (collection.type === CollectionType.GRPC) {
-          try {
-            const proto = await window.protobuf.loadFromFile(collection.options);
+          const proto = await window.protobuf.loadFromFile(collection.options);
 
-            set(
-              produce<CollectionsStorage>((state) => {
-                state.collections.push({
-                  ...collection,
+          set(
+            produce<CollectionsStorage>((state) => {
+              state.collections.push({
+                ...collection,
+                id: nanoid(),
+                children: proto.map((service) => ({
+                  ...service,
                   id: nanoid(),
-                  children: proto.map((service) => ({
-                    ...service,
-                    id: nanoid(),
-                    methods: (service.methods || []).map((method) => ({ ...method, id: nanoid() })),
-                  })),
-                });
-              })
-            );
-          } catch (error: any) {
-            notification(
-              {
-                title: `Create collection error`,
-                description: error?.message,
-              },
-              { type: 'error' }
-            );
-            // useLogsStore.getState().createLog({ message: error?.message });
-          }
+                  methods: (service.methods || []).map((method) => ({ ...method, id: nanoid() })),
+                })),
+              });
+            })
+          );
         }
       },
       updateCollection: async (id, collection, showSuccessNotification = true) => {

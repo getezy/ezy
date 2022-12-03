@@ -2,17 +2,18 @@ import { Button, Modal, ModalProps, Spacer, Switch, Text } from '@nextui-org/rea
 import React from 'react';
 
 import { Badge } from '@components';
-import { Collection, CollectionType, useCollectionsStore } from '@storage';
+import { Collection, CollectionType } from '@storage';
 
 import { CollectionForm } from '../forms';
+import { useCreateCollection } from '../hooks';
 
 export const CreateCollectionModal: React.FC<ModalProps> = ({ onClose = () => {}, ...props }) => {
-  const createCollection = useCollectionsStore((store) => store.createCollection);
+  const { create } = useCreateCollection();
   const [isCreateMore, setIsCreateMore] = React.useState(false);
   const [defaultValues, setDefaultValues] = React.useState({});
 
   const handleSubmit = async (payload: Collection<CollectionType>) => {
-    await createCollection({
+    await create({
       ...payload,
       type: CollectionType.GRPC,
     });
@@ -32,7 +33,8 @@ export const CreateCollectionModal: React.FC<ModalProps> = ({ onClose = () => {}
   return (
     <Modal
       aria-labelledby="create-collection-modal"
-      css={{ background: '$background' }}
+      css={{ background: '$background', zIndex: '1 important!' }}
+      width="70%"
       onClose={onClose}
       {...props}
     >

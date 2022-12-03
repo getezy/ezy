@@ -29,7 +29,6 @@ export const SideBar: React.FC = () => {
         />
       </Tooltip>
       <CreateCollectionModal
-        fullScreen
         closeButton
         open={context?.modal.createCollectionModalVisible}
         onClose={() => context?.modal.setCreateCollectionModalVisible(false)}

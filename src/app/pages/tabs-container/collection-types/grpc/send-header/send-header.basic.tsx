@@ -218,7 +218,6 @@ export const SendHeader: React.FC<PropsWithChildren<SendHeaderProps<GrpcMethodTy
       </Container>
       <CreateEnvironmentModal
         closeButton
-        blur
         open={createEnvironmentModalVisible}
         defaultValues={{
           url: tab.data.url || '',

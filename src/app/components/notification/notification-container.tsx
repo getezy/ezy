@@ -19,7 +19,6 @@ export const NotificationContainer: React.FC = () => {
     <StyledToastContainer
       position="bottom-right"
       autoClose={3000}
-      newestOnTop
       pauseOnFocusLoss
       pauseOnHover
       closeButton={false}
