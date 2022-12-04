@@ -1,5 +1,25 @@
 
 
+## [1.0.0-beta.13](https://github.com/getezy/ezy/compare/v1.0.0-beta.12...v1.0.0-beta.13) (2022-12-04)
+
+
+### Features
+
+* **#18:** add (Cmd/Ctrl)+Enter shortcut ([7da0710](https://github.com/getezy/ezy/commit/7da071049b9b0b6453c3769c585e99dcb128dafe)), closes [#18](https://github.com/getezy/ezy/issues/18)
+* **#27:** add "create more" in create collection modal ([4690bc6](https://github.com/getezy/ezy/commit/4690bc62d9448acc8902d6baf31f35a2b3282939)), closes [#27](https://github.com/getezy/ezy/issues/27)
+* **#27:** add option to include directories from another collection ([f25cef4](https://github.com/getezy/ezy/commit/f25cef4d452fff06a7134811fccb997c0792d6a5)), closes [#27](https://github.com/getezy/ezy/issues/27)
+* **#27:** notification on collection create ([0cfa7a5](https://github.com/getezy/ezy/commit/0cfa7a5c78e403a95699be2b3daef907127e2cbb)), closes [#27](https://github.com/getezy/ezy/issues/27)
+
+
+### Bug Fixes
+
+* code editor styles ([0b6d2a5](https://github.com/getezy/ezy/commit/0b6d2a552454c39d5d12436dbbd51c4e7d86e888))
+* hide tab on drag ([f34f6e1](https://github.com/getezy/ezy/commit/f34f6e1b749afea4de8378774bb4e4ff58bfdb8c))
+* highlight colors ([c1f8982](https://github.com/getezy/ezy/commit/c1f8982e47668e50a48bfdd25f76a5b38a69ce6c))
+* pass unique id to menu items ([dc7bca6](https://github.com/getezy/ezy/commit/dc7bca687240335e5a811b26b0b6df094a230ef6))
+* prevent application close on ⌘+W/Ctrl+W ([10ac250](https://github.com/getezy/ezy/commit/10ac250a2c360aa7c24c01cd56c78045c115fd2e))
+* submenu width ([e7554d5](https://github.com/getezy/ezy/commit/e7554d5a44831411fa79e69a628d1f8e704e7736))
+
 ## [1.0.0-beta.12](https://github.com/getezy/ezy/compare/v1.0.0-beta.11...v1.0.0-beta.12) (2022-11-06)
 
 
