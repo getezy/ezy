@@ -77,4 +77,7 @@ jobs:
             out/**/*.deb
             out/**/*.dmg
             out/**/*setup*.exe
+            out/**/*.nupkg
             out/**/*.rpm
+            out/**/*.zip
+            out/**/RELEASES
