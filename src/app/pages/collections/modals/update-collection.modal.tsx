@@ -26,6 +26,7 @@ export const UpdateCollectionModal: React.FC<UpdateCollectionModalProps> = ({
   return (
     <Modal
       aria-labelledby="update-collection-modal"
+      width="70%"
       css={{ background: '$background' }}
       onClose={onClose}
       {...props}

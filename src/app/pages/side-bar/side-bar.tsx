@@ -29,6 +29,7 @@ export const SideBar: React.FC = () => {
         />
       </Tooltip>
       <CreateCollectionModal
+        preventClose
         closeButton
         open={context?.modal.createCollectionModalVisible}
         onClose={() => context?.modal.setCreateCollectionModalVisible(false)}

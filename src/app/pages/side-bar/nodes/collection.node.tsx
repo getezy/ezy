@@ -125,9 +125,8 @@ export const CollectionNode: React.FC<TreeNodeRendererProps<Collection<Collectio
         </Tree>
       </TreeNode>
       <UpdateCollectionModal
-        fullScreen
+        preventClose
         closeButton
-        blur
         defaultValues={data}
         open={updateCollectionModalVisible}
         onClose={() => setUpdateCollectionModalVisible(false)}

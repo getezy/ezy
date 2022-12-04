@@ -33,7 +33,7 @@ export const CreateCollectionModal: React.FC<ModalProps> = ({ onClose = () => {}
   return (
     <Modal
       aria-labelledby="create-collection-modal"
-      css={{ background: '$background', zIndex: '1 important!' }}
+      css={{ background: '$background' }}
       width="70%"
       onClose={onClose}
       {...props}

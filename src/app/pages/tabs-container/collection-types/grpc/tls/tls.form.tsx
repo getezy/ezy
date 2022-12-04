@@ -25,7 +25,7 @@ const StyledInfoIcon = styled(FontAwesomeIcon, {
 const SystemCard: React.FC = () => (
   <Container fluid gap={0}>
     <Spacer />
-    <Card variant="bordered" isHoverable>
+    <Card variant="bordered" isHoverable css={{ backgroundColor: '$background' }}>
       <Card.Body>
         <Container gap={0} display="flex" direction="row" wrap="nowrap" alignItems="center">
           <StyledInfoIcon icon={faCircleInfo} />
