@@ -1,11 +1,11 @@
-import { faSquarePlus, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { faPlus, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Button, Container, Input, Spacer, styled, Table, Text } from '@nextui-org/react';
 import { nanoid } from 'nanoid';
 import React from 'react';
 import { Controller, useForm } from 'react-hook-form';
 
-import { FileInput } from '@components';
+import { EzyButton, FileInput } from '@components';
 import { Collection, CollectionType } from '@storage';
 
 export interface CollectionFormProps {
@@ -50,22 +50,19 @@ const IncludeDirectoriesContainer = React.forwardRef<
 
   return (
     <div ref={ref}>
-      <div style={{ display: 'flex' }}>
+      <div style={{ display: 'flex', alignItems: 'center' }}>
         <Text weight="normal" size={14} css={{ userSelect: 'none', paddingLeft: 4 }}>
           Include directories
         </Text>
-        <Spacer />
-        <Button
-          auto
+        <Spacer x={0.5} />
+        <EzyButton
+          size="xs"
           bordered
           borderWeight="light"
-          size="xs"
-          color="success"
-          icon={<FontAwesomeIcon icon={faSquarePlus} />}
+          icon={<FontAwesomeIcon size="sm" icon={faPlus} />}
+          css={{ minWidth: 10, color: '$ezy', borderColor: '$accents3' }}
           onClick={handleAddPathButtonClick}
-        >
-          Add path
-        </Button>
+        />
       </div>
       <Spacer y={0.3} />
       <Table
