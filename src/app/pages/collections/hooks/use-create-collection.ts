@@ -16,7 +16,7 @@ export function useCreateCollection() {
           title: `${payload.name}`,
           description: 'Collection successfully created',
         },
-        { type: 'success' }
+        { type: 'success', position: 'top-right' }
       );
     } catch (error: any) {
       notification(
@@ -24,7 +24,7 @@ export function useCreateCollection() {
           title: `Create collection error`,
           description: error?.message,
         },
-        { type: 'error' }
+        { type: 'error', position: 'top-right' }
       );
     }
   };
