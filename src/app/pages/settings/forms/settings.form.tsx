@@ -32,6 +32,7 @@ export const SettingsForm: React.FC<SettingsFormProps> = ({
                 borderWeight="light"
                 animated={false}
                 color="gradient"
+                size="xs"
                 css={{
                   tt: 'capitalize',
                   '.nextui-drip .nextui-drip-filler': {
