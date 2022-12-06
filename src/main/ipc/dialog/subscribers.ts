@@ -13,3 +13,7 @@ export const registerDialogSubscribers = (mainWindow: BrowserWindow) => {
     return [];
   });
 };
+
+export const unregisterDialogSubscribers = () => {
+  ipcMain.removeHandler(DialogChannel.OPEN);
+};
