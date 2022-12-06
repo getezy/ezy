@@ -29,7 +29,7 @@ export const CollectionsTree = (): JSX.Element => {
         bordered
         borderWeight="light"
         fullWidth
-        placeholder="Search..."
+        placeholder="Find collection, service or method"
         clearable
         size="sm"
         css={{

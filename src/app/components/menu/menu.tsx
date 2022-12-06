@@ -33,7 +33,8 @@ const SubMenu = styled('div', {
         width: 0,
       },
       false: {
-        width: 250,
+        maxWidth: 250,
+        minWidth: 250,
       },
     },
   },
