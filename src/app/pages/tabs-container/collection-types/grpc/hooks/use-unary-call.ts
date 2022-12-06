@@ -52,7 +52,7 @@ export function useUnaryCall() {
     } catch (error: any) {
       notification(
         { title: 'Invoke request error', description: error.message },
-        { type: 'error' }
+        { type: 'error', position: 'bottom-right' }
       );
     } finally {
       deleteContext(tab.id);

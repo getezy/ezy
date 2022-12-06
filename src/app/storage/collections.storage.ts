@@ -100,7 +100,7 @@ export const useCollectionsStore = create(
                   title: `${collection.name}`,
                   description: 'Collection successfully updated',
                 },
-                { type: 'success' }
+                { type: 'success', position: 'top-right' }
               );
             }
           } catch (error: any) {
@@ -110,7 +110,7 @@ export const useCollectionsStore = create(
                 title: `${collection.name} sync error`,
                 description: error?.message,
               },
-              { type: 'error' }
+              { type: 'error', position: 'top-right' }
             );
           }
         }

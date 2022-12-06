@@ -6,7 +6,6 @@ import 'react-toastify/dist/ReactToastify.css';
 
 const StyledToastContainer = styled(ToastContainer, {
   position: 'fixed',
-  height: '95vh',
   zIndex: '$max',
   '.Toastify__toast-theme--dark': {
     backgroundColor: '$backgroundContrast !important',
@@ -23,6 +22,7 @@ export const NotificationContainer: React.FC = () => {
       pauseOnFocusLoss
       pauseOnHover
       closeButton={false}
+      newestOnTop
       theme={theme.isDark ? 'dark' : 'light'}
     />
   );

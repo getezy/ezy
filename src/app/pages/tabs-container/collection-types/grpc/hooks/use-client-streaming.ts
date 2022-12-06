@@ -71,7 +71,7 @@ export function useClientStreaming() {
     } catch (error: any) {
       notification(
         { title: 'Invoke request error', description: error.message },
-        { type: 'error' }
+        { type: 'error', position: 'bottom-right' }
       );
 
       deleteContext(tab.id);
@@ -94,7 +94,10 @@ export function useClientStreaming() {
         });
       }
     } catch (error: any) {
-      notification({ title: `Send message error`, description: error.message }, { type: 'error' });
+      notification(
+        { title: `Send message error`, description: error.message },
+        { type: 'error', position: 'bottom-right' }
+      );
     }
   }
 
