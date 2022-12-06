@@ -54,7 +54,9 @@ export const IncludeDirectoriesField = React.forwardRef<
     value.map((item) => ({ id: nanoid(), value: item }))
   );
   const [isSelectCollectionShowing, setIsSelectCollectionShowing] = React.useState(false);
-  const [selectedCollection, setSelectedCollection] = React.useState<SelectCollectionOption>();
+  const [selectedCollection, setSelectedCollection] = React.useState<SelectCollectionOption | null>(
+    null
+  );
 
   const handleAddDirectoryButtonClick = async () => {
     const paths = await window.electronDialog.open({ properties: ['openDirectory'] });
@@ -78,6 +80,7 @@ export const IncludeDirectoriesField = React.forwardRef<
   };
 
   const handleAddFromCollectionButtonClick = () => {
+    setSelectedCollection(null);
     setIsSelectCollectionShowing(true);
   };
 
