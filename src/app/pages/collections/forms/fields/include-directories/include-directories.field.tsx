@@ -117,7 +117,11 @@ export const IncludeDirectoriesField = React.forwardRef<
   return (
     <div ref={ref}>
       <Container gap={0} display="flex" alignItems="center">
-        <Text weight="normal" size={14} css={{ userSelect: 'none', paddingLeft: 4 }}>
+        <Text
+          weight="normal"
+          size={12}
+          css={{ userSelect: 'none', paddingLeft: 4, letterSpacing: 'unset', fontFamily: '$sans' }}
+        >
           Include directories (Optional)
         </Text>
         <Spacer x={0.5} />
@@ -163,6 +167,7 @@ export const IncludeDirectoriesField = React.forwardRef<
               size="xs"
               bordered
               borderWeight="light"
+              disabled={!selectedCollection}
               icon={<FontAwesomeIcon size="sm" icon={faPlus} />}
               css={{ minWidth: 10, color: '$accents8', borderColor: '$accents3' }}
               onClick={handleAddFromSelectedCollectionButtonClick}
