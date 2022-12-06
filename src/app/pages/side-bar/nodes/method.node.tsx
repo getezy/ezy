@@ -12,7 +12,7 @@ export const GrpcMethodNode: React.FC<TreeNodeRendererProps<GrpcMethod>> = ({ da
   const { createGrpcTab } = useTabsStore((store) => store);
   const collections = useCollectionsStore((store) => store.collections);
 
-  const handleDoubleClick = () => {
+  const handleClick = () => {
     const nodeCollection = collections.find((collection) =>
       collection.children?.find((service) =>
         service.methods?.find((method) => method.id === data.id)
@@ -54,7 +54,7 @@ export const GrpcMethodNode: React.FC<TreeNodeRendererProps<GrpcMethod>> = ({ da
       key={data.id}
       content={content}
       css={{ paddingLeft: 20 }}
-      onDoubleClick={handleDoubleClick}
+      onClick={handleClick}
     />
   );
 };
