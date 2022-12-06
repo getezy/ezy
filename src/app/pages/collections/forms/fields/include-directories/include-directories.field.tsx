@@ -141,6 +141,7 @@ export const IncludeDirectoriesField = React.forwardRef<
               size="xs"
               bordered
               borderWeight="light"
+              placeholder="Select collection"
               options={collections.map((collection) => ({
                 label: collection.name,
                 value: collection.id,
