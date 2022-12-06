@@ -11,7 +11,7 @@ export const StyledCodeMirror = styled(CodeMirror, {
   '.cm-content': {
     padding: 0,
     fontFamily: '$mono',
-    fontSize: '$fontSizes$sm',
+    fontSize: '$fontSizes$xs',
   },
 
   '.cm-editor.cm-focused': {
