@@ -31,7 +31,6 @@ export const GrpcServiceNode: React.FC<TreeNodeRendererProps<GrpcService>> = ({
       css={{ paddingLeft: 10 }}
       isOpen={isOpen}
       onCollapseToggle={onCollapseToggle}
-      defaultPadding
     >
       <Tree<GrpcMethod> data={data.methods}>
         {data.methods?.map((method) => (

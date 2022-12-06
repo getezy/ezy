@@ -69,6 +69,7 @@ const ReponseNode: React.FC<
       commandsContent={!data.system && commandsContent}
       isOpen={isOpen}
       onCollapseToggle={onCollapseToggle}
+      defaultPadding={false}
       css={{
         height: 50,
         paddingRight: 5,

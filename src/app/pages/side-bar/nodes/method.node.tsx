@@ -55,7 +55,6 @@ export const GrpcMethodNode: React.FC<TreeNodeRendererProps<GrpcMethod>> = ({ da
       content={content}
       css={{ paddingLeft: 20 }}
       onDoubleClick={handleDoubleClick}
-      defaultPadding
     />
   );
 };

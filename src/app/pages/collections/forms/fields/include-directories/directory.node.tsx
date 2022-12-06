@@ -44,12 +44,6 @@ export const DirectoryNode: React.FC<
   );
 
   return (
-    <TreeNode
-      id={data.id}
-      key={data.id}
-      content={content}
-      commandsContent={commandsContent}
-      defaultPadding
-    />
+    <TreeNode id={data.id} key={data.id} content={content} commandsContent={commandsContent} />
   );
 };

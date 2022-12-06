@@ -17,8 +17,8 @@ const StyledTreeNode = styled('li', {
   variants: {
     defaultPadding: {
       true: {
-        paddingTop: 10,
-        paddingBottom: 10,
+        paddingTop: 2,
+        paddingBottom: 2,
         paddingRight: 5,
       },
     },
@@ -59,7 +59,7 @@ export const TreeNode: React.FC<PropsWithChildren<TreeNodeProps>> = ({
   commandsContent,
   children,
   isOpen = true,
-  defaultPadding = false,
+  defaultPadding = true,
   onCollapseToggle,
   onClick,
   onDoubleClick,
