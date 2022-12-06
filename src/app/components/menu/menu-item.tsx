@@ -6,6 +6,8 @@ const StyledMenuItem = styled('div', {
   justifyContent: 'center',
   padding: 10,
 
+  cursor: 'pointer',
+
   '&:hover': {
     color: '$ezy',
   },
