@@ -91,6 +91,8 @@ export function useBidirectionalStreaming() {
         { title: 'Invoke request error', description: error.message },
         { type: 'error' }
       );
+
+      deleteContext(tab.id);
     }
   }
 

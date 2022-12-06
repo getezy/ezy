@@ -73,6 +73,8 @@ export function useClientStreaming() {
         { title: 'Invoke request error', description: error.message },
         { type: 'error' }
       );
+
+      deleteContext(tab.id);
     }
   }
 
