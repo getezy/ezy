@@ -3,7 +3,7 @@ import * as grpc from '@grpc/grpc-js';
 import { join } from 'path';
 
 import { ProtobufLoader } from '../../../../protobuf';
-import { GrpcClientRequestOptions, GrpcTlsType } from '../../interfaces';
+import { GrpcClientRequestOptions, GrpcStatus, GrpcTlsType } from '../../interfaces';
 import { GrpcClient } from '../grpc-client';
 
 function createBasicService(error: any, response: any) {
@@ -61,6 +61,7 @@ describe('GrpcClient', () => {
       await expect(
         GrpcClient.invokeUnaryRequest(packageDefinition, requestOptions, payload)
       ).resolves.toEqual({
+        code: GrpcStatus.OK,
         timestamp: 0,
         value: payload,
       });
@@ -96,6 +97,7 @@ describe('GrpcClient', () => {
       await expect(
         GrpcClient.invokeUnaryRequest(packageDefinition, requestOptions, payload, metadata)
       ).resolves.toEqual({
+        code: GrpcStatus.OK,
         timestamp: 0,
         value: payload,
       });
@@ -117,7 +119,7 @@ describe('GrpcClient', () => {
         id: 'testid',
       };
 
-      const error = { code: 14, details: 'No connection established' };
+      const error = { code: GrpcStatus.UNAVAILABLE, details: 'No connection established' };
 
       const BasicService = createBasicService(error, null);
 
@@ -129,6 +131,7 @@ describe('GrpcClient', () => {
       await expect(
         GrpcClient.invokeUnaryRequest(packageDefinition, requestOptions, payload)
       ).resolves.toEqual({
+        code: GrpcStatus.UNAVAILABLE,
         timestamp: 0,
         value: error,
       });
@@ -160,6 +163,7 @@ describe('GrpcClient', () => {
       await expect(
         GrpcClient.invokeUnaryRequest(packageDefinition, requestOptions, payload)
       ).resolves.toEqual({
+        code: GrpcStatus.OK,
         timestamp: 0,
         value: payload,
       });

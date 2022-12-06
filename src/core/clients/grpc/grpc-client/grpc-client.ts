@@ -18,6 +18,7 @@ import {
   GrpcChannelOptions,
   GrpcClientRequestOptions,
   GrpcResponse,
+  GrpcStatus,
   GrpcTlsConfig,
   GrpcTlsType,
   isInsecureTlsConfig,
@@ -104,6 +105,7 @@ export class GrpcClient {
           if (error) {
             return resolve({
               timestamp,
+              code: error.code || GrpcStatus.UNKNOWN,
               value: {
                 code: error.code,
                 details: error.details,
@@ -112,7 +114,7 @@ export class GrpcClient {
             });
           }
 
-          return resolve({ timestamp, value: response });
+          return resolve({ timestamp, code: GrpcStatus.OK, value: response });
         }
       );
     });

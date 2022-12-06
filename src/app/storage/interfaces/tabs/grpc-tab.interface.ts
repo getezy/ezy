@@ -17,6 +17,7 @@ export interface GrpcRequestMetadata {
 
 export interface GrpcUnaryResponse {
   id: string;
+  code: number;
   timestamp?: number;
   value?: string;
 }

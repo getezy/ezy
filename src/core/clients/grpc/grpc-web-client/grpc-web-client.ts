@@ -8,6 +8,7 @@ import { performance } from 'perf_hooks';
 import {
   GrpcClientRequestOptions,
   GrpcResponse,
+  GrpcStatus,
   GrpcTlsConfig,
   GrpcTlsType,
   isInsecureTlsConfig,
@@ -140,13 +141,14 @@ export class GrpcWebClient {
       call.on('message', (message) => {
         const timestamp = Math.trunc(performance.now() - startTime);
 
-        resolve({ timestamp, value: message });
+        resolve({ timestamp, code: GrpcStatus.OK, value: message });
       });
 
       call.on('error', (error) => {
         const timestamp = Math.trunc(performance.now() - startTime);
 
         resolve({
+          code: error.code,
           timestamp,
           value: error.toObject(),
         });

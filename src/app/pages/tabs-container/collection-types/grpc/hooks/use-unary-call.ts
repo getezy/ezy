@@ -44,6 +44,7 @@ export function useUnaryCall() {
       updateGrpcTabData<GrpcMethodType.UNARY>(tab.id, {
         response: {
           ...tab.data.response,
+          code: response.code,
           timestamp: response.timestamp,
           value: JSON.stringify(response.value, null, 2),
         },

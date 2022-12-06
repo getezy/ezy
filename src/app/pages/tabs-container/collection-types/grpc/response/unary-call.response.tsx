@@ -1,8 +1,8 @@
-import { Badge, styled } from '@nextui-org/react';
+import { Badge, Container, styled } from '@nextui-org/react';
 import React from 'react';
 
 import { CodeEditor, Tab, Tabs } from '@components';
-import { GrpcMethodType } from '@core/types';
+import { GrpcMethodType, GrpcStatus } from '@core/types';
 import { GrpcTab } from '@storage';
 
 const StyledContainer = styled('div', {
@@ -17,15 +17,33 @@ export interface UnaryCallResponseProps {
 }
 
 export const UnaryCallResponse: React.FC<UnaryCallResponseProps> = ({ tab }) => {
-  const reponseTimings = (
+  const responseStatus = (
     <Badge
       size="md"
       variant="flat"
       isSquared
-      css={{ userSelect: 'none', marginLeft: 5, marginRight: 5 }}
+      color={tab.data.response.code !== GrpcStatus.OK ? 'error' : 'success'}
     >
+      {tab.data.response.code !== GrpcStatus.OK ? 'ERROR' : 'OK'}
+    </Badge>
+  );
+
+  const responseTimings = (
+    <Badge size="md" variant="flat" isSquared>
       {tab.data.response.timestamp || 0} ms
     </Badge>
+  );
+
+  const rightNode = tab.data.response.value && (
+    <Container
+      gap={0}
+      display="flex"
+      wrap="nowrap"
+      css={{ userSelect: 'none', marginLeft: 5, marginRight: 5 }}
+    >
+      {responseStatus}
+      {responseTimings}
+    </Container>
   );
 
   return (
@@ -33,7 +51,7 @@ export const UnaryCallResponse: React.FC<UnaryCallResponseProps> = ({ tab }) => 
       <Tabs
         activeKey={tab.data.response.id}
         activeBar={{ color: 'secondary', position: 'bottom' }}
-        rightNode={reponseTimings}
+        rightNode={rightNode}
       >
         <Tab title="Response" id={tab.data.response.id} key={tab.data.response.id}>
           <CodeEditor
