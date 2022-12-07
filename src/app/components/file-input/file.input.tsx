@@ -13,7 +13,7 @@ export type FileInputProps = Partial<Omit<InputProps, 'type' | 'value' | 'onChan
 };
 
 export const FileInput = React.forwardRef<HTMLInputElement, FileInputProps>(
-  ({ accept, buttonColor, onChange, value, readOnly, label, ...props }, ref) => {
+  ({ accept, buttonColor, onChange, value, readOnly, label, color, ...props }, ref) => {
     const [inputValue, setInputValue] = React.useState(value);
 
     React.useEffect(() => {
@@ -36,10 +36,11 @@ export const FileInput = React.forwardRef<HTMLInputElement, FileInputProps>(
         clearable={!readOnly}
         readOnly
         onClearClick={() => onChange(undefined)}
+        color={color}
         // @ts-ignore
         label={
           <Container gap={0} display="flex" wrap="nowrap" alignItems="center">
-            <Text size={12} css={{ letterSpacing: 'unset', fontFamily: '$sans' }}>
+            <Text size={12} color={color} css={{ letterSpacing: 'unset', fontFamily: '$sans' }}>
               {label}
             </Text>
             <Spacer x={0.5} />
