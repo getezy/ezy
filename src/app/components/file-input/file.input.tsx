@@ -55,6 +55,9 @@ export const FileInput = React.forwardRef<HTMLInputElement, FileInputProps>(
           </Container>
         }
         css={{
+          '.nextui-input': {
+            cursor: 'default',
+          },
           '.nextui-input-clear-button': {
             cursor: 'pointer',
           },
