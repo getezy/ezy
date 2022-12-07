@@ -1,6 +1,15 @@
 import { faFloppyDisk, faGlobe, faLock, faUnlock } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Button, Container, Input, Spacer, Switch, SwitchEvent, Tooltip } from '@nextui-org/react';
+import {
+  Button,
+  Container,
+  Input,
+  Spacer,
+  Switch,
+  SwitchEvent,
+  Text,
+  Tooltip,
+} from '@nextui-org/react';
 import React, { PropsWithChildren } from 'react';
 import { MultiValue, SingleValue } from 'react-select';
 
@@ -150,7 +159,7 @@ export const SendHeader: React.FC<PropsWithChildren<SendHeaderProps<GrpcMethodTy
                 />
               </Tooltip>
             ) : (
-              <Tooltip content="Connection is not secure" placement="bottom" enterDelay={500}>
+              <Tooltip content="Connection is not secure" enterDelay={500}>
                 <Button
                   size="sm"
                   light
@@ -172,22 +181,24 @@ export const SendHeader: React.FC<PropsWithChildren<SendHeaderProps<GrpcMethodTy
             )
           }
           contentRight={
-            <Button
-              auto
-              light
-              icon={<FontAwesomeIcon icon={faFloppyDisk} />}
-              css={{
-                background: 'transparent',
-                padding: 0,
-                margin: 0,
-                minWidth: 10,
-                color: '$accents6',
-                '&:hover': {
-                  color: '$accents5',
-                },
-              }}
-              onClick={handleCreateEnvironmentModalVisible}
-            />
+            <Tooltip content="Save environment">
+              <Button
+                auto
+                light
+                icon={<FontAwesomeIcon icon={faFloppyDisk} />}
+                css={{
+                  background: 'transparent',
+                  padding: 0,
+                  margin: 0,
+                  minWidth: 10,
+                  color: '$accents6',
+                  '&:hover': {
+                    color: '$accents5',
+                  },
+                }}
+                onClick={handleCreateEnvironmentModalVisible}
+              />
+            </Tooltip>
           }
         />
         <Spacer x={0.5} />
