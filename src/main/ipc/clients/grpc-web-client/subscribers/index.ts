@@ -10,3 +10,8 @@ export const registerGrpcWebClientSubscribers = (mainWindow: BrowserWindow) => {
   server.registerServerStreamingHandlers();
   unary.registerUnaryCallHandlers();
 };
+
+export const unregisterGrpcWebClientSubscribers = () => {
+  GrpcWebClientServerStreamingSubscriber.unregisterServerStreamingHandlers(ipcMain);
+  GrpcWebClientUnarySubscriber.unregisterUnaryCallHandlers(ipcMain);
+};

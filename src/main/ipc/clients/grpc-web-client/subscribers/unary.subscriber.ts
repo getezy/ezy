@@ -13,6 +13,10 @@ import { GrpcWebClientChannel } from '../constants';
 export class GrpcWebClientUnarySubscriber {
   constructor(private readonly mainWindow: BrowserWindow, private readonly ipcMain: IpcMain) {}
 
+  public static unregisterUnaryCallHandlers(ipcMain: IpcMain) {
+    ipcMain.removeHandler(GrpcWebClientChannel.INVOKE_UNARY_REQUEST);
+  }
+
   public registerUnaryCallHandlers() {
     this.ipcMain.handle(
       GrpcWebClientChannel.INVOKE_UNARY_REQUEST,

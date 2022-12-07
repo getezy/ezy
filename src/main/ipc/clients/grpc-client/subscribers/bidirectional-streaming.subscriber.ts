@@ -14,6 +14,13 @@ export class GrpcClientBidirectionalSubscriber {
 
   constructor(private readonly mainWindow: BrowserWindow, private readonly ipcMain: IpcMain) {}
 
+  public static unregisterBidirectionalStreamingHandlers(ipcMain: IpcMain) {
+    ipcMain.removeHandler(GrpcClientChannel.INVOKE_BIDIRECTIONAL_STREAMING_REQUEST);
+    ipcMain.removeHandler(GrpcClientChannel.SEND_BIDIRECTIONAL_STREAMING_REQUEST);
+    ipcMain.removeHandler(GrpcClientChannel.END_BIDIRECTIONAL_STREAMING_REQUEST);
+    ipcMain.removeHandler(GrpcClientChannel.CANCEL_BIDIRECTIONAL_STREAMING_REQUEST);
+  }
+
   public registerBidirectionalStreamingHandlers() {
     this.ipcMain.handle(
       GrpcClientChannel.INVOKE_BIDIRECTIONAL_STREAMING_REQUEST,

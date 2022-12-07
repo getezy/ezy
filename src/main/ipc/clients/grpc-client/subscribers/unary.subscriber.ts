@@ -8,6 +8,10 @@ import { GrpcClientChannel } from '../constants';
 export class GrpcClientUnarySubscriber {
   constructor(private readonly mainWindow: BrowserWindow, private readonly ipcMain: IpcMain) {}
 
+  public static unregisterUnaryCallHandlers(ipcMain: IpcMain) {
+    ipcMain.removeHandler(GrpcClientChannel.INVOKE_UNARY_REQUEST);
+  }
+
   public registerUnaryCallHandlers() {
     this.ipcMain.handle(
       GrpcClientChannel.INVOKE_UNARY_REQUEST,

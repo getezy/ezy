@@ -11,6 +11,11 @@ export class GrpcClientServerStreamingSubscriber {
 
   constructor(private readonly mainWindow: BrowserWindow, private readonly ipcMain: IpcMain) {}
 
+  public static unregisterServerStreamingHandlers(ipcMain: IpcMain) {
+    ipcMain.removeHandler(GrpcClientChannel.INVOKE_SERVER_STREAMING_REQUEST);
+    ipcMain.removeHandler(GrpcClientChannel.CANCEL_SERVER_STREAMING_REQUEST);
+  }
+
   public registerServerStreamingHandlers() {
     this.ipcMain.handle(
       GrpcClientChannel.INVOKE_SERVER_STREAMING_REQUEST,
