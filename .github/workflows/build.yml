@@ -18,12 +18,16 @@ jobs:
         # Build for supported platforms
         # https://github.com/electron/electron-packager/blob/ebcbd439ff3e0f6f92fa880ff28a8670a9bcf2ab/src/targets.js#L9
         # 32-bit Linux unsupported as of 2019: https://www.electronjs.org/blog/linux-32bit-support
-        os: [ macOS-latest, ubuntu-latest, windows-latest ]
+        os: [ macOS-latest, ubuntu-20.04, windows-latest ]
         arch: [ x64, arm64 ]
         include:
         - os: windows-latest
           arch: ia32
-        - os: ubuntu-latest
+        # https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#choosing-github-hosted-runners
+        # The ubuntu-latest label is currently transitioning to the Ubuntu 22.04 runner image.
+        # During the transition, the label might refer to the runner image for either Ubuntu 20.04 or 22.04.
+        # https://github.blog/changelog/2022-11-09-github-actions-ubuntu-latest-workflows-will-use-ubuntu-22-04/
+        - os: ubuntu-20.04
           arch: armv7l
         # Publishing artifacts for multiple Windows architectures has
         # a bug which can cause the wrong architecture to be downloaded
