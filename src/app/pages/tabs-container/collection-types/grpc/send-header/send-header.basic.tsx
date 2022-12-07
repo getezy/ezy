@@ -181,7 +181,7 @@ export const SendHeader: React.FC<PropsWithChildren<SendHeaderProps<GrpcMethodTy
             )
           }
           contentRight={
-            <Tooltip content="Save environment">
+            <Tooltip content="Save environment" enterDelay={500}>
               <Button
                 auto
                 light
