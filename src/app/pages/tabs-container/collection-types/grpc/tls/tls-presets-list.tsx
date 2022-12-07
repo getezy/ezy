@@ -66,6 +66,7 @@ const ReponseNode: React.FC<
       id={data.id}
       key={data.id}
       content={content}
+      isComandsHoverable={false}
       commandsContent={!data.system && commandsContent}
       isOpen={isOpen}
       onCollapseToggle={onCollapseToggle}
