@@ -1,5 +1,12 @@
 
 
+## [1.0.0-beta.13.2](https://github.com/getezy/ezy/compare/v1.0.0-beta.13.1...v1.0.0-beta.13.2) (2022-12-07)
+
+
+### Bug Fixes
+
+* exceptions for handlers already defined ([7811511](https://github.com/getezy/ezy/commit/781151101f55d3bf998c37c2c3dc59ba1c275a8a))
+
 ## [1.0.0-beta.13.1](https://github.com/getezy/ezy/compare/v1.0.0-beta.13...v1.0.0-beta.13.1) (2022-12-07)
 
 
