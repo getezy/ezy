@@ -62,7 +62,7 @@ export const WelcomeContainer: React.FC = () => {
         </Text>
         <Spacer y={2} />
         {shortcuts.map((shortcut) => (
-          <Row>
+          <Row key={shortcut.key}>
             <Col>
               <Text size="$sm" css={{ color: '$accents8' }}>
                 {shortcut.description}
