@@ -1,5 +1,40 @@
 
 
+## [1.0.0-beta.13.1](https://github.com/getezy/ezy/compare/v1.0.0-beta.13...v1.0.0-beta.13.1) (2022-12-07)
+
+
+### Features
+
+* **#28:** add welcome page ([5abb2c9](https://github.com/getezy/ezy/commit/5abb2c9daf0408e1690ea3beccd696188a76b50d)), closes [#28](https://github.com/getezy/ezy/issues/28)
+
+
+### Bug Fixes
+
+* **#28:** action button in collection menu always visible ([e1180d2](https://github.com/getezy/ezy/commit/e1180d2c7e64496d68d17e5dddd2f62491ebb6c3)), closes [#28](https://github.com/getezy/ezy/issues/28)
+* **#28:** add default cursors to fileinput ([6ad1ca1](https://github.com/getezy/ezy/commit/6ad1ca1eac602443dda15ae68829687cad2d8cfa)), closes [#28](https://github.com/getezy/ezy/issues/28)
+* **#28:** add pointer cursor to fileinput clear button ([8a5671f](https://github.com/getezy/ezy/commit/8a5671fa59b379fd57f1b00e47d6d454a0b4a956)), closes [#28](https://github.com/getezy/ezy/issues/28)
+* **#28:** add pointer to menu items ([dd3dbef](https://github.com/getezy/ezy/commit/dd3dbef35b337dc152b280ef1d47505834578a6c)), closes [#28](https://github.com/getezy/ezy/issues/28)
+* **#28:** add response status badge ([adbbac9](https://github.com/getezy/ezy/commit/adbbac95e40b085d7b9bff0635e4392eede143b0)), closes [#28](https://github.com/getezy/ezy/issues/28)
+* **#28:** add unique key for shortcuts on welcome page ([77c8b3e](https://github.com/getezy/ezy/commit/77c8b3e615035db5e7f62158e3f424add0d3b354)), closes [#28](https://github.com/getezy/ezy/issues/28)
+* **#28:** changed url input styles ([fb58211](https://github.com/getezy/ezy/commit/fb5821106deefa6abd3f039985c601622710a7c5)), closes [#28](https://github.com/getezy/ezy/issues/28)
+* **#28:** clear select collection on add from another collection click ([a288bf8](https://github.com/getezy/ezy/commit/a288bf8673f706c10070e9b866592aab10f41699)), closes [#28](https://github.com/getezy/ezy/issues/28)
+* **#28:** collection tree search input placeholder ([8da81f6](https://github.com/getezy/ezy/commit/8da81f602fb868d819f8b1e86992772b18c0e371)), closes [#28](https://github.com/getezy/ezy/issues/28)
+* **#28:** delete button always visible in TLS configuration ([79b58dd](https://github.com/getezy/ezy/commit/79b58ddf2419bcbb194942797a99e42988a95fc3)), closes [#28](https://github.com/getezy/ezy/issues/28)
+* **#28:** enter delay on toolitp ([a562540](https://github.com/getezy/ezy/commit/a562540028d9003290865eca62b7cbff90da5603)), closes [#28](https://github.com/getezy/ezy/issues/28)
+* **#28:** error color for fileinput label ([a799375](https://github.com/getezy/ezy/commit/a7993751ce37b0c3b2ef95f79a8c379a4fd1bc95)), closes [#28](https://github.com/getezy/ezy/issues/28)
+* **#28:** menu collapse ([85bc152](https://github.com/getezy/ezy/commit/85bc152ecd14693743c6b4794bf2a25c7eec10eb)), closes [#28](https://github.com/getezy/ezy/issues/28)
+* **#28:** open tab by one click ([7a1a37b](https://github.com/getezy/ezy/commit/7a1a37b1510fd8e120d094723228a5f256a616dc)), closes [#28](https://github.com/getezy/ezy/issues/28)
+* **#28:** place newest notifications on top ([ade02cf](https://github.com/getezy/ezy/commit/ade02cf05c29581d83d7eea05d9b81e9596afd3a)), closes [#28](https://github.com/getezy/ezy/issues/28)
+* **#28:** rebuild fileinput ([9542dc1](https://github.com/getezy/ezy/commit/9542dc1acc4623167b1edd5eb89e5c03ae7a28ea)), closes [#28](https://github.com/getezy/ezy/issues/28)
+* **#28:** reduce vertical space between tree nodes in all lists ([dc31a9b](https://github.com/getezy/ezy/commit/dc31a9bb73f0d05981e2476fe80d389578e85b4c)), closes [#28](https://github.com/getezy/ezy/issues/28)
+* **#28:** save environment tooltip ([958348b](https://github.com/getezy/ezy/commit/958348ba336fc30ad3fc2ce15112a7894505cdc3)), closes [#28](https://github.com/getezy/ezy/issues/28)
+* **#28:** select collection placeholder ([03f9478](https://github.com/getezy/ezy/commit/03f9478a3ba00c9382ed1875d8fd928bd491de27)), closes [#28](https://github.com/getezy/ezy/issues/28)
+* **#28:** toasts appears outside the screen ([f2bcb06](https://github.com/getezy/ezy/commit/f2bcb061ffc7d889859e4956969bda2fc1c78bec)), closes [#28](https://github.com/getezy/ezy/issues/28)
+* **#28:** uncaught exception on macOS when app was closed and reopened ([fc54fb5](https://github.com/getezy/ezy/commit/fc54fb59e53517a6b899defe8dd3fdf01d80b49a))
+* **#28:** update key bindings for shortcuts ([4beb0fa](https://github.com/getezy/ezy/commit/4beb0fa9d080cec3eb01543107d13a0303a1e178)), closes [#28](https://github.com/getezy/ezy/issues/28)
+* disable loading when error occurs in streams ([554eca6](https://github.com/getezy/ezy/commit/554eca6fa98ddb7570b00370b503d6a3da738069))
+* make font size smaller ([53e7710](https://github.com/getezy/ezy/commit/53e7710e966ed8193531ce6fbd6b34b64b0017db))
+
 ## [1.0.0-beta.13](https://github.com/getezy/ezy/compare/v1.0.0-beta.12...v1.0.0-beta.13) (2022-12-04)
 
 
