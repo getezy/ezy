@@ -128,8 +128,6 @@ export const SendHeader: React.FC<PropsWithChildren<SendHeaderProps<GrpcMethodTy
         <Input
           aria-label="tab-url-input"
           size="sm"
-          bordered
-          borderWeight="light"
           animated={false}
           clearable
           placeholder="0.0.0.0:3000"
