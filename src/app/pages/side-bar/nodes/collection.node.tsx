@@ -113,6 +113,7 @@ export const CollectionNode: React.FC<TreeNodeRendererProps<Collection<Collectio
         id={data.id}
         key={data.id}
         content={content}
+        isComandsHoverable={false}
         commandsContent={commandsContent}
         isOpen={isOpen}
         onCollapseToggle={onCollapseToggle}

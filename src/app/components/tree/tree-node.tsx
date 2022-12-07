@@ -40,6 +40,8 @@ export type TreeNodeProps = {
 
   isOpen?: boolean;
 
+  isComandsHoverable?: boolean;
+
   onCollapseToggle?: (isOpen: boolean) => void;
 
   onClick?: (id: string) => void;
@@ -59,6 +61,7 @@ export const TreeNode: React.FC<PropsWithChildren<TreeNodeProps>> = ({
   commandsContent,
   children,
   isOpen = true,
+  isComandsHoverable = true,
   defaultPadding = true,
   onCollapseToggle,
   onClick,
@@ -110,7 +113,9 @@ export const TreeNode: React.FC<PropsWithChildren<TreeNodeProps>> = ({
       >
         {content}
         <StyledCommandsPanelWrapper>
-          <div style={{ visibility: isHovered ? 'visible' : 'hidden' }}>{commandsContent}</div>
+          <div style={isComandsHoverable ? { visibility: isHovered ? 'visible' : 'hidden' } : {}}>
+            {commandsContent}
+          </div>
           {isCollapsible && <CollapseButton isOpen={isOpen} onClick={handleCollapseToggle} />}
         </StyledCommandsPanelWrapper>
       </StyledTreeNode>
