@@ -1,10 +1,10 @@
-import { Container, Text } from '@nextui-org/react';
 import React from 'react';
 
 import { Tab, Tabs } from '@components';
 import { CollectionType, useTabsStore } from '@storage';
 
 import { GrpcTabContainer } from './collection-types';
+import { WelcomeContainer } from './welcome';
 
 export const TabsContainer = (): JSX.Element => {
   const { activeTabId, closeTab, activateTab, moveTab, tabs } = useTabsStore((store) => store);
@@ -27,8 +27,6 @@ export const TabsContainer = (): JSX.Element => {
       {tabsContent}
     </Tabs>
   ) : (
-    <Container display="flex" justify="center" alignItems="center">
-      <Text css={{ color: '$accents6', userSelect: 'none' }}>No tabs</Text>
-    </Container>
+    <WelcomeContainer />
   );
 };

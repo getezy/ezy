@@ -13,3 +13,4 @@ export * from './info-label';
 export * from './kbar';
 export * from './menu';
 export * from './buttons';
+export * from './kbd';

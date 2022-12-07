@@ -2,13 +2,14 @@ import { ActionId, ActionImpl, KBarPortal, KBarResults, useMatches } from '@gete
 import { Container } from '@nextui-org/react';
 import React, { PropsWithChildren } from 'react';
 
+import { Kbd } from '@components';
+
 import {
   StyledActionWrapper,
   StyledGroupName,
   StyledKBarAnimator,
   StyledKBarPositioner,
   StyledKBarSearch,
-  StyledKbd,
   StyledResultItem,
   StyledShortcutWrapper,
 } from './kbar.styled';
@@ -84,7 +85,7 @@ const ResultItem = React.forwardRef(
         {action.shortcut?.length ? (
           <StyledShortcutWrapper>
             {action.shortcut.map((shortcut) =>
-              makeOsRelatedShortcut(os, shortcut).map((sc) => <StyledKbd key={sc}>{sc}</StyledKbd>)
+              makeOsRelatedShortcut(os, shortcut).map((sc) => <Kbd key={sc}>{sc}</Kbd>)
             )}
           </StyledShortcutWrapper>
         ) : null}
