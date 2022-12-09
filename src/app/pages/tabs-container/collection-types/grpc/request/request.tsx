@@ -1,4 +1,4 @@
-import { styled } from '@nextui-org/react';
+import { Container, styled, Text } from '@nextui-org/react';
 import React from 'react';
 
 import { CodeEditor, Tab, Tabs } from '@components';
@@ -56,18 +56,23 @@ export const Request: React.FC<RequestProps> = ({ tab }) => {
     });
   };
 
-  return (
-    <StyledContainer>
-      <Tabs
-        activeKey={activeTabId}
-        activeBar={{ color: 'secondary', position: 'bottom' }}
-        onTabActivate={handleTabActivate}
-      >
-        <Tab
-          title="Request"
-          id={tab.data.requestTabs.request.id}
-          key={tab.data.requestTabs.request.id}
-        >
+  const toolBar = (
+    <Container
+      gap={1}
+      display="flex"
+      alignItems="center"
+      css={{ height: 20, borderTop: 'solid 0.1px $neutralBorder', bottom: 0 }}
+    >
+      <Text small css={{ color: '$accents8' }}>
+        JSON
+      </Text>
+    </Container>
+  );
+
+  const requestTab = (
+    <Tab title="Request" id={tab.data.requestTabs.request.id} key={tab.data.requestTabs.request.id}>
+      <Container gap={0} display="flex" direction="column">
+        <Container gap={0} display="flex" wrap="nowrap" css={{ flex: 1, overflow: 'hidden' }}>
           <CodeEditor
             height="100%"
             maxWidth="100%"
@@ -75,12 +80,20 @@ export const Request: React.FC<RequestProps> = ({ tab }) => {
             value={tab.data.requestTabs.request.value}
             onChange={handleRequestChange}
           />
-        </Tab>
-        <Tab
-          title="Metadata"
-          id={tab.data.requestTabs.metadata.id}
-          key={tab.data.requestTabs.metadata.id}
-        >
+        </Container>
+        {toolBar}
+      </Container>
+    </Tab>
+  );
+
+  const metadataTab = (
+    <Tab
+      title="Metadata"
+      id={tab.data.requestTabs.metadata.id}
+      key={tab.data.requestTabs.metadata.id}
+    >
+      <Container gap={0} display="flex" direction="column">
+        <Container gap={0} display="flex" wrap="nowrap" css={{ flex: 1, overflow: 'hidden' }}>
           <CodeEditor
             height="100%"
             maxWidth="100%"
@@ -88,7 +101,21 @@ export const Request: React.FC<RequestProps> = ({ tab }) => {
             value={tab.data.requestTabs.metadata.value}
             onChange={handleMetadataChange}
           />
-        </Tab>
+        </Container>
+        {toolBar}
+      </Container>
+    </Tab>
+  );
+
+  return (
+    <StyledContainer>
+      <Tabs
+        activeKey={activeTabId}
+        activeBar={{ color: 'secondary', position: 'bottom' }}
+        onTabActivate={handleTabActivate}
+      >
+        {requestTab}
+        {metadataTab}
       </Tabs>
     </StyledContainer>
   );
