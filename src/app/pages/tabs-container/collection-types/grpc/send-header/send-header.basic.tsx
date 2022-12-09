@@ -208,6 +208,8 @@ export const SendHeader: React.FC<PropsWithChildren<SendHeaderProps<GrpcMethodTy
         >
           <Switch
             size="md"
+            bordered
+            borderWeight="light"
             color={
               tab.info.methodType !== GrpcMethodType.UNARY &&
               tab.info.methodType !== GrpcMethodType.SERVER_STREAMING
