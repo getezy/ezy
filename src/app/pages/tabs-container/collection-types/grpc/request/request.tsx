@@ -58,7 +58,7 @@ export const Request: React.FC<RequestProps> = ({ tab }) => {
 
   const toolBar = (
     <Container
-      gap={1}
+      gap={0.5}
       display="flex"
       alignItems="center"
       css={{ height: 20, borderTop: 'solid 0.1px $neutralBorder', bottom: 0 }}
