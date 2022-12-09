@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Container, Tooltip } from '@nextui-org/react';
 import React from 'react';
 
-import { EzyButton, EzyIcon, Menu } from '@components';
+import { EzyButton, EzyIcon, Kbd, Menu } from '@components';
 import { AppContext } from '@context';
 import { useSettingsStore } from '@storage';
 
@@ -37,6 +37,17 @@ export const SideBar: React.FC = () => {
     </Container>
   );
 
+  const commandBarShortcut =
+    context?.platform.os === 'darwin' ? (
+      <Kbd key="⌘+K" size="xs">
+        ⌘+K
+      </Kbd>
+    ) : (
+      <Kbd key="Ctrl+K" size="xs">
+        Ctrl+K
+      </Kbd>
+    );
+
   const bottom = (
     <Container gap={0} display="flex" justify="center" alignItems="center" css={{ padding: 10 }}>
       <Tooltip content="Settings" placement="right" enterDelay={500}>
@@ -48,6 +59,7 @@ export const SideBar: React.FC = () => {
           onClick={() => setUpdateSettingsModalVisible(true)}
         />
       </Tooltip>
+      {commandBarShortcut}
       <UpdateSettingsModal
         closeButton
         blur

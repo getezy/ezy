@@ -85,7 +85,11 @@ const ResultItem = React.forwardRef(
         {action.shortcut?.length ? (
           <StyledShortcutWrapper>
             {action.shortcut.map((shortcut) =>
-              makeOsRelatedShortcut(os, shortcut).map((sc) => <Kbd key={sc}>{sc}</Kbd>)
+              makeOsRelatedShortcut(os, shortcut).map((sc) => (
+                <Kbd key={sc} size="sm">
+                  {sc}
+                </Kbd>
+              ))
             )}
           </StyledShortcutWrapper>
         ) : null}

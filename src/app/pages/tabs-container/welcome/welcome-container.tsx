@@ -70,7 +70,9 @@ export const WelcomeContainer: React.FC = () => {
             </Col>
             <Spacer x={2} />
             <Col>
-              <Kbd key={shortcut.key}>{shortcut.key}</Kbd>
+              <Kbd key={shortcut.key} size="sm">
+                {shortcut.key}
+              </Kbd>
             </Col>
             <Spacer y={1.5} />
           </Row>
