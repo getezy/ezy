@@ -1,15 +1,6 @@
 import { faFloppyDisk, faGlobe, faLock, faUnlock } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-  Button,
-  Container,
-  Input,
-  Spacer,
-  Switch,
-  SwitchEvent,
-  Text,
-  Tooltip,
-} from '@nextui-org/react';
+import { Button, Container, Input, Spacer, Switch, SwitchEvent, Tooltip } from '@nextui-org/react';
 import React, { PropsWithChildren } from 'react';
 import { MultiValue, SingleValue } from 'react-select';
 
