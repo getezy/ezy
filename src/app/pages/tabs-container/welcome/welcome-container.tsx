@@ -56,19 +56,14 @@ export const WelcomeContainer: React.FC = () => {
       direction="row"
       css={{ userSelect: 'none' }}
     >
-      <Container gap={0} display="flex" css={{ width: 400 }}>
-        <Text size="$xl" css={{ color: '$accents9' }}>
-          Shortcuts
-        </Text>
-        <Spacer y={2} />
+      <Container gap={0} display="flex" direction="column" wrap="nowrap" css={{ width: 400 }}>
         {shortcuts.map((shortcut) => (
-          <Row key={shortcut.key}>
+          <Row gap={0} key={shortcut.key}>
             <Col>
               <Text size="$sm" css={{ color: '$accents8' }}>
                 {shortcut.description}
               </Text>
             </Col>
-            <Spacer x={2} />
             <Col>
               <Kbd key={shortcut.key} size="sm">
                 {shortcut.key}
