@@ -63,9 +63,7 @@ export const Request: React.FC<RequestProps> = ({ tab }) => {
       alignItems="center"
       css={{ height: 20, borderTop: 'solid 0.1px $neutralBorder', bottom: 0 }}
     >
-      <Text small css={{ color: '$accents8' }}>
-        JSON
-      </Text>
+      <Text css={{ color: '$accents8', fontSize: 10 }}>JSON</Text>
     </Container>
   );
 
