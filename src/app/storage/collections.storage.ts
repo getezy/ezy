@@ -5,8 +5,6 @@ import { nanoid } from 'nanoid';
 import create from 'zustand';
 import { persist } from 'zustand/middleware';
 
-import { notification } from '@components';
-
 import {
   Collection,
   CollectionChildren,
@@ -40,77 +38,54 @@ export const useCollectionsStore = create(
           );
         }
       },
-      updateCollection: async (id, collection, showSuccessNotification = true) => {
+      updateCollection: async (id, collection) => {
         if (collection.type === CollectionType.GRPC) {
-          try {
-            const methodIds: string[] = [];
-            const proto = await window.protobuf.loadFromFile(collection.options);
+          const methodIds: string[] = [];
+          const proto = await window.protobuf.loadFromFile(collection.options);
 
-            set(
-              produce<CollectionsStorage>((state) => {
-                const index = state.collections.findIndex((item) => item.id === id);
+          set(
+            produce<CollectionsStorage>((state) => {
+              const index = state.collections.findIndex((item) => item.id === id);
 
-                if (index !== -1) {
-                  state.collections[index] = {
-                    ...state.collections[index],
-                    ...collection,
-                    children: proto.reduce((services, service) => {
-                      const oldChildren = state.collections[index].children || [];
-                      const oldService = oldChildren.find((item) => item.name === service.name);
+              if (index !== -1) {
+                state.collections[index] = {
+                  ...state.collections[index],
+                  ...collection,
+                  children: proto.reduce((services, service) => {
+                    const oldChildren = state.collections[index].children || [];
+                    const oldService = oldChildren.find((item) => item.name === service.name);
 
-                      services.push({
-                        id: oldService?.id || nanoid(),
-                        ...service,
-                        methods: service.methods?.reduce((methods, method) => {
-                          const methodId =
-                            oldService?.methods?.find((item) => item.name === method.name)?.id ||
-                            nanoid();
+                    services.push({
+                      id: oldService?.id || nanoid(),
+                      ...service,
+                      methods: service.methods?.reduce((methods, method) => {
+                        const methodId =
+                          oldService?.methods?.find((item) => item.name === method.name)?.id ||
+                          nanoid();
 
-                          methods.push({
-                            id: methodId,
-                            ...method,
-                          });
+                        methods.push({
+                          id: methodId,
+                          ...method,
+                        });
 
-                          methodIds.push(methodId);
+                        methodIds.push(methodId);
 
-                          return methods;
-                        }, [] as GrpcMethod[]),
-                      });
+                        return methods;
+                      }, [] as GrpcMethod[]),
+                    });
 
-                      return services;
-                    }, [] as GrpcService[]),
-                  };
-                }
-              })
-            );
-
-            const { tabs, closeTab } = useTabsStore.getState();
-            for (let i = 0; i < tabs.length; i++) {
-              if (
-                tabs[i].info?.collectionId === id &&
-                !methodIds.includes(tabs[i].info?.methodId)
-              ) {
-                closeTab(tabs[i].id);
+                    return services;
+                  }, [] as GrpcService[]),
+                };
               }
-            }
+            })
+          );
 
-            if (showSuccessNotification) {
-              notification(
-                {
-                  title: `${collection.name}`,
-                  description: 'Collection successfully updated',
-                },
-                { type: 'success', position: 'top-right' }
-              );
+          const { tabs, closeTab } = useTabsStore.getState();
+          for (let i = 0; i < tabs.length; i++) {
+            if (tabs[i].info?.collectionId === id && !methodIds.includes(tabs[i].info?.methodId)) {
+              closeTab(tabs[i].id);
             }
-          } catch (error: any) {
-            notification(
-              {
-                title: `${collection.name} sync error`,
-                description: error?.message,
-              },
-              { type: 'error', position: 'top-right' }
-            );
           }
         }
       },

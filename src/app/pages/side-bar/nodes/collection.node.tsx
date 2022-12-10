@@ -9,6 +9,7 @@ import { Dropdown, Spacer, Text, Tooltip } from '@nextui-org/react';
 import React from 'react';
 
 import { Tree, TreeNode, TreeNodeRendererProps } from '@components';
+import { useUpdateCollection } from '@hooks';
 import { Collection, CollectionType, GrpcService, useCollectionsStore } from '@storage';
 
 import { ProtoBadge } from '../../collections/badge-types';
@@ -21,7 +22,8 @@ export const CollectionNode: React.FC<TreeNodeRendererProps<Collection<Collectio
   isOpen,
   onCollapseToggle,
 }) => {
-  const { removeCollection, updateCollection } = useCollectionsStore((store) => store);
+  const { removeCollection } = useCollectionsStore((store) => store);
+  const { update: updateCollection } = useUpdateCollection();
   const [updateCollectionModalVisible, setUpdateCollectionModalVisible] = React.useState(false);
 
   const handleSelectionChange = async (keys: 'all' | Set<string | number>) => {

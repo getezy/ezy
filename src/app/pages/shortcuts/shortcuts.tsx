@@ -5,6 +5,7 @@ import React, { PropsWithChildren } from 'react';
 
 import { KBar } from '@components';
 import { AppContext } from '@context';
+import { useUpdateCollection } from '@hooks';
 import { useCollectionsStore, useTabsStore } from '@storage';
 
 import { useEnvironmentActions, useGrpcMethodActions, useThemeActions } from './hooks';
@@ -25,7 +26,8 @@ export const Shortcuts: React.FC<PropsWithChildren> = ({ children }) => {
   const context = React.useContext(AppContext);
 
   const { closeAllTabs, closeActiveTab } = useTabsStore((store) => store);
-  const { collections, updateCollection } = useCollectionsStore((store) => store);
+  const { collections } = useCollectionsStore((store) => store);
+  const { update: updateCollection } = useUpdateCollection();
 
   const actions = [
     createAction({
@@ -42,7 +44,7 @@ export const Shortcuts: React.FC<PropsWithChildren> = ({ children }) => {
       shortcut: ['$mod+Shift+S'],
       perform: () => {
         collections.forEach((collection) => {
-          updateCollection(collection.id, collection, true);
+          updateCollection(collection.id, collection);
         });
       },
     }),

@@ -2,6 +2,7 @@ import React from 'react';
 import { useEffectOnce } from 'react-use';
 
 import { useAppContextProvider } from '@context';
+import { useUpdateCollection } from '@hooks';
 import { DefaultLayout } from '@layouts';
 import { useCollectionsStore } from '@storage';
 
@@ -11,12 +12,13 @@ import { StatusBar } from './status-bar';
 import { TabsContainer } from './tabs-container';
 
 export const Main = (): JSX.Element => {
-  const { collections, updateCollection } = useCollectionsStore((store) => store);
+  const { collections } = useCollectionsStore((store) => store);
   const { appContext, AppProvider } = useAppContextProvider();
+  const { update: updateCollection } = useUpdateCollection();
 
   useEffectOnce(() => {
     collections.forEach((collection) => {
-      updateCollection(collection.id, collection, false);
+      updateCollection(collection.id, collection);
     });
   });
 

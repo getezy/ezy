@@ -2,7 +2,8 @@ import { Button, Modal, ModalProps, Spacer, Text } from '@nextui-org/react';
 import React from 'react';
 
 import { Badge } from '@components';
-import { Collection, CollectionType, useCollectionsStore } from '@storage';
+import { useUpdateCollection } from '@hooks';
+import { Collection, CollectionType } from '@storage';
 
 import { CollectionForm } from '../forms';
 
@@ -15,10 +16,10 @@ export const UpdateCollectionModal: React.FC<UpdateCollectionModalProps> = ({
   defaultValues,
   ...props
 }) => {
-  const updateCollection = useCollectionsStore((store) => store.updateCollection);
+  const { update } = useUpdateCollection();
 
   const handleSubmit = async (payload: Collection<CollectionType>) => {
-    await updateCollection(payload.id, payload);
+    await update(payload.id, payload);
 
     onClose();
   };
