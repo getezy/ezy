@@ -1,20 +1,30 @@
 import { notification } from '@components';
 import { Collection, CollectionType, useCollectionsStore } from '@storage';
 
+export interface UpdateCollectionOptions {
+  hideSuccessNotification: boolean;
+}
+
 export function useUpdateCollection() {
   const updateCollection = useCollectionsStore((store) => store.updateCollection);
 
-  const update = async (id: string, collection: Collection<CollectionType>) => {
+  const update = async (
+    id: string,
+    collection: Collection<CollectionType>,
+    options?: UpdateCollectionOptions
+  ) => {
     try {
       await updateCollection(id, collection);
 
-      notification(
-        {
-          title: `${collection.name}`,
-          description: 'Collection successfully updated',
-        },
-        { type: 'success', position: 'top-right' }
-      );
+      if (!options?.hideSuccessNotification) {
+        notification(
+          {
+            title: `${collection.name}`,
+            description: 'Collection successfully updated',
+          },
+          { type: 'success', position: 'top-right' }
+        );
+      }
     } catch (error: any) {
       notification(
         {

@@ -17,9 +17,12 @@ export const Main = (): JSX.Element => {
   const { update: updateCollection } = useUpdateCollection();
 
   useEffectOnce(() => {
-    collections.forEach((collection) => {
-      updateCollection(collection.id, collection);
-    });
+    // Hack for loading toast styles first
+    setTimeout(() => {
+      collections.forEach((collection) => {
+        updateCollection(collection.id, collection, { hideSuccessNotification: true });
+      });
+    }, 0);
   });
 
   return (
