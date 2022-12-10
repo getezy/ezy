@@ -5,8 +5,8 @@ import React from 'react';
 import { useUnmount } from 'react-use';
 
 import { GrpcMethodType } from '@core/types';
+import { useGrpcTabContextStore, useServerStreaming } from '@hooks';
 
-import { useGrpcTabContextStore, useServerStreaming } from '../hooks';
 import { SendHeader, SendHeaderProps } from './send-header.basic';
 
 export const ServerStreamingSendHeader: React.FC<

@@ -6,6 +6,12 @@ import React from 'react';
 
 import { GrpcMethodType } from '@core/types';
 import {
+  useBidirectionalStreaming,
+  useClientStreaming,
+  useServerStreaming,
+  useUnaryCall,
+} from '@hooks';
+import {
   CollectionType,
   isGrpcTab,
   isGrpcTabBidirectionalStreaming,
@@ -17,12 +23,6 @@ import {
 } from '@storage';
 
 import { StreamBadge, UnaryBadge } from '../../collections/badge-types';
-import {
-  useBidirectionalStreaming,
-  useClientStreaming,
-  useServerStreaming,
-  useUnaryCall,
-} from '../../tabs-container/collection-types/grpc/hooks';
 
 function useGrpcInvokeAction(): Action {
   const { tabs, activeTabId } = useTabsStore((store) => store);

@@ -5,8 +5,8 @@ import React from 'react';
 import { useUnmount } from 'react-use';
 
 import { GrpcMethodType } from '@core/types';
+import { useBidirectionalStreaming, useGrpcTabContextStore } from '@hooks';
 
-import { useBidirectionalStreaming, useGrpcTabContextStore } from '../hooks';
 import { SendHeader, SendHeaderProps } from './send-header.basic';
 
 export const BidirectionalStreamingSendHeader: React.FC<
