@@ -2,10 +2,10 @@ import { Button, Modal, ModalProps, Spacer, Switch, Text } from '@nextui-org/rea
 import React from 'react';
 
 import { Badge } from '@components';
+import { useCreateCollection } from '@hooks';
 import { Collection, CollectionType } from '@storage';
 
 import { CollectionForm } from '../forms';
-import { useCreateCollection } from '../hooks';
 
 export const CreateCollectionModal: React.FC<ModalProps> = ({ onClose = () => {}, ...props }) => {
   const { create } = useCreateCollection();

@@ -18,6 +18,9 @@
       "@components": [
         "./src/app/components/index.ts"
       ],
+      "@hooks": [
+        "./src/app/hooks/index.ts"
+      ],
       "@storage": [
         "./src/app/storage/index.ts"
       ],

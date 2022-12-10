@@ -104,7 +104,6 @@ export const useCollectionsStore = create(
               );
             }
           } catch (error: any) {
-            // useLogsStore.getState().createLog({ message: error?.message });
             notification(
               {
                 title: `${collection.name} sync error`,

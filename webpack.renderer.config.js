@@ -17,6 +17,7 @@ module.exports = {
     extensions: ['.js', '.ts', '.jsx', '.tsx', '.css'],
     alias: {
       '@components': path.resolve(__dirname, 'src/app/components/index.ts'),
+      '@hooks': path.resolve(__dirname, 'src/app/hooks/index.ts'),
       '@storage': path.resolve(__dirname, 'src/app/storage/index.ts'),
       '@context': path.resolve(__dirname, './src/app/context/index.ts'),
       '@layouts': path.resolve(__dirname, './src/app/layouts/index.ts'),
