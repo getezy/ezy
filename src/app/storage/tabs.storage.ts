@@ -80,8 +80,8 @@ export const useTabsStore = create(
                 protocol: GrpcProtocol.GRPC,
                 requestTabs: {
                   activeTabId: requestTabId,
-                  request: { id: requestTabId },
-                  metadata: { id: nanoid() },
+                  request: { id: requestTabId, value: '{\n  \n}' },
+                  metadata: { id: nanoid(), value: '{\n  \n}' },
                 },
                 response: { id: nanoid() },
                 tlsId: tls?.id,
