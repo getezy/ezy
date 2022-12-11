@@ -58,6 +58,8 @@ export const Request: React.FC<RequestProps> = ({ tab }) => {
 
   const toolBar = (
     <Container
+      fluid
+      responsive={false}
       gap={0.5}
       display="flex"
       alignItems="center"
@@ -69,8 +71,15 @@ export const Request: React.FC<RequestProps> = ({ tab }) => {
 
   const requestTab = (
     <Tab title="Request" id={tab.data.requestTabs.request.id} key={tab.data.requestTabs.request.id}>
-      <Container gap={0} display="flex" direction="column">
-        <Container gap={0} display="flex" wrap="nowrap" css={{ flex: 1, overflow: 'hidden' }}>
+      <Container fluid responsive={false} gap={0} display="flex" direction="column">
+        <Container
+          fluid
+          responsive={false}
+          gap={0}
+          display="flex"
+          wrap="nowrap"
+          css={{ flex: 1, overflow: 'hidden' }}
+        >
           <CodeEditor
             height="100%"
             maxWidth="100%"
@@ -90,8 +99,15 @@ export const Request: React.FC<RequestProps> = ({ tab }) => {
       id={tab.data.requestTabs.metadata.id}
       key={tab.data.requestTabs.metadata.id}
     >
-      <Container gap={0} display="flex" direction="column">
-        <Container gap={0} display="flex" wrap="nowrap" css={{ flex: 1, overflow: 'hidden' }}>
+      <Container fluid responsive={false} gap={0} display="flex" direction="column">
+        <Container
+          fluid
+          responsive={false}
+          gap={0}
+          display="flex"
+          wrap="nowrap"
+          css={{ flex: 1, overflow: 'hidden' }}
+        >
           <CodeEditor
             height="100%"
             maxWidth="100%"
