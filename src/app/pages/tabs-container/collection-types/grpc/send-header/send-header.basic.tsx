@@ -110,7 +110,7 @@ export const SendHeader: React.FC<PropsWithChildren<SendHeaderProps<GrpcMethodTy
           size="sm"
           placeholder="Environment"
           options={environments}
-          css={{ flex: 2 }}
+          css={{ flex: 2, maxWidth: 200 }}
           value={selectedEnvironment}
           onChange={handleEnvironmentChange}
           onRemove={handleRemoveEnvironment}
