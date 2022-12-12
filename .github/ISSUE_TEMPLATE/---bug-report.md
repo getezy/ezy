@@ -23,9 +23,9 @@ A clear and concise description of what you expected to happen.
 **Screenshots**
 If applicable, add screenshots to help explain your problem.
 
-**Desktop (please complete the following information):**
- - OS: [e.g. windows 11]
- - ezy version [1.0.0-beta.13.2]
+**Envitonment**
+ - OS: [e.g. windows 11 22H2]
+ - ezy Version [1.0.0-beta.13.2]
 
 **Additional context**
 Add any other context about the problem here.
