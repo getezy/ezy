@@ -23,7 +23,7 @@ A clear and concise description of what you expected to happen.
 **Screenshots**
 If applicable, add screenshots to help explain your problem.
 
-**Envitonment**
+**Environment**
  - OS: [e.g. windows 11 22H2]
  - ezy Version [1.0.0-beta.13.2]
 
