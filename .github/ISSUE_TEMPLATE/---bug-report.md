@@ -25,7 +25,7 @@ If applicable, add screenshots to help explain your problem.
 
 **Desktop (please complete the following information):**
  - OS: [e.g. windows 11]
- - Version [e.g. 22]
+ - ezy version [1.0.0-beta.13.2]
 
 **Additional context**
 Add any other context about the problem here.
