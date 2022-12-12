@@ -1,10 +1,11 @@
-import { Badge, Container, styled, Text } from '@nextui-org/react';
+import { Badge, Container, styled } from '@nextui-org/react';
 import React from 'react';
 
-import { CodeEditor, Kbd, Tab, Tabs } from '@components';
+import { CodeEditor, Tab, Tabs } from '@components';
 import { GrpcMethodType, GrpcStatus } from '@core/types';
-import { ShortcutsGroup, useShortcuts } from '@hooks';
 import { GrpcTab } from '@storage';
+
+import { EmptyResponseView } from './empty-response-view';
 
 const StyledContainer = styled('div', {
   display: 'flex',
@@ -18,10 +19,6 @@ export interface UnaryCallResponseProps {
 }
 
 export const UnaryCallResponse: React.FC<UnaryCallResponseProps> = ({ tab }) => {
-  const { getShortcuts } = useShortcuts();
-
-  const shortcuts = getShortcuts(ShortcutsGroup.RESPONSE);
-
   const responseStatus = (
     <Badge
       size="md"
@@ -68,18 +65,7 @@ export const UnaryCallResponse: React.FC<UnaryCallResponseProps> = ({ tab }) => 
               readOnly
             />
           ) : (
-            <Container display="flex" direction="column" justify="center" alignItems="center">
-              {shortcuts.map((shortcut) => (
-                <>
-                  <Text size="$sm" css={{ color: '$accents8' }}>
-                    {shortcut.description}
-                  </Text>
-                  <Kbd key={shortcut.key} size="sm">
-                    {shortcut.key}
-                  </Kbd>
-                </>
-              ))}
-            </Container>
+            <EmptyResponseView />
           )}
         </Tab>
       </Tabs>
