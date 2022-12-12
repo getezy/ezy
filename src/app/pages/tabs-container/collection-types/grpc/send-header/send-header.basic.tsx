@@ -1,6 +1,6 @@
-import { faFloppyDisk, faGlobe, faLock, faUnlock } from '@fortawesome/free-solid-svg-icons';
+import { faFloppyDisk, faLock, faUnlock } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Button, Container, Input, Spacer, Switch, SwitchEvent, Tooltip } from '@nextui-org/react';
+import { Button, Container, Input, Spacer, SwitchEvent, Tooltip } from '@nextui-org/react';
 import React, { PropsWithChildren } from 'react';
 import { MultiValue, SingleValue } from 'react-select';
 
@@ -17,6 +17,7 @@ import {
 
 import { CreateEnvironmentModal } from '../environments';
 import { TlsSettingsModal } from '../tls';
+import { ProtocolSwitch } from './protocol-switch';
 
 export interface SendHeaderProps<T extends GrpcMethodType> {
   tab: GrpcTab<T>;
@@ -191,31 +192,7 @@ export const SendHeader: React.FC<PropsWithChildren<SendHeaderProps<GrpcMethodTy
           }
         />
         <Spacer x={0.5} />
-        <Tooltip
-          content={tab.data.protocol === GrpcProtocol.GRPC_WEB ? 'Using gRPC-Web' : 'Using gRPC'}
-          placement="left"
-          enterDelay={500}
-          css={{ width: 'max-content' }}
-        >
-          <Switch
-            size="md"
-            bordered
-            borderWeight="light"
-            color={
-              tab.info.methodType !== GrpcMethodType.UNARY &&
-              tab.info.methodType !== GrpcMethodType.SERVER_STREAMING
-                ? 'error'
-                : 'primary'
-            }
-            disabled={
-              tab.info.methodType !== GrpcMethodType.UNARY &&
-              tab.info.methodType !== GrpcMethodType.SERVER_STREAMING
-            }
-            icon={<FontAwesomeIcon icon={faGlobe} />}
-            checked={tab.data.protocol === GrpcProtocol.GRPC_WEB}
-            onChange={handleGrpcProtocolChange}
-          />
-        </Tooltip>
+        <ProtocolSwitch tab={tab} onChange={handleGrpcProtocolChange} />
         {children}
       </Container>
       <CreateEnvironmentModal
