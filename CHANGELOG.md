@@ -1,5 +1,30 @@
 
 
+## [1.0.0-beta.14](https://github.com/getezy/ezy/compare/v1.0.0-beta.13.2...v1.0.0-beta.14) (2022-12-12)
+
+
+### Features
+
+* **#28:** add command bar shortcut to menu ([ef2ae34](https://github.com/getezy/ezy/commit/ef2ae343f43b40f424fc6352b53be8290d4f6c0c)), closes [#28](https://github.com/getezy/ezy/issues/28)
+* **#32:** update kbar module ([88fa2e0](https://github.com/getezy/ezy/commit/88fa2e0eabfffc76bd7a8138dce51eaed5a0c001)), closes [#32](https://github.com/getezy/ezy/issues/32)
+* update kbar module ([3ca7044](https://github.com/getezy/ezy/commit/3ca7044d6ab48625a56aed0ff88cb36a3219d127))
+
+
+### Bug Fixes
+
+* **#28:** add empty object in request and metadata on new tab ([cd2ac46](https://github.com/getezy/ezy/commit/cd2ac46c1454bd79a9ca6b2ac41e7241a214939e)), closes [#28](https://github.com/getezy/ezy/issues/28)
+* **#28:** add empty response view to all response types ([65a84fa](https://github.com/getezy/ezy/commit/65a84fa32a30ef3564f656d5cb745bede20b2211)), closes [#28](https://github.com/getezy/ezy/issues/28)
+* **#28:** add info why client/bidirectional streaming is not allowed ([3e52e3a](https://github.com/getezy/ezy/commit/3e52e3aba4cbb4828d08c9239c2a09696e74c572)), closes [#28](https://github.com/getezy/ezy/issues/28)
+* **#28:** add invoke request shortcut in empty response view ([49ac01b](https://github.com/getezy/ezy/commit/49ac01b1245df863009d342041512d26f0b4e855)), closes [#28](https://github.com/getezy/ezy/issues/28)
+* **#28:** add maxWidth to environment select ([a78f8c6](https://github.com/getezy/ezy/commit/a78f8c6bb4baebe245ec4f2fac232285ebf24cf5)), closes [#28](https://github.com/getezy/ezy/issues/28)
+* **#28:** add toolbar with JSON text for request/metadata ([7764553](https://github.com/getezy/ezy/commit/7764553832d63efc390e1fb3f8fcc7fb5a0591ba)), closes [#28](https://github.com/getezy/ezy/issues/28)
+* **#28:** gap for toolbar ([e3dd9b9](https://github.com/getezy/ezy/commit/e3dd9b94a0032a9093214a8ac99ae0a72d94dc0d)), closes [#28](https://github.com/getezy/ezy/issues/28)
+* **#28:** make no responsive code editors request/metadata ([d233baa](https://github.com/getezy/ezy/commit/d233baa051c346e68d5c8d9f49e5092b939fb3a0)), closes [#28](https://github.com/getezy/ezy/issues/28)
+* **#28:** update json font size ([0a30b28](https://github.com/getezy/ezy/commit/0a30b2816be97d1083d688b5e3080c902abe74fa)), closes [#28](https://github.com/getezy/ezy/issues/28)
+* **#36:** updated github bug report template ([63b763e](https://github.com/getezy/ezy/commit/63b763eef5118b6c9b83717457bd5c65d0ecf0b2)), closes [#36](https://github.com/getezy/ezy/issues/36)
+* **#36:** updated github bug report template ([53db87c](https://github.com/getezy/ezy/commit/53db87cb093869f3dfa37bc6b4bea1c4c5e18db9)), closes [#36](https://github.com/getezy/ezy/issues/36)
+* add border for protocol switch ([751a918](https://github.com/getezy/ezy/commit/751a918bb4beb91e15fcea7a266d0f13ef0e97b1))
+
 ## [1.0.0-beta.13.2](https://github.com/getezy/ezy/compare/v1.0.0-beta.13.1...v1.0.0-beta.13.2) (2022-12-07)
 
 
