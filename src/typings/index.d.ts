@@ -1,9 +1,9 @@
-import { GrpcClient } from '../main/ipc/clients/grpc-client/preload';
-import { GrpcWebClient } from '../main/ipc/clients/grpc-web-client/preload';
-import { ElectronDialog } from '../main/ipc/dialog/preload';
-import { ElectronStore } from '../main/ipc/electron-store/preload';
-import { OS } from '../main/ipc/os/preload';
-import { Protobuf } from '../main/ipc/protobuf/preload';
+import { GrpcClient } from '../main/clients/grpc-client/preload';
+import { GrpcWebClient } from '../main/clients/grpc-web-client/preload';
+import { ElectronDialog } from '../main/dialog/preload';
+import { ElectronStore } from '../main/electron-store/preload';
+import { OS } from '../main/os/preload';
+import { Protobuf } from '../main/protobuf/preload';
 
 declare global {
   interface Window {
