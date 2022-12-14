@@ -1,5 +1,7 @@
 #!/usr/bin/env sh
 
+# This script used in CI/CD envirtonment for signing macOS app.
+
 KEY_CHAIN=build.keychain
 CERTIFICATE_P12=certificate.p12
 

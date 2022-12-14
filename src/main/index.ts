@@ -6,6 +6,7 @@ import {
   unregisterGrpcClientSubscribers,
   unregisterGrpcWebClientSubscribers,
 } from './clients';
+import { initDatabase } from './database';
 import { registerDialogSubscribers, unregisterDialogSubscribers } from './dialog';
 import { registerElectronStoreSubscribers } from './electron-store';
 import { registerOSSubscribers } from './os';
@@ -23,6 +24,8 @@ if (require('electron-squirrel-startup')) {
   // eslint-disable-line global-require
   app.quit();
 }
+
+initDatabase();
 
 registerOSSubscribers();
 registerElectronStoreSubscribers();
