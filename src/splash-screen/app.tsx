@@ -21,14 +21,19 @@ function App(): JSX.Element {
             b
             css={{
               fontFamily: '$sans',
-              fontSize: 48,
+              fontSize: 30,
               lineHeight: '58px',
               textGradient: '124.13deg, #FFFFFF -40.93%, rgba(142, 142, 142, 0) 185.11%',
             }}
           >
             ezy.
           </Text>
-          <Badge variant="points" size="xs" isSquared css={{ backgroundColor: 'transparent' }} />
+          <Badge
+            variant="points"
+            size="md"
+            isSquared
+            css={{ backgroundColor: 'transparent', paddingTop: 10 }}
+          />
         </Container>
         <Logo />
         <Container
