@@ -56,6 +56,11 @@ const config = {
           config: './webpack.renderer.config.js',
           entryPoints: [
             {
+              html: './src/splash-screen/index.html',
+              js: './src/splash-screen/renderer.tsx',
+              name: 'splash_screen',
+            },
+            {
               html: './src/app/index.html',
               js: './src/app/renderer.tsx',
               name: 'main_window',
