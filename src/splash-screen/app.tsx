@@ -7,6 +7,14 @@ import { DarkTheme, globalStyles } from './themes';
 function App(): JSX.Element {
   globalStyles();
 
+  const [loaderText, setLoaderText] = React.useState('Loading');
+
+  React.useEffect(() => {
+    window.splashScreen.handleLoaderTextChange((text) => {
+      setLoaderText(text);
+    });
+  }, []);
+
   return (
     <NextUIProvider theme={DarkTheme}>
       <Container fluid display="flex" justify="center" alignItems="center" css={{ height: '100%' }}>
@@ -43,7 +51,7 @@ function App(): JSX.Element {
           css={{ position: 'absolute', bottom: 10 }}
         >
           <Text size="$sm" css={{ color: '$accents8' }}>
-            Preparing update
+            {loaderText}
           </Text>
         </Container>
       </Container>

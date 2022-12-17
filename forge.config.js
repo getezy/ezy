@@ -59,13 +59,16 @@ const config = {
               html: './src/splash-screen/index.html',
               js: './src/splash-screen/renderer.tsx',
               name: 'splash_screen',
+              preload: {
+                js: './src/main/splash-preload.ts',
+              },
             },
             {
               html: './src/app/index.html',
               js: './src/app/renderer.tsx',
               name: 'main_window',
               preload: {
-                js: './src/main/preload.ts',
+                js: './src/main/app-preload.ts',
               },
             },
           ],
