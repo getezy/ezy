@@ -108,7 +108,7 @@ function macOsSignAndNotarize() {
     identity: 'Developer ID Application: Alexey Vasyukov (956U3Y3QV9)',
     optionsForFile: () => ({
       hardenedRuntime: true,
-      entitlements: 'static/entitlements.plist',
+      entitlements: 'assets/entitlements.plist',
       signatureFlags: 'library',
     }),
   };

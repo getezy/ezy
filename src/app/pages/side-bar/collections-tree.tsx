@@ -1,7 +1,7 @@
-import { Container, FormElement, Input, Spacer, styled, Text } from '@nextui-org/react';
+import { FormElement, Input, styled, Text } from '@nextui-org/react';
 import React from 'react';
 
-import { Kbd, Tree } from '@components';
+import { Tree } from '@components';
 import { Collection, CollectionType, useCollectionsStore } from '@storage';
 
 import { StyledCollectionsTree } from './collections-tree.styled';

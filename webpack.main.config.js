@@ -1,4 +1,9 @@
+/* eslint-disable import/no-extraneous-dependencies */
+
 const path = require('path');
+const CopyPlugin = require('copy-webpack-plugin');
+
+const rules = require('./webpack.rules');
 
 module.exports = {
   /**
@@ -8,8 +13,13 @@ module.exports = {
   entry: './src/main/index.ts',
   // Put your normal webpack config below here
   module: {
-    rules: require('./webpack.rules'),
+    rules,
   },
+  plugins: [
+    new CopyPlugin({
+      patterns: [{ from: path.join(__dirname, './migrations/dist'), to: 'migrations' }],
+    }),
+  ],
   resolve: {
     extensions: ['.js', '.ts', '.jsx', '.tsx', '.css', '.json'],
     alias: {

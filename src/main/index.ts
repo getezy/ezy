@@ -34,6 +34,7 @@ registerProtobufSubscribers();
 
 const createSplashScreen = (): BrowserWindow => {
   const splashScreen = new BrowserWindow({
+    show: false,
     height: 280,
     width: 520,
     resizable: false,
@@ -87,7 +88,9 @@ const createWindow = (): void => {
 app.on('ready', async () => {
   const splashScreen = createSplashScreen();
 
-  SplashScreenEmitter.sendLoaderText(splashScreen, 'Prepare update');
+  splashScreen.show();
+
+  SplashScreenEmitter.sendLoaderText(splashScreen, 'Initialazing');
 
   await initDatabase();
 
@@ -95,7 +98,7 @@ app.on('ready', async () => {
     splashScreen.close();
 
     createWindow();
-  }, 10000);
+  }, 2000);
 });
 
 // Quit when all windows are closed, except on macOS. There, it's common

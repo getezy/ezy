@@ -5,18 +5,22 @@
   "description": "Desktop gRPC client.",
   "main": ".webpack/main",
   "scripts": {
-    "start": "electron-forge start",
+    "start": "npm run migrate:build && electron-forge start",
     "package": "electron-forge package",
-    "make": "electron-forge make",
+    "make": "npm run migrate:build && electron-forge make",
     "publish": "electron-forge publish",
     "release": "release-it",
-    "lint": "eslint --ext .ts,.tsx",
-    "lint:fix": "eslint --fix --ext .ts,.tsx .",
+    "lint": "eslint --ext .js,.ts,.tsx",
+    "lint:fix": "eslint --fix --ext .js,.ts,.tsx .",
     "test": "jest --verbose=true",
     "test:cov": "jest --coverage --ci --reporters=default",
     "prepare": "husky install",
     "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook"
+    "build-storybook": "build-storybook",
+    "migrate:build": "cd migrations && rimraf dist && tsc -p ./tsconfig.build.json",
+    "migrate:latest": "TZ=UTC knex migrate:latest --knexfile ./migrations/knexfile.ts",
+    "migrate:make": "TZ=UTC knex migrate:make -x ts --knexfile ./migrations/knexfile.ts --migrations-directory ./src",
+    "migrate:rollback": "TZ=UTC knex migrate:rollback --knexfile ./migrations/knexfile.ts"
   },
   "author": {
     "name": "Alexey Vasyukov",
@@ -95,6 +99,7 @@
     "@typescript-eslint/parser": "5.46.1",
     "@vercel/webpack-asset-relocator-loader": "1.7.3",
     "babel-loader": "9.1.0",
+    "copy-webpack-plugin": "11.0.0",
     "css-loader": "6.7.2",
     "electron": "22.0.0",
     "eslint": "8.29.0",
@@ -114,9 +119,11 @@
     "node-loader": "2.0.0",
     "prettier": "2.8.1",
     "release-it": "15.5.1",
+    "rimraf": "3.0.2",
     "style-loader": "3.3.1",
     "ts-jest": "29.0.3",
     "ts-loader": "9.4.2",
+    "ts-node": "10.9.1",
     "typescript": "4.9.4"
   },
   "jest": {

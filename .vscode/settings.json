@@ -5,6 +5,10 @@
       "changeProcessCWD": true
     },
     {
+      "directory": "migrations",
+      "changeProcessCWD": true
+    },
+    {
       "directory": "__tests__/simple-service",
       "changeProcessCWD": true
     },

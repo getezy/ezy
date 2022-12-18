@@ -4,4 +4,6 @@ import { Entity, PrimaryKey } from '@mikro-orm/core';
 export class Settings {
   @PrimaryKey()
   id!: string;
+
+  // @Property()
 }

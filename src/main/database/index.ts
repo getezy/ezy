@@ -13,13 +13,16 @@ const knex = Knex({
   connection: {
     filename: dbPath,
   },
+  useNullAsDefault: true,
   migrations: {
-    directory: path.join(__dirname, './migrations'),
     tableName: 'migrations',
+    directory: path.join(__dirname, './migrations'),
   },
 });
 
 export async function initDatabase() {
+  await knex.migrate.up();
+
   const orm = await MikroORM.init<SqliteDriver>({
     entities: [Settings],
     dbName: dbPath,

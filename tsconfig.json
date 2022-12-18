@@ -44,5 +44,5 @@
     "resolveJsonModule": true,
     "jsx": "react",
   },
-  "include": ["src/**/*", "stories", "forge.config.js"],
+  "include": ["src/**/*", "stories", "forge.config.js", "webpack.main.config.js", "webpack.plugins.js", "webpack.renderer.config.js", "webpack.main.config.js"],
 }
