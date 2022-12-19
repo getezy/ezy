@@ -1,6 +1,7 @@
 import { contextBridge } from 'electron';
 
 import { GrpcClient, GrpcWebClient } from './clients';
+import { Database } from './database/preload';
 import { ElectronDialog } from './dialog';
 import { ElectronStore } from './electron-store';
 import { OS } from './os';
@@ -18,3 +19,5 @@ contextBridge.exposeInMainWorld('clients', {
 });
 
 contextBridge.exposeInMainWorld('os', OS);
+
+contextBridge.exposeInMainWorld('database', Database);

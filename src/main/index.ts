@@ -6,7 +6,7 @@ import {
   unregisterGrpcClientSubscribers,
   unregisterGrpcWebClientSubscribers,
 } from './clients';
-import { initDatabase } from './database';
+import { initDatabase, registerDatabaseSubscribers } from './database';
 import { registerDialogSubscribers, unregisterDialogSubscribers } from './dialog';
 import { registerElectronStoreSubscribers } from './electron-store';
 import { registerOSSubscribers } from './os';
@@ -92,7 +92,9 @@ app.on('ready', async () => {
 
   SplashScreenEmitter.sendLoaderText(splashScreen, 'Initialazing');
 
-  await initDatabase();
+  const orm = await initDatabase();
+
+  registerDatabaseSubscribers(orm);
 
   setTimeout(() => {
     splashScreen.close();
