@@ -1,9 +1,10 @@
-import { Entity, PrimaryKey } from '@mikro-orm/core';
+import { Entity, PrimaryKey, Property } from '@mikro-orm/core';
 
 @Entity({ tableName: 'settings' })
 export class Settings {
-  @PrimaryKey()
-  id!: string;
+  @PrimaryKey({ type: 'text' })
+  key!: string;
 
-  // @Property()
+  @Property({ type: 'text' })
+  value!: string;
 }
