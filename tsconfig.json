@@ -26,6 +26,9 @@
       "@storage": [
         "./src/app/storage/index.ts"
       ],
+      "@new-storage": [
+        "./src/app/new-storage/index.ts"
+      ],
       "@context": [
         "./src/app/context/index.ts"
       ],

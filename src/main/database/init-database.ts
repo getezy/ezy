@@ -1,8 +1,8 @@
 import { MikroORM } from '@mikro-orm/core';
 import { SqliteDriver } from '@mikro-orm/sqlite';
 
-import { DATABSE_PATH } from './constants';
-import { Settings } from './entities/settings.entity';
+import { DATABSE_PATH } from './database-path';
+import { Settings } from './entities';
 import { knex } from './knex';
 
 export async function initDatabase() {

@@ -1,30 +1,25 @@
+import { EntityData, FilterQuery, Loaded } from '@mikro-orm/core';
 import { ipcRenderer } from 'electron';
+
+import { DatabaseChannel } from './constants';
+import { Settings } from './entities';
 
 export const Database = {
   settings: {
-    // get: async (key: string): Promise<any> => {
-    //   const value = await ipcRenderer.invoke('db:get', key);
-
-    //   return value;
-    // },
-    // update: (key: string, value: any): Promise<void> =>
-    //   ipcRenderer.invoke('db:update', { key, value }),
-    getItem<T = any>(key: string): Promise<T> {
-      return ipcRenderer.invoke('db:get', key);
+    find(where: FilterQuery<Settings>): Promise<Loaded<Settings, never>[]> {
+      return ipcRenderer.invoke(DatabaseChannel.FIND, where);
     },
-    setItem<T = any>(key: string, value: T): Promise<void> {
-      setTimeout(() => {
-        ipcRenderer.invoke('db:update', { key, value });
-      }, 0);
 
-      return Promise.resolve();
+    findOne(where: FilterQuery<Settings>): Promise<Loaded<Settings, never> | null> {
+      return ipcRenderer.invoke(DatabaseChannel.FIND_ONE, where);
     },
-    removeItem(key: string): Promise<void> {
-      setTimeout(() => {
-        ipcRenderer.invoke('db:remove', key);
-      }, 0);
 
-      return Promise.resolve();
+    upsert(payload: EntityData<Settings>): Promise<void> {
+      return ipcRenderer.invoke(DatabaseChannel.UPSERT, payload);
+    },
+
+    delete(where: FilterQuery<Settings>): Promise<void> {
+      return ipcRenderer.invoke(DatabaseChannel.DELETE, where);
     },
   },
 };

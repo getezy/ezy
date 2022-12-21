@@ -3,10 +3,10 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useRegisterActions } from '@getezy/kbar';
 import React from 'react';
 
-import { ThemeType, useSettingsStore } from '@storage';
+import { ThemeType, useSettingsStore } from '@new-storage';
 
 export function useThemeActions() {
-  const { updateTheme } = useSettingsStore((store) => store);
+  const { setTheme } = useSettingsStore((store) => store);
 
   useRegisterActions([
     {
@@ -20,14 +20,14 @@ export function useThemeActions() {
       name: 'Dark',
       keywords: 'dark theme',
       parent: 'theme',
-      perform: () => updateTheme(ThemeType.DARK),
+      perform: () => setTheme(ThemeType.DARK),
     },
     {
       id: 'lightTheme',
       name: 'Light',
       keywords: 'light theme',
       parent: 'theme',
-      perform: () => updateTheme(ThemeType.LIGHT),
+      perform: () => setTheme(ThemeType.LIGHT),
     },
   ]);
 }

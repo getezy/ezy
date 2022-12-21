@@ -2,7 +2,7 @@ import { NextUIProvider } from '@nextui-org/react';
 import React from 'react';
 
 import { NotificationContainer } from '@components';
-import { ThemeType, useSettingsStore } from '@storage';
+import { ThemeType, useSettingsStore } from '@new-storage';
 
 import { Main } from './pages';
 import { DarkTheme, globalStyles, LightTheme } from './themes';
@@ -13,7 +13,11 @@ export const THEMES = {
 };
 
 function App(): JSX.Element {
-  const theme = useSettingsStore((store) => store.theme);
+  const { theme, fetch } = useSettingsStore((store) => store);
+
+  React.useEffect(() => {
+    fetch();
+  }, []);
 
   globalStyles();
 

@@ -1,4 +1,6 @@
-import { app } from 'electron';
-import path from 'path';
-
-export const DATABSE_PATH = path.join(app.getPath('userData'), 'ezy.db');
+export enum DatabaseChannel {
+  FIND = 'database:find',
+  FIND_ONE = 'database:find-one',
+  UPSERT = 'database:upsert',
+  DELETE = 'database:delete',
+}

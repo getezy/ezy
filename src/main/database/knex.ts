@@ -1,7 +1,7 @@
 import Knex from 'knex';
 import path from 'path';
 
-import { DATABSE_PATH } from './constants';
+import { DATABSE_PATH } from './database-path';
 
 export const knex = Knex({
   client: 'sqlite',
