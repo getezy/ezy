@@ -1,25 +1,67 @@
-import { isThemeValue, SettingsKey, Theme } from '@database/types';
+import {
+  Alignment,
+  isAlignmentValue,
+  isLanguageValue,
+  isMenuValue,
+  isThemeValue,
+  Language,
+  Menu,
+  SettingsKey,
+  Theme,
+} from '@database/types';
 
 export async function fetchTheme() {
-  const row = await window.database.settings.findOne({ key: SettingsKey.THEME });
+  const row = await window.database.settings.findOneOrFail({ key: SettingsKey.THEME });
 
-  if (row && isThemeValue(row.value)) {
+  if (isThemeValue(row.value)) {
     return row.value.theme;
   }
 
-  return null;
+  throw new Error('Error while fetching settings:theme value.');
 }
 
 export async function setTheme(theme: Theme) {
   await window.database.settings.upsert({ key: SettingsKey.THEME, value: { theme } });
 }
 
-// export async function fetchAlighment() {
-//   const alignment = await window.database.settings.findOne({ key: 'alignment' });
+export async function fetchAlignment() {
+  const row = await window.database.settings.findOneOrFail({ key: SettingsKey.ALIGNMENT });
 
-//   if (alignment) {
-//     return alignment.value;
-//   }
+  if (isAlignmentValue(row.value)) {
+    return row.value.alignment;
+  }
 
-//   return null;
-// }
+  throw new Error('Error while fetching settings:alignment value.');
+}
+
+export async function setAlignment(alignment: Alignment) {
+  await window.database.settings.upsert({ key: SettingsKey.ALIGNMENT, value: { alignment } });
+}
+
+export async function fetchLanguage() {
+  const row = await window.database.settings.findOneOrFail({ key: SettingsKey.LANGUAGE });
+
+  if (isLanguageValue(row.value)) {
+    return row.value.language;
+  }
+
+  throw new Error('Error while fetching settings:language value.');
+}
+
+export async function setLanguage(language: Language) {
+  await window.database.settings.upsert({ key: SettingsKey.LANGUAGE, value: { language } });
+}
+
+export async function fetchMenu() {
+  const row = await window.database.settings.findOneOrFail({ key: SettingsKey.MENU });
+
+  if (isMenuValue(row.value)) {
+    return row.value;
+  }
+
+  throw new Error('Error while fetching settings:menu value.');
+}
+
+export async function setMenu(menu: Menu) {
+  await window.database.settings.upsert({ key: SettingsKey.MENU, value: menu });
+}

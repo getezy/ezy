@@ -3,13 +3,13 @@ import React from 'react';
 
 import { ResizablePanel } from '@components';
 import { GrpcMethodType } from '@core/types';
+import { useSettingsStore } from '@new-storage';
 import {
   GrpcTab,
   isGrpcTabBidirectionalStreaming,
   isGrpcTabClientStreaming,
   isGrpcTabServerStreaming,
   isGrpcTabUnaryCall,
-  useSettingsStore,
 } from '@storage';
 
 import { Request } from './request';

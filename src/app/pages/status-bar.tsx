@@ -2,15 +2,16 @@ import { Container, Text } from '@nextui-org/react';
 import React from 'react';
 
 import { HorizontalLayoutIcon, VerticalLayoutIcon } from '@components';
-import { Alignment, useSettingsStore } from '@storage';
+import { Alignment } from '@database/types';
+import { useSettingsStore } from '@new-storage';
 
 import packageJson from '../../../package.json';
 
 export const StatusBar: React.FC = () => {
-  const { alignment, updateAlignment } = useSettingsStore((store) => store);
+  const { alignment, setAlignment } = useSettingsStore((store) => store);
 
-  const handleAlignmentChange = (newAlignment: Alignment) => {
-    updateAlignment(newAlignment);
+  const handleAlignmentChange = async (newAlignment: Alignment) => {
+    await setAlignment(newAlignment);
   };
 
   return (

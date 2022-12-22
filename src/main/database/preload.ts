@@ -14,6 +14,10 @@ export const Database = {
       return ipcRenderer.invoke(DatabaseChannel.FIND_ONE, where);
     },
 
+    findOneOrFail(where: FilterQuery<Settings>): Promise<Loaded<Settings, never>> {
+      return ipcRenderer.invoke(DatabaseChannel.FIND_ONE_OR_FAIL, where);
+    },
+
     upsert(payload: EntityData<Settings>): Promise<void> {
       return ipcRenderer.invoke(DatabaseChannel.UPSERT, payload);
     },

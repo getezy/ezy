@@ -5,7 +5,7 @@ import React from 'react';
 
 import { EzyButton, EzyIcon, Kbd, Menu } from '@components';
 import { AppContext } from '@context';
-import { useSettingsStore } from '@storage';
+import { useSettingsStore } from '@new-storage';
 
 import { CreateCollectionModal } from '../collections';
 import { UpdateSettingsModal } from '../settings';
@@ -13,9 +13,13 @@ import { CollectionsTree } from './collections-tree';
 
 export const SideBar: React.FC = () => {
   const context = React.useContext(AppContext);
-  const { isMenuCollapsed, setIsMenuCollapsed } = useSettingsStore((store) => store);
+  const { menu, setMenu } = useSettingsStore((store) => store);
 
   const [updateSettingsModalVisible, setUpdateSettingsModalVisible] = React.useState(false);
+
+  const handleMenuCollapse = (collapsed: boolean) => {
+    setMenu({ collapsed });
+  };
 
   const top = (
     <Container gap={0} display="flex" justify="center" alignItems="center" css={{ padding: 10 }}>
@@ -82,8 +86,8 @@ export const SideBar: React.FC = () => {
       ]}
       top={top}
       bottom={bottom}
-      isCollapsed={isMenuCollapsed}
-      onCollapseChange={setIsMenuCollapsed}
+      isCollapsed={menu.collapsed}
+      onCollapseChange={handleMenuCollapse}
     />
   );
 };

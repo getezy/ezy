@@ -25,6 +25,15 @@ export const registerDatabaseSubscribers = (orm: MikroORM<SqliteDriver>) => {
   );
 
   ipcMain.handle(
+    DatabaseChannel.FIND_ONE_OR_FAIL,
+    (_event, where: FilterQuery<Settings>): Promise<Loaded<Settings, never>> => {
+      const em = orm.em.fork();
+
+      return em.findOneOrFail(Settings, where);
+    }
+  );
+
+  ipcMain.handle(
     DatabaseChannel.UPSERT,
     async (_event, payload: EntityData<Settings>): Promise<void> => {
       const em = orm.em.fork();

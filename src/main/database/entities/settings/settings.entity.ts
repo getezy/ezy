@@ -1,11 +1,11 @@
 /* eslint-disable max-classes-per-file */
 
 import {
-  Embeddable,
-  Embedded,
   Entity,
   EntityRepositoryType,
   Enum,
+  JsonType,
+  OnInit,
   PrimaryKey,
   Property,
 } from '@mikro-orm/core';
@@ -15,7 +15,11 @@ import {
   IAlignmentValue,
   ILanguageValue,
   IMenuValue,
+  isAlignmentValue,
   ISettings,
+  isLanguageValue,
+  isMenuValue,
+  isThemeValue,
   IThemeValue,
   Language,
   SettingsKey,
@@ -24,28 +28,40 @@ import {
 // eslint-disable-next-line import/no-cycle
 import { SettingsRepository } from './settings.repository';
 
-@Embeddable({ discriminatorColumn: 'key', discriminatorValue: SettingsKey.THEME })
 export class ThemeValue implements IThemeValue {
   @Enum(() => Theme)
   theme!: Theme;
+
+  constructor(value: IThemeValue) {
+    this.theme = value.theme;
+  }
 }
 
-@Embeddable({ discriminatorColumn: 'key', discriminatorValue: SettingsKey.ALIGNMENT })
 export class AlignmentValue implements IAlignmentValue {
   @Enum(() => Alignment)
   alignment!: Alignment;
+
+  constructor(value: IAlignmentValue) {
+    this.alignment = value.alignment;
+  }
 }
 
-@Embeddable({ discriminatorColumn: 'key', discriminatorValue: SettingsKey.LANGUAGE })
 export class LanguageValue implements ILanguageValue {
   @Enum(() => Language)
   language!: Language;
+
+  constructor(value: ILanguageValue) {
+    this.language = value.language;
+  }
 }
 
-@Embeddable({ discriminatorColumn: 'key', discriminatorValue: SettingsKey.MENU })
 export class MenuValue implements IMenuValue {
   @Property()
   collapsed!: boolean;
+
+  constructor(value: IMenuValue) {
+    this.collapsed = value.collapsed;
+  }
 }
 
 @Entity({ tableName: 'settings', customRepository: () => SettingsRepository })
@@ -56,6 +72,19 @@ export class Settings implements ISettings {
   @Enum(() => SettingsKey)
   key!: SettingsKey;
 
-  @Embedded(() => [ThemeValue, AlignmentValue, LanguageValue, MenuValue], { object: true })
+  @Property({ type: JsonType })
   value!: ThemeValue | AlignmentValue | LanguageValue | MenuValue;
+
+  @OnInit()
+  init() {
+    if (isAlignmentValue(this.value)) {
+      this.value = new AlignmentValue(this.value);
+    } else if (isLanguageValue(this.value)) {
+      this.value = new LanguageValue(this.value);
+    } else if (isMenuValue(this.value)) {
+      this.value = new MenuValue(this.value);
+    } else if (isThemeValue(this.value)) {
+      this.value = new ThemeValue(this.value);
+    }
+  }
 }
