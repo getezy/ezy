@@ -3,14 +3,14 @@ import React from 'react';
 import { Controller, useForm } from 'react-hook-form';
 
 import { Theme } from '@database/types';
-import { Settings } from '@new-storage';
+import { SettingsState } from '@new-storage';
 
 export interface SettingsFormProps {
   id?: string;
 
-  defaultValues?: Partial<Settings>;
+  defaultValues?: Partial<SettingsState>;
 
-  onSubmit: (payload: Settings) => void;
+  onSubmit: (payload: SettingsState) => void;
 }
 
 export const SettingsForm: React.FC<SettingsFormProps> = ({
@@ -18,7 +18,7 @@ export const SettingsForm: React.FC<SettingsFormProps> = ({
   id,
   defaultValues,
 }) => {
-  const { handleSubmit, control } = useForm<Settings>({ defaultValues });
+  const { handleSubmit, control } = useForm<SettingsState>({ defaultValues });
 
   return (
     <form id={id} onSubmit={handleSubmit(onSubmit)}>

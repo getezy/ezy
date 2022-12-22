@@ -1,14 +1,14 @@
 import { Button, Modal, ModalProps, Text } from '@nextui-org/react';
 import React from 'react';
 
-import { Settings, useSettingsStore } from '@new-storage';
+import { SettingsState, useSettingsStore } from '@new-storage';
 
 import { SettingsForm } from '../forms';
 
 export const UpdateSettingsModal: React.FC<ModalProps> = ({ onClose = () => {}, ...props }) => {
   const { setTheme, theme } = useSettingsStore((store) => store);
 
-  const handleSubmit = async (payload: Partial<Settings>) => {
+  const handleSubmit = async (payload: Partial<SettingsState>) => {
     if (payload.theme) {
       await setTheme(payload.theme);
     }

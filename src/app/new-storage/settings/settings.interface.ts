@@ -1,13 +1,13 @@
 import { Alignment, Language, Menu, Theme } from '@database/types';
 
-export interface Settings {
+export interface SettingsState {
   theme: Theme;
   language: Language;
   alignment: Alignment;
   menu: Menu;
 }
 
-export interface SettingsStorage extends Settings {
+export interface SettingsStorage extends SettingsState {
   fetch: () => Promise<void>;
   setTheme: (theme: Theme) => Promise<void>;
   setAlignment: (alignment: Alignment) => void;

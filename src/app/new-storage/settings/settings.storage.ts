@@ -6,9 +6,9 @@ import create from 'zustand';
 import { LocalAPI } from '@api';
 import { Alignment, Language, Theme } from '@database/types';
 
-import { Settings, SettingsStorage } from './settings.interface';
+import { SettingsState, SettingsStorage } from './settings.interface';
 
-const initialState: Settings = {
+const initialState: SettingsState = {
   theme: Theme.DARK,
   alignment: Alignment.HORIZONTAL,
   language: Language.EN,
