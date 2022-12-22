@@ -2,14 +2,15 @@ import { NextUIProvider } from '@nextui-org/react';
 import React from 'react';
 
 import { NotificationContainer } from '@components';
-import { ThemeType, useSettingsStore } from '@new-storage';
+import { Theme } from '@database/types';
+import { useSettingsStore } from '@new-storage';
 
 import { Main } from './pages';
 import { DarkTheme, globalStyles, LightTheme } from './themes';
 
 export const THEMES = {
-  [ThemeType.DARK]: DarkTheme,
-  [ThemeType.LIGHT]: LightTheme,
+  [Theme.DARK]: DarkTheme,
+  [Theme.LIGHT]: LightTheme,
 };
 
 function App(): JSX.Element {

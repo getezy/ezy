@@ -16,6 +16,7 @@ module.exports = {
   resolve: {
     extensions: ['.js', '.ts', '.jsx', '.tsx', '.css'],
     alias: {
+      '@api': path.resolve(__dirname, 'src/app/api/index.ts'),
       '@components': path.resolve(__dirname, 'src/app/components/index.ts'),
       '@hooks': path.resolve(__dirname, 'src/app/hooks/index.ts'),
       '@new-storage': path.resolve(__dirname, 'src/app/new-storage/index.ts'),
@@ -24,6 +25,7 @@ module.exports = {
       '@layouts': path.resolve(__dirname, './src/app/layouts/index.ts'),
       '@core$': path.resolve(__dirname, './src/core/index.ts'),
       '@core/types': path.resolve(__dirname, './src/core/typings.ts'),
+      '@database/types': path.resolve(__dirname, './src/main/database/typings.ts'),
     },
   },
 };

@@ -17,6 +17,9 @@
     "sourceMap": true,
     "baseUrl": ".",
     "paths": {
+      "@api": [
+        "./src/app/api/index.ts"
+      ],
       "@components": [
         "./src/app/components/index.ts"
       ],
@@ -40,6 +43,9 @@
       ],
       "@core/types": [
         "./src/core/typings.ts"
+      ],
+      "@database/types": [
+        "./src/main/database/typings.ts"
       ],
     },
     "outDir": "dist",

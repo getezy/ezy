@@ -7,26 +7,26 @@ export async function up(knex: Knex): Promise<void> {
   });
 
   await knex('settings').insert([
-    { key: 'theme', value: 'dark' },
-    { key: 'language', value: 'en' },
-    { key: 'alignment', value: 'vertical' },
-    { key: 'is_menu_collapsed', value: 'true' },
+    { key: 'theme', value: JSON.stringify({ theme: 'dark' }) },
+    { key: 'language', value: JSON.stringify({ language: 'en' }) },
+    { key: 'alignment', value: JSON.stringify({ alignment: 'vertical' }) },
+    { key: 'menu', value: JSON.stringify({ collapsed: true }) },
   ]);
 
   await knex.schema.createTable('tabs', (table) => {
-    table.string('id').primary();
+    table.increments('id').primary();
   });
 
   await knex.schema.createTable('collections', (table) => {
-    table.string('id').primary();
+    table.increments('id').primary();
   });
 
   await knex.schema.createTable('environments', (table) => {
-    table.string('id').primary();
+    table.increments('id').primary();
   });
 
   await knex.schema.createTable('tls_presets', (table) => {
-    table.string('id').primary();
+    table.increments('id').primary();
   });
 }
 

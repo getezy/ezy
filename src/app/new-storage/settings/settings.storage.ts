@@ -3,24 +3,37 @@
 import { produce } from 'immer';
 import create from 'zustand';
 
-import { SettingsStorage, ThemeType } from './settings.interface';
+import { LocalAPI } from '@api';
+import { Alignment, Language, Theme } from '@database/types';
+
+import { Settings, SettingsStorage } from './settings.interface';
+
+const initialState: Settings = {
+  theme: Theme.DARK,
+  alignment: Alignment.HORIZONTAL,
+  language: Language.EN,
+  menu: {
+    collapsed: true,
+  },
+};
 
 export const useSettingsStore = create<SettingsStorage>((set) => ({
-  theme: ThemeType.DARK,
+  ...initialState,
 
   fetch: async () => {
-    const theme = await window.database.settings.findOne({ key: 'theme' });
+    const theme = await LocalAPI.settings.fetchTheme();
+
     if (theme) {
       set(
         produce<SettingsStorage>((state) => {
-          state.theme = theme.value as ThemeType;
+          state.theme = theme;
         })
       );
     }
   },
 
   setTheme: async (theme) => {
-    await window.database.settings.upsert({ key: 'theme', value: theme });
+    await LocalAPI.settings.setTheme(theme);
 
     set(
       produce<SettingsStorage>((state) => {
