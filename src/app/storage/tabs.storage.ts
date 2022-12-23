@@ -7,6 +7,7 @@ import create from 'zustand';
 import { persist } from 'zustand/middleware';
 
 import { GrpcMethodType, GrpcTlsType } from '@core/types';
+import { useTlsPresetsStore } from '@new-storage';
 
 import {
   CollectionType,
@@ -17,7 +18,6 @@ import {
   isGrpcTabServerStreaming,
   TabsStorage,
 } from './interfaces';
-import { useTlsPresetsStore } from './tls-presets.storage';
 
 const closeTab = (id: string | undefined) =>
   produce<TabsStorage>((state) => {

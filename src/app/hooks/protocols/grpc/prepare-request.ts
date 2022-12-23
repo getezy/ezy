@@ -5,7 +5,8 @@ import {
   GrpcTlsConfig,
   GrpcTlsType,
 } from '@core/types';
-import { Collection, CollectionType, GrpcTab, TlsPreset } from '@storage';
+import { TlsPreset } from '@database/types';
+import { Collection, CollectionType, GrpcTab } from '@storage';
 
 function getRequestAddress(tab: GrpcTab<GrpcMethodType>): string {
   if (tab.data.url && tab.data.url.length > 0) {

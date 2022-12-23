@@ -4,7 +4,7 @@ export enum GrpcTlsType {
   MUTUAL = 'mutual',
 }
 
-export type GrpcTlsConfig<T extends GrpcTlsType = GrpcTlsType> = T extends GrpcTlsType.MUTUAL
+export type GrpcTlsConfig<T extends GrpcTlsType> = T extends GrpcTlsType.MUTUAL
   ? GrpcMutualTlsConfig
   : T extends GrpcTlsType.SERVER_SIDE
   ? GrpcServerSideTlsConfig
@@ -28,7 +28,7 @@ export interface GrpcChannelOptions {
 }
 
 export interface GrpcServerSideTlsConfig {
-  type: GrpcTlsType.SERVER_SIDE;
+  type: GrpcTlsType;
 
   rootCertificatePath?: string;
 
@@ -36,7 +36,7 @@ export interface GrpcServerSideTlsConfig {
 }
 
 export interface GrpcMutualTlsConfig {
-  type: GrpcTlsType.MUTUAL;
+  type: GrpcTlsType;
 
   rootCertificatePath?: string;
 
@@ -48,7 +48,7 @@ export interface GrpcMutualTlsConfig {
 }
 
 export interface GrpcInsecureTlsConfig {
-  type: GrpcTlsType.INSECURE;
+  type: GrpcTlsType;
 
   channelOptions?: GrpcChannelOptions;
 }
@@ -67,6 +67,12 @@ export function isInsecureTlsConfig(
   config: GrpcTlsConfig<GrpcTlsType>
 ): config is GrpcTlsConfig<GrpcTlsType.INSECURE> {
   return config.type === GrpcTlsType.INSECURE;
+}
+
+export function isServerSideTlsConfig(
+  config: GrpcTlsConfig<GrpcTlsType>
+): config is GrpcTlsConfig<GrpcTlsType.SERVER_SIDE> {
+  return config.type === GrpcTlsType.SERVER_SIDE;
 }
 
 export function isMutualTlsConfig(

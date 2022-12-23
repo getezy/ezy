@@ -1,13 +1,15 @@
 import { faSquarePlus } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Button, Container, Modal, ModalProps, Spacer, styled, Text } from '@nextui-org/react';
-import { nanoid } from 'nanoid';
 import React from 'react';
 import { DeepPartial } from 'react-hook-form';
+import { SetOptional } from 'type-fest';
+import * as uuid from 'uuid';
 
 import { GrpcTlsType } from '@core/types';
+import { TlsPreset } from '@database/types';
 import { DefaultLayout } from '@layouts';
-import { TlsPreset, useTlsPresetsStore } from '@storage';
+import { useTlsPresetsStore } from '@new-storage';
 
 import { TlsForm } from './tls.form';
 import { TlsPresetsList } from './tls-presets-list';
@@ -41,7 +43,7 @@ export const TlsSettingsModal: React.FC<TlsSettingsModalProps> = ({
   defaultValues,
   ...props
 }) => {
-  const { presets, createTlsPreset, updateTlsPreset } = useTlsPresetsStore((store) => store);
+  const { presets, upsertTlsPreset } = useTlsPresetsStore((store) => store);
 
   const [formDefaultValues, setFormDefaultValues] = React.useState(defaultValues);
   const [formReadonly, setFormReadonly] = React.useState(!!defaultValues?.system);
@@ -62,24 +64,15 @@ export const TlsSettingsModal: React.FC<TlsSettingsModalProps> = ({
     setFormReadonly(false);
   };
 
-  const handleSubmit = ({
-    id,
-    ...payload
-  }: Omit<TlsPreset, 'id'> & Partial<Pick<TlsPreset, 'id'>>) => {
-    if (id) {
-      updateTlsPreset(id, payload);
+  const handleSubmit = (payload: SetOptional<TlsPreset, 'id'>) => {
+    const id = payload.id || uuid.v4();
 
-      onApply(id);
-    } else {
-      const newTlsPresetId = nanoid();
-      createTlsPreset({
-        id: newTlsPresetId,
-        ...payload,
-      });
+    upsertTlsPreset({
+      ...payload,
+      id,
+    });
 
-      onApply(newTlsPresetId);
-    }
-
+    onApply(id);
     onClose();
   };
 

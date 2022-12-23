@@ -5,7 +5,8 @@ import React from 'react';
 
 import { Tree, TreeNode, TreeNodeRendererProps } from '@components';
 import { GrpcTlsType } from '@core/types';
-import { TlsPreset, useTlsPresetsStore } from '@storage';
+import { TlsPreset } from '@database/types';
+import { useTlsPresetsStore } from '@new-storage';
 
 import { SystemBadge } from './system.badge';
 

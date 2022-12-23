@@ -1,12 +1,12 @@
 import { notification } from '@components';
 import { GrpcMethodType } from '@core/types';
+import { useTlsPresetsStore } from '@new-storage';
 import {
   GrpcProtocol,
   GrpcStreamMessageType,
   GrpcTab,
   useCollectionsStore,
   useTabsStore,
-  useTlsPresetsStore,
 } from '@storage';
 
 import { getOptions, getTlsOptions, parseMetadata, parseRequest } from './prepare-request';

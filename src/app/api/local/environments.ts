@@ -4,7 +4,7 @@ export function fetch() {
   return window.database.environment.find();
 }
 
-export function create(environment: Environment) {
+export function upsert(environment: Environment) {
   return window.database.environment.upsert(environment);
 }
 

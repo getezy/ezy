@@ -13,6 +13,7 @@ import {
   GrpcTlsType,
   isInsecureTlsConfig,
   isMutualTlsConfig,
+  isServerSideTlsConfig,
 } from '../interfaces';
 import { GrpcWebCallStream } from './grpc-web-call.stream';
 import { GrpcWebMetadataValue } from './interfaces';
@@ -67,11 +68,9 @@ export class GrpcWebClient {
   }
 
   private static getRequestOptions(tls: GrpcTlsConfig<GrpcTlsType>): https.RequestOptions {
-    let options: https.RequestOptions;
+    let options: https.RequestOptions = {};
 
-    if (isInsecureTlsConfig(tls)) {
-      options = {};
-    } else if (isMutualTlsConfig(tls)) {
+    if (isMutualTlsConfig(tls)) {
       const rootCert = tls.rootCertificatePath
         ? fs.readFileSync(tls.rootCertificatePath)
         : undefined;
@@ -83,7 +82,7 @@ export class GrpcWebClient {
         cert: clientCert,
         key: clientKey,
       };
-    } else {
+    } else if (isServerSideTlsConfig(tls)) {
       const rootCert = tls.rootCertificatePath
         ? fs.readFileSync(tls.rootCertificatePath)
         : undefined;

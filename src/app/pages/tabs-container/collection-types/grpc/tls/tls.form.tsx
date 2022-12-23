@@ -3,10 +3,11 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Card, Container, Input, Radio, Spacer, styled, Text } from '@nextui-org/react';
 import React from 'react';
 import { Controller, DeepPartial, useForm } from 'react-hook-form';
+import { SetOptional } from 'type-fest';
 
 import { Badge, FileInput, InfoLabel } from '@components';
 import { GrpcTlsType } from '@core/types';
-import { TlsPreset } from '@storage';
+import { TlsPreset } from '@database/types';
 
 export interface TlsFormProps {
   id?: string;
@@ -15,7 +16,7 @@ export interface TlsFormProps {
 
   defaultValues?: DeepPartial<TlsPreset>;
 
-  onSubmit: (payload: Omit<TlsPreset, 'id'> & Partial<Pick<TlsPreset, 'id'>>) => void;
+  onSubmit: (payload: SetOptional<TlsPreset, 'id'>) => void;
 }
 
 const StyledInfoIcon = styled(FontAwesomeIcon, {

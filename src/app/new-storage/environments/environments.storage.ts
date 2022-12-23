@@ -21,7 +21,7 @@ export const useEnvironmentsStore = create<EnvironmentsStorage>((set) => ({
   },
 
   createEnvironment: async (environment) => {
-    await LocalAPI.environments.create(environment);
+    await LocalAPI.environments.upsert(environment);
     const data = await LocalAPI.environments.fetch();
 
     set(
