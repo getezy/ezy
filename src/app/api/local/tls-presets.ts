@@ -11,5 +11,5 @@ export function upsert(tlsPreset: SetOptional<TlsPreset, 'id'>) {
 }
 
 export function remove(id: string) {
-  return window.database.environment.delete({ id });
+  return window.database.tlsPresets.delete({ id });
 }
