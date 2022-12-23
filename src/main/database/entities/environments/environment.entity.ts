@@ -1,12 +1,12 @@
 import { Entity, EntityRepositoryType, PrimaryKey, Property } from '@mikro-orm/core';
 
 // eslint-disable-next-line import/no-cycle
-import { EnvironmentRepository } from './environment.repository';
+import { EnvironmentsRepository } from './environments.repository';
 import { Environment as IEnvironment } from './interfaces';
 
-@Entity({ tableName: 'environments', customRepository: () => EnvironmentRepository })
+@Entity({ tableName: 'environments', customRepository: () => EnvironmentsRepository })
 export class Environment implements IEnvironment {
-  [EntityRepositoryType]?: EnvironmentRepository;
+  [EntityRepositoryType]?: EnvironmentsRepository;
 
   @PrimaryKey()
   id!: string;

@@ -1,4 +1,4 @@
-import { AlignmentValue, LanguageValue, MenuOptionsValue, ThemeValue } from './settings.interface';
+import { AlignmentValue, LanguageValue, MenuOptionsValue, ThemeValue } from './setting.interface';
 
 export function isAlignmentValue(value: any): value is AlignmentValue {
   return value?.alignment !== undefined;

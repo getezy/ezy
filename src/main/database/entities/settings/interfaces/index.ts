@@ -4,4 +4,4 @@ export * from './alignment.enum';
 export * from './language.enum';
 export * from './menu.interface';
 export * from './settings.guards';
-export * from './settings.interface';
+export * from './setting.interface';

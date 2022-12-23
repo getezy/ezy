@@ -1,7 +1,7 @@
 /* eslint-disable max-classes-per-file */
 
 import { Alignment } from './alignment.enum';
-import { SettingsKey } from './key.enum';
+import { SettingKey } from './key.enum';
 import { Language } from './language.enum';
 import { Theme } from './theme-type.enum';
 
@@ -21,8 +21,8 @@ export interface MenuOptionsValue {
   collapsed: boolean;
 }
 
-export interface Settings {
-  key: SettingsKey;
+export interface Setting {
+  key: SettingKey;
 
   value: ThemeValue | AlignmentValue | LanguageValue | MenuOptionsValue;
 }

@@ -6,12 +6,12 @@ import {
   isThemeValue,
   Language,
   MenuOptions,
-  SettingsKey,
+  SettingKey,
   Theme,
 } from '@database/types';
 
 export async function fetchTheme() {
-  const row = await window.database.settings.findOneOrFail({ key: SettingsKey.THEME });
+  const row = await window.database.settings.findOneOrFail({ key: SettingKey.THEME });
 
   if (isThemeValue(row.value)) {
     return row.value.theme;
@@ -21,11 +21,11 @@ export async function fetchTheme() {
 }
 
 export async function setTheme(theme: Theme) {
-  await window.database.settings.upsert({ key: SettingsKey.THEME, value: { theme } });
+  await window.database.settings.upsert({ key: SettingKey.THEME, value: { theme } });
 }
 
 export async function fetchAlignment() {
-  const row = await window.database.settings.findOneOrFail({ key: SettingsKey.ALIGNMENT });
+  const row = await window.database.settings.findOneOrFail({ key: SettingKey.ALIGNMENT });
 
   if (isAlignmentValue(row.value)) {
     return row.value.alignment;
@@ -35,11 +35,11 @@ export async function fetchAlignment() {
 }
 
 export async function setAlignment(alignment: Alignment) {
-  await window.database.settings.upsert({ key: SettingsKey.ALIGNMENT, value: { alignment } });
+  await window.database.settings.upsert({ key: SettingKey.ALIGNMENT, value: { alignment } });
 }
 
 export async function fetchLanguage() {
-  const row = await window.database.settings.findOneOrFail({ key: SettingsKey.LANGUAGE });
+  const row = await window.database.settings.findOneOrFail({ key: SettingKey.LANGUAGE });
 
   if (isLanguageValue(row.value)) {
     return row.value.language;
@@ -49,11 +49,11 @@ export async function fetchLanguage() {
 }
 
 export async function setLanguage(language: Language) {
-  await window.database.settings.upsert({ key: SettingsKey.LANGUAGE, value: { language } });
+  await window.database.settings.upsert({ key: SettingKey.LANGUAGE, value: { language } });
 }
 
 export async function fetchMenuOptions() {
-  const row = await window.database.settings.findOneOrFail({ key: SettingsKey.MENU });
+  const row = await window.database.settings.findOneOrFail({ key: SettingKey.MENU });
 
   if (isMenuOptionsValue(row.value)) {
     return row.value;
@@ -63,5 +63,5 @@ export async function fetchMenuOptions() {
 }
 
 export async function setMenu(menu: MenuOptions) {
-  await window.database.settings.upsert({ key: SettingsKey.MENU, value: menu });
+  await window.database.settings.upsert({ key: SettingKey.MENU, value: menu });
 }

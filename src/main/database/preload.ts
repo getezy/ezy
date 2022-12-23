@@ -1,7 +1,7 @@
 import { preload } from './common';
-import { Environment, Settings } from './entities';
+import { Environment, Setting } from './entities';
 
 export const Database = {
-  settings: preload(Settings),
+  settings: preload(Setting),
   environment: preload(Environment),
 };

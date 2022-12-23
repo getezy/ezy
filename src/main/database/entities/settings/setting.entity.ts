@@ -20,8 +20,8 @@ import {
   Language,
   LanguageValue as ILanguageValue,
   MenuOptionsValue as IMenuOptionsValue,
-  Settings as ISettings,
-  SettingsKey,
+  Setting as ISetting,
+  SettingKey,
   Theme,
   ThemeValue as IThemeValue,
 } from './interfaces';
@@ -65,12 +65,12 @@ export class MenuValue implements IMenuOptionsValue {
 }
 
 @Entity({ tableName: 'settings', customRepository: () => SettingsRepository })
-export class Settings implements ISettings {
+export class Setting implements ISetting {
   [EntityRepositoryType]?: SettingsRepository;
 
   @PrimaryKey()
-  @Enum(() => SettingsKey)
-  key!: SettingsKey;
+  @Enum(() => SettingKey)
+  key!: SettingKey;
 
   @Property({ type: JsonType })
   value!: ThemeValue | AlignmentValue | LanguageValue | MenuValue;
