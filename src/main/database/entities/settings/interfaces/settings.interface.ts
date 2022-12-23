@@ -5,24 +5,24 @@ import { SettingsKey } from './key.enum';
 import { Language } from './language.enum';
 import { Theme } from './theme-type.enum';
 
-export abstract class IThemeValue {
-  theme!: Theme;
+export interface ThemeValue {
+  theme: Theme;
 }
 
-export abstract class IAlignmentValue {
-  alignment!: Alignment;
+export interface AlignmentValue {
+  alignment: Alignment;
 }
 
-export abstract class ILanguageValue {
-  language!: Language;
+export interface LanguageValue {
+  language: Language;
 }
 
-export abstract class IMenuValue {
-  collapsed!: boolean;
+export interface MenuOptionsValue {
+  collapsed: boolean;
 }
 
-export abstract class ISettings {
-  key!: SettingsKey;
+export interface Settings {
+  key: SettingsKey;
 
-  value!: IThemeValue | IAlignmentValue | ILanguageValue | IMenuValue;
+  value: ThemeValue | AlignmentValue | LanguageValue | MenuOptionsValue;
 }

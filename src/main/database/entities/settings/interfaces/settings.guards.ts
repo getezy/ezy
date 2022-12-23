@@ -1,17 +1,17 @@
-import { IAlignmentValue, ILanguageValue, IMenuValue, IThemeValue } from './settings.interface';
+import { AlignmentValue, LanguageValue, MenuOptionsValue, ThemeValue } from './settings.interface';
 
-export function isAlignmentValue(value: any): value is IAlignmentValue {
+export function isAlignmentValue(value: any): value is AlignmentValue {
   return value?.alignment !== undefined;
 }
 
-export function isLanguageValue(value: any): value is ILanguageValue {
+export function isLanguageValue(value: any): value is LanguageValue {
   return value?.language !== undefined;
 }
 
-export function isMenuValue(value: any): value is IMenuValue {
+export function isMenuOptionsValue(value: any): value is MenuOptionsValue {
   return value?.collapsed !== undefined;
 }
 
-export function isThemeValue(value: any): value is IThemeValue {
+export function isThemeValue(value: any): value is ThemeValue {
   return value?.theme !== undefined;
 }

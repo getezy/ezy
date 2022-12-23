@@ -25,7 +25,7 @@ export const useSettingsStore = create<SettingsStorage>((set) => ({
       LocalAPI.settings.fetchTheme(),
       LocalAPI.settings.fetchAlignment(),
       LocalAPI.settings.fetchLanguage(),
-      LocalAPI.settings.fetchMenu(),
+      LocalAPI.settings.fetchMenuOptions(),
     ]);
 
     set(

@@ -2,10 +2,10 @@ import {
   Alignment,
   isAlignmentValue,
   isLanguageValue,
-  isMenuValue,
+  isMenuOptionsValue,
   isThemeValue,
   Language,
-  Menu,
+  MenuOptions,
   SettingsKey,
   Theme,
 } from '@database/types';
@@ -52,16 +52,16 @@ export async function setLanguage(language: Language) {
   await window.database.settings.upsert({ key: SettingsKey.LANGUAGE, value: { language } });
 }
 
-export async function fetchMenu() {
+export async function fetchMenuOptions() {
   const row = await window.database.settings.findOneOrFail({ key: SettingsKey.MENU });
 
-  if (isMenuValue(row.value)) {
+  if (isMenuOptionsValue(row.value)) {
     return row.value;
   }
 
   throw new Error('Error while fetching settings:menu value.');
 }
 
-export async function setMenu(menu: Menu) {
+export async function setMenu(menu: MenuOptions) {
   await window.database.settings.upsert({ key: SettingsKey.MENU, value: menu });
 }

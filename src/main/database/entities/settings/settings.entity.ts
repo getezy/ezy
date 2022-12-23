@@ -12,18 +12,18 @@ import {
 
 import {
   Alignment,
-  IAlignmentValue,
-  ILanguageValue,
-  IMenuValue,
+  AlignmentValue as IAlignmentValue,
   isAlignmentValue,
-  ISettings,
   isLanguageValue,
-  isMenuValue,
+  isMenuOptionsValue,
   isThemeValue,
-  IThemeValue,
   Language,
+  LanguageValue as ILanguageValue,
+  MenuOptionsValue as IMenuOptionsValue,
+  Settings as ISettings,
   SettingsKey,
   Theme,
+  ThemeValue as IThemeValue,
 } from './interfaces';
 // eslint-disable-next-line import/no-cycle
 import { SettingsRepository } from './settings.repository';
@@ -55,11 +55,11 @@ export class LanguageValue implements ILanguageValue {
   }
 }
 
-export class MenuValue implements IMenuValue {
+export class MenuValue implements IMenuOptionsValue {
   @Property()
   collapsed!: boolean;
 
-  constructor(value: IMenuValue) {
+  constructor(value: IMenuOptionsValue) {
     this.collapsed = value.collapsed;
   }
 }
@@ -81,7 +81,7 @@ export class Settings implements ISettings {
       this.value = new AlignmentValue(this.value);
     } else if (isLanguageValue(this.value)) {
       this.value = new LanguageValue(this.value);
-    } else if (isMenuValue(this.value)) {
+    } else if (isMenuOptionsValue(this.value)) {
       this.value = new MenuValue(this.value);
     } else if (isThemeValue(this.value)) {
       this.value = new ThemeValue(this.value);

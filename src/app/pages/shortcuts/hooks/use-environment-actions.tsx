@@ -5,7 +5,8 @@ import { Container } from '@nextui-org/react';
 import React from 'react';
 
 import { ColorCircle } from '@components';
-import { useEnvironmentsStore, useTabsStore } from '@storage';
+import { useEnvironmentsStore } from '@new-storage';
+import { useTabsStore } from '@storage';
 
 export function useEnvironmentActions() {
   const { environments } = useEnvironmentsStore((store) => store);

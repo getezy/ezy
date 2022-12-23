@@ -3,6 +3,7 @@ import React from 'react';
 
 import { NotificationContainer } from '@components';
 import { Theme } from '@database/types';
+import { useStorageFetch } from '@hooks';
 import { useSettingsStore } from '@new-storage';
 
 import { Main } from './pages';
@@ -14,10 +15,11 @@ export const THEMES = {
 };
 
 function App(): JSX.Element {
-  const { theme, fetch } = useSettingsStore((store) => store);
+  const fetchStorage = useStorageFetch();
+  const { theme } = useSettingsStore((store) => store);
 
   React.useEffect(() => {
-    fetch();
+    fetchStorage();
   }, []);
 
   globalStyles();

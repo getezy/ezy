@@ -6,14 +6,9 @@ import { MultiValue, SingleValue } from 'react-select';
 
 import { ColoredSelect } from '@components';
 import { GrpcMethodType, GrpcTlsType } from '@core/types';
-import {
-  Environment,
-  GrpcProtocol,
-  GrpcTab,
-  useEnvironmentsStore,
-  useTabsStore,
-  useTlsPresetsStore,
-} from '@storage';
+import { Environment } from '@database/types';
+import { useEnvironmentsStore } from '@new-storage';
+import { GrpcProtocol, GrpcTab, useTabsStore, useTlsPresetsStore } from '@storage';
 
 import { CreateEnvironmentModal } from '../environments';
 import { TlsSettingsModal } from '../tls';

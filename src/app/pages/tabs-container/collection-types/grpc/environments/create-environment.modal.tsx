@@ -1,8 +1,9 @@
 import { Button, Modal, ModalProps, Text } from '@nextui-org/react';
-import { nanoid } from 'nanoid';
 import React from 'react';
+import * as uuid from 'uuid';
 
-import { Environment, useEnvironmentsStore } from '@storage';
+import { Environment } from '@database/types';
+import { useEnvironmentsStore } from '@new-storage';
 
 import { EnvironmentForm } from './environment.form';
 
@@ -20,7 +21,7 @@ export const CreateEnvironmentModal: React.FC<CreateEnvironmentModalProps> = ({
   const createEnvironment = useEnvironmentsStore((store) => store.createEnvironment);
 
   const handleSubmit = (payload: Environment) => {
-    const environment: Environment = { ...payload, id: nanoid() };
+    const environment: Environment = { ...payload, id: uuid.v4() };
 
     createEnvironment(environment);
     onCreate(environment);

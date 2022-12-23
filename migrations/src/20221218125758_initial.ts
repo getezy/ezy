@@ -22,7 +22,10 @@ export async function up(knex: Knex): Promise<void> {
   });
 
   await knex.schema.createTable('environments', (table) => {
-    table.increments('id').primary();
+    table.string('id').primary();
+    table.string('label').notNullable();
+    table.string('url').notNullable();
+    table.string('color').notNullable();
   });
 
   await knex.schema.createTable('tls_presets', (table) => {

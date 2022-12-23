@@ -1,3 +1,3 @@
-export interface Menu {
+export interface MenuOptions {
   collapsed: boolean;
 }

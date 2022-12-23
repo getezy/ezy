@@ -1,13 +1,9 @@
-export interface Environment {
-  id: string;
-  label: string;
-  url: string;
-  color: string;
-}
+import { Environment } from '@database/types';
 
 export interface EnvironmentsStorage {
   environments: Environment[];
 
+  fetch: () => Promise<void>;
   createEnvironment: (environment: Environment) => void;
   removeEnvironment: (id: string) => void;
 }
