@@ -21,7 +21,7 @@ export const useTlsPresetsStore = create<TlsPresetsStorage>((set) => ({
   },
 
   upsertTlsPreset: async (preset) => {
-    await LocalAPI.tlsPresets.upsert({ ...preset, system: false });
+    await LocalAPI.tlsPresets.upsert(preset);
     const data = await LocalAPI.tlsPresets.fetch();
 
     set(

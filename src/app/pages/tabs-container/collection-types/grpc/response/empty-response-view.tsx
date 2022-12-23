@@ -12,14 +12,14 @@ export const EmptyResponseView: React.FC = () => {
   return (
     <Container display="flex" direction="column" justify="center" alignItems="center">
       {shortcuts.map((shortcut) => (
-        <>
+        <div key={shortcut.key}>
           <Text size="$sm" css={{ color: '$accents8' }}>
             {shortcut.description}
           </Text>
           <Kbd key={shortcut.key} size="sm">
             {shortcut.key}
           </Kbd>
-        </>
+        </div>
       ))}
     </Container>
   );

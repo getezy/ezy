@@ -98,7 +98,7 @@ export class TlsPreset implements ITlsPreset {
   @Property()
   name!: string;
 
-  @Property()
+  @Property({ default: false })
   system: boolean = false;
 
   @Embedded(() => [InsecureTls, ServerSideTls, MutualTls], { object: true })
