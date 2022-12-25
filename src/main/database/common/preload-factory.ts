@@ -1,8 +1,8 @@
 import { EntityData, FilterQuery, Loaded } from '@mikro-orm/core';
 import { ipcRenderer } from 'electron';
 
-import { DatabaseChannel } from '../constants';
-import { Type } from './type.interface';
+import { DatabaseChannel } from './constants';
+import { Type } from './interaces';
 
 export function preload<T>(entity: Type<T>) {
   return {

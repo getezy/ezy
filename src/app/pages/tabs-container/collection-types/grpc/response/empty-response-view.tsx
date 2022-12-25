@@ -10,16 +10,24 @@ export const EmptyResponseView: React.FC = () => {
   const shortcuts = getShortcuts(ShortcutsGroup.RESPONSE);
 
   return (
-    <Container display="flex" direction="column" justify="center" alignItems="center">
+    <Container display="flex">
       {shortcuts.map((shortcut) => (
-        <div key={shortcut.key}>
+        <Container
+          key={shortcut.key}
+          gap={0}
+          display="flex"
+          direction="column"
+          justify="center"
+          alignItems="center"
+          wrap="nowrap"
+        >
           <Text size="$sm" css={{ color: '$accents8' }}>
             {shortcut.description}
           </Text>
           <Kbd key={shortcut.key} size="sm">
             {shortcut.key}
           </Kbd>
-        </div>
+        </Container>
       ))}
     </Container>
   );

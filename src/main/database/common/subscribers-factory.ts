@@ -2,8 +2,8 @@ import { EntityData, FilterQuery, Loaded, MikroORM } from '@mikro-orm/core';
 import { SqliteDriver } from '@mikro-orm/sqlite';
 import { ipcMain } from 'electron';
 
-import { DatabaseChannel } from '../constants';
-import { Type } from './type.interface';
+import { DatabaseChannel } from './constants';
+import { Type } from './interaces';
 
 export function subscribers<T>(orm: MikroORM<SqliteDriver>, entity: Type<T>) {
   ipcMain.handle(

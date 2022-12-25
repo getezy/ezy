@@ -26,50 +26,34 @@ export class GrpcChannelOptions implements IGrpcChannelOptions {
 export abstract class TLS {
   @Enum(() => GrpcTlsType)
   type!: GrpcTlsType;
-}
-
-// @Embeddable({ discriminatorColumn: 'type', discriminatorValue: GrpcTlsType.INSECURE })
-// export class InsecureTls implements GrpcTlsConfig<GrpcTlsType.INSECURE> {
-@Embeddable({ discriminatorValue: GrpcTlsType.INSECURE })
-export class InsecureTls extends TLS implements GrpcTlsConfig<GrpcTlsType.INSECURE> {
-  // @Enum(() => GrpcTlsType)
-  // type!: GrpcTlsType.INSECURE;
 
   @Embedded(() => GrpcChannelOptions, { nullable: true, object: true })
   channelOptions?: GrpcChannelOptions;
+}
 
-  constructor() {
+@Embeddable({ discriminatorValue: GrpcTlsType.INSECURE })
+export class InsecureTls extends TLS implements GrpcTlsConfig<GrpcTlsType.INSECURE> {
+  constructor(channelOptions: GrpcChannelOptions) {
     super();
     this.type = GrpcTlsType.INSECURE;
+    this.channelOptions = channelOptions;
   }
 }
 
-// @Embeddable({ discriminatorColumn: 'type', discriminatorValue: GrpcTlsType.SERVER_SIDE })
-// export class ServerSideTls implements GrpcTlsConfig<GrpcTlsType.SERVER_SIDE> {
 @Embeddable({ discriminatorValue: GrpcTlsType.SERVER_SIDE })
 export class ServerSideTls extends TLS implements GrpcTlsConfig<GrpcTlsType.SERVER_SIDE> {
-  // @Enum(() => GrpcTlsType)
-  // type!: GrpcTlsType.SERVER_SIDE;
-
   @Property({ nullable: true })
   rootCertificatePath?: string;
 
-  @Embedded(() => GrpcChannelOptions, { nullable: true, object: true })
-  channelOptions?: GrpcChannelOptions;
-
-  constructor() {
+  constructor(channelOptions: GrpcChannelOptions) {
     super();
     this.type = GrpcTlsType.SERVER_SIDE;
+    this.channelOptions = channelOptions;
   }
 }
 
-// @Embeddable({ discriminatorColumn: 'type', discriminatorValue: GrpcTlsType.MUTUAL })
-// export class MutualTls implements GrpcTlsConfig<GrpcTlsType.MUTUAL> {
 @Embeddable({ discriminatorValue: GrpcTlsType.MUTUAL })
 export class MutualTls extends TLS implements GrpcTlsConfig<GrpcTlsType.MUTUAL> {
-  // @Enum(() => GrpcTlsType)
-  // type!: GrpcTlsType.MUTUAL;
-
   @Property()
   clientCertificatePath!: string;
 
@@ -79,12 +63,10 @@ export class MutualTls extends TLS implements GrpcTlsConfig<GrpcTlsType.MUTUAL> 
   @Property({ nullable: true })
   rootCertificatePath?: string;
 
-  @Embedded(() => GrpcChannelOptions, { nullable: true, object: true })
-  channelOptions?: GrpcChannelOptions;
-
-  constructor() {
+  constructor(channelOptions: GrpcChannelOptions) {
     super();
     this.type = GrpcTlsType.MUTUAL;
+    this.channelOptions = channelOptions;
   }
 }
 

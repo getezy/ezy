@@ -15,12 +15,30 @@ export async function up(knex: Knex): Promise<void> {
   ]);
 
   // await knex.schema.createTable('tabs', (table) => {
-  //   table.increments('id').primary();
+  //   table.string('id').primary();
   // });
 
-  // await knex.schema.createTable('collections', (table) => {
-  //   table.increments('id').primary();
-  // });
+  await knex.schema.createTable('collections', (table) => {
+    table.string('id').primary();
+    table.string('name').notNullable();
+  });
+
+  await knex.schema.createTable('services', (table) => {
+    table.string('id').primary();
+    table.string('collection_id').notNullable();
+    table.string('name').notNullable();
+    table.enum('type', ['grpc']).notNullable();
+    table.string('options').notNullable();
+  });
+
+  await knex.schema.createTable('grpc_endpoints', (table) => {
+    table.string('id').primary();
+    table.string('service_id').notNullable();
+    table.string('name').notNullable();
+    table
+      .enum('type', ['unary', 'server-streaming', 'client-streaming', 'bidirectional-streaming'])
+      .notNullable();
+  });
 
   await knex.schema.createTable('environments', (table) => {
     table.string('id').primary();
@@ -51,6 +69,8 @@ export async function down(knex: Knex): Promise<void> {
   await knex.schema.dropTableIfExists('settings');
   await knex.schema.dropTableIfExists('tabs');
   await knex.schema.dropTableIfExists('collections');
+  await knex.schema.dropTableIfExists('services');
+  await knex.schema.dropTableIfExists('grpc_endpoints');
   await knex.schema.dropTableIfExists('environments');
   await knex.schema.dropTableIfExists('tls_presets');
 }
