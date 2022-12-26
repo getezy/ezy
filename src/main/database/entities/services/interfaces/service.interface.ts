@@ -1,5 +1,7 @@
 import { GrpcOptions } from '@core/types';
 
+import { Collection } from '../../collections/interfaces';
+
 export enum ServiceType {
   GRPC = 'grpc',
 }
@@ -13,7 +15,7 @@ export type ServiceOptions<T extends ServiceType> = BasicServiceOptions &
 
 export interface Service {
   id: string;
-  collectionId: string;
+  // collection: Collection;
   name: string;
   options: ServiceOptions<ServiceType>;
 }

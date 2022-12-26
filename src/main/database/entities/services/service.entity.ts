@@ -7,10 +7,12 @@ import {
   Entity,
   EntityRepositoryType,
   Enum,
+  ManyToOne,
   PrimaryKey,
   Property,
 } from '@mikro-orm/core';
 
+import { Collection } from '../collections';
 import { Service as IService, ServiceOptions as IServiceOptions, ServiceType } from './interfaces';
 // eslint-disable-next-line import/no-cycle
 import { ServicesRepository } from './services.repository';
@@ -48,9 +50,9 @@ export class Service implements IService {
   @Property()
   name!: string;
 
-  @Property()
-  collectionId!: string;
-
   @Embedded(() => [GrpcServiceOptions], { object: true })
   options!: GrpcServiceOptions;
+
+  @ManyToOne(() => Collection)
+  collection!: Collection;
 }

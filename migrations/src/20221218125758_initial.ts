@@ -31,7 +31,7 @@ export async function up(knex: Knex): Promise<void> {
     table.string('options').notNullable();
   });
 
-  await knex.schema.createTable('grpc_endpoints', (table) => {
+  await knex.schema.createTable('grpc_methods', (table) => {
     table.string('id').primary();
     table.string('service_id').notNullable();
     table.string('name').notNullable();
@@ -70,7 +70,7 @@ export async function down(knex: Knex): Promise<void> {
   await knex.schema.dropTableIfExists('tabs');
   await knex.schema.dropTableIfExists('collections');
   await knex.schema.dropTableIfExists('services');
-  await knex.schema.dropTableIfExists('grpc_endpoints');
+  await knex.schema.dropTableIfExists('grpc_methods');
   await knex.schema.dropTableIfExists('environments');
   await knex.schema.dropTableIfExists('tls_presets');
 }
