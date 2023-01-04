@@ -64,7 +64,24 @@ If you want to send 64-bit integers (`int64`, `uint64`, `sint64`, `fixed64`, `sf
 
 ```bash
   $ npm ci
-  $ npm run make
+
+  # Build on macOS
+  $ npm run build:mac
+
+  # Build on macOS with optional architecture
+  $ npm run build:mac -- --[x64 | arm64]
+
+  # Build on Windows
+  $ npm run build:win
+
+  # Build on Windows with optional architecture
+  $ npm run build:win -- --[x64 | ia32]
+
+  # Build on Linux
+  $ npm run build:linux
+
+  # Build on Linux with optional architecture
+  $ npm run build:linux -- --[x64 | arm64 | armv7l]
 ```
 
 ## Roadmap

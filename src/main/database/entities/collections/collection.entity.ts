@@ -1,5 +1,14 @@
-import { Entity, EntityRepositoryType, PrimaryKey, Property } from '@mikro-orm/core';
+import {
+  Collection as MikroOrmCollection,
+  Entity,
+  EntityRepositoryType,
+  OneToMany,
+  PrimaryKey,
+  Property,
+} from '@mikro-orm/core';
 
+// eslint-disable-next-line import/no-cycle
+import { Service } from '../services';
 // eslint-disable-next-line import/no-cycle
 import { CollectionsRepository } from './collections.repository';
 import { Collection as ICollection } from './interfaces';
@@ -13,4 +22,7 @@ export class Collection implements ICollection {
 
   @Property()
   name!: string;
+
+  @OneToMany(() => Service, (service) => service.collection)
+  services = new MikroOrmCollection<Service>(this);
 }

@@ -1,6 +1,6 @@
 import { ClientReadableStream, MetadataValue } from '@grpc/grpc-js';
 import { BrowserWindow, IpcMain } from 'electron';
-import { nanoid } from 'nanoid';
+import * as uuid from 'uuid';
 
 import { GrpcClient, GrpcClientRequestOptions, GrpcOptions, ProtobufLoader } from '@core';
 
@@ -51,7 +51,7 @@ export class GrpcClientServerStreamingSubscriber {
   }
 
   private registerServerStreamingCall(call: ClientReadableStream<Record<string, unknown>>): string {
-    const id = nanoid();
+    const id = uuid.v4();
 
     call.on('data', (data) => {
       this.mainWindow.webContents.send(GrpcClientServerStreamingChannel.DATA, id, data);

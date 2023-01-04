@@ -1,22 +1,4 @@
 {
-  "eslint.workingDirectories": [
-    {
-      "directory": ".",
-      "changeProcessCWD": true
-    },
-    {
-      "directory": "migrations",
-      "changeProcessCWD": true
-    },
-    {
-      "directory": "__tests__/simple-service",
-      "changeProcessCWD": true
-    },
-    {
-      "directory": "__tests__/tls-service",
-      "changeProcessCWD": true
-    },
-  ],
   "yaml.schemas": {
     "https://json.schemastore.org/github-issue-config.json": "./.github/ISSUE_TEMPLATE/config.yml"
   },

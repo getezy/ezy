@@ -1,14 +1,6 @@
 /* eslint-disable max-classes-per-file */
 
-import {
-  Entity,
-  EntityRepositoryType,
-  Enum,
-  JsonType,
-  OnInit,
-  PrimaryKey,
-  Property,
-} from '@mikro-orm/core';
+import { Entity, EntityRepositoryType, Enum, JsonType, OnInit, Property } from '@mikro-orm/core';
 
 import {
   Alignment,
@@ -68,8 +60,7 @@ export class MenuValue implements IMenuOptionsValue {
 export class Setting implements ISetting {
   [EntityRepositoryType]?: SettingsRepository;
 
-  @PrimaryKey()
-  @Enum(() => SettingKey)
+  @Enum({ type: 'string', items: () => SettingKey, primary: true })
   key!: SettingKey;
 
   @Property({ type: JsonType })

@@ -1,4 +1,4 @@
-import { BrowserWindow, IpcMain } from 'electron';
+import { IpcMain } from 'electron';
 
 import {
   GrpcClientRequestOptions,
@@ -11,7 +11,7 @@ import {
 import { GrpcWebClientChannel } from '../constants';
 
 export class GrpcWebClientUnarySubscriber {
-  constructor(private readonly mainWindow: BrowserWindow, private readonly ipcMain: IpcMain) {}
+  constructor(private readonly ipcMain: IpcMain) {}
 
   public static unregisterUnaryCallHandlers(ipcMain: IpcMain) {
     ipcMain.removeHandler(GrpcWebClientChannel.INVOKE_UNARY_REQUEST);

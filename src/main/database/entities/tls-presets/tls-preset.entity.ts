@@ -10,7 +10,7 @@ import {
   Property,
 } from '@mikro-orm/core';
 
-import { GrpcChannelOptions as IGrpcChannelOptions, GrpcTlsConfig, GrpcTlsType } from '@core/types';
+import { GrpcChannelOptions as IGrpcChannelOptions, GrpcTlsConfig, GrpcTlsType } from '@core';
 
 import { TlsPreset as ITlsPreset } from './interfaces';
 // eslint-disable-next-line import/no-cycle
@@ -24,7 +24,7 @@ export class GrpcChannelOptions implements IGrpcChannelOptions {
 
 @Embeddable({ abstract: true, discriminatorColumn: 'type' })
 export abstract class TLS {
-  @Enum(() => GrpcTlsType)
+  @Enum({ type: 'string', items: () => GrpcTlsType })
   type!: GrpcTlsType;
 
   @Embedded(() => GrpcChannelOptions, { nullable: true, object: true })

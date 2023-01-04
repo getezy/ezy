@@ -1,4 +1,4 @@
-import { GrpcMethodType } from '@core/types';
+import { GrpcMethodType } from '@core';
 
 export interface GrpcMethod {
   id: string;

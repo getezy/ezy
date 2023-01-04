@@ -1,6 +1,6 @@
-import { GrpcOptions } from '@core/types';
+import { GrpcOptions } from '@core';
 
-import { Collection } from '../../collections/interfaces';
+// import { Collection } from '../../collections/interfaces';
 
 export enum ServiceType {
   GRPC = 'grpc',

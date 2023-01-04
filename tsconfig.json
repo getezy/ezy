@@ -1,57 +1,8 @@
 {
-  "compilerOptions": {
-    "allowJs": true,
-    "module": "esnext",
-    "target": "ESNext",
-    "lib": [
-      "DOM",
-      "DOM.Iterable",
-      "esnext"
-    ],
-    "strict": true,
-    "skipLibCheck": true,
-    "experimentalDecorators": true,
-    "emitDecoratorMetadata": true,
-    "esModuleInterop": true,
-    "noImplicitAny": true,
-    "sourceMap": true,
-    "baseUrl": ".",
-    "paths": {
-      "@api": [
-        "./src/app/api/index.ts"
-      ],
-      "@components": [
-        "./src/app/components/index.ts"
-      ],
-      "@hooks": [
-        "./src/app/hooks/index.ts"
-      ],
-      "@storage": [
-        "./src/app/storage/index.ts"
-      ],
-      "@new-storage": [
-        "./src/app/new-storage/index.ts"
-      ],
-      "@context": [
-        "./src/app/context/index.ts"
-      ],
-      "@layouts": [
-        "./src/app/layouts/index.ts"
-      ],
-      "@core": [
-        "./src/core/index.ts"
-      ],
-      "@core/types": [
-        "./src/core/typings.ts"
-      ],
-      "@database/types": [
-        "./src/main/database/typings.ts"
-      ],
-    },
-    "outDir": "dist",
-    "moduleResolution": "node",
-    "resolveJsonModule": true,
-    "jsx": "react",
-  },
-  "include": ["src/**/*", "stories", "forge.config.js", "webpack.main.config.js", "webpack.plugins.js", "webpack.renderer.config.js", "webpack.main.config.js"],
+  "files": [],
+  "references": [
+    { "path": "./tsconfig.node.json" },
+    { "path": "./tsconfig.app.json" },
+    { "path": "./tsconfig.splash-screen.json" }
+  ]
 }

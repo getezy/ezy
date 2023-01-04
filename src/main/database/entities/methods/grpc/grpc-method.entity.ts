@@ -1,6 +1,6 @@
 import { Entity, EntityRepositoryType, Enum, PrimaryKey, Property } from '@mikro-orm/core';
 
-import { GrpcMethodType } from '@core/types';
+import { GrpcMethodType } from '@core';
 
 // eslint-disable-next-line import/no-cycle
 import { GrpcMethodsRepository } from './grpc-methods.repository';
@@ -19,6 +19,6 @@ export class GrpcMethod implements IGrpcMethod {
   @Property()
   name!: string;
 
-  @Enum(() => GrpcMethodType)
+  @Enum({ type: 'string', items: () => GrpcMethodType })
   type!: GrpcMethodType;
 }

@@ -1,12 +1,12 @@
 import { MetadataValue } from '@grpc/grpc-js';
-import { BrowserWindow, IpcMain } from 'electron';
+import { IpcMain } from 'electron';
 
 import { GrpcClient, GrpcClientRequestOptions, GrpcOptions, ProtobufLoader } from '@core';
 
 import { GrpcClientChannel } from '../constants';
 
 export class GrpcClientUnarySubscriber {
-  constructor(private readonly mainWindow: BrowserWindow, private readonly ipcMain: IpcMain) {}
+  constructor(private readonly ipcMain: IpcMain) {}
 
   public static unregisterUnaryCallHandlers(ipcMain: IpcMain) {
     ipcMain.removeHandler(GrpcClientChannel.INVOKE_UNARY_REQUEST);

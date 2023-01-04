@@ -1,4 +1,4 @@
-import { GrpcTlsConfig, GrpcTlsType } from '@core/types';
+import { GrpcTlsConfig, GrpcTlsType } from '@core';
 
 export interface TlsPreset {
   id: string;

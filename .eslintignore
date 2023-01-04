@@ -1,5 +1,4 @@
-.eslintrc.js
-commitlint.config.js
-wallaby.js
-node_modules/**/*
-__tests__/basic-service
+node_modules
+dist
+out
+.gitignore
