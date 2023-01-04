@@ -18,11 +18,12 @@ export const Main = (): JSX.Element => {
 
   useEffectOnce(() => {
     // Hack for loading toast styles first
+    // https://github.com/getezy/ezy/issues/36
     setTimeout(() => {
       collections.forEach((collection) => {
         updateCollection(collection.id, collection, { hideSuccessNotification: true });
       });
-    }, 0);
+    }, 1);
   });
 
   return (

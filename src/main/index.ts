@@ -27,6 +27,11 @@ const createSplashScreen = (): BrowserWindow => {
     resizable: false,
     frame: false,
     center: true,
+    ...(process.platform === 'linux'
+      ? {
+          icon: path.join(__dirname, '../../resources/icons/icon.png'),
+        }
+      : {}),
     webPreferences: {
       preload: path.join(__dirname, '../preload/splash.js'),
       sandbox: false,
@@ -54,7 +59,6 @@ const createSplashScreen = (): BrowserWindow => {
 };
 
 function createWindow(): void {
-  // Create the browser window.
   const mainWindow = new BrowserWindow({
     show: false,
     height: 600,
@@ -64,7 +68,7 @@ function createWindow(): void {
     center: true,
     ...(process.platform === 'linux'
       ? {
-          icon: path.join(__dirname, '../../build/icon.png'),
+          icon: path.join(__dirname, '../../resources/icons/icon.png'),
         }
       : {}),
     webPreferences: {
