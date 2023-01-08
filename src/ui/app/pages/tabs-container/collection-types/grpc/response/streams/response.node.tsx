@@ -1,10 +1,7 @@
-import { faClone } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Badge, Button, Container, Row, Spacer } from '@nextui-org/react';
+import { Badge, Container, Row, Spacer } from '@nextui-org/react';
 import React from 'react';
-import { useCopyToClipboard } from 'react-use';
 
-import { CodeEditor, TreeNode, TreeNodeRendererProps } from '@components';
+import { CodeEditor, CopyToClipboardButton, TreeNode, TreeNodeRendererProps } from '@components';
 import { GrpcStreamMessage } from '@storage';
 
 import { StreamIcons, StreamMessageTypeText } from './stream-icons';
@@ -14,10 +11,6 @@ export const ReponseNode: React.FC<TreeNodeRendererProps<GrpcStreamMessage>> = (
   isOpen,
   onCollapseToggle,
 }) => {
-  const [, copyToClipboard] = useCopyToClipboard();
-
-  const handleCopyButtonClick = () => copyToClipboard(data.value || '');
-
   const content = (
     <Container gap={0} fluid css={{ overflow: 'hidden' }}>
       <Row gap={1} align="center" wrap="nowrap" css={{ whiteSpace: 'nowrap', userSelect: 'none' }}>
@@ -32,23 +25,7 @@ export const ReponseNode: React.FC<TreeNodeRendererProps<GrpcStreamMessage>> = (
     </Container>
   );
 
-  const commandsContent = (
-    <Button
-      light
-      size="xs"
-      color="warning"
-      css={{
-        minWidth: 10,
-        color: '$accents9',
-        '&:hover': {
-          color: '$warning',
-          backgroundColor: '$accents0',
-        },
-      }}
-      icon={<FontAwesomeIcon icon={faClone} />}
-      onClick={handleCopyButtonClick}
-    />
-  );
+  const commandsContent = <CopyToClipboardButton content={data.value || ''} placement="left" />;
 
   return (
     <TreeNode

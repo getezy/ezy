@@ -3,6 +3,7 @@ import React from 'react';
 
 import { DarkTheme } from '@themes';
 
+import { ErrorModal } from './error.modal';
 import { Logo } from './logo';
 import { globalStyles } from './styles';
 
@@ -10,10 +11,16 @@ function App(): JSX.Element {
   globalStyles();
 
   const [loaderText, setLoaderText] = React.useState('Loading');
+  const [error, setError] = React.useState<string | null>(null);
+  const [errorModalVisible, setErrorModalVisible] = React.useState(true);
 
   React.useEffect(() => {
     window.splashScreen.handleLoaderTextChange((text) => {
       setLoaderText(text);
+    });
+
+    window.splashScreen.handleError((value) => {
+      setError(value);
     });
   }, []);
 
@@ -57,6 +64,14 @@ function App(): JSX.Element {
           </Text>
         </Container>
       </Container>
+      {error && (
+        <ErrorModal
+          preventClose
+          open={errorModalVisible}
+          error={error}
+          onClose={() => setErrorModalVisible(false)}
+        />
+      )}
     </NextUIProvider>
   );
 }

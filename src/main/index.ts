@@ -13,8 +13,9 @@ import { registerDialogSubscribers, unregisterDialogSubscribers } from './dialog
 import { registerElectronStoreSubscribers } from './electron-store';
 import { registerOSSubscribers } from './os';
 import { registerProtobufSubscribers } from './protobuf';
-import { SplashScreenEmitter } from './splash-screen';
+import { registerSplashScreenSubscribers, SplashScreenEmitter } from './splash-screen';
 
+registerSplashScreenSubscribers();
 registerOSSubscribers();
 registerElectronStoreSubscribers();
 registerProtobufSubscribers();
@@ -38,11 +39,13 @@ const createSplashScreen = (): BrowserWindow => {
     },
   });
 
-  splashScreen.on('ready-to-show', () => {
-    splashScreen.show();
-  });
-
   splashScreen.webContents.setWindowOpenHandler((details) => {
+    if (details.url === 'about:blank') {
+      return {
+        action: 'allow',
+      };
+    }
+
     shell.openExternal(details.url);
     return { action: 'deny' };
   });
@@ -114,17 +117,28 @@ app.whenReady().then(async () => {
 
   const splashScreen = createSplashScreen();
 
-  SplashScreenEmitter.sendLoaderText(splashScreen, 'Initialazing');
+  splashScreen.on('ready-to-show', async () => {
+    splashScreen.show();
 
-  const orm = await initDatabase();
+    SplashScreenEmitter.sendLoaderText(splashScreen, 'Initialazing');
 
-  registerDatabaseSubscribers(orm);
+    let orm;
 
-  setTimeout(() => {
-    splashScreen.close();
+    try {
+      orm = await initDatabase();
+    } catch (error) {
+      SplashScreenEmitter.sendError(splashScreen, error);
+      return;
+    }
 
-    createWindow();
-  }, 2000);
+    registerDatabaseSubscribers(orm);
+
+    setTimeout(() => {
+      splashScreen.close();
+
+      createWindow();
+    }, 2000);
+  });
 
   // Default open or close DevTools by F12 in development
   // and ignore CommandOrControl + R in production.
