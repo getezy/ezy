@@ -10,7 +10,7 @@
 ## Project structure
 
 ```bash
-  # Resoursec used in build
+  # Resources used in build
   - resources
   - src
     # The core of ezy
