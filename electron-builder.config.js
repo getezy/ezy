@@ -2,7 +2,7 @@ process.env.OS = process.env.OS || process.platform;
 process.env.DISABLE_SIGN_AND_NOTARIZE =
   process.env.DISABLE_SIGN_AND_NOTARIZE !== undefined
     ? process.env.DISABLE_SIGN_AND_NOTARIZE
-    : true;
+    : 'true';
 
 function isMacOsSignAndNotarizeDisabled() {
   return process.env.DISABLE_SIGN_AND_NOTARIZE === 'true';
