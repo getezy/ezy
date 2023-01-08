@@ -1,2 +1,2 @@
 export * from './ezy.button';
-export * from './copy-to-clipboard';
+export * from './copy-to-clipboard.button';
