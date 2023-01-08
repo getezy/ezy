@@ -20,7 +20,6 @@
   $ npm run client:mutual
 ```
 
-
 ## gRPC-web
 
 ### Server

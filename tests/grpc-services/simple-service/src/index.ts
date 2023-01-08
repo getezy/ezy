@@ -30,6 +30,7 @@ const SimpleService: SimpleServiceServer = {
     });
 
     call.on('cancelled', () => {
+      // eslint-disable-next-line no-console
       console.log('cancelled', call.cancelled);
     });
 

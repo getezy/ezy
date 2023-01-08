@@ -1,3 +1,5 @@
+#!/bin/bash
+
 rm *.pem
 rm *.srl
 rm *.cnf
