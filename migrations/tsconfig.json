@@ -17,5 +17,5 @@
     "moduleResolution": "node",
     "resolveJsonModule": true,
   },
-  "include": ["src/**/*", "knexfile.ts"],
+  "include": ["src/**/*", "knexfile.ts"]
 }
