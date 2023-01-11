@@ -1,12 +1,31 @@
 import { MikroORM } from '@mikro-orm/core';
 import { SqliteDriver } from '@mikro-orm/sqlite';
 
-import { subscribers } from './common';
-import { Collection, Environment, Setting, TlsPreset } from './entities';
+import { Setting as SettingView, TlsPreset as TlsPresetView } from '@core';
 
-export const registerDatabaseSubscribers = (orm: MikroORM<SqliteDriver>) => {
-  subscribers(orm, Setting);
+import { SubscriberFactory, subscribers } from './common';
+import {
+  Collection,
+  createSettingMappings,
+  createTlsPresetMappings,
+  Environment,
+  Setting,
+  TlsPreset,
+} from './entities';
+
+function createMappings() {
+  createSettingMappings();
+  createTlsPresetMappings();
+}
+
+function createSubscribers(orm: MikroORM<SqliteDriver>) {
+  SubscriberFactory.create<Setting, SettingView>(orm, Setting, SettingView);
   subscribers(orm, Environment);
-  subscribers(orm, TlsPreset);
+  SubscriberFactory.create<TlsPreset, TlsPresetView>(orm, TlsPreset, TlsPresetView);
   subscribers(orm, Collection);
-};
+}
+
+export function registerDatabaseSubscribers(orm: MikroORM<SqliteDriver>) {
+  createMappings();
+  createSubscribers(orm);
+}

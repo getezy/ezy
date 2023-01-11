@@ -2,7 +2,7 @@ import { Container, Text } from '@nextui-org/react';
 import React from 'react';
 
 import { HorizontalLayoutIcon, VerticalLayoutIcon } from '@components';
-import { Alignment } from '@database';
+import { Alignment } from '@core';
 import { useSettingsStore } from '@new-storage';
 
 export const StatusBar: React.FC = () => {

@@ -1,4 +1,4 @@
-/* eslint-disable max-classes-per-file */
+import { AutoMap } from '@automapper/classes';
 
 import { Alignment } from './alignment.enum';
 import { SettingKey } from './key.enum';
@@ -17,12 +17,14 @@ export interface LanguageValue {
   language: Language;
 }
 
-export interface MenuOptionsValue {
+export interface MenuOptions {
   collapsed: boolean;
 }
 
-export interface Setting {
-  key: SettingKey;
+export class Setting {
+  @AutoMap()
+  key!: SettingKey;
 
-  value: ThemeValue | AlignmentValue | LanguageValue | MenuOptionsValue;
+  @AutoMap()
+  value!: ThemeValue | AlignmentValue | LanguageValue | MenuOptions;
 }

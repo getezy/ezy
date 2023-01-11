@@ -6,8 +6,7 @@ import { Controller, DeepPartial, useForm } from 'react-hook-form';
 import { SetOptional } from 'type-fest';
 
 import { Badge, FileInput, InfoLabel } from '@components';
-import { GrpcTlsType } from '@core';
-import { TlsPreset } from '@database';
+import { GrpcTlsType, TlsPreset } from '@core';
 
 export interface TlsFormProps {
   id?: string;

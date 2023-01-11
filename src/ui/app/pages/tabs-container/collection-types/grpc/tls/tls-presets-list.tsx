@@ -4,8 +4,7 @@ import { Button, Container, Radio, Spacer, styled, Text } from '@nextui-org/reac
 import React from 'react';
 
 import { Tree, TreeNode, TreeNodeRendererProps } from '@components';
-import { GrpcTlsType } from '@core';
-import { TlsPreset } from '@database';
+import { GrpcTlsType, TlsPreset } from '@core';
 import { useTlsPresetsStore } from '@new-storage';
 
 import { SystemBadge } from './system.badge';

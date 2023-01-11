@@ -2,7 +2,7 @@ import { NextUIProvider } from '@nextui-org/react';
 import React from 'react';
 
 import { NotificationContainer } from '@components';
-import { Theme } from '@database';
+import { Theme } from '@core';
 import { useStorageFetch } from '@hooks';
 import { useSettingsStore } from '@new-storage';
 import { DarkTheme, LightTheme } from '@themes';

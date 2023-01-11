@@ -1,5 +1,6 @@
 /* eslint-disable max-classes-per-file */
 
+import { AutoMap } from '@automapper/classes';
 import { Entity, EntityRepositoryType, Enum, JsonType, OnInit, Property } from '@mikro-orm/core';
 
 import {
@@ -11,12 +12,13 @@ import {
   isThemeValue,
   Language,
   LanguageValue as ILanguageValue,
-  MenuOptionsValue as IMenuOptionsValue,
+  MenuOptions as IMenuOptionsValue,
   Setting as ISetting,
   SettingKey,
   Theme,
   ThemeValue as IThemeValue,
-} from './interfaces';
+} from '@core';
+
 // eslint-disable-next-line import/no-cycle
 import { SettingsRepository } from './settings.repository';
 
@@ -47,7 +49,7 @@ export class LanguageValue implements ILanguageValue {
   }
 }
 
-export class MenuValue implements IMenuOptionsValue {
+export class MenuOptionsValue implements IMenuOptionsValue {
   @Property()
   collapsed!: boolean;
 
@@ -61,10 +63,11 @@ export class Setting implements ISetting {
   [EntityRepositoryType]?: SettingsRepository;
 
   @Enum({ type: 'string', items: () => SettingKey, primary: true })
+  @AutoMap(() => String)
   key!: SettingKey;
 
   @Property({ type: JsonType })
-  value!: ThemeValue | AlignmentValue | LanguageValue | MenuValue;
+  value!: ThemeValue | AlignmentValue | LanguageValue | MenuOptionsValue;
 
   @OnInit()
   init() {
@@ -73,7 +76,7 @@ export class Setting implements ISetting {
     } else if (isLanguageValue(this.value)) {
       this.value = new LanguageValue(this.value);
     } else if (isMenuOptionsValue(this.value)) {
-      this.value = new MenuValue(this.value);
+      this.value = new MenuOptionsValue(this.value);
     } else if (isThemeValue(this.value)) {
       this.value = new ThemeValue(this.value);
     }

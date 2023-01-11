@@ -1,6 +1,6 @@
 import { SetOptional } from 'type-fest';
 
-import { TlsPreset } from '@database';
+import { TlsPreset } from '@core';
 
 export interface TlsPresetsStorage {
   presets: TlsPreset[];

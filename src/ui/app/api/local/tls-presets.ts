@@ -1,9 +1,9 @@
 import { SetOptional } from 'type-fest';
 
-import { TlsPreset } from '@database';
+import { TlsPreset } from '@core';
 
 export function fetch() {
-  return window.database.tlsPresets.find();
+  return window.database.tlsPresets.find({});
 }
 
 export function upsert(tlsPreset: SetOptional<TlsPreset, 'id'>) {

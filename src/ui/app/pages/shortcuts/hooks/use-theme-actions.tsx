@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useRegisterActions } from '@getezy/kbar';
 import React from 'react';
 
-import { Theme } from '@database';
+import { Theme } from '@core';
 import { useSettingsStore } from '@new-storage';
 
 export function useThemeActions() {

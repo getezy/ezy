@@ -6,8 +6,7 @@ import { DeepPartial } from 'react-hook-form';
 import { SetOptional } from 'type-fest';
 import * as uuid from 'uuid';
 
-import { GrpcTlsType } from '@core';
-import { TlsPreset } from '@database';
+import { GrpcTlsType, TlsPreset } from '@core';
 import { DefaultLayout } from '@layouts';
 import { useTlsPresetsStore } from '@new-storage';
 

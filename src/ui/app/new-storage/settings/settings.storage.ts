@@ -4,7 +4,7 @@ import { produce } from 'immer';
 import create from 'zustand';
 
 import { LocalAPI } from '@api';
-import { Alignment, Language, Theme } from '@database';
+import { Alignment, Language, Theme } from '@core';
 
 import { SettingsState, SettingsStorage } from './settings.interface';
 

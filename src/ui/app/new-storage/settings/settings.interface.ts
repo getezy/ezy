@@ -1,4 +1,4 @@
-import { Alignment, Language, MenuOptions, Theme } from '@database';
+import { Alignment, Language, MenuOptions, Theme } from '@core';
 
 export interface SettingsState {
   theme: Theme;

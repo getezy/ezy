@@ -4,8 +4,8 @@ import {
   GrpcOptions,
   GrpcTlsConfig,
   GrpcTlsType,
+  TlsPreset,
 } from '@core';
-import { TlsPreset } from '@database';
 import { Collection, CollectionType, GrpcTab } from '@storage';
 
 function getRequestAddress(tab: GrpcTab<GrpcMethodType>): string {

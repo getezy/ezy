@@ -8,7 +8,7 @@ import {
   MenuOptions,
   SettingKey,
   Theme,
-} from '@database';
+} from '@core';
 
 export async function fetchTheme() {
   const row = await window.database.settings.findOneOrFail({ key: SettingKey.THEME });

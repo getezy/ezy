@@ -1,5 +1,6 @@
 /* eslint-disable max-classes-per-file */
 
+import { AutoMap } from '@automapper/classes';
 import {
   Embeddable,
   Embedded,
@@ -12,7 +13,6 @@ import {
 
 import { GrpcChannelOptions as IGrpcChannelOptions, GrpcTlsConfig, GrpcTlsType } from '@core';
 
-import { TlsPreset as ITlsPreset } from './interfaces';
 // eslint-disable-next-line import/no-cycle
 import { TlsPresetsRepository } from './tls-presets.repository';
 
@@ -71,16 +71,19 @@ export class MutualTls extends TLS implements GrpcTlsConfig<GrpcTlsType.MUTUAL> 
 }
 
 @Entity({ tableName: 'tls_presets', customRepository: () => TlsPresetsRepository })
-export class TlsPreset implements ITlsPreset {
+export class TlsPreset {
   [EntityRepositoryType]?: TlsPresetsRepository;
 
   @PrimaryKey()
+  @AutoMap()
   id!: string;
 
   @Property()
+  @AutoMap()
   name!: string;
 
   @Property({ default: false })
+  @AutoMap()
   system: boolean = false;
 
   @Embedded(() => [InsecureTls, ServerSideTls, MutualTls], { object: true })

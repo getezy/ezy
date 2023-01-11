@@ -2,7 +2,7 @@ import { Container, Dropdown } from '@nextui-org/react';
 import React from 'react';
 import { Controller, useForm } from 'react-hook-form';
 
-import { Theme } from '@database';
+import { Theme } from '@core';
 import { SettingsState } from '@new-storage';
 
 export interface SettingsFormProps {
