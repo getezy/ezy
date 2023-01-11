@@ -19,7 +19,12 @@ const config = {
   testEnvironment: 'node',
   testRegex: '.spec.ts$',
   transform: {
-    '.+\\.(t|j)s$': 'ts-jest',
+    '.+\\.(t|j)s$': [
+      'ts-jest',
+      {
+        tsconfig: 'tsconfig.node.json',
+      },
+    ],
   },
   ...(process.env.CI === 'true' ? coverage : {}),
 };
