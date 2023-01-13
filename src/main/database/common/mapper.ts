@@ -1,6 +1,6 @@
-import { classes } from '@automapper/classes';
 import { createMapper } from '@automapper/core';
+import { mikro } from '@automapper/mikro';
 
 export const mapper = createMapper({
-  strategyInitializer: classes(),
+  strategyInitializer: mikro(),
 });

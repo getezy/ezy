@@ -57,7 +57,7 @@ export default defineConfig({
     },
   },
   renderer: {
-    plugins: [react()],
+    plugins: [react({ tsDecorators: true })],
     root: 'src/ui',
     build: {
       outDir: path.resolve(__dirname, 'out/ui'),
@@ -73,7 +73,6 @@ export default defineConfig({
         '@core': path.resolve('src/core/types.d.ts'),
         '@components': path.resolve('src/ui/common/components/index.ts'),
         '@themes': path.resolve('src/ui/common/themes/index.ts'),
-        '@database': path.resolve('src/main/database/index.d.ts'),
         '@hooks': path.resolve('src/ui/app/hooks/index.ts'),
         '@new-storage': path.resolve('src/ui/app/new-storage/index.ts'),
         '@storage': path.resolve('src/ui/app/storage/index.ts'),

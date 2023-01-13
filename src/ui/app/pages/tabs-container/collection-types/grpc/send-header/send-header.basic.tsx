@@ -5,8 +5,7 @@ import React, { PropsWithChildren } from 'react';
 import { MultiValue, SingleValue } from 'react-select';
 
 import { ColoredSelect } from '@components';
-import { GrpcMethodType, GrpcTlsType } from '@core';
-import { Environment } from '@database';
+import { Environment, GrpcMethodType, GrpcTlsType } from '@core';
 import { useEnvironmentsStore, useTlsPresetsStore } from '@new-storage';
 import { GrpcProtocol, GrpcTab, useTabsStore } from '@storage';
 

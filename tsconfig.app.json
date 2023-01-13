@@ -21,9 +21,6 @@
       "@themes": [
         "./src/ui/common/themes/index.ts"
       ],
-      "@database": [
-        "./src/main/database/index.d.ts"
-      ],
       "@hooks": [
         "./src/ui/app/hooks/index.ts"
       ],

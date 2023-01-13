@@ -2,7 +2,7 @@ import { Button, Modal, ModalProps, Text } from '@nextui-org/react';
 import React from 'react';
 import * as uuid from 'uuid';
 
-import { Environment } from '@database';
+import { Environment } from '@core';
 import { useEnvironmentsStore } from '@new-storage';
 
 import { EnvironmentForm } from './environment.form';

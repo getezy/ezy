@@ -56,9 +56,7 @@ module.exports = {
         groups: [
           ['^\\u0000'],
           ['^[^.]'],
-          [
-            '^@(core|main|components|themes|database|hooks|new-storage|storage|context|layouts|api)',
-          ],
+          ['^@(core|main|components|themes|hooks|new-storage|storage|context|layouts|api)'],
           ['^\\.'],
           ['^.+\\.s?css$'],
         ],

@@ -1,3 +1,4 @@
+import { AutoMap } from '@automapper/classes';
 import {
   Collection as MikroOrmCollection,
   Entity,
@@ -11,18 +12,20 @@ import {
 import { Service } from '../services';
 // eslint-disable-next-line import/no-cycle
 import { CollectionsRepository } from './collections.repository';
-import { Collection as ICollection } from './interfaces';
 
 @Entity({ tableName: 'collections', customRepository: () => CollectionsRepository })
-export class Collection implements ICollection {
+export class Collection {
   [EntityRepositoryType]?: CollectionsRepository;
 
   @PrimaryKey()
+  @AutoMap()
   id!: string;
 
   @Property()
+  @AutoMap()
   name!: string;
 
   @OneToMany(() => Service, (service) => service.collection)
+  @AutoMap(() => [Service])
   services = new MikroOrmCollection<Service>(this);
 }

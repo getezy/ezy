@@ -1,4 +1,4 @@
-import { Environment } from '@database';
+import { Environment } from '@core';
 
 export interface EnvironmentsStorage {
   environments: Environment[];

@@ -4,7 +4,7 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 
 import { ColorPickerInput } from '@components';
-import { Environment } from '@database';
+import { Environment } from '@core';
 
 export interface EnvironmentFormProps {
   id?: string;

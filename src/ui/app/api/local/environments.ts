@@ -1,7 +1,7 @@
-import { Environment } from '@database';
+import { Environment } from '@core';
 
 export function fetch() {
-  return window.database.environment.find();
+  return window.database.environment.find({});
 }
 
 export function upsert(environment: Environment) {

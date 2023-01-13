@@ -1,5 +1,6 @@
 /* eslint-disable max-classes-per-file */
 
+import { AutoMap } from '@automapper/classes';
 import {
   ArrayType,
   Embeddable,
@@ -12,8 +13,9 @@ import {
   Property,
 } from '@mikro-orm/core';
 
+import { ServiceOptions as IServiceOptions, ServiceType } from '@core';
+
 import type { Collection } from '../collections';
-import { Service as IService, ServiceOptions as IServiceOptions, ServiceType } from './interfaces';
 // eslint-disable-next-line import/no-cycle
 import { ServicesRepository } from './services.repository';
 
@@ -41,13 +43,15 @@ export class GrpcServiceOptions
 }
 
 @Entity({ tableName: 'services', customRepository: () => ServicesRepository })
-export class Service implements IService {
+export class Service {
   [EntityRepositoryType]?: ServicesRepository;
 
   @PrimaryKey()
+  @AutoMap()
   id!: string;
 
   @Property()
+  @AutoMap()
   name!: string;
 
   @Embedded(() => [GrpcServiceOptions], { object: true })

@@ -1,4 +1,4 @@
-import { AlignmentValue, LanguageValue, MenuOptions, ThemeValue } from './setting.entity';
+import { AlignmentValue, LanguageValue, MenuOptions, ThemeValue } from '@core';
 
 export function isAlignmentValue(value: any): value is AlignmentValue {
   return value?.alignment !== undefined;
