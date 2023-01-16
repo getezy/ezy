@@ -14,6 +14,8 @@ export const protobufPackage = "simple_package.v1";
 
 export interface SimpleMessage {
   id: string;
+  snakeCaseField: string;
+  camelCaseField: string;
 }
 
 export interface LongIntegersMessage {
@@ -25,7 +27,7 @@ export interface LongIntegersMessage {
 }
 
 function createBaseSimpleMessage(): SimpleMessage {
-  return { id: "" };
+  return { id: "", snakeCaseField: "", camelCaseField: "" };
 }
 
 export const SimpleMessage = {
@@ -35,6 +37,12 @@ export const SimpleMessage = {
   ): _m0.Writer {
     if (message.id !== "") {
       writer.uint32(10).string(message.id);
+    }
+    if (message.snakeCaseField !== "") {
+      writer.uint32(18).string(message.snakeCaseField);
+    }
+    if (message.camelCaseField !== "") {
+      writer.uint32(26).string(message.camelCaseField);
     }
     return writer;
   },
@@ -49,6 +57,12 @@ export const SimpleMessage = {
         case 1:
           message.id = reader.string();
           break;
+        case 2:
+          message.snakeCaseField = reader.string();
+          break;
+        case 3:
+          message.camelCaseField = reader.string();
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -60,12 +74,22 @@ export const SimpleMessage = {
   fromJSON(object: any): SimpleMessage {
     return {
       id: isSet(object.id) ? String(object.id) : "",
+      snakeCaseField: isSet(object.snakeCaseField)
+        ? String(object.snakeCaseField)
+        : "",
+      camelCaseField: isSet(object.camelCaseField)
+        ? String(object.camelCaseField)
+        : "",
     };
   },
 
   toJSON(message: SimpleMessage): unknown {
     const obj: any = {};
     message.id !== undefined && (obj.id = message.id);
+    message.snakeCaseField !== undefined &&
+      (obj.snakeCaseField = message.snakeCaseField);
+    message.camelCaseField !== undefined &&
+      (obj.camelCaseField = message.camelCaseField);
     return obj;
   },
 
@@ -74,6 +98,8 @@ export const SimpleMessage = {
   ): SimpleMessage {
     const message = createBaseSimpleMessage();
     message.id = object.id ?? "";
+    message.snakeCaseField = object.snakeCaseField ?? "";
+    message.camelCaseField = object.camelCaseField ?? "";
     return message;
   },
 };

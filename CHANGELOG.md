@@ -1,5 +1,12 @@
 
 
+## [1.0.0-beta.15](https://github.com/getezy/ezy/compare/v1.0.0-beta.14...v1.0.0-beta.15) (2023-01-16)
+
+
+### Bug Fixes
+
+* **#44:** enable both snake_case and camelCase for message fields ([c0ded10](https://github.com/getezy/ezy/commit/c0ded10e882f2de7fe61096eec089a869cccee4b)), closes [#44](https://github.com/getezy/ezy/issues/44)
+
 ## [1.0.0-beta.14](https://github.com/getezy/ezy/compare/v1.0.0-beta.13.2...v1.0.0-beta.14) (2022-12-12)
 
 
