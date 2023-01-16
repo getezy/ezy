@@ -19,6 +19,7 @@ function instanceOfMethodDefinition(object: any): object is MethodDefinition<obj
 export class ProtobufLoader {
   static async loadFromFile(options: GrpcOptions): Promise<PackageDefinition> {
     const ast = await protoloader.load(options.path, {
+      keepCase: true,
       includeDirs: options.includeDirs || [],
       longs: String,
     });

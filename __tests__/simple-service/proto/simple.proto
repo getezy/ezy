@@ -6,6 +6,8 @@ import "google/protobuf/empty.proto";
 
 message SimpleMessage {
   string id = 1;
+  string snake_case_field = 2;
+  string camelCaseField = 3;
 }
 
 message LongIntegersMessage {
