@@ -1,15 +1,15 @@
-import { GrpcMethodInfo, GrpcOptions, GrpcServiceInfo } from '@core';
+import { GrpcMethodDefinition, GrpcOptions, GrpcServiceDefinition } from '@core';
 
 export enum CollectionType {
   GRPC = 'grpc',
 }
 
-export interface GrpcMethod extends GrpcMethodInfo {
+export interface GrpcMethod extends GrpcMethodDefinition {
   id: string;
 }
-export interface GrpcService extends GrpcServiceInfo {
+export interface GrpcService extends GrpcServiceDefinition {
   id: string;
-  methods?: GrpcMethod[];
+  methods: GrpcMethod[];
 }
 
 export type CollectionChildren<T extends CollectionType> = T extends CollectionType.GRPC
