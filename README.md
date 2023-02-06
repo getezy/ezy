@@ -22,7 +22,11 @@ Fully-featured desktop [gRPC/gRPC-Web](https://grpc.io/) client.
 </div>
 <br />
 
-🚧 This project is in beta phase and can get breaking changes at any time until it goes to v1.
+> **Warning**
+> This project is in beta phase and can get breaking changes at any time until it goes to v1.
+
+> **Note**
+> If you are looking for grpc-client library for node try [@getezy/grpc-client](https://github.com/getezy/grpc-client), which used here under the hood.
 
 ## Features
 ✅ Tabs  
