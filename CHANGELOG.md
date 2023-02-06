@@ -1,5 +1,12 @@
 
 
+## [1.0.0-beta.16](https://github.com/getezy/ezy/compare/v1.0.0-beta.15...v1.0.0-beta.16) (2023-01-23)
+
+
+### Bug Fixes
+
+* **#45:** show default values in response ([804ffb3](https://github.com/getezy/ezy/commit/804ffb3f5a4632ddf384f0abe57fa8dd3d02489e)), closes [#45](https://github.com/getezy/ezy/issues/45)
+
 ## [1.0.0-beta.15](https://github.com/getezy/ezy/compare/v1.0.0-beta.14...v1.0.0-beta.15) (2023-01-16)
 
 

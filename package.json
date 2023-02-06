@@ -1,6 +1,6 @@
 {
   "name": "ezy",
-  "version": "1.0.0-beta.15",
+  "version": "1.0.0-beta.16",
   "description": "GUI client for gRPC/gRPC-Web",
   "main": "./out/main/index.js",
   "author": "Alexey Vasyukov (@notmedia)",

@@ -25,6 +25,7 @@ export class ProtobufLoader {
   static async loadFromFile(options: GrpcOptions): Promise<PackageDefinition> {
     const ast = await protoloader.load(options.path, {
       keepCase: true,
+      defaults: true,
       includeDirs: options.includeDirs || [],
       longs: String,
     });
