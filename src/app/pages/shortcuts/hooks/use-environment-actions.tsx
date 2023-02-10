@@ -16,6 +16,7 @@ export function useEnvironmentActions() {
     name: environment.label,
     keywords: environment.label,
     subtitle: environment.url,
+    authority: environment.authority,
     parent: 'environment',
     icon: (
       <Container
@@ -34,6 +35,7 @@ export function useEnvironmentActions() {
         updateGrpcTabData(activeTabId, {
           environmentId: environment.id,
           url: environment.url,
+          authority: environment.authority,
         });
       }
     },

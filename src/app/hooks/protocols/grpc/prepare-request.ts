@@ -1,18 +1,20 @@
-import {
-  GrpcClientRequestOptions,
-  GrpcMethodType,
-  GrpcOptions,
-  GrpcTlsConfig,
-  GrpcTlsType,
-} from '@core/types';
-import { Collection, CollectionType, GrpcTab, TlsPreset } from '@storage';
+import { GrpcClientRequestOptions, GrpcMethodType, GrpcOptions, GrpcTlsConfig, GrpcTlsType } from "@core/types";
+import { Collection, CollectionType, GrpcTab, TlsPreset } from "@storage";
 
 function getRequestAddress(tab: GrpcTab<GrpcMethodType>): string {
   if (tab.data.url && tab.data.url.length > 0) {
     return tab.data.url;
   }
 
-  throw new Error('Address is empty.');
+  throw new Error("Address is empty.");
+}
+
+function getRequestAuthority(tab: GrpcTab<GrpcMethodType>): string | undefined {
+  if (tab.data.authority && tab.data.authority.length > 0) {
+    return tab.data.authority;
+  }
+
+  return undefined;
 }
 
 export function getTlsOptions(presets: TlsPreset[], id?: string): GrpcTlsConfig<GrpcTlsType> {
@@ -43,6 +45,7 @@ export function getOptions(
         serviceName: service.name,
         methodName: method.name,
         address: getRequestAddress(tab),
+        authorityOverride: getRequestAuthority(tab),
         tls,
       },
     ];
@@ -53,7 +56,7 @@ export function getOptions(
 
 export function parseRequest(tab: GrpcTab<GrpcMethodType>): Record<string, unknown> {
   try {
-    const request = JSON.parse(tab.data.requestTabs.request.value?.trim() || '{}');
+    const request = JSON.parse(tab.data.requestTabs.request.value?.trim() || "{}");
 
     return request;
   } catch (error) {
@@ -63,7 +66,7 @@ export function parseRequest(tab: GrpcTab<GrpcMethodType>): Record<string, unkno
 
 export function parseMetadata(tab: GrpcTab<GrpcMethodType>): Record<string, unknown> {
   try {
-    const metadata = JSON.parse(tab.data.requestTabs.metadata.value?.trim() || '{}');
+    const metadata = JSON.parse(tab.data.requestTabs.metadata.value?.trim() || "{}");
 
     return metadata;
   } catch (error) {

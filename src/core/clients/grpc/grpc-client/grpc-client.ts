@@ -7,12 +7,12 @@ import type {
   MetadataValue,
   ServerErrorResponse,
   ServiceClientConstructor,
-} from '@grpc/grpc-js';
-import * as grpc from '@grpc/grpc-js';
-import type { PackageDefinition } from '@grpc/proto-loader';
-import * as fs from 'fs';
-import * as _ from 'lodash';
-import { performance } from 'perf_hooks';
+} from "@grpc/grpc-js";
+import * as grpc from "@grpc/grpc-js";
+import type { PackageDefinition } from "@grpc/proto-loader";
+import * as fs from "fs";
+import * as _ from "lodash";
+import { performance } from "perf_hooks";
 
 import {
   GrpcChannelOptions,
@@ -23,11 +23,11 @@ import {
   GrpcTlsType,
   isInsecureTlsConfig,
   isMutualTlsConfig,
-} from '../interfaces';
-import { MetadataParser } from './metadata-parser';
+} from "../interfaces";
+import { MetadataParser } from "./metadata-parser";
 
 function instanceOfServiceClientConstructor(object: any): object is ServiceClientConstructor {
-  return 'serviceName' in object;
+  return "serviceName" in object;
 }
 
 export class GrpcClient {
@@ -54,16 +54,17 @@ export class GrpcClient {
     const channelOptions: ChannelOptions = {};
 
     if (options?.sslTargetNameOverride) {
-      channelOptions['grpc.ssl_target_name_override'] = options.sslTargetNameOverride;
+      channelOptions["grpc.ssl_target_name_override"] = options.sslTargetNameOverride;
+    }
+    if (options?.authorityOverride) {
+      channelOptions["grpc.ssl_target_name_override"] = options.authorityOverride;
+      channelOptions["grpc.default_authority"] = options.authorityOverride;
     }
 
     return channelOptions;
   }
 
-  private static loadClient(
-    packageDefinition: PackageDefinition,
-    requestOptions: GrpcClientRequestOptions
-  ) {
+  private static loadClient(packageDefinition: PackageDefinition, requestOptions: GrpcClientRequestOptions) {
     const ast = grpc.loadPackageDefinition(packageDefinition);
     const ServiceClient = _.get(ast, requestOptions.serviceName);
 
@@ -71,20 +72,20 @@ export class GrpcClient {
       const client = new ServiceClient(
         requestOptions.address,
         this.getChannelCredentials(requestOptions.tls),
-        this.getChannelOptions(requestOptions.tls.channelOptions)
+        this.getChannelOptions({
+          ...requestOptions.tls.channelOptions,
+          authorityOverride: requestOptions.authorityOverride,
+        })
       );
 
-      if (
-        client[requestOptions.methodName] &&
-        typeof client[requestOptions.methodName] === 'function'
-      ) {
+      if (client[requestOptions.methodName] && typeof client[requestOptions.methodName] === "function") {
         return client;
       }
 
-      throw new Error('No method definition');
+      throw new Error("No method definition");
     }
 
-    throw new Error('No service definition');
+    throw new Error("No service definition");
   }
 
   static async invokeUnaryRequest(
@@ -147,14 +148,14 @@ export class GrpcClient {
       metadata ? MetadataParser.parse(metadata) : new grpc.Metadata(),
       (error: ServerErrorResponse, response: Record<string, unknown>) => {
         if (error) {
-          return call.emit('error', {
+          return call.emit("error", {
             code: error.code,
             details: error.details,
             metadata: error.metadata?.toJSON(),
           });
         }
 
-        return call.emit('data', response);
+        return call.emit("data", response);
       }
     );
 

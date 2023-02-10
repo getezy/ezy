@@ -45,6 +45,7 @@ export const SendHeader: React.FC<PropsWithChildren<SendHeaderProps<GrpcMethodTy
     updateGrpcTabData(tab.id, {
       environmentId: environment?.id,
       url: environment?.url,
+      authority: environment?.authority,
     });
   };
 
@@ -60,10 +61,26 @@ export const SendHeader: React.FC<PropsWithChildren<SendHeaderProps<GrpcMethodTy
   };
 
   const handleUrlChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    updateGrpcTabData(tab.id, {
-      environmentId: undefined,
-      url: e.target.value,
-    });
+    if (tab.data.authority) {
+      updateGrpcTabData(tab.id, {
+        environmentId: undefined,
+        authority: e.target.value,
+      });
+    } else {
+      const urlParts = e.target.value.split("/");
+      if (urlParts.length > 1 && urlParts[1].trim().length > 0) {
+        updateGrpcTabData(tab.id, {
+          environmentId: undefined,
+          url: urlParts[0].trim(),
+          authority: urlParts[1].trim(),
+        });
+      } else {
+        updateGrpcTabData(tab.id, {
+          environmentId: undefined,
+          url: e.target.value,
+        });
+      }
+    }
   };
 
   const handleCreateEnvironmentModalSubmit = (environment: Environment) => {
@@ -123,8 +140,9 @@ export const SendHeader: React.FC<PropsWithChildren<SendHeaderProps<GrpcMethodTy
           animated={false}
           clearable
           placeholder="0.0.0.0:3000"
+          helperText={tab.data.authority ? `URL: ${tab.data.url} / Authority: ${tab.data.authority}` : undefined}
           css={{ flex: 6, '& input': { paddingLeft: 0, marginLeft: '5px !important' } }}
-          value={tab.data.url || ''}
+          value={tab.data.authority ? tab.data.authority : (tab.data.url || "")}
           onChange={handleUrlChange}
           contentLeftStyling={false}
           contentLeft={
@@ -200,6 +218,7 @@ export const SendHeader: React.FC<PropsWithChildren<SendHeaderProps<GrpcMethodTy
         open={createEnvironmentModalVisible}
         defaultValues={{
           url: tab.data.url || '',
+          authority: tab.data.authority || '',
         }}
         onCreate={handleCreateEnvironmentModalSubmit}
         onClose={handleCreateEnvironmentModalClose}

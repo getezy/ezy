@@ -1,7 +1,7 @@
 export enum GrpcTlsType {
-  INSECURE = 'insecure',
-  SERVER_SIDE = 'server-side',
-  MUTUAL = 'mutual',
+  INSECURE = "insecure",
+  SERVER_SIDE = "server-side",
+  MUTUAL = "mutual",
 }
 
 export type GrpcTlsConfig<T extends GrpcTlsType = GrpcTlsType> = T extends GrpcTlsType.MUTUAL
@@ -25,6 +25,8 @@ export interface GrpcChannelOptions {
    * If this parameter is specified and the underlying is not an SSL channel, it will just be ignored.
    */
   sslTargetNameOverride?: string;
+
+  authorityOverride?: string;
 }
 
 export interface GrpcServerSideTlsConfig {
@@ -60,17 +62,15 @@ export interface GrpcClientRequestOptions {
 
   address: string;
 
+  authorityOverride?: string;
+
   tls: GrpcTlsConfig<GrpcTlsType>;
 }
 
-export function isInsecureTlsConfig(
-  config: GrpcTlsConfig<GrpcTlsType>
-): config is GrpcTlsConfig<GrpcTlsType.INSECURE> {
+export function isInsecureTlsConfig(config: GrpcTlsConfig<GrpcTlsType>): config is GrpcTlsConfig<GrpcTlsType.INSECURE> {
   return config.type === GrpcTlsType.INSECURE;
 }
 
-export function isMutualTlsConfig(
-  config: GrpcTlsConfig<GrpcTlsType>
-): config is GrpcTlsConfig<GrpcTlsType.MUTUAL> {
+export function isMutualTlsConfig(config: GrpcTlsConfig<GrpcTlsType>): config is GrpcTlsConfig<GrpcTlsType.MUTUAL> {
   return config.type === GrpcTlsType.MUTUAL;
 }
