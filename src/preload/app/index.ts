@@ -5,6 +5,7 @@ import { GrpcClient, GrpcWebClient } from '../../main/clients';
 import { Database } from '../../main/database/preload';
 import { ElectronDialog } from '../../main/dialog';
 import { ElectronStore } from '../../main/electron-store';
+import { GrpcClient as NewGrpcClient } from '../../main/new-clients';
 import { OS } from '../../main/os';
 import { Protobuf } from '../../main/protobuf';
 
@@ -24,6 +25,10 @@ if (process.contextIsolated) {
     contextBridge.exposeInMainWorld('clients', {
       grpc: GrpcClient,
       grpcWeb: GrpcWebClient,
+    });
+
+    contextBridge.exposeInMainWorld('newClients', {
+      grpc: NewGrpcClient,
     });
 
     contextBridge.exposeInMainWorld('os', OS);
@@ -46,6 +51,10 @@ if (process.contextIsolated) {
   window.clients = {
     grpc: GrpcClient,
     grpcWeb: GrpcWebClient,
+  };
+  // @ts-ignore (define in dts)
+  window.newClients = {
+    grpc: NewGrpcClient,
   };
   // @ts-ignore (define in dts)
   window.os = OS;
