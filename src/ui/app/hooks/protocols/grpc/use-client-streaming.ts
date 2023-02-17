@@ -1,10 +1,10 @@
 import { notification } from '@components';
 import { GrpcMethodType } from '@core';
+import { useGrpcTabContextStore } from '@hooks';
 import { useTlsPresetsStore } from '@new-storage';
 import { GrpcStreamMessageType, GrpcTab, useCollectionsStore, useTabsStore } from '@storage';
 
 import { getOptions, getTlsOptions, parseMetadata, parseRequest } from './prepare-request';
-import { useGrpcTabContextStore } from './use-grpc-tab-context';
 
 export function useClientStreaming() {
   const collections = useCollectionsStore((store) => store.collections);

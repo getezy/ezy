@@ -6,7 +6,7 @@ export interface IAbstractCollection {
   type: CollectionType;
 }
 
-export abstract class AbstractCollection {
+export abstract class AbstractCollection implements IAbstractCollection {
   public id: string;
 
   public name: string;
