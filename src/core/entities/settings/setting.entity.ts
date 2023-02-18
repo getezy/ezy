@@ -1,30 +1,16 @@
 import { AutoMap } from '@automapper/classes';
 
-import { Alignment } from './alignment.enum';
-import { SettingKey } from './key.enum';
-import { Language } from './language.enum';
-import { Theme } from './theme-type.enum';
+import type { ISetting, SettingKey, SettingValue } from './interfaces';
 
-export interface ThemeValue {
-  theme: Theme;
-}
-
-export interface AlignmentValue {
-  alignment: Alignment;
-}
-
-export interface LanguageValue {
-  language: Language;
-}
-
-export interface MenuOptions {
-  collapsed: boolean;
-}
-
-export class Setting {
+export class Setting<Key extends SettingKey = SettingKey> implements ISetting<Key> {
   @AutoMap()
-  key!: SettingKey;
+  key: Key;
 
   @AutoMap()
-  value!: ThemeValue | AlignmentValue | LanguageValue | MenuOptions;
+  value: SettingValue<Key>;
+
+  constructor({ key, value }: ISetting<Key>) {
+    this.key = key;
+    this.value = value;
+  }
 }

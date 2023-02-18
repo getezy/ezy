@@ -4,8 +4,9 @@
 const coverage = {
   ci: true,
   collectCoverage: true,
+  coverageDirectory: '../../coverage',
   collectCoverageFrom: ['**/*.(t|j)s'],
-  coverageReporters: ['text'],
+  coverageReporters: ['text', 'cobertura'],
 };
 
 /**
@@ -25,6 +26,9 @@ const config = {
         tsconfig: 'tsconfig.node.json',
       },
     ],
+  },
+  moduleNameMapper: {
+    '@core': '<rootDir>/index.ts',
   },
   ...(process.env.CI === 'true' ? coverage : {}),
 };

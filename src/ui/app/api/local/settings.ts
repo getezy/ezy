@@ -6,6 +6,7 @@ import {
   isThemeValue,
   Language,
   MenuOptions,
+  Setting,
   SettingKey,
   Theme,
 } from '@core';
@@ -14,7 +15,7 @@ export async function fetchTheme() {
   const row = await window.database.settings.findOneOrFail({ key: SettingKey.THEME });
 
   if (isThemeValue(row.value)) {
-    return row.value.theme;
+    return new Setting({ key: SettingKey.THEME, value: row.value });
   }
 
   throw new Error('Error while fetching settings:theme value.');
@@ -28,7 +29,7 @@ export async function fetchAlignment() {
   const row = await window.database.settings.findOneOrFail({ key: SettingKey.ALIGNMENT });
 
   if (isAlignmentValue(row.value)) {
-    return row.value.alignment;
+    return new Setting({ key: SettingKey.ALIGNMENT, value: row.value });
   }
 
   throw new Error('Error while fetching settings:alignment value.');
@@ -42,7 +43,7 @@ export async function fetchLanguage() {
   const row = await window.database.settings.findOneOrFail({ key: SettingKey.LANGUAGE });
 
   if (isLanguageValue(row.value)) {
-    return row.value.language;
+    return new Setting({ key: SettingKey.LANGUAGE, value: row.value });
   }
 
   throw new Error('Error while fetching settings:language value.');
@@ -56,7 +57,7 @@ export async function fetchMenuOptions() {
   const row = await window.database.settings.findOneOrFail({ key: SettingKey.MENU });
 
   if (isMenuOptionsValue(row.value)) {
-    return row.value;
+    return new Setting({ key: SettingKey.MENU, value: row.value });
   }
 
   throw new Error('Error while fetching settings:menu value.');
@@ -64,4 +65,13 @@ export async function fetchMenuOptions() {
 
 export async function setMenu(menu: MenuOptions) {
   await window.database.settings.upsert({ key: SettingKey.MENU, value: menu });
+}
+
+export function fetchAllSettings() {
+  return Promise.all([
+    fetchTheme().then((setting) => setting.value.theme),
+    fetchAlignment().then((setting) => setting.value.alignment),
+    fetchLanguage().then((setting) => setting.value.language),
+    fetchMenuOptions().then((setting) => setting.value),
+  ]);
 }

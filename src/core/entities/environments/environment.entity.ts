@@ -1,15 +1,32 @@
 import { AutoMap } from '@automapper/classes';
+import { v4 as uuid } from 'uuid';
 
-export class Environment {
-  @AutoMap()
-  id!: string;
+import { IEnvironment } from './interfaces';
 
+export class Environment implements IEnvironment {
   @AutoMap()
-  label!: string;
-
-  @AutoMap()
-  url!: string;
+  id: string;
 
   @AutoMap()
-  color!: string;
+  label: string;
+
+  @AutoMap()
+  url: string;
+
+  @AutoMap()
+  color: string;
+
+  static create(data: Omit<IEnvironment, 'id'>) {
+    return new Environment({
+      id: uuid(),
+      ...data,
+    });
+  }
+
+  constructor({ id, label, url, color }: IEnvironment) {
+    this.id = id;
+    this.label = label;
+    this.url = url;
+    this.color = color;
+  }
 }

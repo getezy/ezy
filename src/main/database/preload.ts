@@ -1,7 +1,7 @@
 import {
   Collection as CollectionView,
-  Environment as EnvironmentView,
-  Setting as SettingView,
+  IEnvironment as EnvironmentView,
+  ISetting as SettingView,
   TlsPreset as TlsPresetView,
 } from '@core';
 

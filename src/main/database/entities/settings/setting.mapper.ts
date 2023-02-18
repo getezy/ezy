@@ -1,4 +1,4 @@
-import { createMap, forMember, mapFrom } from '@automapper/core';
+import { constructUsing, createMap, forMember, mapFrom } from '@automapper/core';
 
 import { Setting as SettingView } from '@core';
 
@@ -13,6 +13,7 @@ export function createSettingMappings() {
     forMember(
       (destination) => destination.value,
       mapFrom((source) => source.value)
-    )
+    ),
+    constructUsing((sourceObject) => new SettingView(sourceObject))
   );
 }

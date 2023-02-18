@@ -3,7 +3,7 @@
 import { arrayMove } from '@dnd-kit/sortable';
 import { produce } from 'immer';
 import { nanoid } from 'nanoid';
-import create from 'zustand';
+import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
 import { GrpcMethodType, GrpcTlsType } from '@core';

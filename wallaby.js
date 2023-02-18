@@ -8,4 +8,8 @@ module.exports = () => ({
   env: {
     type: 'node',
   },
+
+  testFramework: {
+    configFile: './jest.config.core.js',
+  },
 });

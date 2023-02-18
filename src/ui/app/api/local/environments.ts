@@ -1,7 +1,11 @@
 import { Environment } from '@core';
 
-export function fetch() {
-  return window.database.environment.find({});
+export async function fetch() {
+  const data = await window.database.environment.find({});
+
+  const environments = data.map((item) => new Environment(item));
+
+  return environments;
 }
 
 export function upsert(environment: Environment) {

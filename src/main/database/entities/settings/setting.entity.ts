@@ -59,7 +59,7 @@ export class MenuOptionsValue implements IMenuOptionsValue {
 }
 
 @Entity({ tableName: 'settings', customRepository: () => SettingsRepository })
-export class Setting implements ISetting {
+export class Setting implements ISetting<SettingKey> {
   [EntityRepositoryType]?: SettingsRepository;
 
   @Enum({ type: 'string', items: () => SettingKey, primary: true })

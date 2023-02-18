@@ -11,33 +11,33 @@ export const useEnvironmentsStore = create<EnvironmentsStorage>((set) => ({
   environments: [],
 
   fetch: async () => {
-    const data = await LocalAPI.environments.fetch();
+    const environments = await LocalAPI.environments.fetch();
 
     set(
       produce<EnvironmentsStorage>((state) => {
-        state.environments = data;
+        state.environments = environments;
       })
     );
   },
 
   createEnvironment: async (environment) => {
     await LocalAPI.environments.upsert(environment);
-    const data = await LocalAPI.environments.fetch();
+    const environments = await LocalAPI.environments.fetch();
 
     set(
       produce<EnvironmentsStorage>((state) => {
-        state.environments = data;
+        state.environments = environments;
       })
     );
   },
 
   removeEnvironment: async (id) => {
     await LocalAPI.environments.remove(id);
-    const data = await LocalAPI.environments.fetch();
+    const environments = await LocalAPI.environments.fetch();
 
     set(
       produce<EnvironmentsStorage>((state) => {
-        state.environments = data;
+        state.environments = environments;
       })
     );
   },
