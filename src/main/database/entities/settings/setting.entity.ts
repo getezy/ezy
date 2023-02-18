@@ -1,84 +1,67 @@
 /* eslint-disable max-classes-per-file */
 
 import { AutoMap } from '@automapper/classes';
-import { Entity, EntityRepositoryType, Enum, JsonType, OnInit, Property } from '@mikro-orm/core';
+import { Entity, EntityRepositoryType, Enum, JsonType, Property } from '@mikro-orm/core';
 
-import {
-  Alignment,
-  AlignmentValue as IAlignmentValue,
-  isAlignmentValue,
-  isLanguageValue,
-  isMenuOptionsValue,
-  isThemeValue,
-  Language,
-  LanguageValue as ILanguageValue,
-  MenuOptions as IMenuOptionsValue,
-  Setting as ISetting,
-  SettingKey,
-  Theme,
-  ThemeValue as IThemeValue,
-} from '@core';
+import { Alignment, Language, MenuOptions, SettingKey, Theme } from '@core';
 
 // eslint-disable-next-line import/no-cycle
 import { SettingsRepository } from './settings.repository';
 
-export class ThemeValue implements IThemeValue {
+export class ThemeValue {
   @Enum(() => Theme)
-  theme!: Theme;
+  theme: Theme;
 
-  constructor(value: IThemeValue) {
-    this.theme = value.theme;
+  constructor(theme: Theme) {
+    this.theme = theme;
   }
 }
 
-export class AlignmentValue implements IAlignmentValue {
+export class AlignmentValue {
   @Enum(() => Alignment)
-  alignment!: Alignment;
+  alignment: Alignment;
 
-  constructor(value: IAlignmentValue) {
-    this.alignment = value.alignment;
+  constructor(alignment: Alignment) {
+    this.alignment = alignment;
   }
 }
 
-export class LanguageValue implements ILanguageValue {
+export class LanguageValue {
   @Enum(() => Language)
-  language!: Language;
+  language: Language;
 
-  constructor(value: ILanguageValue) {
-    this.language = value.language;
+  constructor(language: Language) {
+    this.language = language;
   }
 }
 
-export class MenuOptionsValue implements IMenuOptionsValue {
+export class MenuOptionsValue {
   @Property()
-  collapsed!: boolean;
+  collapsed: boolean;
 
-  constructor(value: IMenuOptionsValue) {
-    this.collapsed = value.collapsed;
+  constructor({ collapsed }: MenuOptions) {
+    this.collapsed = collapsed;
   }
 }
+
+export type SettingValue<Key extends SettingKey> = Key extends SettingKey.ALIGNMENT
+  ? AlignmentValue
+  : Key extends SettingKey.LANGUAGE
+  ? LanguageValue
+  : Key extends SettingKey.MENU
+  ? MenuOptionsValue
+  : Key extends SettingKey.THEME
+  ? ThemeValue
+  : never;
 
 @Entity({ tableName: 'settings', customRepository: () => SettingsRepository })
-export class Setting implements ISetting<SettingKey> {
+export class Setting<Key extends SettingKey = SettingKey> {
   [EntityRepositoryType]?: SettingsRepository;
 
   @Enum({ type: 'string', items: () => SettingKey, primary: true })
   @AutoMap(() => String)
-  key!: SettingKey;
+  key!: Key;
 
   @Property({ type: JsonType })
-  value!: ThemeValue | AlignmentValue | LanguageValue | MenuOptionsValue;
-
-  @OnInit()
-  init() {
-    if (isAlignmentValue(this.value)) {
-      this.value = new AlignmentValue(this.value);
-    } else if (isLanguageValue(this.value)) {
-      this.value = new LanguageValue(this.value);
-    } else if (isMenuOptionsValue(this.value)) {
-      this.value = new MenuOptionsValue(this.value);
-    } else if (isThemeValue(this.value)) {
-      this.value = new ThemeValue(this.value);
-    }
-  }
+  value!: SettingValue<Key>;
 }

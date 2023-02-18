@@ -2,6 +2,13 @@
 
 import { AutoMap } from '@automapper/classes';
 import {
+  GrpcChannelOptions as IGrpcChannelOptions,
+  GrpcInsecureTlsConfig,
+  GrpcMutualTlsConfig,
+  GrpcServerSideTlsConfig,
+  GrpcTlsType,
+} from '@getezy/grpc-client';
+import {
   Embeddable,
   Embedded,
   Entity,
@@ -10,8 +17,6 @@ import {
   PrimaryKey,
   Property,
 } from '@mikro-orm/core';
-
-import { GrpcChannelOptions as IGrpcChannelOptions, GrpcTlsConfig, GrpcTlsType } from '@core';
 
 // eslint-disable-next-line import/no-cycle
 import { TlsPresetsRepository } from './tls-presets.repository';
@@ -26,34 +31,25 @@ export class GrpcChannelOptions implements IGrpcChannelOptions {
 export abstract class TLS {
   @Enum({ type: 'string', items: () => GrpcTlsType })
   type!: GrpcTlsType;
-
-  @Embedded(() => GrpcChannelOptions, { nullable: true, object: true })
-  channelOptions?: GrpcChannelOptions;
 }
 
 @Embeddable({ discriminatorValue: GrpcTlsType.INSECURE })
-export class InsecureTls extends TLS implements GrpcTlsConfig<GrpcTlsType.INSECURE> {
-  constructor(channelOptions: GrpcChannelOptions) {
-    super();
-    this.type = GrpcTlsType.INSECURE;
-    this.channelOptions = channelOptions;
-  }
+export class InsecureTls extends TLS implements GrpcInsecureTlsConfig {
+  declare type: GrpcTlsType.INSECURE;
 }
 
 @Embeddable({ discriminatorValue: GrpcTlsType.SERVER_SIDE })
-export class ServerSideTls extends TLS implements GrpcTlsConfig<GrpcTlsType.SERVER_SIDE> {
+export class ServerSideTls extends TLS implements GrpcServerSideTlsConfig {
+  declare type: GrpcTlsType.SERVER_SIDE;
+
   @Property({ nullable: true })
   rootCertificatePath?: string;
-
-  constructor(channelOptions: GrpcChannelOptions) {
-    super();
-    this.type = GrpcTlsType.SERVER_SIDE;
-    this.channelOptions = channelOptions;
-  }
 }
 
 @Embeddable({ discriminatorValue: GrpcTlsType.MUTUAL })
-export class MutualTls extends TLS implements GrpcTlsConfig<GrpcTlsType.MUTUAL> {
+export class MutualTls extends TLS implements GrpcMutualTlsConfig {
+  declare type: GrpcTlsType.MUTUAL;
+
   @Property()
   clientCertificatePath!: string;
 
@@ -62,12 +58,6 @@ export class MutualTls extends TLS implements GrpcTlsConfig<GrpcTlsType.MUTUAL> 
 
   @Property({ nullable: true })
   rootCertificatePath?: string;
-
-  constructor(channelOptions: GrpcChannelOptions) {
-    super();
-    this.type = GrpcTlsType.MUTUAL;
-    this.channelOptions = channelOptions;
-  }
 }
 
 @Entity({ tableName: 'tls_presets', customRepository: () => TlsPresetsRepository })
@@ -88,4 +78,8 @@ export class TlsPreset {
 
   @Embedded(() => [InsecureTls, ServerSideTls, MutualTls], { object: true })
   tls!: InsecureTls | ServerSideTls | MutualTls;
+
+  @Embedded(() => GrpcChannelOptions, { nullable: true, object: true })
+  @AutoMap()
+  channelOptions?: GrpcChannelOptions;
 }

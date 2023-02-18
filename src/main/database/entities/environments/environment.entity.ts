@@ -1,13 +1,11 @@
 import { AutoMap } from '@automapper/classes';
 import { Entity, EntityRepositoryType, PrimaryKey, Property } from '@mikro-orm/core';
 
-import { Environment as IEnvironment } from '@core';
-
 // eslint-disable-next-line import/no-cycle
 import { EnvironmentsRepository } from './environments.repository';
 
 @Entity({ tableName: 'environments', customRepository: () => EnvironmentsRepository })
-export class Environment implements IEnvironment {
+export class Environment {
   [EntityRepositoryType]?: EnvironmentsRepository;
 
   @PrimaryKey()

@@ -1,4 +1,4 @@
-import { createMap, forMember, mapFrom } from '@automapper/core';
+import { constructUsing, createMap, forMember, mapFrom } from '@automapper/core';
 
 import { TlsPreset as TlsPresetView } from '@core';
 
@@ -13,6 +13,7 @@ export function createTlsPresetMappings() {
     forMember(
       (destination) => destination.tls,
       mapFrom((source) => source.tls)
-    )
+    ),
+    constructUsing((sourceObject) => new TlsPresetView(sourceObject))
   );
 }

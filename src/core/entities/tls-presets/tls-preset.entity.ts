@@ -1,16 +1,36 @@
 import { AutoMap } from '@automapper/classes';
+import type { GrpcChannelOptions, GrpcTlsConfig, GrpcTlsType } from '@getezy/grpc-client';
+import { v4 as uuid } from 'uuid';
 
-import { GrpcTlsConfig, GrpcTlsType } from '@core';
+import { ITlsPreset } from './interfaces';
 
-export class TlsPreset<T extends GrpcTlsType = GrpcTlsType> {
+export class TlsPreset<T extends GrpcTlsType = GrpcTlsType> implements ITlsPreset<T> {
   @AutoMap()
-  id!: string;
+  id: string;
 
   @AutoMap()
-  name!: string;
+  name: string;
 
   @AutoMap()
-  system!: boolean;
+  system: boolean;
 
-  tls!: GrpcTlsConfig<T>;
+  tls: GrpcTlsConfig<T>;
+
+  @AutoMap()
+  channelOptions?: GrpcChannelOptions;
+
+  static create<T extends GrpcTlsType = GrpcTlsType>(data: Omit<ITlsPreset<T>, 'id'>) {
+    return new TlsPreset({
+      id: uuid(),
+      ...data,
+    });
+  }
+
+  constructor({ id, name, system, tls, channelOptions }: ITlsPreset<T>) {
+    this.id = id;
+    this.name = name;
+    this.system = system;
+    this.tls = tls;
+    this.channelOptions = channelOptions;
+  }
 }

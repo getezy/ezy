@@ -1,9 +1,9 @@
 import {
   Alignment,
-  isAlignmentValue,
-  isLanguageValue,
-  isMenuOptionsValue,
-  isThemeValue,
+  isAlignmentSetting,
+  isLanguageSetting,
+  isMenuOptionsSetting,
+  isThemeSetting,
   Language,
   MenuOptions,
   Setting,
@@ -14,7 +14,7 @@ import {
 export async function fetchTheme() {
   const row = await window.database.settings.findOneOrFail({ key: SettingKey.THEME });
 
-  if (isThemeValue(row.value)) {
+  if (isThemeSetting(row)) {
     return new Setting({ key: SettingKey.THEME, value: row.value });
   }
 
@@ -28,7 +28,7 @@ export async function setTheme(theme: Theme) {
 export async function fetchAlignment() {
   const row = await window.database.settings.findOneOrFail({ key: SettingKey.ALIGNMENT });
 
-  if (isAlignmentValue(row.value)) {
+  if (isAlignmentSetting(row)) {
     return new Setting({ key: SettingKey.ALIGNMENT, value: row.value });
   }
 
@@ -42,7 +42,7 @@ export async function setAlignment(alignment: Alignment) {
 export async function fetchLanguage() {
   const row = await window.database.settings.findOneOrFail({ key: SettingKey.LANGUAGE });
 
-  if (isLanguageValue(row.value)) {
+  if (isLanguageSetting(row)) {
     return new Setting({ key: SettingKey.LANGUAGE, value: row.value });
   }
 
@@ -56,7 +56,7 @@ export async function setLanguage(language: Language) {
 export async function fetchMenuOptions() {
   const row = await window.database.settings.findOneOrFail({ key: SettingKey.MENU });
 
-  if (isMenuOptionsValue(row.value)) {
+  if (isMenuOptionsSetting(row)) {
     return new Setting({ key: SettingKey.MENU, value: row.value });
   }
 
@@ -69,9 +69,9 @@ export async function setMenu(menu: MenuOptions) {
 
 export function fetchAllSettings() {
   return Promise.all([
-    fetchTheme().then((setting) => setting.value.theme),
-    fetchAlignment().then((setting) => setting.value.alignment),
-    fetchLanguage().then((setting) => setting.value.language),
+    fetchTheme().then((setting) => setting.value),
+    fetchAlignment().then((setting) => setting.value),
+    fetchLanguage().then((setting) => setting.value),
     fetchMenuOptions().then((setting) => setting.value),
   ]);
 }

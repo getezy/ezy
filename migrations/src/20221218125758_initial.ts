@@ -52,6 +52,7 @@ export async function up(knex: Knex): Promise<void> {
     table.string('name').notNullable();
     table.boolean('system').notNullable().defaultTo(false);
     table.string('tls').notNullable();
+    table.string('channel_options').nullable();
   });
 
   await knex('tls_presets').insert([

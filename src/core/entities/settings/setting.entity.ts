@@ -6,7 +6,6 @@ export class Setting<Key extends SettingKey = SettingKey> implements ISetting<Ke
   @AutoMap()
   key: Key;
 
-  @AutoMap()
   value: SettingValue<Key>;
 
   constructor({ key, value }: ISetting<Key>) {

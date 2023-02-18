@@ -1,4 +1,6 @@
-import { Setting, SettingKey } from '@core';
+import { SettingKey } from '@core';
+
+import { Setting } from './setting.entity';
 
 export function isAlignmentSetting(value: any): value is Setting<SettingKey.ALIGNMENT> {
   return value?.key === SettingKey.ALIGNMENT;

@@ -2,7 +2,7 @@ import {
   Collection as CollectionView,
   IEnvironment as EnvironmentView,
   ISetting as SettingView,
-  TlsPreset as TlsPresetView,
+  ITlsPreset as TlsPresetView,
 } from '@core';
 
 import { PreloadFactory } from './common';

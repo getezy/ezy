@@ -68,8 +68,8 @@ export const TlsForm: React.FC<TlsFormProps> = ({
         rootCertificatePath: undefined,
         clientCertificatePath: undefined,
         clientKeyPath: undefined,
-        channelOptions: undefined,
       },
+      channelOptions: undefined,
     });
 
     setValue('tls.type', type as GrpcTlsType);
@@ -243,7 +243,7 @@ export const TlsForm: React.FC<TlsFormProps> = ({
                 />
               }
               css={{ paddingBottom: 10 }}
-              {...register('tls.channelOptions.sslTargetNameOverride')}
+              {...register('channelOptions.sslTargetNameOverride')}
             />
           </>
         )}

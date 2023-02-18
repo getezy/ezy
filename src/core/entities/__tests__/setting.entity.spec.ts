@@ -4,22 +4,22 @@ describe('Setting', () => {
   it('should create new alignment setting', () => {
     const setting = new Setting({
       key: SettingKey.ALIGNMENT,
-      value: { alignment: Alignment.HORIZONTAL },
+      value: Alignment.HORIZONTAL,
     });
 
-    expect(setting.value).toStrictEqual({ alignment: Alignment.HORIZONTAL });
+    expect(setting.value).toStrictEqual(Alignment.HORIZONTAL);
   });
 
   it('should create new theme setting', () => {
-    const setting = new Setting({ key: SettingKey.THEME, value: { theme: Theme.DARK } });
+    const setting = new Setting({ key: SettingKey.THEME, value: Theme.DARK });
 
-    expect(setting.value).toStrictEqual({ theme: Theme.DARK });
+    expect(setting.value).toStrictEqual(Theme.DARK);
   });
 
   it('should create new language setting', () => {
-    const setting = new Setting({ key: SettingKey.LANGUAGE, value: { language: Language.EN } });
+    const setting = new Setting({ key: SettingKey.LANGUAGE, value: Language.EN });
 
-    expect(setting.value).toStrictEqual({ language: Language.EN });
+    expect(setting.value).toStrictEqual(Language.EN);
   });
 
   it('should create new menu setting', () => {

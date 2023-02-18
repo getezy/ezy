@@ -1,4 +1,6 @@
-import { Environment } from '@core';
+import { SetOptional } from 'type-fest';
+
+import { Environment, IEnvironment } from '@core';
 
 export async function fetch() {
   const data = await window.database.environment.find({});
@@ -8,7 +10,7 @@ export async function fetch() {
   return environments;
 }
 
-export function upsert(environment: Environment) {
+export function upsert(environment: SetOptional<IEnvironment, 'id'>) {
   return window.database.environment.upsert(environment);
 }
 
