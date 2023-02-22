@@ -14,9 +14,13 @@ export async function up(knex: Knex): Promise<void> {
     { key: 'menu', value: JSON.stringify({ collapsed: true }) },
   ]);
 
-  // await knex.schema.createTable('tabs', (table) => {
-  //   table.string('id').primary();
-  // });
+  await knex.schema.createTable('tabs', (table) => {
+    table.string('id').primary();
+    table.string('title').notNullable();
+    table.enum('type', ['grpc-request']).notNullable();
+    table.boolean('active').notNullable().defaultTo(false);
+    table.integer('order').notNullable();
+  });
 
   await knex.schema.createTable('collections', (table) => {
     table.string('id').primary();

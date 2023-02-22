@@ -3,7 +3,9 @@
 import { GrpcProtocol, GrpcWebProtocol, ProtobufLoader } from '@getezy/grpc-client';
 import { BrowserWindow, IpcMain } from 'electron';
 
-import { GrpcLoaderType, GrpcProtocolType, LoaderOptions, ProtocolOptions } from '../interfaces';
+import { GrpcProtocolType } from '@core';
+
+import { GrpcLoaderType, LoaderOptions, ProtocolOptions } from '../interfaces';
 
 export abstract class AbstractSubscriber {
   constructor(protected readonly mainWindow: BrowserWindow, protected readonly ipcMain: IpcMain) {}

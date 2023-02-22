@@ -3,15 +3,11 @@
 import { GrpcRequestOptions, GrpcResponse } from '@getezy/grpc-client';
 import { ipcRenderer } from 'electron';
 
+import { GrpcProtocolType } from '@core';
+
 import { parseErrorFromIPCMain } from '../../../common';
 import { GrpcBidirectionalStreamingChannel, GrpcClientChannel } from '../constants';
-import {
-  GrpcLoaderType,
-  GrpcMetadata,
-  GrpcProtocolType,
-  LoaderOptions,
-  ProtocolOptions,
-} from '../interfaces';
+import { GrpcLoaderType, GrpcMetadata, LoaderOptions, ProtocolOptions } from '../interfaces';
 import { OnEndCallback, OnErrorCallback, OnResponseCallback, wrapHandler } from './handlers';
 
 export default {

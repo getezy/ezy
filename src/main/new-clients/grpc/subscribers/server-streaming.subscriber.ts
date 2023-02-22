@@ -7,13 +7,14 @@ import {
 import { IpcMain, IpcMainInvokeEvent } from 'electron';
 import { v4 as uuid } from 'uuid';
 
+import { GrpcProtocolType } from '@core';
+
 import { GrpcClientChannel, GrpcServerStreamingChannel } from '../constants';
 import {
   AbstractProtocolMetadata,
   AbstractProtocolMetadataValue,
   GrpcLoaderType,
   GrpcMetadata,
-  GrpcProtocolType,
   LoaderOptions,
   ProtocolOptions,
 } from '../interfaces';

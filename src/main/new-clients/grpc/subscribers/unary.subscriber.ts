@@ -1,13 +1,14 @@
 import { GrpcClientFactory, GrpcRequestOptions, GrpcRequestValue } from '@getezy/grpc-client';
 import { IpcMain, IpcMainInvokeEvent } from 'electron';
 
+import { GrpcProtocolType } from '@core';
+
 import { GrpcClientChannel } from '../constants';
 import {
   AbstractProtocolMetadata,
   AbstractProtocolMetadataValue,
   GrpcLoaderType,
   GrpcMetadata,
-  GrpcProtocolType,
   LoaderOptions,
   ProtocolOptions,
 } from '../interfaces';

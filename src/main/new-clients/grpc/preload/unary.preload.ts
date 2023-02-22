@@ -6,15 +6,11 @@ import {
 } from '@getezy/grpc-client';
 import { ipcRenderer } from 'electron';
 
+import { GrpcProtocolType } from '@core';
+
 import { parseErrorFromIPCMain } from '../../../common';
 import { GrpcClientChannel } from '../constants';
-import {
-  GrpcLoaderType,
-  GrpcMetadata,
-  GrpcProtocolType,
-  LoaderOptions,
-  ProtocolOptions,
-} from '../interfaces';
+import { GrpcLoaderType, GrpcMetadata, LoaderOptions, ProtocolOptions } from '../interfaces';
 
 export default {
   async invoke<

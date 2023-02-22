@@ -1,6 +1,6 @@
 import { AbstractProtocol, GrpcMetadataValue, GrpcWebMetadataValue } from '@getezy/grpc-client';
 
-import { GrpcProtocolType } from './grpc-protocol-type.enum';
+import { GrpcProtocolType } from '@core';
 
 export type AbstractProtocolMetadataValue<T> = T extends AbstractProtocol<infer MetadataValue, any>
   ? MetadataValue
