@@ -1,14 +1,24 @@
-import { AutoMap } from '@automapper/classes';
+import { AbstractCollection, IAbstractCollection } from './abstract-collection.entity';
+import { isGrpcCollection } from './collection.guards';
+import { CollectionType } from './collection-type.enum';
+import { GrpcCollection } from './grpc';
 
-import { Service } from '@core';
+export type ICollection = {
+  children: AbstractCollection[];
+} & Pick<IAbstractCollection, 'id' | 'name'>;
 
-export class Collection {
-  @AutoMap()
-  id!: string;
+export class Collection extends AbstractCollection implements ICollection {
+  public children: AbstractCollection[];
 
-  @AutoMap()
-  name!: string;
+  constructor({ id, name, children }: ICollection) {
+    super({ id, name, type: CollectionType.Collection });
 
-  @AutoMap(() => [Service])
-  services!: Service[];
+    this.children = children.map((child) => {
+      if (isGrpcCollection(child)) {
+        return new GrpcCollection(child);
+      }
+
+      return new Collection(child as Collection);
+    });
+  }
 }

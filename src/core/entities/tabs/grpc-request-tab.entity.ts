@@ -8,7 +8,7 @@ import { IAbstractTab } from './interfaces';
 export interface IGrpcRequestTab extends IAbstractTab {
   protocol: GrpcProtocolType;
 
-  url: string;
+  url?: string;
 }
 
 export class GrpcRequestTab extends AbstractTab implements IGrpcRequestTab {
@@ -16,7 +16,7 @@ export class GrpcRequestTab extends AbstractTab implements IGrpcRequestTab {
   protocol: GrpcProtocolType;
 
   @AutoMap()
-  url: string;
+  url?: string;
 
   constructor({ protocol, url, ...base }: IGrpcRequestTab) {
     super(base);

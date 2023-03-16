@@ -4,8 +4,15 @@ import { ipcRenderer } from 'electron';
 import { DatabaseChannel } from './constants';
 import { Type } from './interaces';
 
+export type CustomPreload<Destination> = {
+  [K: string]: (...args: any[]) => Promise<Destination> | Promise<Destination[]>;
+};
+
 export class PreloadFactory {
-  static create<Source, Destination>(entity: Type<Source>) {
+  static create<Source, Destination>(
+    entity: Type<Source>,
+    customPreload?: CustomPreload<Destination>
+  ) {
     return {
       find(where: FilterQuery<Source>): Promise<Destination[]> {
         return ipcRenderer.invoke(`${DatabaseChannel.FIND}:${entity.name.toLowerCase()}`, where);
@@ -25,9 +32,16 @@ export class PreloadFactory {
         );
       },
 
-      upsert(payload: EntityData<Source>): Promise<void> {
+      upsert(payload: EntityData<Source>): Promise<Destination> {
         return ipcRenderer.invoke(
           `${DatabaseChannel.UPSERT}:${entity.name.toLowerCase()}`,
+          payload
+        );
+      },
+
+      upsertMany(payload: EntityData<Source>[]): Promise<Destination[]> {
+        return ipcRenderer.invoke(
+          `${DatabaseChannel.UPSERT_MANY}:${entity.name.toLowerCase()}`,
           payload
         );
       },
@@ -35,6 +49,8 @@ export class PreloadFactory {
       delete(where: FilterQuery<Source>): Promise<void> {
         return ipcRenderer.invoke(`${DatabaseChannel.DELETE}:${entity.name.toLowerCase()}`, where);
       },
+
+      ...customPreload,
     };
   }
 }

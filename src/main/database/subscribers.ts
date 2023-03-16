@@ -2,7 +2,7 @@ import { MikroORM } from '@mikro-orm/core';
 import { SqliteDriver } from '@mikro-orm/sqlite';
 
 import {
-  Collection as CollectionView,
+  AbstractTab as TabView,
   Environment as EnvironmentView,
   Setting as SettingView,
   TlsPreset as TlsPresetView,
@@ -10,14 +10,13 @@ import {
 
 import { SubscriberFactory } from './common';
 import {
-  Collection,
-  createCollectionMappings,
   createEnvironmentMappings,
-  createServiceMappings,
   createSettingMappings,
+  createTabMappings,
   createTlsPresetMappings,
   Environment,
   Setting,
+  Tab,
   TlsPreset,
 } from './entities';
 
@@ -25,15 +24,14 @@ function createMappings() {
   createSettingMappings();
   createEnvironmentMappings();
   createTlsPresetMappings();
-  createServiceMappings();
-  createCollectionMappings();
+  createTabMappings();
 }
 
 function createSubscribers(orm: MikroORM<SqliteDriver>) {
   SubscriberFactory.create<Setting, SettingView>(orm, Setting, SettingView);
   SubscriberFactory.create<Environment, EnvironmentView>(orm, Environment, EnvironmentView);
   SubscriberFactory.create<TlsPreset, TlsPresetView>(orm, TlsPreset, TlsPresetView);
-  SubscriberFactory.create<Collection, CollectionView>(orm, Collection, CollectionView);
+  SubscriberFactory.create<Tab, TabView>(orm, Tab, TabView);
 }
 
 export function registerDatabaseSubscribers(orm: MikroORM<SqliteDriver>) {

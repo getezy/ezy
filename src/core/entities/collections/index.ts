@@ -1,1 +1,2 @@
-export * from './collection.entity';
+// TODO: change imports to @core in this folder
+export const a = {};

@@ -22,27 +22,33 @@ export async function up(knex: Knex): Promise<void> {
     table.integer('order').notNullable();
   });
 
-  await knex.schema.createTable('collections', (table) => {
-    table.string('id').primary();
-    table.string('name').notNullable();
+  await knex.schema.createTable('grpc-request-tabs', (table) => {
+    table.string('tab_id').primary();
+    table.enum('protocol', ['grpc', 'grpc-web']).notNullable();
+    table.string('url').nullable();
   });
 
-  await knex.schema.createTable('services', (table) => {
-    table.string('id').primary();
-    table.string('collection_id').notNullable();
-    table.string('name').notNullable();
-    table.enum('type', ['grpc']).notNullable();
-    table.string('options').notNullable();
-  });
+  // await knex.schema.createTable('collections', (table) => {
+  //   table.string('id').primary();
+  //   table.string('name').notNullable();
+  // });
 
-  await knex.schema.createTable('grpc_methods', (table) => {
-    table.string('id').primary();
-    table.string('service_id').notNullable();
-    table.string('name').notNullable();
-    table
-      .enum('type', ['unary', 'server-streaming', 'client-streaming', 'bidirectional-streaming'])
-      .notNullable();
-  });
+  // await knex.schema.createTable('services', (table) => {
+  //   table.string('id').primary();
+  //   table.string('collection_id').notNullable();
+  //   table.string('name').notNullable();
+  //   table.enum('type', ['grpc']).notNullable();
+  //   table.string('options').notNullable();
+  // });
+
+  // await knex.schema.createTable('grpc_methods', (table) => {
+  //   table.string('id').primary();
+  //   table.string('service_id').notNullable();
+  //   table.string('name').notNullable();
+  //   table
+  //     .enum('type', ['unary', 'server-streaming', 'client-streaming', 'bidirectional-streaming'])
+  //     .notNullable();
+  // });
 
   await knex.schema.createTable('environments', (table) => {
     table.string('id').primary();
@@ -73,9 +79,7 @@ export async function up(knex: Knex): Promise<void> {
 export async function down(knex: Knex): Promise<void> {
   await knex.schema.dropTableIfExists('settings');
   await knex.schema.dropTableIfExists('tabs');
-  await knex.schema.dropTableIfExists('collections');
-  await knex.schema.dropTableIfExists('services');
-  await knex.schema.dropTableIfExists('grpc_methods');
+  await knex.schema.dropTableIfExists('grpc-request-tabs');
   await knex.schema.dropTableIfExists('environments');
   await knex.schema.dropTableIfExists('tls_presets');
 }

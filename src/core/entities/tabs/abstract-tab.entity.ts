@@ -2,7 +2,7 @@ import { AutoMap } from '@automapper/classes';
 
 import type { IAbstractTab, TabType } from './interfaces';
 
-export abstract class AbstractTab implements IAbstractTab {
+export class AbstractTab implements IAbstractTab {
   @AutoMap()
   public id: string;
 

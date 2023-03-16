@@ -9,6 +9,7 @@ import { useCollectionsStore } from '@storage';
 import { Shortcuts } from './shortcuts';
 import { SideBar } from './side-bar';
 import { StatusBar } from './status-bar';
+// import { TabsContainer } from './tabs';
 import { TabsContainer } from './tabs-container';
 
 export const Main = (): JSX.Element => {

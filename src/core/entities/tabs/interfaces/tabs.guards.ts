@@ -1,5 +1,5 @@
-import { AbstractTab, GrpcRequestTab, TabType } from '@core';
+import { IAbstractTab, IGrpcRequestTab, TabType } from '@core';
 
-export function isGrpcRequestTab(value: AbstractTab): value is GrpcRequestTab {
+export function isGrpcRequestTab(value: IAbstractTab): value is IGrpcRequestTab {
   return value.type === TabType.GrpcRequest;
 }
