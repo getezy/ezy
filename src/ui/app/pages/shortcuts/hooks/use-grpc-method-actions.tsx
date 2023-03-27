@@ -4,32 +4,32 @@ import { Action, Priority, useRegisterActions } from '@getezy/kbar';
 import { Container } from '@nextui-org/react';
 import React from 'react';
 
-import { GrpcMethodType } from '@core';
+import { GrpcMethodType, TabType } from '@core';
+// import {
+//   useBidirectionalStreaming,
+//   useClientStreaming,
+//   useServerStreaming,
+//   useUnaryCall,
+// } from '@hooks';
+import { useTabsStore } from '@new-storage';
 import {
-  useBidirectionalStreaming,
-  useClientStreaming,
-  useServerStreaming,
-  useUnaryCall,
-} from '@hooks';
-import {
-  CollectionType,
-  isGrpcTab,
-  isGrpcTabBidirectionalStreaming,
-  isGrpcTabClientStreaming,
-  isGrpcTabServerStreaming,
-  isGrpcTabUnaryCall,
+  // CollectionType,
+  // isGrpcTab,
+  // isGrpcTabBidirectionalStreaming,
+  // isGrpcTabClientStreaming,
+  // isGrpcTabServerStreaming,
+  // isGrpcTabUnaryCall,
   useCollectionsStore,
-  useTabsStore,
 } from '@storage';
 
 import { StreamBadge, UnaryBadge } from '../../collections/badge-types';
 
 function useGrpcInvokeAction(): Action {
-  const { tabs, activeTabId } = useTabsStore((store) => store);
-  const { invoke: invokeUnaryCall } = useUnaryCall();
-  const { invoke: invokeServerStreaming } = useServerStreaming();
-  const { invoke: invokeClientStreaming } = useClientStreaming();
-  const { invoke: invokeBidirectionalStreaming } = useBidirectionalStreaming();
+  // const { tabs, activeTabId } = useTabsStore((store) => store);
+  // const { invoke: invokeUnaryCall } = useUnaryCall();
+  // const { invoke: invokeServerStreaming } = useServerStreaming();
+  // const { invoke: invokeClientStreaming } = useClientStreaming();
+  // const { invoke: invokeBidirectionalStreaming } = useBidirectionalStreaming();
 
   return {
     id: 'grpc:invoke',
@@ -38,25 +38,27 @@ function useGrpcInvokeAction(): Action {
     icon: <FontAwesomeIcon icon={faPaperPlane} />,
     shortcut: ['$mod+Enter'],
     perform: () => {
-      const tab = tabs.find((item) => item.id === activeTabId);
-      if (tab && isGrpcTab(tab)) {
-        if (isGrpcTabUnaryCall(tab)) {
-          invokeUnaryCall(tab);
-        } else if (isGrpcTabServerStreaming(tab)) {
-          invokeServerStreaming(tab);
-        } else if (isGrpcTabClientStreaming(tab)) {
-          invokeClientStreaming(tab);
-        } else if (isGrpcTabBidirectionalStreaming(tab)) {
-          invokeBidirectionalStreaming(tab);
-        }
-      }
+      throw new Error('Unnimplemented');
+      // TODO:
+      // const tab = tabs.find((item) => item.id === activeTabId);
+      // if (tab && isGrpcTab(tab)) {
+      //   if (isGrpcTabUnaryCall(tab)) {
+      //     invokeUnaryCall(tab);
+      //   } else if (isGrpcTabServerStreaming(tab)) {
+      //     invokeServerStreaming(tab);
+      //   } else if (isGrpcTabClientStreaming(tab)) {
+      //     invokeClientStreaming(tab);
+      //   } else if (isGrpcTabBidirectionalStreaming(tab)) {
+      //     invokeBidirectionalStreaming(tab);
+      //   }
+      // }
     },
   };
 }
 
 export function useGrpcMethodActions() {
   const { collections } = useCollectionsStore((store) => store);
-  const { createGrpcTab } = useTabsStore((store) => store);
+  const { create } = useTabsStore((store) => store);
   const invokeAction = useGrpcInvokeAction();
 
   const methods = collections.reduce((acc, collection) => {
@@ -85,15 +87,9 @@ export function useGrpcMethodActions() {
             </Container>
           ),
           perform: () => {
-            createGrpcTab({
-              type: CollectionType.GRPC,
+            create({
+              type: TabType.GrpcRequest,
               title: method.name,
-              info: {
-                collectionId: collection.id,
-                serviceId: service.id,
-                methodId: method.id,
-                methodType: method.type,
-              },
             });
           },
         });

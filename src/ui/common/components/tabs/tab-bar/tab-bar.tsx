@@ -55,7 +55,7 @@ export type TabBarProps = {
   /**
    * Fires on tab drag end.
    */
-  onTabDragEnd?: (current: string, over?: string) => void;
+  onTabDragEnd?: (current: string, over: string) => void;
 };
 
 function renderTabBarItemContent(

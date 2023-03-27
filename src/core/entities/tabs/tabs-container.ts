@@ -2,17 +2,25 @@ import { arrayMove } from '@dnd-kit/sortable';
 import { v4 as uuid } from 'uuid';
 
 import { AbstractTab } from './abstract-tab.entity';
-import { GrpcRequestTab, IGrpcRequestTab } from './grpc-request-tab.entity';
+import { GrpcRequestTab, IGrpcRequestTabCreate } from './grpc-request';
 import { IAbstractTab, isGrpcRequestTab } from './interfaces';
+
+export type ICreateTabPayload = Omit<IGrpcRequestTabCreate, 'id' | 'order' | 'active'>;
 
 export class TabsContainer {
   private tabs: AbstractTab[];
 
-  constructor(tabs: IAbstractTab[]) {
-    this.tabs = tabs.map((tab) => new GrpcRequestTab(tab as IGrpcRequestTab));
+  constructor(tabs: IAbstractTab[] = []) {
+    this.tabs = tabs.map((tab) => {
+      if (isGrpcRequestTab(tab)) {
+        return new GrpcRequestTab(tab);
+      }
+
+      throw new Error('Unsuported tab type.');
+    });
   }
 
-  public create(payload: Omit<IAbstractTab, 'id' | 'order' | 'active'>) {
+  public create(payload: ICreateTabPayload) {
     let tab: AbstractTab;
 
     const tabPayload = {
@@ -59,6 +67,14 @@ export class TabsContainer {
 
   public closeAllTabs() {
     this.tabs = [];
+  }
+
+  public closeActiveTab() {
+    const activeTab = this.getActiveTab();
+
+    if (activeTab) {
+      this.closeTab(activeTab.id);
+    }
   }
 
   public closeTab(id: string) {

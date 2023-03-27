@@ -1,5 +1,5 @@
 import {
-  AbstractTab as TabView,
+  IAbstractTab as TabView,
   IEnvironment as EnvironmentView,
   ISetting as SettingView,
   ITlsPreset as TlsPresetView,

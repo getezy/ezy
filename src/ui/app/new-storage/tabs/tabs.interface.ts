@@ -1,4 +1,4 @@
-import { IAbstractTab } from '@core';
+import { IAbstractTab, ICreateTabPayload } from '@core';
 
 export interface TabsState {
   tabs: IAbstractTab[];
@@ -8,5 +8,10 @@ export interface TabsState {
 
 export interface TabsStorage extends TabsState {
   fetch: () => Promise<void>;
-  create: (payload: Omit<IAbstractTab, 'id' | 'order' | 'active'>) => Promise<void>;
+  create: (payload: ICreateTabPayload) => Promise<void>;
+  moveTab: (currentId: string, overId: string) => void;
+  activateTab: (id: string) => void;
+  closeTab: (id: string) => void;
+  closeActiveTab: () => void;
+  closeAllTabs: () => void;
 }

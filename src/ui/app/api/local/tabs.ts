@@ -1,13 +1,9 @@
 import { SetOptional } from 'type-fest';
 
-import { AbstractTab, IAbstractTab } from '@core';
+import { IAbstractTab } from '@core';
 
-export async function fetch() {
-  const data = await window.database.tabs.find({});
-
-  const tabs = data.map((item) => new AbstractTab(item));
-
-  return tabs;
+export function fetch() {
+  return window.database.tabs.find({});
 }
 
 export function upsert(tab: SetOptional<IAbstractTab, 'id'>) {

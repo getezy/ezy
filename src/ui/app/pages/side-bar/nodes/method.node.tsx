@@ -2,14 +2,15 @@ import { Spacer, Text, Tooltip } from '@nextui-org/react';
 import React from 'react';
 
 import { TreeNode, TreeNodeRendererProps } from '@components';
-import { GrpcMethodType } from '@core';
-import { CollectionType, GrpcMethod, useCollectionsStore, useTabsStore } from '@storage';
+import { GrpcMethodType, TabType } from '@core';
+import { useTabsStore } from '@new-storage';
+import { GrpcMethod, useCollectionsStore } from '@storage';
 
 import { StreamBadge, UnaryBadge } from '../../collections/badge-types';
 import { StyledNodeWrapper } from './node.styled';
 
 export const GrpcMethodNode: React.FC<TreeNodeRendererProps<GrpcMethod>> = ({ data }) => {
-  const { createGrpcTab } = useTabsStore((store) => store);
+  const { create } = useTabsStore((store) => store);
   const collections = useCollectionsStore((store) => store.collections);
 
   const handleClick = () => {
@@ -24,16 +25,20 @@ export const GrpcMethodNode: React.FC<TreeNodeRendererProps<GrpcMethod>> = ({ da
     );
 
     if (nodeCollection && nodeService) {
-      createGrpcTab({
-        type: CollectionType.GRPC,
+      create({
+        type: TabType.GrpcRequest,
         title: data.name,
-        info: {
-          collectionId: nodeCollection.id,
-          serviceId: nodeService.id,
-          methodId: data.id,
-          methodType: data.type,
-        },
       });
+      // createGrpcTab({
+      //   type: CollectionType.GRPC,
+      //   title: data.name,
+      //   info: {
+      //     collectionId: nodeCollection.id,
+      //     serviceId: nodeService.id,
+      //     methodId: data.id,
+      //     methodType: data.type,
+      //   },
+      // });
     }
   };
 
