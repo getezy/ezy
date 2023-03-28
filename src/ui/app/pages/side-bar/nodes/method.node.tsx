@@ -3,14 +3,14 @@ import React from 'react';
 
 import { TreeNode, TreeNodeRendererProps } from '@components';
 import { GrpcMethodType, TabType } from '@core';
-import { useTabsStore } from '@new-storage';
+import { useAppStorage } from '@new-storage';
 import { GrpcMethod, useCollectionsStore } from '@storage';
 
 import { StreamBadge, UnaryBadge } from '../../collections/badge-types';
 import { StyledNodeWrapper } from './node.styled';
 
 export const GrpcMethodNode: React.FC<TreeNodeRendererProps<GrpcMethod>> = ({ data }) => {
-  const { create } = useTabsStore((store) => store);
+  const { createTab } = useAppStorage((store) => store);
   const collections = useCollectionsStore((store) => store.collections);
 
   const handleClick = () => {
@@ -25,7 +25,7 @@ export const GrpcMethodNode: React.FC<TreeNodeRendererProps<GrpcMethod>> = ({ da
     );
 
     if (nodeCollection && nodeService) {
-      create({
+      createTab({
         type: TabType.GrpcRequest,
         title: data.name,
       });

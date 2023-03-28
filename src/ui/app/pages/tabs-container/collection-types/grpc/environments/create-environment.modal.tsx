@@ -3,7 +3,7 @@ import React from 'react';
 import * as uuid from 'uuid';
 
 import { Environment } from '@core';
-import { useEnvironmentsStore } from '@new-storage';
+import { useAppStorage } from '@new-storage';
 
 import { EnvironmentForm } from './environment.form';
 
@@ -18,7 +18,7 @@ export const CreateEnvironmentModal: React.FC<CreateEnvironmentModalProps> = ({
   defaultValues,
   ...props
 }) => {
-  const createEnvironment = useEnvironmentsStore((store) => store.create);
+  const createEnvironment = useAppStorage((store) => store.createEnvironment);
 
   const handleSubmit = (payload: Environment) => {
     const environment: Environment = { ...payload, id: uuid.v4() };

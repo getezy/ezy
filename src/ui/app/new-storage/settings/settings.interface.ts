@@ -7,8 +7,8 @@ export interface SettingsState {
   menu: MenuOptions;
 }
 
-export interface SettingsStorage extends SettingsState {
-  fetch: () => Promise<void>;
+export interface SettingsStorageSlice extends SettingsState {
+  fetchSettings: () => Promise<void>;
   setTheme: (theme: Theme) => Promise<void>;
   setAlignment: (alignment: Alignment) => Promise<void>;
   setMenu: (menu: MenuOptions) => Promise<void>;

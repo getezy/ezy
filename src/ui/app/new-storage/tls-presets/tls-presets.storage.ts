@@ -1,21 +1,24 @@
 /* eslint-disable no-param-reassign */
 
 import { produce } from 'immer';
-import { create } from 'zustand';
+import { StateCreator } from 'zustand';
 
 import { LocalAPI } from '@api';
 
-import { TlsPresetsStorage } from './tls-presets.interface';
+import { AppStorage } from '../app.interface';
+import { TlsPresetsStorageSlice } from './tls-presets.interface';
 
-export const useTlsPresetsStore = create<TlsPresetsStorage>((set) => ({
-  presets: [],
+export const createTlsPresetsSlice: StateCreator<AppStorage, [], [], TlsPresetsStorageSlice> = (
+  set
+) => ({
+  tlsPresets: [],
 
-  fetch: async () => {
+  fetchTlsPresets: async () => {
     const data = await LocalAPI.tlsPresets.fetch();
 
     set(
-      produce<TlsPresetsStorage>((state) => {
-        state.presets = data;
+      produce<AppStorage>((state) => {
+        state.tlsPresets = data;
       })
     );
   },
@@ -25,8 +28,8 @@ export const useTlsPresetsStore = create<TlsPresetsStorage>((set) => ({
     const data = await LocalAPI.tlsPresets.fetch();
 
     set(
-      produce<TlsPresetsStorage>((state) => {
-        state.presets = data;
+      produce<AppStorage>((state) => {
+        state.tlsPresets = data;
       })
     );
   },
@@ -36,9 +39,9 @@ export const useTlsPresetsStore = create<TlsPresetsStorage>((set) => ({
     const data = await LocalAPI.tlsPresets.fetch();
 
     set(
-      produce<TlsPresetsStorage>((state) => {
-        state.presets = data;
+      produce<AppStorage>((state) => {
+        state.tlsPresets = data;
       })
     );
   },
-}));
+});

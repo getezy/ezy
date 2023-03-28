@@ -5,11 +5,11 @@ import { Container } from '@nextui-org/react';
 import React from 'react';
 
 import { ColorCircle } from '@components';
-import { useEnvironmentsStore } from '@new-storage';
+import { useAppStorage } from '@new-storage';
 import { useTabsStore } from '@storage';
 
 export function useEnvironmentActions() {
-  const { environments } = useEnvironmentsStore((store) => store);
+  const { environments } = useAppStorage((store) => store);
   const { activeTabId, updateGrpcTabData } = useTabsStore((store) => store);
 
   const actions: Action[] = environments.map((environment) => ({

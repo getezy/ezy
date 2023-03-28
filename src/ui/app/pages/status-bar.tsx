@@ -3,10 +3,10 @@ import React from 'react';
 
 import { HorizontalLayoutIcon, VerticalLayoutIcon } from '@components';
 import { Alignment } from '@core';
-import { useSettingsStore } from '@new-storage';
+import { useAppStorage } from '@new-storage';
 
 export const StatusBar: React.FC = () => {
-  const { alignment, setAlignment } = useSettingsStore((store) => store);
+  const { alignment, setAlignment } = useAppStorage((store) => store);
 
   const handleAlignmentChange = async (newAlignment: Alignment) => {
     await setAlignment(newAlignment);

@@ -1,9 +1,9 @@
 import { Environment, IEnvironment } from '@core';
 
-export interface EnvironmentsStorage {
+export interface EnvironmentsStorageSlice {
   environments: Environment[];
 
-  fetch: () => Promise<void>;
-  create: (environment: IEnvironment) => Promise<void>;
-  remove: (id: string) => Promise<void>;
+  fetchEnvironments: () => Promise<void>;
+  createEnvironment: (environment: IEnvironment) => Promise<void>;
+  removeEnvironment: (id: string) => Promise<void>;
 }

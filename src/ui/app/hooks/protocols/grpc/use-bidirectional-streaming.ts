@@ -1,7 +1,7 @@
 import { notification } from '@components';
 import { GrpcMethodType } from '@core';
 import { useGrpcTabContextStore } from '@hooks';
-import { useTlsPresetsStore } from '@new-storage';
+import { useAppStorage } from '@new-storage';
 import { GrpcStreamMessageType, GrpcTab, useCollectionsStore, useTabsStore } from '@storage';
 
 import { getOptions, getTlsOptions, parseMetadata, parseRequest } from './prepare-request';
@@ -9,7 +9,7 @@ import { getOptions, getTlsOptions, parseMetadata, parseRequest } from './prepar
 export function useBidirectionalStreaming() {
   const collections = useCollectionsStore((store) => store.collections);
   const { addGrpcStreamMessage } = useTabsStore((store) => store);
-  const tlsPresets = useTlsPresetsStore((store) => store.presets);
+  const tlsPresets = useAppStorage((store) => store.tlsPresets);
   const { setContext, getContext, updateContext, deleteContext } = useGrpcTabContextStore();
 
   function isRequestLoading(tab: GrpcTab<GrpcMethodType.BIDIRECTIONAL_STREAMING>) {

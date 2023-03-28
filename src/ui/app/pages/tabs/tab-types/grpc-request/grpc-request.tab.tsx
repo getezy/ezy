@@ -1,7 +1,7 @@
 import { Container, Spacer } from '@nextui-org/react';
 import React from 'react';
 
-import { useTabsStore } from '@new-storage';
+import { useAppStorage } from '@new-storage';
 
 import { SendHeader } from './send-header';
 
@@ -10,7 +10,7 @@ export type GrpcRequestTabProps = {
 };
 
 export const GrpcRequestTab: React.FC<GrpcRequestTabProps> = ({ tabId }) => {
-  const { tabs } = useTabsStore();
+  const { tabs } = useAppStorage();
 
   const tab = tabs.find((item) => item.id === tabId);
 

@@ -6,7 +6,7 @@ import { MultiValue, SingleValue } from 'react-select';
 
 import { ColoredSelect } from '@components';
 import { Environment, GrpcMethodType, GrpcTlsType } from '@core';
-import { useEnvironmentsStore, useTlsPresetsStore } from '@new-storage';
+import { useAppStorage } from '@new-storage';
 import { GrpcProtocol, GrpcTab, useTabsStore } from '@storage';
 
 import { CreateEnvironmentModal } from '../environments';
@@ -22,8 +22,7 @@ export const SendHeader: React.FC<PropsWithChildren<SendHeaderProps<GrpcMethodTy
   children,
 }) => {
   const { updateGrpcTabData, updateGrpcTabsEnvironment } = useTabsStore((store) => store);
-  const { remove: removeEnvironment, environments } = useEnvironmentsStore((store) => store);
-  const tlsPresets = useTlsPresetsStore((store) => store.presets);
+  const { removeEnvironment, environments, tlsPresets } = useAppStorage((store) => store);
 
   const selectedEnvironment =
     environments.find((item) => item.id === tab.data.environmentId) || null;

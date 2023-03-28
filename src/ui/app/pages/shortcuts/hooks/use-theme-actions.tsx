@@ -4,10 +4,10 @@ import { useRegisterActions } from '@getezy/kbar';
 import React from 'react';
 
 import { Theme } from '@core';
-import { useSettingsStore } from '@new-storage';
+import { useAppStorage } from '@new-storage';
 
 export function useThemeActions() {
-  const { setTheme } = useSettingsStore((store) => store);
+  const { setTheme } = useAppStorage((store) => store);
 
   useRegisterActions([
     {

@@ -7,7 +7,7 @@ import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
 import { GrpcMethodType, GrpcTlsType } from '@core';
-import { useTlsPresetsStore } from '@new-storage';
+import { useAppStorage } from '@new-storage';
 
 import {
   CollectionType,
@@ -69,9 +69,9 @@ export const useTabsStore = create(
             const tabId = nanoid();
             const requestTabId = nanoid();
 
-            const tls = useTlsPresetsStore
+            const tls = useAppStorage
               .getState()
-              .presets.find((item) => item.system && item.tls.type === GrpcTlsType.INSECURE);
+              .tlsPresets.find((item) => item.system && item.tls.type === GrpcTlsType.INSECURE);
 
             const tab: GrpcTab<GrpcMethodType> = {
               ...payload,

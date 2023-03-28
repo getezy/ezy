@@ -8,7 +8,7 @@ import * as uuid from 'uuid';
 
 import { GrpcTlsType, TlsPreset } from '@core';
 import { DefaultLayout } from '@layouts';
-import { useTlsPresetsStore } from '@new-storage';
+import { useAppStorage } from '@new-storage';
 
 import { TlsForm } from './tls.form';
 import { TlsPresetsList } from './tls-presets-list';
@@ -42,7 +42,7 @@ export const TlsSettingsModal: React.FC<TlsSettingsModalProps> = ({
   defaultValues,
   ...props
 }) => {
-  const { presets, upsertTlsPreset } = useTlsPresetsStore((store) => store);
+  const { tlsPresets, upsertTlsPreset } = useAppStorage((store) => store);
 
   const [formDefaultValues, setFormDefaultValues] = React.useState(defaultValues);
   const [formReadonly, setFormReadonly] = React.useState(!!defaultValues?.system);
@@ -82,7 +82,7 @@ export const TlsSettingsModal: React.FC<TlsSettingsModalProps> = ({
   };
 
   const handleTlsPresetChange = (id: string) => {
-    const preset = presets.find((item) => item.id === id);
+    const preset = tlsPresets.find((item) => item.id === id);
     if (preset) {
       setFormDefaultValues(preset);
       setFormReadonly(preset.system);
@@ -91,7 +91,9 @@ export const TlsSettingsModal: React.FC<TlsSettingsModalProps> = ({
 
   const handleTlsPresetRemove = (id: string) => {
     if (id === formDefaultValues?.id) {
-      const preset = presets.find((item) => item.system && item.tls.type === GrpcTlsType.INSECURE);
+      const preset = tlsPresets.find(
+        (item) => item.system && item.tls.type === GrpcTlsType.INSECURE
+      );
       if (preset) {
         handleTlsPresetChange(preset.id);
         onApply(preset.id);
@@ -122,7 +124,7 @@ export const TlsSettingsModal: React.FC<TlsSettingsModalProps> = ({
       {header}
       <TlsPresetsList
         selectedTlsPresetId={formDefaultValues?.id}
-        presets={presets}
+        presets={tlsPresets}
         onTlsPresetChange={handleTlsPresetChange}
         onTlsPresetRemove={handleTlsPresetRemove}
       />

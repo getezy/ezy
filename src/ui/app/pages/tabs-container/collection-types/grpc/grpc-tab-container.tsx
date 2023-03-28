@@ -3,7 +3,7 @@ import React from 'react';
 
 import { ResizablePanel } from '@components';
 import { GrpcMethodType } from '@core';
-import { useSettingsStore } from '@new-storage';
+import { useAppStorage } from '@new-storage';
 import {
   GrpcTab,
   isGrpcTabBidirectionalStreaming,
@@ -31,7 +31,7 @@ export interface GrpcTabContainerProps {
 }
 
 export const GrpcTabContainer: React.FC<GrpcTabContainerProps> = ({ tab }) => {
-  const alignment = useSettingsStore((store) => store.alignment);
+  const alignment = useAppStorage((store) => store.alignment);
 
   let content: React.ReactNode;
 

@@ -1,7 +1,7 @@
 import { notification } from '@components';
 import { GrpcMethodType } from '@core';
 import { useGrpcTabContextStore } from '@hooks';
-import { useTlsPresetsStore } from '@new-storage';
+import { useAppStorage } from '@new-storage';
 import {
   GrpcProtocol,
   GrpcStreamMessageType,
@@ -15,7 +15,7 @@ import { getOptions, getTlsOptions, parseMetadata, parseRequest } from './prepar
 export function useServerStreaming() {
   const collections = useCollectionsStore((store) => store.collections);
   const { addGrpcStreamMessage } = useTabsStore((store) => store);
-  const tlsPresets = useTlsPresetsStore((store) => store.presets);
+  const tlsPresets = useAppStorage((store) => store.tlsPresets);
   const { setContext, getContext, updateContext, deleteContext } = useGrpcTabContextStore();
 
   function getClient(tab: GrpcTab<GrpcMethodType.SERVER_STREAMING>) {

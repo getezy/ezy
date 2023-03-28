@@ -2,10 +2,10 @@ import { SetOptional } from 'type-fest';
 
 import { ITlsPreset, TlsPreset } from '@core';
 
-export interface TlsPresetsStorage {
-  presets: TlsPreset[];
+export interface TlsPresetsStorageSlice {
+  tlsPresets: TlsPreset[];
 
-  fetch: () => Promise<void>;
+  fetchTlsPresets: () => Promise<void>;
   upsertTlsPreset: (preset: SetOptional<ITlsPreset, 'id'>) => Promise<void>;
   removeTlsPreset: (id: string) => Promise<void>;
 }

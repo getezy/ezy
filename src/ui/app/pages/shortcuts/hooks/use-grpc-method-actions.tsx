@@ -11,7 +11,7 @@ import { GrpcMethodType, TabType } from '@core';
 //   useServerStreaming,
 //   useUnaryCall,
 // } from '@hooks';
-import { useTabsStore } from '@new-storage';
+import { useAppStorage } from '@new-storage';
 import {
   // CollectionType,
   // isGrpcTab,
@@ -58,7 +58,7 @@ function useGrpcInvokeAction(): Action {
 
 export function useGrpcMethodActions() {
   const { collections } = useCollectionsStore((store) => store);
-  const { create } = useTabsStore((store) => store);
+  const { createTab } = useAppStorage((store) => store);
   const invokeAction = useGrpcInvokeAction();
 
   const methods = collections.reduce((acc, collection) => {
@@ -87,7 +87,7 @@ export function useGrpcMethodActions() {
             </Container>
           ),
           perform: () => {
-            create({
+            createTab({
               type: TabType.GrpcRequest,
               title: method.name,
             });

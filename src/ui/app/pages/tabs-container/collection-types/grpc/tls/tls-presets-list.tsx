@@ -5,7 +5,7 @@ import React from 'react';
 
 import { Tree, TreeNode, TreeNodeRendererProps } from '@components';
 import { GrpcTlsType, TlsPreset } from '@core';
-import { useTlsPresetsStore } from '@new-storage';
+import { useAppStorage } from '@new-storage';
 
 import { SystemBadge } from './system.badge';
 
@@ -16,7 +16,7 @@ const TreeWrapper = styled('div', {
 const ReponseNode: React.FC<
   TreeNodeRendererProps<TlsPreset> & { onTlsPresetRemove: (id: string) => void }
 > = ({ data, isOpen, onCollapseToggle, onTlsPresetRemove }) => {
-  const { removeTlsPreset } = useTlsPresetsStore((store) => store);
+  const { removeTlsPreset } = useAppStorage((store) => store);
 
   const handleRemoveButtonClick = () => {
     removeTlsPreset(data.id);

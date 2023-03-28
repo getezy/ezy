@@ -4,15 +4,14 @@ import { MultiValue, SingleValue } from 'react-select';
 
 import { ColoredSelect } from '@components';
 import { Environment, GrpcRequestTab } from '@core';
-import { useEnvironmentsStore, useTabsStore } from '@new-storage';
+import { useAppStorage } from '@new-storage';
 
 export type SendHeaderProps = {
   tab: GrpcRequestTab;
 };
 
 export const SendHeader: React.FC<SendHeaderProps> = ({ tab }) => {
-  const { environments, remove: removeEnvironment } = useEnvironmentsStore((store) => store);
-  const { update: updateTab } = useTabsStore();
+  const { environments, removeEnvironment, updateTab } = useAppStorage((store) => store);
 
   const selectedEnvironment = environments.find((item) => item.id === tab?.environmentId) || null;
 

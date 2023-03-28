@@ -6,10 +6,10 @@ export interface TabsState {
   activeTabId?: string;
 }
 
-export interface TabsStorage extends TabsState {
-  fetch: () => Promise<void>;
-  create: (payload: ICreateTabPayload) => Promise<void>;
-  update: (id: string, payload: IUpdateTabPayload) => Promise<void>;
+export interface TabsStorageSlice extends TabsState {
+  fetchTabs: () => Promise<void>;
+  createTab: (payload: ICreateTabPayload) => Promise<void>;
+  updateTab: (id: string, payload: IUpdateTabPayload) => Promise<void>;
   moveTab: (currentId: string, overId: string) => Promise<void>;
   activateTab: (id: string) => Promise<void>;
   closeTab: (id: string) => Promise<void>;

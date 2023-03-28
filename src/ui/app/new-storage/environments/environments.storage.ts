@@ -1,44 +1,47 @@
 /* eslint-disable no-param-reassign */
 
 import { produce } from 'immer';
-import { create } from 'zustand';
+import { StateCreator } from 'zustand';
 
 import { LocalAPI } from '@api';
 
-import { EnvironmentsStorage } from './environments.interface';
+import { AppStorage } from '../app.interface';
+import { EnvironmentsStorageSlice } from './environments.interface';
 
-export const useEnvironmentsStore = create<EnvironmentsStorage>((set) => ({
+export const createEnvironmentsSlice: StateCreator<AppStorage, [], [], EnvironmentsStorageSlice> = (
+  set
+) => ({
   environments: [],
 
-  fetch: async () => {
+  fetchEnvironments: async () => {
     const environments = await LocalAPI.environments.fetch();
 
     set(
-      produce<EnvironmentsStorage>((state) => {
+      produce<AppStorage>((state) => {
         state.environments = environments;
       })
     );
   },
 
-  create: async (environment) => {
+  createEnvironment: async (environment) => {
     await LocalAPI.environments.upsert(environment);
     const environments = await LocalAPI.environments.fetch();
 
     set(
-      produce<EnvironmentsStorage>((state) => {
+      produce<AppStorage>((state) => {
         state.environments = environments;
       })
     );
   },
 
-  remove: async (id) => {
+  removeEnvironment: async (id) => {
     await LocalAPI.environments.remove(id);
     const environments = await LocalAPI.environments.fetch();
 
     set(
-      produce<EnvironmentsStorage>((state) => {
+      produce<AppStorage>((state) => {
         state.environments = environments;
       })
     );
   },
-}));
+});

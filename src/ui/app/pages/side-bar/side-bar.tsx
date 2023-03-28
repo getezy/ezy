@@ -5,7 +5,7 @@ import React from 'react';
 
 import { EzyButton, EzyIcon, Kbd, Menu } from '@components';
 import { AppContext } from '@context';
-import { useSettingsStore } from '@new-storage';
+import { useAppStorage } from '@new-storage';
 
 import { CreateCollectionModal } from '../collections';
 import { UpdateSettingsModal } from '../settings';
@@ -13,7 +13,7 @@ import { CollectionsTree } from './collections-tree';
 
 export const SideBar: React.FC = () => {
   const context = React.useContext(AppContext);
-  const { menu, setMenu } = useSettingsStore((store) => store);
+  const { menu, setMenu } = useAppStorage((store) => store);
 
   const [updateSettingsModalVisible, setUpdateSettingsModalVisible] = React.useState(false);
 

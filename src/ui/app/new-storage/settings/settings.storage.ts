@@ -1,12 +1,13 @@
 /* eslint-disable no-param-reassign */
 
 import { produce } from 'immer';
-import { create } from 'zustand';
+import { StateCreator } from 'zustand';
 
 import { LocalAPI } from '@api';
 import { Alignment, Language, Theme } from '@core';
 
-import { SettingsState, SettingsStorage } from './settings.interface';
+import { AppStorage } from '../app.interface';
+import { SettingsState, SettingsStorageSlice } from './settings.interface';
 
 const initialState: SettingsState = {
   theme: Theme.DARK,
@@ -17,14 +18,16 @@ const initialState: SettingsState = {
   },
 };
 
-export const useSettingsStore = create<SettingsStorage>((set) => ({
+export const createSettingsSlice: StateCreator<AppStorage, [], [], SettingsStorageSlice> = (
+  set
+) => ({
   ...initialState,
 
-  fetch: async () => {
+  fetchSettings: async () => {
     const [theme, alignment, language, menu] = await LocalAPI.settings.fetchAllSettings();
 
     set(
-      produce<SettingsStorage>((state) => {
+      produce<AppStorage>((state) => {
         state.theme = theme;
         state.alignment = alignment;
         state.language = language;
@@ -37,7 +40,7 @@ export const useSettingsStore = create<SettingsStorage>((set) => ({
     await LocalAPI.settings.setTheme(theme);
 
     set(
-      produce<SettingsStorage>((state) => {
+      produce<AppStorage>((state) => {
         state.theme = theme;
       })
     );
@@ -47,7 +50,7 @@ export const useSettingsStore = create<SettingsStorage>((set) => ({
     await LocalAPI.settings.setAlignment(alignment);
 
     set(
-      produce<SettingsStorage>((state) => {
+      produce<AppStorage>((state) => {
         state.alignment = alignment;
       })
     );
@@ -57,9 +60,9 @@ export const useSettingsStore = create<SettingsStorage>((set) => ({
     await LocalAPI.settings.setMenu(menu);
 
     set(
-      produce<SettingsStorage>((state) => {
+      produce<AppStorage>((state) => {
         state.menu = menu;
       })
     );
   },
-}));
+});

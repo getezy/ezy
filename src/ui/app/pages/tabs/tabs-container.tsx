@@ -2,13 +2,13 @@ import React from 'react';
 
 import { Tab, Tabs } from '@components';
 import { TabType } from '@core';
-import { useTabsStore } from '@new-storage';
+import { useAppStorage } from '@new-storage';
 
 import { GrpcRequestTab } from './tab-types';
 import { WelcomeContainer } from './welcome';
 
 export const TabsContainer = (): JSX.Element => {
-  const { tabs, activeTabId, activateTab, closeTab, moveTab } = useTabsStore((store) => store);
+  const { tabs, activeTabId, activateTab, closeTab, moveTab } = useAppStorage((store) => store);
 
   const tabsContent = tabs.map((tab) => (
     <Tab title={tab.title} id={tab.id} key={tab.id} closable>

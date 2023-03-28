@@ -1,12 +1,13 @@
 /* eslint-disable no-param-reassign */
 
 import { produce } from 'immer';
-import { create } from 'zustand';
+import { StateCreator } from 'zustand';
 
 import { LocalAPI } from '@api';
 import { TabsContainer } from '@core';
 
-import { TabsState, TabsStorage } from './tabs.interface';
+import { AppStorage } from '../app.interface';
+import { TabsState, TabsStorageSlice } from './tabs.interface';
 
 let container = new TabsContainer();
 
@@ -14,22 +15,22 @@ const initialState: TabsState = {
   tabs: [...container.getTabs()],
 };
 
-export const useTabsStore = create<TabsStorage>((set) => ({
+export const createTabsSlice: StateCreator<AppStorage, [], [], TabsStorageSlice> = (set) => ({
   ...initialState,
 
-  fetch: async () => {
+  fetchTabs: async () => {
     const tabs = await LocalAPI.tabs.fetch();
 
     container = new TabsContainer(tabs);
 
     set(
-      produce<TabsStorage>((state) => {
+      produce<AppStorage>((state) => {
         state.tabs = [...container.getTabs()];
       })
     );
   },
 
-  create: async (payload) => {
+  createTab: async (payload) => {
     container.create(payload);
     // const tab = container.create(payload);
 
@@ -38,18 +39,18 @@ export const useTabsStore = create<TabsStorage>((set) => ({
 
     // container = new TabsContainer(tabs);
     set(
-      produce<TabsStorage>((state) => {
+      produce<AppStorage>((state) => {
         state.tabs = [...container.getTabs()];
         state.activeTabId = container.getActiveTab()?.id;
       })
     );
   },
 
-  update: async (id, payload) => {
+  updateTab: async (id, payload) => {
     container.update(id, payload);
 
     set(
-      produce<TabsStorage>((state) => {
+      produce<AppStorage>((state) => {
         state.tabs = [...container.getTabs()];
         state.activeTabId = container.getActiveTab()?.id;
       })
@@ -60,7 +61,7 @@ export const useTabsStore = create<TabsStorage>((set) => ({
     container.moveTab(currentId, overId);
 
     set(
-      produce<TabsStorage>((state) => {
+      produce<AppStorage>((state) => {
         state.tabs = [...container.getTabs()];
       })
     );
@@ -70,7 +71,7 @@ export const useTabsStore = create<TabsStorage>((set) => ({
     container.closeTab(id);
 
     set(
-      produce<TabsStorage>((state) => {
+      produce<AppStorage>((state) => {
         state.tabs = [...container.getTabs()];
         state.activeTabId = container.getActiveTab()?.id;
       })
@@ -81,7 +82,7 @@ export const useTabsStore = create<TabsStorage>((set) => ({
     container.closeActiveTab();
 
     set(
-      produce<TabsStorage>((state) => {
+      produce<AppStorage>((state) => {
         state.tabs = [...container.getTabs()];
         state.activeTabId = container.getActiveTab()?.id;
       })
@@ -92,7 +93,7 @@ export const useTabsStore = create<TabsStorage>((set) => ({
     container.closeAllTabs();
 
     set(
-      produce<TabsStorage>((state) => {
+      produce<AppStorage>((state) => {
         state.tabs = [...container.getTabs()];
         state.activeTabId = container.getActiveTab()?.id;
       })
@@ -103,9 +104,9 @@ export const useTabsStore = create<TabsStorage>((set) => ({
     container.activateTab(id);
 
     set(
-      produce<TabsStorage>((state) => {
+      produce<AppStorage>((state) => {
         state.activeTabId = container.getActiveTab()?.id;
       })
     );
   },
-}));
+});
