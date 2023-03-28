@@ -18,7 +18,7 @@ export const CreateEnvironmentModal: React.FC<CreateEnvironmentModalProps> = ({
   defaultValues,
   ...props
 }) => {
-  const createEnvironment = useEnvironmentsStore((store) => store.createEnvironment);
+  const createEnvironment = useEnvironmentsStore((store) => store.create);
 
   const handleSubmit = (payload: Environment) => {
     const environment: Environment = { ...payload, id: uuid.v4() };

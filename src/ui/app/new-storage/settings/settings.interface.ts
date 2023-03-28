@@ -10,6 +10,6 @@ export interface SettingsState {
 export interface SettingsStorage extends SettingsState {
   fetch: () => Promise<void>;
   setTheme: (theme: Theme) => Promise<void>;
-  setAlignment: (alignment: Alignment) => void;
-  setMenu: (menu: MenuOptions) => void;
+  setAlignment: (alignment: Alignment) => Promise<void>;
+  setMenu: (menu: MenuOptions) => Promise<void>;
 }

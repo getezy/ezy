@@ -45,7 +45,18 @@ export const useTabsStore = create<TabsStorage>((set) => ({
     );
   },
 
-  moveTab: (currentId, overId) => {
+  update: async (id, payload) => {
+    container.update(id, payload);
+
+    set(
+      produce<TabsStorage>((state) => {
+        state.tabs = [...container.getTabs()];
+        state.activeTabId = container.getActiveTab()?.id;
+      })
+    );
+  },
+
+  moveTab: async (currentId, overId) => {
     container.moveTab(currentId, overId);
 
     set(
@@ -55,7 +66,7 @@ export const useTabsStore = create<TabsStorage>((set) => ({
     );
   },
 
-  closeTab: (id) => {
+  closeTab: async (id) => {
     container.closeTab(id);
 
     set(
@@ -66,7 +77,7 @@ export const useTabsStore = create<TabsStorage>((set) => ({
     );
   },
 
-  closeActiveTab: () => {
+  closeActiveTab: async () => {
     container.closeActiveTab();
 
     set(
@@ -77,7 +88,7 @@ export const useTabsStore = create<TabsStorage>((set) => ({
     );
   },
 
-  closeAllTabs: () => {
+  closeAllTabs: async () => {
     container.closeAllTabs();
 
     set(
@@ -88,7 +99,7 @@ export const useTabsStore = create<TabsStorage>((set) => ({
     );
   },
 
-  activateTab: (id) => {
+  activateTab: async (id) => {
     container.activateTab(id);
 
     set(

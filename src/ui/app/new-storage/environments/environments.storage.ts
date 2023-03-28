@@ -20,7 +20,7 @@ export const useEnvironmentsStore = create<EnvironmentsStorage>((set) => ({
     );
   },
 
-  createEnvironment: async (environment) => {
+  create: async (environment) => {
     await LocalAPI.environments.upsert(environment);
     const environments = await LocalAPI.environments.fetch();
 
@@ -31,7 +31,7 @@ export const useEnvironmentsStore = create<EnvironmentsStorage>((set) => ({
     );
   },
 
-  removeEnvironment: async (id) => {
+  remove: async (id) => {
     await LocalAPI.environments.remove(id);
     const environments = await LocalAPI.environments.fetch();
 

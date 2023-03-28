@@ -6,6 +6,7 @@ import { GrpcRequestTab, IGrpcRequestTabCreate } from './grpc-request';
 import { IAbstractTab, isGrpcRequestTab } from './interfaces';
 
 export type ICreateTabPayload = Omit<IGrpcRequestTabCreate, 'id' | 'order' | 'active'>;
+export type IUpdateTabPayload = Partial<Omit<IGrpcRequestTabCreate, 'id' | 'order' | 'active'>>;
 
 export class TabsContainer {
   private tabs: AbstractTab[];
@@ -43,6 +44,14 @@ export class TabsContainer {
     return tab;
   }
 
+  public update(id: string, payload: IUpdateTabPayload) {
+    const tab = this.tabs.find((item) => item.id === id);
+
+    if (tab) {
+      tab.update(payload);
+    }
+  }
+
   public getTabs() {
     return this.tabs;
   }
@@ -61,7 +70,7 @@ export class TabsContainer {
     const tab = this.tabs.find((item) => item.id === id);
 
     if (tab) {
-      tab.active = true;
+      tab.update({ active: true });
     }
   }
 
@@ -100,8 +109,7 @@ export class TabsContainer {
 
   private updateTabsOrder() {
     this.tabs.forEach((tab, index) => {
-      // eslint-disable-next-line no-param-reassign
-      tab.order = index + 1;
+      tab.update({ order: index + 1 });
     });
   }
 }

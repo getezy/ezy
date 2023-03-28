@@ -25,4 +25,6 @@ export abstract class AbstractTab implements IAbstractTab {
     this.active = active;
     this.order = order;
   }
+
+  abstract update(paylod: Partial<IAbstractTab>): void;
 }

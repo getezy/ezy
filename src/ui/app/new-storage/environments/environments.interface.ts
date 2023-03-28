@@ -4,6 +4,6 @@ export interface EnvironmentsStorage {
   environments: Environment[];
 
   fetch: () => Promise<void>;
-  createEnvironment: (environment: IEnvironment) => void;
-  removeEnvironment: (id: string) => void;
+  create: (environment: IEnvironment) => Promise<void>;
+  remove: (id: string) => Promise<void>;
 }

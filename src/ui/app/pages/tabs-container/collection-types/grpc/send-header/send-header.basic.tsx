@@ -22,7 +22,7 @@ export const SendHeader: React.FC<PropsWithChildren<SendHeaderProps<GrpcMethodTy
   children,
 }) => {
   const { updateGrpcTabData, updateGrpcTabsEnvironment } = useTabsStore((store) => store);
-  const { removeEnvironment, environments } = useEnvironmentsStore((store) => store);
+  const { remove: removeEnvironment, environments } = useEnvironmentsStore((store) => store);
   const tlsPresets = useTlsPresetsStore((store) => store.presets);
 
   const selectedEnvironment =

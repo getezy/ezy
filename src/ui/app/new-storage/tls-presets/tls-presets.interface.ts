@@ -6,6 +6,6 @@ export interface TlsPresetsStorage {
   presets: TlsPreset[];
 
   fetch: () => Promise<void>;
-  upsertTlsPreset: (preset: SetOptional<ITlsPreset, 'id'>) => void;
-  removeTlsPreset: (id: string) => void;
+  upsertTlsPreset: (preset: SetOptional<ITlsPreset, 'id'>) => Promise<void>;
+  removeTlsPreset: (id: string) => Promise<void>;
 }
