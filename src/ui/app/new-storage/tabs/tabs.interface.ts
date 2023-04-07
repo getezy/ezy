@@ -15,4 +15,5 @@ export interface TabsStorageSlice extends TabsState {
   closeTab: (id: string) => Promise<void>;
   closeActiveTab: () => Promise<void>;
   closeAllTabs: () => Promise<void>;
+  resetEnvironment: (environemntId: string) => Promise<void>;
 }

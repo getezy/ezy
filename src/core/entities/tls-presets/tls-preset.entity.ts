@@ -1,5 +1,6 @@
 import { AutoMap } from '@automapper/classes';
-import type { GrpcChannelOptions, GrpcTlsConfig, GrpcTlsType } from '@getezy/grpc-client';
+import type { GrpcChannelOptions, GrpcTlsConfig } from '@getezy/grpc-client';
+import { GrpcTlsType } from '@getezy/grpc-client';
 import { v4 as uuid } from 'uuid';
 
 import { ITlsPreset } from './interfaces';

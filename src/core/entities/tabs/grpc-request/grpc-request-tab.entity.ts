@@ -14,6 +14,8 @@ export type IGrpcRequestTab = IAbstractTab & {
   url?: string;
 
   environmentId?: string;
+
+  tlsId?: string;
 };
 
 export type IGrpcRequestTabCreate = SetOptional<IGrpcRequestTab, 'protocol'>;
@@ -27,6 +29,9 @@ export class GrpcRequestTab extends AbstractTab implements IGrpcRequestTab {
 
   @AutoMap()
   environmentId?: string;
+
+  @AutoMap()
+  tlsId?: string;
 
   constructor({
     protocol = GrpcProtocolType.Grpc,
@@ -42,10 +47,28 @@ export class GrpcRequestTab extends AbstractTab implements IGrpcRequestTab {
   }
 
   update(payload: Partial<IGrpcRequestTab>) {
-    this.order = payload.order || this.order;
-    this.active = payload.active || this.active;
-    this.protocol = payload.protocol || this.protocol;
-    this.url = payload.url || this.url;
-    this.environmentId = payload.environmentId || this.environmentId;
+    if (Object.hasOwn(payload, 'order') && payload.order !== undefined) {
+      this.order = payload.order;
+    }
+
+    if (Object.hasOwn(payload, 'active') && payload.active !== undefined) {
+      this.active = payload.active;
+    }
+
+    if (Object.hasOwn(payload, 'protocol') && payload.protocol !== undefined) {
+      this.protocol = payload.protocol;
+    }
+
+    if (Object.hasOwn(payload, 'url')) {
+      this.url = payload.url;
+    }
+
+    if (Object.hasOwn(payload, 'environmentId')) {
+      this.environmentId = payload.environmentId;
+    }
+
+    if (Object.hasOwn(payload, 'tlsId')) {
+      this.tlsId = payload.tlsId;
+    }
   }
 }

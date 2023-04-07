@@ -17,6 +17,11 @@ export const createAppStorageSlice: StateCreator<AppStorage, [], [], AppStorageS
       createTlsPresetsSlice(...args).fetchTlsPresets(),
     ]);
   },
+
+  removeEnvironmentAndResetTabs: async (id: string) => {
+    await createEnvironmentsSlice(...args).removeEnvironment(id);
+    await createTabsSlice(...args).resetEnvironment(id);
+  },
 });
 
 export const useAppStorage = create<AppStorage>()((...args) => ({

@@ -1,4 +1,8 @@
-import { Container, Input, Spacer } from '@nextui-org/react';
+import { faFloppyDisk, faLock, faUnlock } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { GrpcTlsType } from '@getezy/grpc-client';
+// import { isInsecureTlsConfig } from '@getezy/grpc-client';
+import { Button, Container, Input, Spacer, Tooltip } from '@nextui-org/react';
 import React from 'react';
 import { MultiValue, SingleValue } from 'react-select';
 
@@ -11,9 +15,13 @@ export type SendHeaderProps = {
 };
 
 export const SendHeader: React.FC<SendHeaderProps> = ({ tab }) => {
-  const { environments, removeEnvironment, updateTab } = useAppStorage((store) => store);
+  const { environments, tlsPresets, updateTab, removeEnvironmentAndResetTabs } = useAppStorage(
+    (store) => store
+  );
 
   const selectedEnvironment = environments.find((item) => item.id === tab?.environmentId) || null;
+
+  const selectedTlsPreset = tlsPresets.find((item) => item.id === tab.tlsId);
 
   const handleEnvironmentChange = (value: MultiValue<Environment> | SingleValue<Environment>) => {
     const environment = value as Environment;
@@ -25,8 +33,14 @@ export const SendHeader: React.FC<SendHeaderProps> = ({ tab }) => {
   };
 
   const handleRemoveEnvironment = (environment: Environment) => {
-    removeEnvironment(environment.id);
-    // updateGrpcTabsEnvironment(environment.id, undefined);
+    removeEnvironmentAndResetTabs(environment.id);
+  };
+
+  const handleUrlChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    updateTab(tab.id, {
+      environmentId: undefined,
+      url: e.target.value,
+    });
   };
 
   return (
@@ -51,6 +65,74 @@ export const SendHeader: React.FC<SendHeaderProps> = ({ tab }) => {
         clearable
         placeholder="0.0.0.0:3000"
         css={{ flex: 6 }}
+        value={tab.url || ''}
+        onChange={handleUrlChange}
+        contentLeftStyling={false}
+        contentLeft={
+          // selectedTlsPreset ? (
+          selectedTlsPreset && selectedTlsPreset.tls.type !== GrpcTlsType.INSECURE ? (
+            // selectedTlsPreset && isInsecureTlsConfig(selectedTlsPreset.tls) ? (
+            <Tooltip content="Connection is secure" placement="bottom" enterDelay={500}>
+              <Button
+                size="sm"
+                light
+                animated={false}
+                css={{
+                  background: 'transparent',
+                  padding: 0,
+                  margin: 0,
+                  minWidth: 30,
+                  color: '$success',
+                  '&:hover': {
+                    color: '$successBorder',
+                  },
+                }}
+                icon={<FontAwesomeIcon icon={faLock} />}
+                // onClick={handleTlsSettingsModalVisible}
+              />
+            </Tooltip>
+          ) : (
+            <Tooltip content="Connection is not secure" enterDelay={500}>
+              <Button
+                size="sm"
+                light
+                animated={false}
+                css={{
+                  background: 'transparent',
+                  padding: 0,
+                  margin: 0,
+                  minWidth: 30,
+                  color: '$accents6',
+                  '&:hover': {
+                    color: '$accents5',
+                  },
+                }}
+                icon={<FontAwesomeIcon icon={faUnlock} />}
+                // onClick={handleTlsSettingsModalVisible}
+              />
+            </Tooltip>
+          )
+        }
+        contentRight={
+          <Tooltip content="Save environment" enterDelay={500}>
+            <Button
+              auto
+              light
+              icon={<FontAwesomeIcon icon={faFloppyDisk} />}
+              css={{
+                background: 'transparent',
+                padding: 0,
+                margin: 0,
+                minWidth: 10,
+                color: '$accents6',
+                '&:hover': {
+                  color: '$accents5',
+                },
+              }}
+              // onClick={handleCreateEnvironmentModalVisible}
+            />
+          </Tooltip>
+        }
       />
     </Container>
   );

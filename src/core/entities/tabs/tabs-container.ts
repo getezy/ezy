@@ -21,7 +21,7 @@ export class TabsContainer {
     });
   }
 
-  public create(payload: ICreateTabPayload) {
+  public createTab(payload: ICreateTabPayload) {
     let tab: AbstractTab;
 
     const tabPayload = {
@@ -44,12 +44,22 @@ export class TabsContainer {
     return tab;
   }
 
-  public update(id: string, payload: IUpdateTabPayload) {
-    const tab = this.tabs.find((item) => item.id === id);
+  public updateTabs(ids: string[], payload: IUpdateTabPayload) {
+    const tabs = this.tabs.filter((item) => ids.includes(item.id));
 
-    if (tab) {
+    tabs.forEach((tab) => {
       tab.update(payload);
-    }
+    });
+  }
+
+  public resetEnvironment(environmentId: string) {
+    const tabs = this.tabs.filter(
+      (tab) => isGrpcRequestTab(tab) && tab.environmentId === environmentId
+    ) as GrpcRequestTab[];
+
+    tabs.forEach((tab) => {
+      tab.update({ environmentId: undefined });
+    });
   }
 
   public getTabs() {

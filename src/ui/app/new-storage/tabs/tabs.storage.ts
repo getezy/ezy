@@ -31,7 +31,7 @@ export const createTabsSlice: StateCreator<AppStorage, [], [], TabsStorageSlice>
   },
 
   createTab: async (payload) => {
-    container.create(payload);
+    container.createTab(payload);
     // const tab = container.create(payload);
 
     // await LocalAPI.tabs.upsert(tab);
@@ -47,12 +47,22 @@ export const createTabsSlice: StateCreator<AppStorage, [], [], TabsStorageSlice>
   },
 
   updateTab: async (id, payload) => {
-    container.update(id, payload);
+    container.updateTabs([id], payload);
 
     set(
       produce<AppStorage>((state) => {
         state.tabs = [...container.getTabs()];
         state.activeTabId = container.getActiveTab()?.id;
+      })
+    );
+  },
+
+  resetEnvironment: async (environmentId: string) => {
+    container.resetEnvironment(environmentId);
+
+    set(
+      produce<AppStorage>((state) => {
+        state.tabs = [...container.getTabs()];
       })
     );
   },
