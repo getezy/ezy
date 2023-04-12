@@ -3,6 +3,7 @@
 import react from '@vitejs/plugin-react-swc';
 import { defineConfig, externalizeDepsPlugin, swcPlugin } from 'electron-vite';
 import path from 'path';
+import { nodePolyfills } from 'vite-plugin-node-polyfills';
 import { run } from 'vite-plugin-run';
 import { viteStaticCopy } from 'vite-plugin-static-copy';
 
@@ -57,7 +58,12 @@ export default defineConfig({
     },
   },
   renderer: {
-    plugins: [react({ tsDecorators: true })],
+    plugins: [
+      nodePolyfills({
+        protocolImports: true,
+      }),
+      react({ tsDecorators: true }),
+    ],
     root: 'src/ui',
     build: {
       outDir: path.resolve(__dirname, 'out/ui'),
@@ -70,6 +76,9 @@ export default defineConfig({
     },
     resolve: {
       alias: {
+        '@grpc/grpc-js': path.resolve('src/ui/polyfills/@grpc/grpc-js.ts'),
+        perf_hooks: path.resolve('src/ui/polyfills/node/perf-hooks.ts'),
+
         '@core': path.resolve('src/core/types.d.ts'),
         '@components': path.resolve('src/ui/common/components/index.ts'),
         '@themes': path.resolve('src/ui/common/themes/index.ts'),

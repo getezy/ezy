@@ -112,6 +112,7 @@
     "ts-jest": "29.0.5",
     "typescript": "5.0.2",
     "vite": "4.2.1",
+    "vite-plugin-node-polyfills": "0.7.0",
     "vite-plugin-run": "0.4.0",
     "vite-plugin-static-copy": "0.13.1"
   }

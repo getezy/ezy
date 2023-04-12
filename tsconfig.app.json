@@ -4,6 +4,7 @@
   "include": [
     "src/ui/app/**/*",
     "src/ui/common/**/*",
+    "src/ui/polyfills",
     "src/core/**/*",
 
     "src/preload/app/index.d.ts"
