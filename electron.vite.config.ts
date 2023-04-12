@@ -60,7 +60,7 @@ export default defineConfig({
   renderer: {
     plugins: [
       nodePolyfills({
-        protocolImports: true,
+        exclude: ['fs'],
       }),
       react({ tsDecorators: true }),
     ],
@@ -77,7 +77,8 @@ export default defineConfig({
     resolve: {
       alias: {
         '@grpc/grpc-js': path.resolve('src/ui/polyfills/@grpc/grpc-js.ts'),
-        perf_hooks: path.resolve('src/ui/polyfills/node/perf-hooks.ts'),
+        'node:perf_hooks': path.resolve('src/ui/polyfills/node/perf-hooks.ts'),
+        'node:fs': path.resolve('src/ui/polyfills/node/fs.ts'),
 
         '@core': path.resolve('src/core/types.d.ts'),
         '@components': path.resolve('src/ui/common/components/index.ts'),

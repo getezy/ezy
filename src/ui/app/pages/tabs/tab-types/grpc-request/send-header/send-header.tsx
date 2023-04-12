@@ -1,7 +1,6 @@
 import { faFloppyDisk, faLock, faUnlock } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { GrpcTlsType } from '@getezy/grpc-client';
-// import { isInsecureTlsConfig } from '@getezy/grpc-client';
 import { Button, Container, Input, Spacer, Tooltip } from '@nextui-org/react';
 import React from 'react';
 import { MultiValue, SingleValue } from 'react-select';
@@ -69,9 +68,7 @@ export const SendHeader: React.FC<SendHeaderProps> = ({ tab }) => {
         onChange={handleUrlChange}
         contentLeftStyling={false}
         contentLeft={
-          // selectedTlsPreset ? (
           selectedTlsPreset && selectedTlsPreset.tls.type !== GrpcTlsType.INSECURE ? (
-            // selectedTlsPreset && isInsecureTlsConfig(selectedTlsPreset.tls) ? (
             <Tooltip content="Connection is secure" placement="bottom" enterDelay={500}>
               <Button
                 size="sm"
