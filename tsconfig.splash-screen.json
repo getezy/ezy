@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "extends": "./tsconfig.web.json",
+  "include": [
+    "src/ui/splash-screen/**/*",
+    "src/ui/common/**/*",
+
+    "src/preload/splash-screen/index.d.ts"
+  ],
+  "compilerOptions": {
+    "paths": {
+      "@components": [
+        "./src/ui/common/components/index.ts"
+      ],
+      "@themes": [
+        "./src/ui/common/themes/index.ts"
+      ]
+    }
+  }
+}

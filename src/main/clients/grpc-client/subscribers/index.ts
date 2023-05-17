@@ -9,7 +9,7 @@ export const registerGrpcClientSubscribers = (mainWindow: BrowserWindow) => {
   const bidirectional = new GrpcClientBidirectionalSubscriber(mainWindow, ipcMain);
   const client = new GrpcClientClientStreamingSubscriber(mainWindow, ipcMain);
   const server = new GrpcClientServerStreamingSubscriber(mainWindow, ipcMain);
-  const unary = new GrpcClientUnarySubscriber(mainWindow, ipcMain);
+  const unary = new GrpcClientUnarySubscriber(ipcMain);
 
   bidirectional.registerBidirectionalStreamingHandlers();
   client.registerClientStreamingHandlers();

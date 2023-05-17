@@ -22,12 +22,17 @@ Fully-featured desktop [gRPC/gRPC-Web](https://grpc.io/) client.
 </div>
 <br />
 
-🚧 This project is in beta phase and can get breaking changes at any time until it goes to v1.
+> **Warning**
+> This project is in beta phase and can get breaking changes at any time until it goes to v1.
+
+> **Note**
+> If you are looking for grpc-client library for node try [@getezy/grpc-client](https://github.com/getezy/grpc-client), which used here under the hood.
 
 ## Features
 ✅ Tabs  
 ✅ Shortcuts  
 ✅ Environments  
+✅ Themes (Dark/Light)  
 ✅ Persisted collections  
 
 |                                                           	| gRPC 	|                            gRPC-Web                   |
@@ -46,7 +51,6 @@ Install the latest version for your OS from [release page](https://github.com/ge
 Today you can update only by manually downloading new app version and reinstalling it. I'm working on automatic updates.
 
 ## Shortcuts
-
 Use `⌘+K` (macOS) or `Ctrl+K`(Windows/Linux). Just try it.
 
 ## Working with 64-bit integers
@@ -63,19 +67,13 @@ If you want to send 64-bit integers (`int64`, `uint64`, `sint64`, `fixed64`, `sf
 ```
 
 ## Build from source
-
-```bash
-  $ npm ci
-  $ npm run make
-```
+Checkout the [developer guide](https://github.com/getezy/ezy/blob/master/DEVELOPMENT.md).
 
 ## Roadmap
-
 Actual roadmap available [here](https://github.com/orgs/getezy/projects/1/views/1).
 
 ## Sponsorship
-
-If you are interested in sponsorship of this project - shoot me an [email](mailto:vasyukov.alexey.v@gmail.com). I have great ideas on how we can improve gRPC (and not only!) development experience. I'll be glad to talk about it.
+If you are interested in sponsorship of this project - shoot me an [email](mailto:vasyukov.alexey.v@gmail.com). I have great ideas on how we can improve development experience. I'll be glad to talk about it.
 
 ## License
 Mozilla Public License Version 2.0

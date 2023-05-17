@@ -7,27 +7,22 @@ on:
   pull_request:
 
 jobs:
-  checks:
-    uses: "./.github/workflows/checks.yml"
+  prebuild:
+    uses: "./.github/workflows/prebuild.yml"
   build:
-    needs: checks
+    needs: prebuild
     name: Build (${{ matrix.os }} - ${{ matrix.arch }})
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        # Build for supported platforms
         # https://github.com/electron/electron-packager/blob/ebcbd439ff3e0f6f92fa880ff28a8670a9bcf2ab/src/targets.js#L9
         # 32-bit Linux unsupported as of 2019: https://www.electronjs.org/blog/linux-32bit-support
-        os: [ macOS-latest, ubuntu-20.04, windows-latest ]
+        os: [ macOS-latest, ubuntu-latest, windows-latest ]
         arch: [ x64, arm64 ]
         include:
         - os: windows-latest
           arch: ia32
-        # https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#choosing-github-hosted-runners
-        # The ubuntu-latest label is currently transitioning to the Ubuntu 22.04 runner image.
-        # During the transition, the label might refer to the runner image for either Ubuntu 20.04 or 22.04.
-        # https://github.blog/changelog/2022-11-09-github-actions-ubuntu-latest-workflows-will-use-ubuntu-22-04/
-        - os: ubuntu-20.04
+        - os: ubuntu-latest
           arch: armv7l
         # Publishing artifacts for multiple Windows architectures has
         # a bug which can cause the wrong architecture to be downloaded
@@ -35,40 +30,60 @@ jobs:
         exclude:
         - os: windows-latest
           arch: arm64
-
     steps:
       - uses: actions/checkout@v3
+
       - name: Setup Node.js
-        uses: actions/setup-node@v3.4.1
+        uses: actions/setup-node@v3.5.1
         with:
           node-version: 18.x
           cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+        env:
+          DEBUG: electron-builder
+
       - name: Set MacOS signing certs
-        if: matrix.os == 'macOS-latest'
+        if: matrix.os == 'macOS-latest' && startsWith(github.ref, 'refs/tags/')
         run: chmod +x scripts/add-osx-cert.sh && ./scripts/add-osx-cert.sh
         env:
           CERTIFICATE_OSX_APPLICATION: ${{ secrets.CERTIFICATE_OSX_APPLICATION }}
           CERTIFICATE_PASSWORD: ${{ secrets.CERTIFICATE_PASSWORD }}
-      # - name: Set Windows signing certificate
-      #   if: matrix.os == 'windows-latest'
-      #   continue-on-error: true
-      #   id: write_file
-      #   uses: timheuer/base64-to-file@v1
-      #   with:
-      #     fileName: 'win-certificate.pfx'
-      #     encodedString: ${{ secrets.WINDOWS_CODESIGN_P12 }}
-      - name: Install dependencies
-        run: npm ci
 
-      - name: Make
-        if: startsWith(github.ref, 'refs/tags/')
-        run: npm run make -- --arch=${{ matrix.arch }}
+      - name: Make MacOS build
+        if: matrix.os == 'macOS-latest'
+        run: npm run build:mac -- --${{ matrix.arch }}
         env:
+          OS: macOS
           APPLE_ID: ${{ secrets.APPLE_ID }}
           APPLE_ID_PASSWORD: ${{ secrets.APPLE_ID_PASSWORD }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          # WINDOWS_CODESIGN_FILE: ${{ steps.write_file.outputs.filePath }}
-          # WINDOWS_CODESIGN_PASSWORD: ${{ secrets.WINDOWS_CODESIGN_PASSWORD }}
+          DISABLE_SIGN_AND_NOTARIZE: ${{ !startsWith(github.ref, 'refs/tags/') }}
+
+      - name: Make Windows build
+        if: matrix.os == 'windows-latest'
+        run: npm run build:win -- --${{ matrix.arch }}
+        env:
+          OS: windows
+
+      - name: Make Linux build
+        if: matrix.os == 'ubuntu-latest'
+        run: npm run build:linux -- --${{ matrix.arch }}
+        env:
+          OS: linux
+
+      - name: Upload Build Artifacts
+        if: github.event_name == 'pull_request'
+        uses: actions/upload-artifact@v3.1.1
+        with:
+          name: Builds
+          path: |
+            release/**/*.dmg
+            release/**/*.exe
+            release/**/*.AppImage
+            release/**/*.deb
+            release/**/*.rpm
+          retention-days: 7
 
       - name: Release
         uses: softprops/action-gh-release@v1
@@ -78,10 +93,8 @@ jobs:
         with:
           draft: true
           files: |
-            out/**/*.deb
-            out/**/*.dmg
-            out/**/*setup*.exe
-            out/**/*.nupkg
-            out/**/*.rpm
-            out/**/*.zip
-            out/**/RELEASES
+            release/**/*.dmg
+            release/**/*.exe
+            release/**/*.AppImage
+            release/**/*.deb
+            release/**/*.rpm

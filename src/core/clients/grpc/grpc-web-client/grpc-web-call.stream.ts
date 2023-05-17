@@ -34,7 +34,7 @@ export class GrpcWebCallStream extends EventEmitter {
     this.call = grpc.invoke(this.methodDefinition, {
       ...this.options,
       transport: NodeHttpTransport({
-        ...httpsOptions,
+        ...this.httpsOptions,
       }),
       onMessage: (responseMessage) => {
         this.emit('message', responseMessage);

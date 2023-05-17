@@ -5,14 +5,14 @@ export enum GrpcMethodType {
   BIDIRECTIONAL_STREAMING = 'bidirectional-streaming',
 }
 
-export type GrpcMethodInfo = {
+export type GrpcMethodDefinition = {
   name: string;
   type: GrpcMethodType;
 };
 
-export type GrpcServiceInfo = {
+export type GrpcServiceDefinition = {
   name: string;
-  methods?: GrpcMethodInfo[];
+  methods: GrpcMethodDefinition[];
 };
 
 export type GrpcOptions = {

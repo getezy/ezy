@@ -5,7 +5,7 @@ import { GrpcWebClientUnarySubscriber } from './unary.subscriber';
 
 export const registerGrpcWebClientSubscribers = (mainWindow: BrowserWindow) => {
   const server = new GrpcWebClientServerStreamingSubscriber(mainWindow, ipcMain);
-  const unary = new GrpcWebClientUnarySubscriber(mainWindow, ipcMain);
+  const unary = new GrpcWebClientUnarySubscriber(ipcMain);
 
   server.registerServerStreamingHandlers();
   unary.registerUnaryCallHandlers();

@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "extends": "./tsconfig.web.json",
+  "include": [
+    "src/ui/app/**/*",
+    "src/ui/common/**/*",
+    "src/ui/polyfills",
+    "src/core/**/*",
+
+    "src/preload/app/index.d.ts"
+  ],
+  "compilerOptions": {
+    "experimentalDecorators": true,
+
+    "paths": {
+      "@core": [
+        "./src/core/index.ts"
+      ],
+      "@components": [
+        "./src/ui/common/components/index.ts"
+      ],
+      "@themes": [
+        "./src/ui/common/themes/index.ts"
+      ],
+      "@hooks": [
+        "./src/ui/app/hooks/index.ts"
+      ],
+      "@new-storage": [
+        "./src/ui/app/new-storage/index.ts"
+      ],
+      "@storage": [
+        "./src/ui/app/storage/index.ts"
+      ],
+      "@context": [
+        "./src/ui/app/context/index.ts"
+      ],
+      "@layouts": [
+        "./src/ui/app/layouts/index.ts"
+      ],
+      "@api": [
+        "./src/ui/app/api/index.ts"
+      ]
+    }
+  }
+}

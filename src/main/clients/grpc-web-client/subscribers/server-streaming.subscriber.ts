@@ -1,5 +1,5 @@
 import { BrowserWindow, IpcMain } from 'electron';
-import { nanoid } from 'nanoid';
+import * as uuid from 'uuid';
 
 import {
   GrpcClientRequestOptions,
@@ -60,7 +60,7 @@ export class GrpcWebClientServerStreamingSubscriber {
   }
 
   private registerServerStreamingCall(call: GrpcWebCallStream): string {
-    const id = nanoid();
+    const id = uuid.v4();
 
     call.on('message', (message) => {
       this.mainWindow.webContents.send(GrpcWebClientServerStreamingChannel.DATA, id, message);

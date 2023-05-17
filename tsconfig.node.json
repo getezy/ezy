@@ -1,0 +1,44 @@
+{
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "include": [
+    "wallaby.js",
+    ".eslintrc.js",
+    "commitlint.config.js",
+    "jest.config.core.js",
+    "electron.vite.config.*",
+    "electron-builder.config.js",
+    "resources/notarize.js",
+
+    "src/main/**/*",
+    "src/preload/**/*",
+    "src/core/**/*"
+  ],
+  "compilerOptions": {
+    "module": "esnext",
+    "target": "esnext",
+    "moduleResolution": "node",
+
+    "sourceMap": true,
+    "jsx": "preserve",
+
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true,
+    "skipLibCheck": true,
+
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "esModuleInterop": true,
+
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "forceConsistentCasingInFileNames": true,
+
+    "paths": {
+      "@core": [
+        "./src/core/index.ts"
+      ]
+    }
+  }
+}

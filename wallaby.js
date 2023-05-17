@@ -1,18 +1,15 @@
-module.exports = function () {
-  return {
-    autoDetect: true,
+module.exports = () => ({
+  autoDetect: true,
 
-    files: [
-      'src/**/*.ts',
-      '!src/**/*.spec.ts',
-    ],
+  files: ['src/**/*.ts', '!src/**/*.spec.ts'],
 
-    tests: [
-      'src/**/*.spec.ts'
-    ],
+  tests: ['src/**/*.spec.ts'],
 
-    env: {
-      type: 'node',
-    },
-  };
-};
+  env: {
+    type: 'node',
+  },
+
+  testFramework: {
+    configFile: './jest.config.core.js',
+  },
+});

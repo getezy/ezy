@@ -21,8 +21,8 @@ import {
   GrpcStatus,
   GrpcTlsConfig,
   GrpcTlsType,
-  isInsecureTlsConfig,
   isMutualTlsConfig,
+  isServerSideTlsConfig,
 } from '../interfaces';
 import { MetadataParser } from './metadata-parser';
 
@@ -34,17 +34,17 @@ export class GrpcClient {
   private static getChannelCredentials(tls: GrpcTlsConfig<GrpcTlsType>): ChannelCredentials {
     let credentials: ChannelCredentials;
 
-    if (isInsecureTlsConfig(tls)) {
-      credentials = grpc.credentials.createInsecure();
-    } else if (isMutualTlsConfig(tls)) {
+    if (isMutualTlsConfig(tls)) {
       const rootCert = tls.rootCertificatePath ? fs.readFileSync(tls.rootCertificatePath) : null;
       const clientCert = fs.readFileSync(tls.clientCertificatePath);
       const clientKey = fs.readFileSync(tls.clientKeyPath);
 
       credentials = grpc.credentials.createSsl(rootCert, clientKey, clientCert);
-    } else {
+    } else if (isServerSideTlsConfig(tls)) {
       const rootCert = tls.rootCertificatePath ? fs.readFileSync(tls.rootCertificatePath) : null;
       credentials = grpc.credentials.createSsl(rootCert);
+    } else {
+      credentials = grpc.credentials.createInsecure();
     }
 
     return credentials;

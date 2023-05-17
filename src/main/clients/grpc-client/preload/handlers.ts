@@ -8,7 +8,7 @@ export type OnErrorCallback = (error: ServerErrorResponse) => void;
 export type OnEndCallback = () => void;
 
 export function wrapHandler(streamId: string, callback: (...callbackArgs: any[]) => void) {
-  return function wrappedHandler(event: IpcRendererEvent, id: string, ...args: any[]) {
+  return function wrappedHandler(_event: IpcRendererEvent, id: string, ...args: any[]) {
     if (streamId === id) {
       callback(...args);
     }

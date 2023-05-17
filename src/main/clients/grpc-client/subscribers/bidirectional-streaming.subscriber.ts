@@ -1,6 +1,6 @@
 import { ClientDuplexStream, MetadataValue } from '@grpc/grpc-js';
 import { BrowserWindow, IpcMain } from 'electron';
-import { nanoid } from 'nanoid';
+import * as uuid from 'uuid';
 
 import { GrpcClient, GrpcClientRequestOptions, GrpcOptions, ProtobufLoader } from '@core';
 
@@ -77,7 +77,7 @@ export class GrpcClientBidirectionalSubscriber {
   private registerBidirectionalStreamingCall(
     call: ClientDuplexStream<Record<string, unknown>, Record<string, unknown>>
   ): string {
-    const id = nanoid();
+    const id = uuid.v4();
 
     call.on('data', (data) => {
       this.mainWindow.webContents.send(GrpcClientBidirectionalStreamingChannel.DATA, id, data);
