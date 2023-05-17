@@ -6,11 +6,13 @@ import React from 'react';
 import { MultiValue, SingleValue } from 'react-select';
 
 import { ColoredSelect } from '@components';
-import { Environment, GrpcRequestTab } from '@core';
+import { Environment, IGrpcRequestTab } from '@core';
 import { useAppStorage } from '@new-storage';
 
+import { ProtocolSwitch } from './protocol-switch';
+
 export type SendHeaderProps = {
-  tab: GrpcRequestTab;
+  tab: IGrpcRequestTab;
 };
 
 export const SendHeader: React.FC<SendHeaderProps> = ({ tab }) => {
@@ -130,6 +132,11 @@ export const SendHeader: React.FC<SendHeaderProps> = ({ tab }) => {
             />
           </Tooltip>
         }
+      />
+      <Spacer x={0.5} />
+      <ProtocolSwitch
+        tab={tab}
+        // onChange={handleGrpcProtocolChange}
       />
     </Container>
   );

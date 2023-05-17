@@ -21,14 +21,14 @@ export class TabsContainer {
     });
   }
 
-  public createTab(payload: ICreateTabPayload) {
+  public createTab<T extends AbstractTab>(payload: ICreateTabPayload): T {
     let tab: AbstractTab;
 
     const tabPayload = {
+      ...payload,
       id: uuid(),
       order: this.tabs.length + 1,
       active: false,
-      ...payload,
     };
 
     if (isGrpcRequestTab(tabPayload)) {
@@ -41,7 +41,7 @@ export class TabsContainer {
 
     this.activateTab(tab.id);
 
-    return tab;
+    return tab as T;
   }
 
   public updateTabs(ids: string[], payload: IUpdateTabPayload) {

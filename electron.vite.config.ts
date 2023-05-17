@@ -79,6 +79,7 @@ export default defineConfig({
         '@grpc/grpc-js': path.resolve('src/ui/polyfills/@grpc/grpc-js.ts'),
         'node:perf_hooks': path.resolve('src/ui/polyfills/node/perf-hooks.ts'),
         'node:fs': path.resolve('src/ui/polyfills/node/fs.ts'),
+        fs: path.resolve('src/ui/polyfills/node/fs.ts'),
 
         '@core': path.resolve('src/core/types.d.ts'),
         '@components': path.resolve('src/ui/common/components/index.ts'),

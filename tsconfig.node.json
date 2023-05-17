@@ -18,7 +18,7 @@
     "target": "esnext",
     "moduleResolution": "node",
 
-    "sourceMap": false,
+    "sourceMap": true,
     "jsx": "preserve",
 
     "strict": true,
