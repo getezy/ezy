@@ -1,8 +1,8 @@
-import { GrpcMethodType } from '@core/types';
+import { GrpcMethodType } from "@core/types";
 
 export enum GrpcProtocol {
-  GRPC = 'grpc',
-  GRPC_WEB = 'grpc-web',
+  GRPC = "grpc",
+  GRPC_WEB = "grpc-web",
 }
 
 export interface GrpcRequest {
@@ -23,13 +23,13 @@ export interface GrpcUnaryResponse {
 }
 
 export enum GrpcStreamMessageType {
-  STARTED = 'started',
-  CLIENT_MESSAGE = 'client-message',
-  SERVER_MESSAGE = 'server-message',
-  ERROR = 'error',
-  CLIENT_STREAMING_ENDED = 'client-streaming-ended',
-  SERVER_STREAMING_ENDED = 'server-streaming-ended',
-  CANCELED = 'canceled',
+  STARTED = "started",
+  CLIENT_MESSAGE = "client-message",
+  SERVER_MESSAGE = "server-message",
+  ERROR = "error",
+  CLIENT_STREAMING_ENDED = "client-streaming-ended",
+  SERVER_STREAMING_ENDED = "server-streaming-ended",
+  CANCELED = "canceled",
 }
 
 export interface GrpcStreamMessage {
@@ -59,6 +59,7 @@ export interface GrpcTabData<T extends GrpcMethodType> {
   protocol: GrpcProtocol;
   environmentId?: string;
   url?: string;
+  authority?: string;
   tlsId?: string;
 
   requestTabs: {

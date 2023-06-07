@@ -15,7 +15,7 @@ export interface EnvironmentFormProps {
 }
 
 export const EnvironmentForm: React.FC<EnvironmentFormProps> = ({
-  onSubmit = () => {},
+  onSubmit = () => { },
   id,
   defaultValues,
 }) => {
@@ -67,6 +67,17 @@ export const EnvironmentForm: React.FC<EnvironmentFormProps> = ({
           clearable
           color={errors.url ? 'error' : 'default'}
           {...register('url', { required: true })}
+        />
+        <Spacer />
+        <Input
+          bordered
+          borderWeight="light"
+          size="sm"
+          animated={false}
+          label="Authority"
+          clearable
+          color={errors.authority ? 'error' : 'default'}
+          {...register('authority', { required: false })}
         />
       </Container>
     </form>

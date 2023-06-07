@@ -2,6 +2,7 @@ export interface Environment {
   id: string;
   label: string;
   url: string;
+  authority: string;
   color: string;
 }
 
